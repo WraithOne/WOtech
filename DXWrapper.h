@@ -5,7 +5,7 @@
 ///			File: DXWrapper.h
 ///
 ///			Created:	06.11.2016
-///			Edited:		27.11.2016
+///			Edited:		26.12.2016
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DXWRAPPER_H
@@ -97,13 +97,22 @@ namespace WOtech
 			SWEEP_DIRECTION sweepDirection; // A value that specifies whether the arc sweep is clockwise or counterclockwise.
 			ARC_SIZE arcSize; // A value that specifies whether the given arc is larger than 180 degrees.
 		};
+
+		public value class RECT
+		{
+		public:
+			float X;
+			float Y;
+			float Width;
+			float Height;
+		};
 		
 		///////////////////////////////////////////////////////////////
 		// D2D1 Wrapper Functions
 		///////////////////////////////////////////////////////////////
 		D2D1_COLOR_F wrapColor(_In_ Windows::UI::Color& color);
 
-		D2D1_RECT_F wrapRect(_In_ Windows::Foundation::Rect& rect);
+		D2D1_RECT_F wrapRect(_In_ WOtech::DXWrapper::RECT& rect);
 
 		D2D1_SIZE_F wrapSize(_In_ Windows::Foundation::Size& size);
 

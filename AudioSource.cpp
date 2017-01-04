@@ -34,6 +34,13 @@ namespace WOtech
 
 	AudioSource::~AudioSource()
 	{
+		// Interrupt sound effect if it is currently playing.
+		ThrowIfFailed(m_sourceVoice->Stop());
+		ThrowIfFailed(m_sourceVoice->FlushSourceBuffers());
+
+		m_sourceVoice->DestroyVoice();
+
+		m_audioAvailable = false;
 		// todo: Content Manager
 	}
 
@@ -193,16 +200,5 @@ namespace WOtech
 		state.VoiceState.BuffersQueued = temp_state.BuffersQueued;
 		state.VoiceState.SamplesPlayed = temp_state.SamplesPlayed;
 		state.VoiceState.pCurrentBufferContext = DecodePointer(temp_state.pCurrentBufferContext);
-	}
-
-	void AudioSource::Shutdown()
-	{
-		// Interrupt sound effect if it is currently playing.
-		ThrowIfFailed(m_sourceVoice->Stop());
-		ThrowIfFailed(m_sourceVoice->FlushSourceBuffers());
-
-		m_sourceVoice->DestroyVoice();
-
-		m_audioAvailable = false;
 	}
 } //namespace WOtech

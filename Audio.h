@@ -43,14 +43,14 @@ namespace WOtech
 		Paused
 	};
 
-	struct VOICE_STATE
+	public value struct VOICE_STATE
 	{
-		void* pCurrentBufferContext;// Pointer to current Buffer, NULL if none
+		Platform::IntPtr pCurrentBufferContext;// Pointer to current Buffer, NULL if none
 		UINT32 BuffersQueued;// Total Buffer큦 qued
 		UINT64 SamplesPlayed;// Sample큦 play since last start, incl loops
 	};
 
-	struct AUDIOSOURCE_STATE
+	public value struct AUDIOSOURCE_STATE
 	{
 		AUDIO_PLAYBACK_STATE PlaybackState;// current PlaybackState
 		VOICE_STATE VoiceState;// Current VoiceState
@@ -95,11 +95,6 @@ namespace WOtech
 		Restart큦 the engine.
 		*/
 		void ResumeAudio();
-		//! Shutdown.
-		/*!
-		Deletes  Effects and Music Mastervoice
-		*/
-		void Shutdown();
 		//! SetMasterVolume.
 		/*!
 		Sets the volume for Effects and Music Mastervoice
@@ -141,7 +136,6 @@ namespace WOtech
 		/param Details of the physical device
 		*/
 		void GetDeviceDetails(_In_ IXAudio2* device, _In_  uint32 index, _Out_ DEVICE_DETAILS details);
-
 	private:
 		//! AudioEngine Deconstructor.
 		/*!
@@ -203,14 +197,6 @@ namespace WOtech
 		\param Get큦 the AudioSource volume
 		*/
 		void getVolume(_Out_ float32 volume);
-		
-
-		//! Shutdown.
-		/*!
-		*/
-		void Shutdown();
-
-	internal:
 		//! getPlaybackState.
 		/*!
 		\param Gets the AudioSource playback state

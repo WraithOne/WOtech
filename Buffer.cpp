@@ -28,7 +28,7 @@ namespace WOtech
 	///////////////////////////////////////////////////////////////////
 	/// Vertex Buffer
 	///////////////////////////////////////////////////////////////////
-	VertexBuffer::VertexBuffer(void* data, UINT32 size, _In_  UINT32 stride, DeviceDX11^ device)
+	VertexBuffer::VertexBuffer(_In_ void* data, _In_ UINT32 size, _In_  UINT32 stride, _In_ DeviceDX11^ device)
 	{
 		CreateBuffer(data, size, device);
 		m_stride = stride;
@@ -39,7 +39,7 @@ namespace WOtech
 		device->GetContext()->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &m_stride, &m_offset);
 	}
 
-	void VertexBuffer::setOffset(UINT32 offset)
+	void VertexBuffer::setOffset(_In_ UINT32 offset)
 	{
 		m_offset = offset;
 	}

@@ -30,7 +30,8 @@ namespace WOtech
 
 	Platform::Boolean InputManager::KeyDown(_In_ VirtualKey Key)
 	{
-		if (Key == m_keyDown)
+		
+		if (Key == m_keyboardKeys)
 		{
 			return true;
 		}
@@ -39,7 +40,7 @@ namespace WOtech
 	}// InputClass KeyboardKeyDown
 	Platform::Boolean InputManager::KeyUp(_In_ VirtualKey Key)
 	{
-		if (Key == m_keyUp)
+		if (Key == m_keyboardKeys)
 		{
 			return true;
 		}

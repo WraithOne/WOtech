@@ -47,7 +47,7 @@ namespace WOtech
 		return false;
 	}
 
-	Gamepad_State InputManager::GamepadState(GamepadIndex PlayerIndex)
+	Gamepad_State InputManager::GamepadState(_In_ GamepadIndex PlayerIndex)
 	{
 		if (m_gamePad[(unsigned int)PlayerIndex])
 		{

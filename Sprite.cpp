@@ -16,6 +16,7 @@
 #include "2DComponents.h"
 #include "SpriteBatch.h"
 #include "Utilities.h"
+#include "DXWrapper.h"
 
 using namespace Platform;
 using namespace Windows::Foundation;
@@ -33,8 +34,8 @@ namespace WOtech
 
 		// Set default attributes
 		m_position = { 0.0f,0.0f };
-		m_size = { 10.0f,10.0f };
-		m_sourceRect = { 0.0f, 0.0f, 10.0f, 10.0f };
+		m_size = { 0.0f,0.0f };
+		m_sourceRect = { 0.0f, 0.0f, 0.0f, 0.0f };
 		m_rotation = 0.0f;
 		m_opacity = 1.0f;
 		m_interpolation = BITMAP_INTERPOLATION_MODE::BITMAP_INTERPOLATION_MODE_LINEAR;
@@ -89,7 +90,7 @@ namespace WOtech
 		ThrowIfFailed(hr);
 
 		// Set width/height of the source rect
-		m_size.Width = m_sourceRect.X = m_Bitmap->GetSize().width;
+		m_size.Width = m_sourceRect.Width = m_Bitmap->GetSize().width;
 		m_size.Height = m_sourceRect.Height = m_Bitmap->GetSize().height;
 	}
 
@@ -103,13 +104,13 @@ namespace WOtech
 		// todo: Content Manager
 	}
 
-	Rect Sprite::getSourceRect()
+	WOtech::DXWrapper::RECT Sprite::getSourceRect()
 	{
 		return m_sourceRect;
 	}
-	Rect Sprite::getDestinationRect()
+	WOtech::DXWrapper::RECT Sprite::getDestinationRect()
 	{
-		return Rect(m_position.X, m_position.Y, m_position.X + m_size.Width, m_position.Y + m_size.Height);
+		return WOtech::DXWrapper::RECT{ m_position.X, m_position.Y, m_position.X + m_size.Width, m_position.Y + m_size.Height };
 	}
 	Point Sprite::getPosition()
 	{
@@ -140,13 +141,13 @@ namespace WOtech
 	{
 		m_position = Point(x, y);
 	}
-	void Sprite::setSize(float32 width, float32 height)
+	void Sprite::setSize(_In_ float32 width, _In_ float32 height)
 	{
 		m_size = Size(width, height);
 	}
 	void Sprite::setSourceRect(_In_ float32 x, _In_ float32 y, _In_ float32 height, _In_ float32 width)
 	{
-		m_sourceRect = Rect(x, y, width, height);
+		m_sourceRect = WOtech::DXWrapper::RECT{ x, y, width, height };
 	}
 	void Sprite::setOpacity(_In_ float32 opacity)
 	{

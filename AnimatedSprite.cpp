@@ -181,7 +181,8 @@ namespace WOtech
 
 		return temp;
 	}
-	Rect AnimatedSprite::getFrame(_In_ String^ name)
+	
+	WOtech::DXWrapper::RECT AnimatedSprite::getFrame(_In_ String^ name)
 	{
 		std::list<ANIMATION>::iterator iterator;
 
@@ -189,7 +190,7 @@ namespace WOtech
 		{
 			if (iterator->Name == name)
 			{
-				Rect temp;
+				WOtech::DXWrapper::RECT temp;
 				float32 left = iterator->SourcePosition.X + (iterator->FrameSize.Width * iterator->ActualFrame);
 				float32 top = iterator->SourcePosition.Y + iterator->FrameSize.Height;
 				temp.X = left;
@@ -200,7 +201,7 @@ namespace WOtech
 				return temp;
 			}
 		}
-		return Rect(0.0f, 0.0f, 0.0f, 0.0f);
+		return WOtech::DXWrapper::RECT{ 0.0f, 0.0f, 0.0f, 0.0f };
 	}
 	float32 AnimatedSprite::getOpacity()
 	{
@@ -224,7 +225,7 @@ namespace WOtech
 	{
 		m_position = { x,y };
 	}
-	void AnimatedSprite::setSize(float32 width, float32 height)
+	void AnimatedSprite::setSize(_In_ float32 width, _In_ float32 height)
 	{
 		m_size = Size(width, height);
 	}

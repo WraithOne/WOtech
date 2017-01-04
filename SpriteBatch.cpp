@@ -142,7 +142,7 @@ namespace WOtech
 		m_sortMode = SpriteSortMode::Immediate;
 		m_deviceContext->BeginDraw();
 	}
-	void SpriteBatch::BeginDraw(SpriteSortMode sortmode)
+	void SpriteBatch::BeginDraw(_In_ SpriteSortMode sortmode)
 	{
 		m_sortMode = sortmode;
 		m_deviceContext->BeginDraw();
@@ -208,12 +208,12 @@ namespace WOtech
 	{
 		if (text)
 		{
-			auto rect = Rect(text->getPosition().X, text->getPosition().Y, text->getlayoutbox().Width, text->getlayoutbox().Height);
+			auto rect = WOtech::DXWrapper::RECT{ text->getPosition().X, text->getPosition().Y, text->getlayoutbox().Width, text->getlayoutbox().Height };
 			setRotation(rect, text->getRotation());
 			m_deviceContext->DrawTextLayout(D2D1::Point2F(text->getPosition().X,text->getPosition().Y), text->getLayout(), text->getBrush());
 		}
 	}
-	void SpriteBatch::DrawFont(_In_ Font^ font, _In_ float32 fontSize, _In_ Rect layoutbox, _In_ FONT_STYLE style, _In_ Color color, _In_ float32 rotation, _In_ String^ text)
+	void SpriteBatch::DrawFont(_In_ Font^ font, _In_ float32 fontSize, _In_ WOtech::DXWrapper::RECT layoutbox, _In_ FONT_STYLE style, _In_ Color color, _In_ float32 rotation, _In_ String^ text)
 	{
 		HRESULT hr;
 
@@ -240,7 +240,7 @@ namespace WOtech
 	void SpriteBatch::DrawSprite(_In_ Sprite^ sprite)
 	{
 		// Create a Rect to hold Position and Size of the Sprite
-		auto rect = Rect(sprite->getDestinationRect().X, sprite->getDestinationRect().Y, sprite->getSourceRect().Width, sprite->getSourceRect().Height);
+		auto rect = WOtech::DXWrapper::RECT{ sprite->getDestinationRect().X, sprite->getDestinationRect().Y, sprite->getSourceRect().Width, sprite->getSourceRect().Height };
 
 		// Set Rotation
 		setRotation(rect, sprite->getRotation());
@@ -254,10 +254,10 @@ namespace WOtech
 			destRect = wrapRect(sprite->getDestinationRect());
 			break;
 		case WOtech::SPRITE_FLIP_MODE::Horizontal:
-			destRect = D2D1::RectF(spriteREct.X + (spriteREct.Width - spriteREct.X), spriteREct.Y, spriteREct.X,spriteREct.Height);
+			destRect = D2D1::RectF(spriteREct.X + (spriteREct.Width - spriteREct.X), spriteREct.Y, spriteREct.X, spriteREct.Height);
 			break;
 		case WOtech::SPRITE_FLIP_MODE::Vertical:
-			destRect = D2D1::RectF(spriteREct.X, spriteREct.Height, spriteREct.Width,spriteREct.Y);
+			destRect = D2D1::RectF(spriteREct.X, spriteREct.Height, spriteREct.Width, spriteREct.Y);
 			break;
 		case WOtech::SPRITE_FLIP_MODE::Both:
 			destRect = wrapRect(sprite->getDestinationRect());
@@ -268,9 +268,9 @@ namespace WOtech
 		// Draw the Sprite
 		m_deviceContext->DrawBitmap(sprite->getBitmap(), wrapRect(sprite->getDestinationRect()), sprite->getOpacity(), wrapBitmapInterpolationMode(sprite->getInterpolation()), wrapRect(sprite->getSourceRect()));
 	}
-	void SpriteBatch::DrawSprite(_In_ Sprite^ sprite, _In_ Rect srcRect, _In_ Rect destRect, _In_ float32 opacity, _In_ float32 rotation, _In_ SPRITE_FLIP_MODE flipmode)
+	void SpriteBatch::DrawSprite(_In_ Sprite^ sprite, _In_ WOtech::DXWrapper::RECT srcRect, _In_ WOtech::DXWrapper::RECT destRect, _In_ float32 opacity, _In_ float32 rotation, _In_ SPRITE_FLIP_MODE flipmode)
 	{
-		auto rect = Rect(destRect.X, destRect.Y, destRect.Width, destRect.Height);// - .x , -.y
+		auto rect = WOtech::DXWrapper::RECT{ destRect.X, destRect.Y, destRect.Width, destRect.Height };// - .x , -.y
 
 		// Set Rotation
 		setRotation(rect, rotation);
@@ -302,7 +302,7 @@ namespace WOtech
 	void SpriteBatch::DrawAnimatedSprite(_In_ AnimatedSprite^ animatedsprite, _In_ String^ name)
 	{
 		// Create a Rect to hold Position and Size of the Sprite
-		auto rect = Rect(animatedsprite->getPosition().X, animatedsprite->getPosition().Y, animatedsprite->getFrameSize(name).Width, animatedsprite->getFrameSize(name).Height );
+		auto rect = WOtech::DXWrapper::RECT{ animatedsprite->getPosition().X, animatedsprite->getPosition().Y, animatedsprite->getFrameSize(name).Width, animatedsprite->getFrameSize(name).Height };
 
 		// Create the Destination Rect
 		D2D1_RECT_F destRect = D2D1::RectF(animatedsprite->getPosition().X, animatedsprite->getPosition().Y, animatedsprite->getPosition().X + animatedsprite->getFrameSize(name).Width, animatedsprite->getPosition().Y + animatedsprite->getFrameSize(name).Height);
@@ -335,7 +335,7 @@ namespace WOtech
 		m_deviceContext->DrawBitmap(animatedsprite->getBitmap(), destRect, animatedsprite->getOpacity(), wrapBitmapInterpolationMode(animatedsprite->getInterpolation()),temp );//wrapRect(animatedsprite->getFrame(name))
 	}
 
-	void SpriteBatch::DrawGrid(_In_ Rect area, _In_ Color color, _In_ float32 rotation)
+	void SpriteBatch::DrawGrid(_In_ WOtech::DXWrapper::RECT area, _In_ Color color, _In_ float32 rotation)
 	{
 		UNREFERENCED_PARAMETER(color);// todo
 		UNREFERENCED_PARAMETER(rotation); // todo
@@ -438,7 +438,7 @@ namespace WOtech
 		return m_deviceDX11->getLogicalSize();
 	}
 
-	void SpriteBatch::setRotation(_In_ Rect area, _In_ float32 rotation)
+	void SpriteBatch::setRotation(_In_ WOtech::DXWrapper::RECT area, _In_ float32 rotation)
 	{
 		float32 halfheight = area.Height / 2;
 		float32 halfwidth = area.Width / 2;

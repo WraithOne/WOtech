@@ -159,6 +159,9 @@
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /q /y "$(ProjectDir)*h" "$(WOTECH_DIR)\include"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
@@ -193,6 +196,9 @@
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /q /y "$(ProjectDir)*h" "$(WOTECH_DIR)\include"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -227,6 +233,9 @@
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /q /y "$(ProjectDir)*h" "$(WOTECH_DIR)\include"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="2DComponents.h" />
@@ -255,6 +264,7 @@
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Utilities.h" />
+    <ClInclude Include="VirtualController.h" />
     <ClInclude Include="WICTextureLoader.h" />
     <ClInclude Include="WOtech.h" />
   </ItemGroup>
@@ -303,6 +313,7 @@
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="VirtualController.cpp" />
     <ClCompile Include="WICTextureLoader.cpp" />
   </ItemGroup>
   <ItemGroup>

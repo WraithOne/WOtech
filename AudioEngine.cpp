@@ -40,6 +40,19 @@ namespace WOtech
 
 	AudioEngine::~AudioEngine()
 	{
+		if (m_effectMasterVoice != nullptr)
+		{
+			m_effectMasterVoice->DestroyVoice();
+			m_effectdevice = nullptr;
+		}
+
+		if (m_musicMasterVoice != nullptr)
+		{
+			m_musicMasterVoice->DestroyVoice();
+			m_musicdevice = nullptr;
+		}
+
+		m_audioAvailable = false;
 		SystemManager::Instance->RemoveAudioEngine(this);
 	}
 
@@ -139,23 +152,6 @@ namespace WOtech
 		{
 			ThrowIfFailed(E_ABORT); // todo: hmmm
 		}
-	}
-
-	void AudioEngine::Shutdown()
-	{
-		if (m_effectMasterVoice != nullptr)
-		{
-			m_effectMasterVoice->DestroyVoice();
-			m_effectdevice = nullptr;
-		}
-
-		if (m_musicMasterVoice != nullptr)
-		{
-			m_musicMasterVoice->DestroyVoice();
-			m_musicdevice = nullptr;
-		}
-
-		m_audioAvailable = false;
 	}
 
 	void AudioEngine::SetMasterVolume(_In_ float32 effectVolume, _In_ float32 musicVolume)

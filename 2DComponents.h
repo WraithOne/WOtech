@@ -59,7 +59,7 @@ namespace WOtech
 
 	public value struct RECTANGLE
 	{
-		Windows::Foundation::Rect	area;
+		WOtech::DXWrapper::RECT		area;
 		Windows::UI::Color			color;
 		float32						tickness;
 		float32						rotation;
@@ -67,7 +67,7 @@ namespace WOtech
 
 	public value struct RECTANGLE_OUTLINED
 	{
-		Windows::Foundation::Rect	area;
+		WOtech::DXWrapper::RECT		area;
 		Windows::UI::Color			color;
 		float32						tickness;
 		Windows::UI::Color			outlinecolor;
@@ -76,7 +76,7 @@ namespace WOtech
 
 	public value struct RECTANGLE_FILLED
 	{
-		Windows::Foundation::Rect	area;
+		WOtech::DXWrapper::RECT		area;
 		Windows::UI::Color			color;
 		float32						rotation;
 	};
@@ -110,8 +110,8 @@ namespace WOtech
 		void setInterpolation(_In_ WOtech::DXWrapper::BITMAP_INTERPOLATION_MODE interpolation);
 
 		//Getter
-		Windows::Foundation::Rect						getSourceRect();
-		Windows::Foundation::Rect						getDestinationRect();
+		WOtech::DXWrapper::RECT							getSourceRect();
+		WOtech::DXWrapper::RECT							getDestinationRect();
 
 		Windows::Foundation::Point						getPosition();
 		Windows::Foundation::Size						getSize();
@@ -130,7 +130,7 @@ namespace WOtech
 		Platform::String^								m_fileName;
 		Microsoft::WRL::ComPtr<ID2D1Bitmap>				m_Bitmap;
 
-		Windows::Foundation::Rect						m_sourceRect;
+		WOtech::DXWrapper::RECT							m_sourceRect;
 		Windows::Foundation::Point						m_position;
 		Windows::Foundation::Size						m_size;
 		float32											m_rotation;
@@ -160,17 +160,17 @@ namespace WOtech
 		void setInterpolation(_In_ WOtech::DXWrapper::BITMAP_INTERPOLATION_MODE interpolation);
 
 		//Getter
-		Windows::Foundation::Point				getPosition();
-		Windows::Foundation::Size				getSize();
-		Windows::Foundation::Size				getFrameSize(_In_ Platform::String^ name);
-		Windows::Foundation::Rect				getFrame(_In_ Platform::String^ name);
-		float32									getOpacity();
-		float32									getRotation();
-		SPRITE_FLIP_MODE						getFlipMode();
-		DXWrapper::BITMAP_INTERPOLATION_MODE	getInterpolation();
+		Windows::Foundation::Point						getPosition();
+		Windows::Foundation::Size						getSize();
+		Windows::Foundation::Size						getFrameSize(_In_ Platform::String^ name);
+		WOtech::DXWrapper::RECT							getFrame(_In_ Platform::String^ name);
+		float32											getOpacity();
+		float32											getRotation();
+		SPRITE_FLIP_MODE								getFlipMode();
+		DXWrapper::BITMAP_INTERPOLATION_MODE			getInterpolation();
 
 	internal:
-		ID2D1Bitmap*							getBitmap();
+		ID2D1Bitmap*									getBitmap();
 
 	private:
 		~AnimatedSprite();
@@ -197,11 +197,11 @@ namespace WOtech
 		void Load();
 
 		// GETTER
-		Platform::String^ getFontname();
+		Platform::String^								getFontname();
 
 	internal:
-		IDWriteFontCollection*	getColletion();
-		IDWriteFontCollection**	getCollectionL();
+		IDWriteFontCollection*							getColletion();
+		IDWriteFontCollection**							getCollectionL();
 
 	private:
 		~Font();
@@ -246,13 +246,13 @@ namespace WOtech
 		void setColor(_In_ Windows::UI::Color color);
 
 		// Getters
-		Windows::Foundation::Point	getPosition();
-		float32						getRotation();
-		Windows::Foundation::Size	getlayoutbox();
+		Windows::Foundation::Point						getPosition();
+		float32											getRotation();
+		Windows::Foundation::Size						getlayoutbox();
 
 	internal:
-		IDWriteTextLayout*			getLayout();
-		ID2D1SolidColorBrush*		getBrush();
+		IDWriteTextLayout*								getLayout();
+		ID2D1SolidColorBrush*							getBrush();
 
 	private:
 		~Text();
@@ -296,8 +296,8 @@ namespace WOtech
 		void setColor(Windows::UI::Color color);
 
 	internal:
-		ID2D1PathGeometry*		getGeometry();
-		ID2D1SolidColorBrush*	getBrush();
+		ID2D1PathGeometry*								getGeometry();
+		ID2D1SolidColorBrush*							getBrush();
 
 	private:
 		~Geometry();

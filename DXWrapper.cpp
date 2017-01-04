@@ -5,7 +5,7 @@
 ///			File: DXWrapper.h
 ///
 ///			Created:	06.11.2016
-///			Edited:		27.11.2016
+///			Edited:		26.12.2016
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -17,6 +17,7 @@
 
 using namespace Windows::UI;
 using namespace Windows::Foundation;
+using namespace WOtech::DXWrapper;
 namespace WOtech
 {
 	namespace DXWrapper
@@ -26,7 +27,7 @@ namespace WOtech
 			return D2D1::ColorF(static_cast<float>(color.R), static_cast<float>(color.G), static_cast<float>(color.B), static_cast<float>(color.A) );
 		}
 
-		D2D1_RECT_F wrapRect(_In_ Rect& rect)
+		D2D1_RECT_F wrapRect(_In_ RECT& rect)
 		{
 			return D2D1::RectF(rect.X, rect.Y,rect.Width, rect.Height);
 		}
@@ -564,7 +565,7 @@ namespace WOtech
 
 			for (unsigned int i = 0; i <= size; i++)
 			{
-				InputElementDESC[i].AlignedByteOffset = inputelementdesc[i].AlignedByteOffset;
+				InputElementDESC[i].AlignedByteOffset = inputelementdesc[i].AlignedByteOffset;// DATA type!!!! buffer OVERFLOW
 				InputElementDESC[i].Format = wrapDXGIFormat(inputelementdesc[i].Format);
 				InputElementDESC[i].InputSlot = inputelementdesc[i].InputSlot;
 				InputElementDESC[i].InputSlotClass = wrapInputClassification(inputelementdesc[i].InputSlotClass);

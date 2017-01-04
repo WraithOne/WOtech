@@ -5,7 +5,7 @@
 ///			File: Input.h
 ///
 ///			Created:	01.05.2014
-///			Edited:		22.11.2016
+///			Edited:		03.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_INPUT_H
@@ -15,6 +15,7 @@
 // INCLUDES //
 //////////////
 #include "pch.h"
+#include "DXWrapper.h"
 
 namespace WOtech
 {
@@ -29,8 +30,8 @@ namespace WOtech
 		Windows::Devices::Input::PointerDeviceType DeviceType;
 		Platform::Boolean isIntegrated;
 		uint32 MaximumContacts;
-		Windows::Foundation::Rect PhysicalRect;
-		Windows::Foundation::Rect ScreenRect;
+		WOtech::DXWrapper::RECT PhysicalRect;
+		WOtech::DXWrapper::RECT ScreenRect;
 	};
 	public value struct MouseCapabilities
 	{
@@ -45,15 +46,46 @@ namespace WOtech
 		Platform::Boolean isPresent;
 	};
 
-	public value struct PointerPosition
+	public value struct Pointer_Position
 	{
-		float32 PointerX;
-		float32 PointerY;
+		float32 X;
+		float32 Y;
 	};
-	public value struct MousePosition
+
+	public value struct Touch_State
 	{
-		int32 MouseX;
-		int32 MouseY;
+		UINT pointerID;
+		Pointer_Position position;
+	};
+
+	public value struct Mouse_Position
+	{
+		int32 X;
+		int32 Y;
+	};
+	public value struct Mouse_Buttons
+	{
+		Platform::Boolean LeftButton;
+		Platform::Boolean RightButton;
+		Platform::Boolean MiddleButton;
+		Platform::Boolean X1Button;
+		Platform::Boolean X2Button;
+	};
+	public value struct Mouse_State
+	{
+		UINT pointerID;
+		Mouse_Position position;
+		Mouse_Buttons buttons;
+		int wheeldelta;
+	};
+
+	public value struct Pen_State
+	{
+		UINT pointerID;
+		Pointer_Position position;
+		Platform::Boolean BarrelButton;
+		Platform::Boolean isErazer;
+		float pressure;
 	};
 
 	public enum class GamepadIndex
@@ -135,19 +167,14 @@ namespace WOtech
 
 		// Touch
 		Platform::Boolean TouchConnected();
-
+		Touch_State getTouchState();// TODO: more then 1 point
 		// Pointer
 		Platform::Boolean PenConnected();
-		PointerPosition PenLocation();
-		int32 PenWheelPosition();
-		Platform::Boolean PenPressed();
-		Platform::Boolean PenButtonDown(_In_ Windows::System::VirtualKey Button);
-		Platform::Boolean PenButtonUp(_In_ Windows::System::VirtualKey Button);
+		Pen_State getPenState();// TODO: more then 1 point if needed
 
 		// Mouse
 		Platform::Boolean MouseConnected();
-		MousePosition MouseDelta();
-		Platform::Boolean MouseButtonPressed();
+		Mouse_State getMouseState();
 		void MouseShowCursor(_In_ Platform::Boolean show);
 		Platform::Boolean MouseCursorVisible();
 
@@ -175,13 +202,17 @@ namespace WOtech
 		void ScanDeviceCapabilities();
 		void ScanGamePad();
 
-		// Mouse + Pointer
+		// Pointer
 		void OnPointerPressed(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::PointerEventArgs^ Args);
 		void OnPointerMoved(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::PointerEventArgs^ Args);
 		void OnPointerReleased(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::PointerEventArgs^ Args);
+		void OnPointerEntered(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::PointerEventArgs^ Args);
+		void OnPointerExited(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::PointerEventArgs^ Args);
 		void OnPointerWheelChanged(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::PointerEventArgs^ Args);
 		void OnMouseMoved(_In_ Windows::Devices::Input::MouseDevice^ MouseDevice, _In_ Windows::Devices::Input::MouseEventArgs^ Args);
 
+		void UpdatePointerDevices(_In_ Windows::UI::Input::PointerPoint^ device);
+		void RemovePointerDevice(_In_ Windows::UI::Input::PointerPoint^ device);
 		// Keyboard
 		void OnKeyDown(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::KeyEventArgs^ Args);
 		void OnKeyUp(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::KeyEventArgs^ Args);
@@ -194,36 +225,29 @@ namespace WOtech
 		void OnGamepadRemoved(_In_ Platform::Object^ Sender, _In_ Windows::Gaming::Input::Gamepad^ Gamepad);
 
 	private:
-		Platform::Agile<Windows::UI::Core::CoreWindow> m_window;
+		Platform::Agile<Windows::UI::Core::CoreWindow>		m_window;
 
-		Platform::Boolean m_isInitialized;
+		Platform::Boolean									m_isInitialized;
 
 		// HardwarebackButton
-		Platform::Boolean m_hwbbPressed;
-		Platform::Boolean m_hwbbConfirmed;
+		Platform::Boolean									m_hwbbPressed;
+		Platform::Boolean									m_hwbbConfirmed;
 
 		// Keyboard
-		Windows::Devices::Input::KeyboardCapabilities^ m_keyBoardCapabilities;
-		Windows::System::VirtualKey	m_keyDown;
-		Windows::System::VirtualKey	m_keyUp;
+		Windows::Devices::Input::KeyboardCapabilities^		m_keyBoardCapabilities;
+		Windows::System::VirtualKey							m_keyboardKeys;
 
 		// Touch
-		Windows::Devices::Input::TouchCapabilities^ m_touchCapabilities;
-
-		// Pointer a.k.a. Pen
-		Windows::Devices::Input::PointerDevice^	m_pointerDevice;
-		Platform::Boolean m_pointerpressed;
-		Windows::UI::Input::PointerPoint^ m_pointer;
-		Windows::UI::Input::PointerPointProperties^ m_pointerProparties;
-
+		Windows::Devices::Input::TouchCapabilities^			m_touchCapabilities;
 		// Mouse
-		Windows::Devices::Input::MouseCapabilities^	m_mouseCapabilities;
-		DirectX::XMINT2	m_mouseDelta;
-		DirectX::XMINT2	m_mouseLastDelta;
+		Windows::Devices::Input::MouseCapabilities^			m_mouseCapabilities;
+		Mouse_Position										m_mouseDelta;
+		// Pointer a.k.a. Touch/Pen/Mouse
+		std::map <UINT, Windows::UI::Input::PointerPoint^>	m_pointerdevices;
 
 		// Gamepad
-		static const uint32	MAX_PLAYER_COUNT = 8;
-		Windows::Gaming::Input::Gamepad^ m_gamePad[MAX_PLAYER_COUNT];
+		static const uint32	MAX_PLAYER_COUNT =				8;
+		Windows::Gaming::Input::Gamepad^					m_gamePad[MAX_PLAYER_COUNT];
 	};//class InputClass
 }// namespace WOtech
 
