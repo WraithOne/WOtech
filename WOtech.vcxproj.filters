@@ -159,7 +159,9 @@
     <ClCompile Include="ContentManager.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="VirtualController.cpp" />
+    <ClCompile Include="VirtualController.cpp">
+      <Filter>Gameframework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WOtech.h" />
@@ -244,6 +246,8 @@
     <ClInclude Include="ContentManager.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="VirtualController.h" />
+    <ClInclude Include="VirtualController.h">
+      <Filter>Gameframework</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
