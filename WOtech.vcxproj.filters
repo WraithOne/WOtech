@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="AudioEngine.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioSource.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Inputgamepad.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Inputhardwarebackbutton.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Inputkeyboard.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Inputmouse.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="InputOrientationSensor.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="InputTouch.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="InputPen.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Framecounter.cpp">
+      <Filter>GameFrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>GameFrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTimer.cpp">
+      <Filter>GameFrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentManager.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemManager.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Storage.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaReader.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="FontFileLoader.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="WICTextureLoader.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="DXWrapper.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="VirtualController.cpp">
+      <Filter>GameFrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteBatch.cpp">
+      <Filter>Graphic\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultFactory.cpp">
+      <Filter>Graphic\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceDX11.cpp">
+      <Filter>Graphic\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Graphic\2D\Componnents</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Graphic\2D\Componnents</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Graphic\2D\Componnents</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Graphic\2D\Componnents</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>Graphic\3D\Componnents</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Graphic\3D\Componnents</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>Graphic\3D\Componnents</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Graphic\3D\Componnents</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Graphic\3D\Componnents</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Graphic\3D\Componnents</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Graphic\3D\Componnents</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredRenderer.cpp">
+      <Filter>Graphic\3D\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ForwardRenderer.cpp">
+      <Filter>Graphic\3D\Renderer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="WOtech.h" />
+    <ClInclude Include="Graphic.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameFrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameframework.h">
+      <Filter>GameFrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Framecounter.h">
+      <Filter>GameFrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>GameFrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimer.h">
+      <Filter>GameFrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentManager.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemManager.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Storage.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaReader.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="FontFileLoader.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="WICTextureLoader.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="DXWrapper.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Network.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualController.h">
+      <Filter>GameFrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceDX11.h">
+      <Filter>Graphic\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteBatch.h">
+      <Filter>Graphic\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultFactory.h">
+      <Filter>Graphic\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="2DComponents.h">
+      <Filter>Graphic\2D\Componnents</Filter>
+    </ClInclude>
+    <ClInclude Include="3DComponents.h">
+      <Filter>Graphic\3D\Componnents</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredRenderer.h">
+      <Filter>Graphic\3D\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ForwardRenderer.h">
+      <Filter>Graphic\3D\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Graphic\3D\Renderer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Graphic">
+      <UniqueIdentifier>{ad7a539a-a752-4a6a-9191-51f2112855c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{91d53dd9-7dd1-4814-895d-36a3413ba3d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{e3b0e899-9e6c-4403-9722-d9ac4c80b044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameWork">
+      <UniqueIdentifier>{85814411-8a22-4311-b13e-98c519b3e548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{f49a801f-8324-4815-98e6-9d782a50495e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{45e6b276-630c-4e36-b0a9-f99d62176042}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{895e078e-1bc1-48a2-a353-1d41ddd38249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\2D">
+      <UniqueIdentifier>{a0ed0a49-64c4-4a9d-8f60-89e5c83156fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\3D">
+      <UniqueIdentifier>{1098e8af-f2f8-4525-85a4-8ea1ece5295b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Devices">
+      <UniqueIdentifier>{b4b89943-9feb-489e-bc64-356072b6f90f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\2D\Componnents">
+      <UniqueIdentifier>{d7692bd5-51ff-419e-93dd-635729c66891}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\3D\Componnents">
+      <UniqueIdentifier>{93201144-a3f3-46f4-aae6-d375f06a7de1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\3D\Renderer">
+      <UniqueIdentifier>{bdfc202a-8b78-4a1f-9bb8-0b136799666e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
