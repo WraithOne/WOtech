@@ -5,7 +5,7 @@
 ///			File: VirtualController.h
 ///
 ///			Created:	04.01.2017
-///			Edited:		06.01.2017
+///			Edited:		15.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -58,6 +58,9 @@ namespace WOtech
 
 		Virtual_Controller VirtualController::getState()
 		{
+			// Update state before returning
+			Update();
+
 			return m_state;
 		}
 		void VirtualController::bindGamepad(_In_ GamepadIndex number)

@@ -5,7 +5,7 @@
 ///			File: VirtualController.h
 ///
 ///			Created:	04.01.2017
-///			Edited:		06.01.2017
+///			Edited:		15.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_VIRTUALCONTROLLER_H
@@ -82,7 +82,6 @@ namespace WOtech
 		{
 		public:
 			VirtualController(_In_ WOtech::InputManager^ input);
-			void Update();
 
 			void setCurrentInput(_In_ Current_Input_Device current);
 			Current_Input_Device getCurrent();
@@ -99,6 +98,8 @@ namespace WOtech
 		internal:
 
 		private:
+			void Update();
+
 			void UpdateGamepad();
 			void UpdateKeyboard();
 			void UpdateMouse();
