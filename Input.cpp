@@ -5,7 +5,7 @@
 ///			File: Input.cpp
 ///
 ///			Created:	02.05.2014
-///			Edited:		22.11.2016
+///			Edited:		15.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -129,8 +129,8 @@ namespace WOtech
 		// isSupressed = Windows::UI::ViewManagement::ApplicationView::GetForCurrentView()->SuppressSystemOverlays TODO::hmmmm
 		return isSupressed;
 	}
-	/// Events
 
+	/// Events
 	void InputManager::OnHardwareBackButtonPressed(_In_ Object^ Sender, _In_ BackPressedEventArgs^ Args)
 	{
 		UNREFERENCED_PARAMETER(Sender);

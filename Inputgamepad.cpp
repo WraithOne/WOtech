@@ -5,7 +5,7 @@
 ///			File: Inputcontroller.cpp
 ///
 ///			Created:	01.05.2014
-///			Edited:		17.11.2016
+///			Edited:		15.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -98,70 +98,4 @@ namespace WOtech
 		}
 
 	}// InputClass GamePadSetVibration
-
-	Boolean InputManager::GamepadButtonDown(_In_ GamepadIndex PlayerIndex, _In_ GamepadButtons Button)
-	{
-		if (m_gamePad[(unsigned int)PlayerIndex])
-		{
-			GamepadReading reading;
-
-			reading = m_gamePad[(unsigned int)PlayerIndex]->GetCurrentReading();
-
-			if ((reading.Buttons & Button) == Button)
-				return true;
-		}
-		return false;
-	}// InputClass GamePadButtonDown
-
-	Boolean InputManager::GamepadButtonUp(_In_ GamepadIndex PlayerIndex, _In_ GamepadButtons Button)
-	{
-		if (m_gamePad[(unsigned int)PlayerIndex])
-		{
-			GamepadReading reading;
-
-			reading = m_gamePad[(unsigned int)PlayerIndex]->GetCurrentReading();
-
-			if ((reading.Buttons & Button) != Button)
-				return false;
-		}
-		return true;
-	}// InputClass GamePadButtonUp
-
-	Gamepad_Trigger_State InputManager::GamepadTigger(_In_ GamepadIndex PlayerIndex)
-	{
-		Gamepad_Trigger_State state;
-			
-		if (m_gamePad[(unsigned int)PlayerIndex])
-		{
-			GamepadReading reading;
-
-			reading = m_gamePad[(unsigned int)PlayerIndex]->GetCurrentReading();
-			state.Left = reading.LeftTrigger;
-			state.Right = reading.RightTrigger;
-			return state;
-		}
-			
-		// Player ins not connected return 0
-		return state;
-	}// InputClass GamePadLeftTigger
-
-	Gamepad_Tumbstick_State InputManager::GamePadTumbStick(_In_ GamepadIndex PlayerIndex)
-	{
-		Gamepad_Tumbstick_State state;
-
-		if (m_gamePad[(unsigned int)PlayerIndex])
-		{
-			GamepadReading reading;
-
-			reading = m_gamePad[(unsigned int)PlayerIndex]->GetCurrentReading();
-			state.RightX = reading.RightThumbstickX;
-			state.RightY = reading.RightThumbstickY;
-			state.LeftX = reading.LeftThumbstickX;
-			state.LeftY = reading.LeftThumbstickY;
-
-			return state;
-		}
-		// Player ins not connected return 0
-		return state;
-	}// InputClass GamePadRightTumbStick
 } // namespace WOtech

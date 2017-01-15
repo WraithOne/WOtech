@@ -5,7 +5,7 @@
 ///			File: Input.h
 ///
 ///			Created:	01.05.2014
-///			Edited:		03.01.2017
+///			Edited:		15.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_INPUT_H
@@ -167,10 +167,10 @@ namespace WOtech
 
 		// Touch
 		Platform::Boolean TouchConnected();
-		Touch_State getTouchState();// TODO: more then 1 point
+		Platform::Array<Touch_State>^ getTouchState();
 		// Pointer
 		Platform::Boolean PenConnected();
-		Pen_State getPenState();// TODO: more then 1 point if needed
+		Platform::Array<Pen_State>^ getPenState();
 
 		// Mouse
 		Platform::Boolean MouseConnected();
@@ -182,10 +182,7 @@ namespace WOtech
 		Platform::Boolean GamepadConnected(_In_ GamepadIndex PlayerIndex);
 		Gamepad_State GamepadState(_In_ GamepadIndex PlayerIndex);
 		void GamepadSetVibration(_In_ GamepadIndex PlayerIndex, _In_ Windows::Gaming::Input::GamepadVibration Vibration);
-		Platform::Boolean GamepadButtonDown(_In_ GamepadIndex PlayerIndex, _In_ Windows::Gaming::Input::GamepadButtons Button);
-		Platform::Boolean GamepadButtonUp(_In_ GamepadIndex PlayerIndex, _In_ Windows::Gaming::Input::GamepadButtons Button);
-		Gamepad_Trigger_State GamepadTigger(_In_ GamepadIndex PlayerIndex);
-		Gamepad_Tumbstick_State GamePadTumbStick(_In_ GamepadIndex PlayerIndex);
+		
 
 
 		// OrientationSensor

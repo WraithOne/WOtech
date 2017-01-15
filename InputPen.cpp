@@ -5,7 +5,7 @@
 ///			File: Inputmouse.cpp
 ///
 ///			Created:	01.05.2014
-///			Edited:		06.11.2016
+///			Edited:		15.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -31,19 +31,21 @@ namespace WOtech
 		return false;
 	}
 
-	Pen_State InputManager::getPenState()
+	Platform::Array<Pen_State>^ InputManager::getPenState()
 	{
-		Pen_State temp;
+	
+		auto temp = ref new Platform::Array<Pen_State>(m_touchCapabilities->Contacts); // TODO: max pen supportet
+		unsigned int nr = 0;
 		for (std::map<UINT, Windows::UI::Input::PointerPoint^>::iterator it = m_pointerdevices.begin(); it != m_pointerdevices.end(); ++it)
 		{
 			if (it->second->PointerDevice->PointerDeviceType == PointerDeviceType::Pen)
 			{
-				temp.pointerID = it->second->PointerId;
-				temp.BarrelButton = it->second->Properties->IsBarrelButtonPressed;
-				temp.isErazer = it->second->Properties->IsEraser;
-				temp.position.X = it->second->Position.X;
-				temp.position.Y = it->second->Position.Y;
-				temp.pressure = it->second->Properties->Pressure;
+				temp[nr].pointerID = it->second->PointerId;
+				temp[nr].BarrelButton = it->second->Properties->IsBarrelButtonPressed;
+				temp[nr].isErazer = it->second->Properties->IsEraser;
+				temp[nr].position.X = it->second->Position.X;
+				temp[nr].position.Y = it->second->Position.Y;
+				temp[nr].pressure = it->second->Properties->Pressure;
 			}	
 		}
 		return temp;

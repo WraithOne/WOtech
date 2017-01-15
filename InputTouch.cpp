@@ -5,7 +5,7 @@
 ///			File: InputTouch.cpp
 ///
 ///			Created:	27.08.2016
-///			Edited:		03.01.2017
+///			Edited:		15.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -31,17 +31,20 @@ namespace WOtech
 		}
 		return false;
 	}
-	Touch_State InputManager::getTouchState()
+	Platform::Array<Touch_State>^ InputManager::getTouchState()
 	{
-		Touch_State temp;// [100] TODO : max contacts supportet
+		auto temp = ref new Platform::Array<Touch_State>(m_touchCapabilities->Contacts);//TODO : max contacts supportet
+		unsigned int nr = 0;
+
 		for (std::map<UINT, Windows::UI::Input::PointerPoint^>::iterator it = m_pointerdevices.begin(); it != m_pointerdevices.end(); ++it)
 		{
 			if (it->second->PointerDevice->PointerDeviceType == PointerDeviceType::Touch)
 			{
-				temp.pointerID = it->second->PointerId;
-				temp.position.X = it->second->Position.X;
-				temp.position.Y = it->second->Position.Y;
+				temp[nr].pointerID = it->second->PointerId;
+				temp[nr].position.X = it->second->Position.X;
+				temp[nr].position.Y = it->second->Position.Y;
 			}
+			nr++;
 		}
 		return temp;
 	}

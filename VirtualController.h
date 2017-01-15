@@ -25,8 +25,10 @@ namespace WOtech
 		public enum class Current_Input_Device
 		{
 			Gamepad = 0,
-			TouchandPen,
-			KeyboardandMouse
+			KeyboardandMouse,
+			Touch,
+			Pen,
+			
 		};
 		public enum class Virtual_Controller_Buttons
 		{
@@ -48,6 +50,9 @@ namespace WOtech
 
 		public value struct Virtual_Controller
 		{
+			Platform::Boolean isConnected;
+			Platform::Boolean isWireless;
+
 			Platform::Boolean Button_A;
 			Platform::Boolean Button_B;
 			Platform::Boolean Button_X;
@@ -76,7 +81,7 @@ namespace WOtech
 		public ref class VirtualController sealed
 		{
 		public:
-			VirtualController(WOtech::InputManager^ input);
+			VirtualController(_In_ WOtech::InputManager^ input);
 			void Update();
 
 			void setCurrentInput(_In_ Current_Input_Device current);
@@ -95,8 +100,10 @@ namespace WOtech
 
 		private:
 			void UpdateGamepad();
-			void UpdateKeyboardandMouse();
-			void UpdateTouchandPen();
+			void UpdateKeyboard();
+			void UpdateMouse();
+			void UpdateTouch();
+			void UpdatePen();
 			
 		private:
 			WOtech::InputManager^												m_inputManager;
