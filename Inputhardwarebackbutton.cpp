@@ -5,7 +5,7 @@
 ///			File: Inputhardwarebackbutton.cpp
 ///
 ///			Created:	24.08.2016
-///			Edited:		06.11.2016
+///			Edited:		25.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -34,9 +34,9 @@ namespace WOtech
 		return false;
 	}
 
-	void InputManager::HardwarebackbuttonUse(_In_ Boolean comfirm)
+	void InputManager::HardwarebackbuttonUse(_In_ Boolean Comfirm)
 	{
-		if (comfirm)
+		if (Comfirm)
 		{
 			// Hardware back button is only available on some device families such as Phone.
 			if (ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
@@ -59,7 +59,7 @@ namespace WOtech
 
 	Boolean InputManager::HardwarebackbuttonInUse()
 	{
-		return Boolean();
+		return m_hwbbConfirmed;
 	}
 
 	Boolean InputManager::HardwarebackbuttonPressed()

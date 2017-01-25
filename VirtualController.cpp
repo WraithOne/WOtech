@@ -5,7 +5,7 @@
 ///			File: VirtualController.h
 ///
 ///			Created:	04.01.2017
-///			Edited:		15.01.2017
+///			Edited:		25.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -19,9 +19,9 @@ namespace WOtech
 {
 	namespace Gameframework
 	{
-		VirtualController::VirtualController(_In_ WOtech::InputManager^ input)
+		VirtualController::VirtualController(_In_ WOtech::InputManager^ Input)
 		{
-			m_inputManager = input;
+			m_inputManager = Input;
 		}
 
 		void VirtualController::Update()
@@ -46,9 +46,9 @@ namespace WOtech
 			}
 		}
 
-		void VirtualController::setCurrentInput(_In_ Current_Input_Device current)
+		void VirtualController::setCurrentInput(_In_ Current_Input_Device Current)
 		{
-			m_currentInput = current;
+			m_currentInput = Current;
 		}
 
 		Current_Input_Device VirtualController::getCurrent()
@@ -63,22 +63,22 @@ namespace WOtech
 
 			return m_state;
 		}
-		void VirtualController::bindGamepad(_In_ GamepadIndex number)
+		void VirtualController::bindGamepad(_In_ Gamepad_Index Number)
 		{
-			m_currentGamepad = number;
+			m_currentGamepad = Number;
 		}
-		void VirtualController::bindKeyboardKey(_In_ Virtual_Controller_Buttons target, _In_ Windows::System::VirtualKey key)
+		void VirtualController::bindKeyboardKey(_In_ Virtual_Controller_Buttons Target, _In_ Windows::System::VirtualKey Key)
 		{
 			std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>::iterator it;
-			it = m_keyboardbinding.find(target);
+			it = m_keyboardbinding.find(Target);
 
 			if (it != m_keyboardbinding.end())
 			{
-				m_keyboardbinding[target] = key;
+				m_keyboardbinding[Target] = Key;
 			}
 			else
 			{
-				m_keyboardbinding.emplace(target, key);
+				m_keyboardbinding.emplace(Target, Key);
 			}
 		}
 		void VirtualController::UpdateGamepad()
@@ -127,6 +127,7 @@ namespace WOtech
 		{
 			m_state.isConnected = true;
 			m_state.isWireless = false;
+			WOtech::Keyboard_State keyState = m_inputManager->getKeyboardState();
 
 			for(std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>::iterator it = m_keyboardbinding.begin(); it != m_keyboardbinding.end(); ++it)
 			{

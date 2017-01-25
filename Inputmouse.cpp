@@ -5,7 +5,7 @@
 ///			File: Inputmouse.cpp
 ///
 ///			Created:	28.08.2015
-///			Edited:		03.01.2017
+///			Edited:		25.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -49,11 +49,11 @@ namespace WOtech
 		return temp;
 	}
 
-	void InputManager::MouseShowCursor(_In_ Platform::Boolean show)
+	void InputManager::MouseShowCursor(_In_ Platform::Boolean Show)
 	{
 		Windows::UI::Core::CoreWindow^ window = Windows::UI::Core::CoreWindow::GetForCurrentThread();
 
-		if (show)
+		if (Show)
 		{
 			window->PointerCursor = ref new Windows::UI::Core::CoreCursor(Windows::UI::Core::CoreCursorType::Arrow, 0);
 		}

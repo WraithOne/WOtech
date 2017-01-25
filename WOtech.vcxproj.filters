@@ -11,27 +11,6 @@
     <ClCompile Include="Input.cpp">
       <Filter>Input</Filter>
     </ClCompile>
-    <ClCompile Include="Inputgamepad.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Inputhardwarebackbutton.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Inputkeyboard.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Inputmouse.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="InputOrientationSensor.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="InputTouch.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="InputPen.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
     <ClCompile Include="Framecounter.cpp">
       <Filter>GameFrameWork</Filter>
     </ClCompile>
@@ -115,6 +94,27 @@
     </ClCompile>
     <ClCompile Include="ForwardRenderer.cpp">
       <Filter>Graphic\3D\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Inputgamepad.cpp">
+      <Filter>Input\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Inputhardwarebackbutton.cpp">
+      <Filter>Input\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Inputkeyboard.cpp">
+      <Filter>Input\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Inputmouse.cpp">
+      <Filter>Input\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="InputOrientationSensor.cpp">
+      <Filter>Input\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="InputPen.cpp">
+      <Filter>Input\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="InputTouch.cpp">
+      <Filter>Input\Devices</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -239,6 +239,9 @@
     </Filter>
     <Filter Include="Graphic\3D\Renderer">
       <UniqueIdentifier>{bdfc202a-8b78-4a1f-9bb8-0b136799666e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Devices">
+      <UniqueIdentifier>{e9f503d8-eacb-4c07-bd1f-b7313f38ca18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

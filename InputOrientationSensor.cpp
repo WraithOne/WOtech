@@ -25,7 +25,7 @@ namespace WOtech
 	{
 		return Boolean();
 	}
-	void InputManager::ActivateOrientationSensor(_In_ uint32 interval)
+	void InputManager::ActivateOrientationSensor(_In_ uint32 Interval)
 	{
 		throw ref new NotImplementedException();
 	}
@@ -37,11 +37,11 @@ namespace WOtech
 	{
 		return Boolean();
 	}
-	void InputManager::OrientationSensorQuaternion(_In_ Windows::Devices::Sensors::SensorQuaternion^ quaternion)
+	void InputManager::OrientationSensorQuaternion(_In_ Windows::Devices::Sensors::SensorQuaternion^ Quaternion)
 	{
 		throw ref new NotImplementedException();
 	}
-	void InputManager::OrientationSensorMatrix(_Out_ Windows::Devices::Sensors::SensorRotationMatrix^ martix)
+	void InputManager::OrientationSensorMatrix(_Out_ Windows::Devices::Sensors::SensorRotationMatrix^ Martix)
 	{
 		throw ref new NotImplementedException();
 	}

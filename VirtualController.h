@@ -5,7 +5,7 @@
 ///			File: VirtualController.h
 ///
 ///			Created:	04.01.2017
-///			Edited:		15.01.2017
+///			Edited:		25.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_VIRTUALCONTROLLER_H
@@ -81,18 +81,18 @@ namespace WOtech
 		public ref class VirtualController sealed
 		{
 		public:
-			VirtualController(_In_ WOtech::InputManager^ input);
+			VirtualController(_In_ WOtech::InputManager^ Input);
 
-			void setCurrentInput(_In_ Current_Input_Device current);
+			void setCurrentInput(_In_ Current_Input_Device Current);
 			Current_Input_Device getCurrent();
 
 			Virtual_Controller getState();
 
 			// Gamepad
-			void bindGamepad(_In_ GamepadIndex number);
+			void bindGamepad(_In_ Gamepad_Index number);
 
 			// Keyboard and Mice
-			void bindKeyboardKey(_In_ Virtual_Controller_Buttons target, _In_ Windows::System::VirtualKey key);
+			void bindKeyboardKey(_In_ Virtual_Controller_Buttons Target, _In_ Windows::System::VirtualKey Key);
 			// Touch and Pen
 
 		internal:
@@ -112,7 +112,7 @@ namespace WOtech
 			Virtual_Controller													m_state;
 
 			Current_Input_Device												m_currentInput;
-			WOtech::GamepadIndex												m_currentGamepad;
+			WOtech::Gamepad_Index												m_currentGamepad;
 			
 			std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>	m_keyboardbinding;
 		};

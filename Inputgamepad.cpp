@@ -37,7 +37,7 @@ namespace WOtech
 		}
 	}
 
-	Boolean InputManager::GamepadConnected(_In_ GamepadIndex PlayerIndex)
+	Boolean InputManager::GamepadConnected(_In_ Gamepad_Index PlayerIndex)
 	{
 		if (m_gamePad[(unsigned int)PlayerIndex])
 		{
@@ -47,7 +47,7 @@ namespace WOtech
 		return false;
 	}
 
-	Gamepad_State InputManager::GamepadState(_In_ GamepadIndex PlayerIndex)
+	Gamepad_State InputManager::GamepadState(_In_ Gamepad_Index PlayerIndex)
 	{
 		if (m_gamePad[(unsigned int)PlayerIndex])
 		{
@@ -90,7 +90,7 @@ namespace WOtech
 		return Gamepad_State();
 	}
 
-	void InputManager::GamepadSetVibration(_In_ GamepadIndex PlayerIndex, _In_ GamepadVibration Vibration)
+	void InputManager::GamepadSetVibration(_In_ Gamepad_Index PlayerIndex, _In_ GamepadVibration Vibration)
 	{
 		if (m_gamePad[(unsigned int)PlayerIndex])
 		{
