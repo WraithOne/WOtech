@@ -142,518 +142,523 @@ namespace WOtech
 		m_hwbbPressed = true;
 	}
 
-	void HandleKeys(_Inout_ WOtech::Keyboard_State* Keystate, _In_ Windows::System::VirtualKey keys, _In_ Boolean down)
+	void InputManager::ReadingChanged(_In_ Windows::Devices::Sensors::OrientationSensor ^ Sender, _In_ Windows::Devices::Sensors::OrientationSensorReadingChangedEventArgs ^ Args)
 	{
-		switch (keys)
+		m_orientationSensorReading = Args->Reading;
+	}
+
+	inline void HandleKeys(_Inout_ WOtech::Keyboard_State* Keystate, _In_ Windows::System::VirtualKey Key, _In_ Boolean Down)
+	{
+		switch (Key)
 		{
 		case Windows::System::VirtualKey::None:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::LeftButton:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::RightButton:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::Cancel:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::MiddleButton:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::XButton1:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::XButton2:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::Back:
-			Keystate->Back = down;
+			Keystate->Back = Down;
 			break;
 		case Windows::System::VirtualKey::Tab:
-			Keystate->Tab = down;
+			Keystate->Tab = Down;
 			break;
 		case Windows::System::VirtualKey::Clear:
-			//m_keyboardState. = down;
+			//m_keyboardState. = Down;
 			break;
 		case Windows::System::VirtualKey::Enter:
-			Keystate->Enter = down;
+			Keystate->Enter = Down;
 			break;
 		case Windows::System::VirtualKey::Shift:
-			//m_keyboardState. = down;
+			//m_keyboardState. = Down;
 			break;
 		case Windows::System::VirtualKey::Control:
-			//m_keyboardState. = down;
+			//m_keyboardState. = Down;
 			break;
 		case Windows::System::VirtualKey::Menu:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::Pause:
-			Keystate->Pause = down;
+			Keystate->Pause = Down;
 			break;
 		case Windows::System::VirtualKey::CapitalLock:
-			Keystate->CapsLock = down;
+			Keystate->CapsLock = Down;
 			break;
 		case Windows::System::VirtualKey::Kana:
-			Keystate->Kana = down;
+			Keystate->Kana = Down;
 			break;
 		//case Windows::System::VirtualKey::Hangul:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			//	break;
 		case Windows::System::VirtualKey::Junja:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::Final:
 			break;
 		//case Windows::System::VirtualKey::Hanja:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			//break;
 		case Windows::System::VirtualKey::Kanji:
-			Keystate->Kanji = down;
+			Keystate->Kanji = Down;
 			break;
 		case Windows::System::VirtualKey::Escape:
-			Keystate->Escape = down;
+			Keystate->Escape = Down;
 			break;
 		case Windows::System::VirtualKey::Convert:
-			Keystate->ImeConvert = down;
+			Keystate->ImeConvert = Down;
 			break;
 		case Windows::System::VirtualKey::NonConvert:
-			Keystate->ImeNoConvert = down;
+			Keystate->ImeNoConvert = Down;
 			break;
 		case Windows::System::VirtualKey::Accept:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::ModeChange:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::Space:
-			Keystate->Space = down;
+			Keystate->Space = Down;
 			break;
 		case Windows::System::VirtualKey::PageUp:
-			Keystate->PageUp = down;
+			Keystate->PageUp = Down;
 			break;
 		case Windows::System::VirtualKey::PageDown:
-			Keystate->PageDown = down;
+			Keystate->PageDown = Down;
 			break;
 		case Windows::System::VirtualKey::End:
-			Keystate->End = down;
+			Keystate->End = Down;
 			break;
 		case Windows::System::VirtualKey::Home:
-			Keystate->Home = down;
+			Keystate->Home = Down;
 			break;
 		case Windows::System::VirtualKey::Left:
-			Keystate->Left = down;
+			Keystate->Left = Down;
 			break;
 		case Windows::System::VirtualKey::Up:
-			Keystate->Up = down;
+			Keystate->Up = Down;
 			break;
 		case Windows::System::VirtualKey::Right:
-			Keystate->Right = down;
+			Keystate->Right = Down;
 			break;
 		case Windows::System::VirtualKey::Down:
-			Keystate->Down = down;
+			Keystate->Down = Down;
 			break;
 		case Windows::System::VirtualKey::Select:
-			Keystate->Select = down;
+			Keystate->Select = Down;
 			break;
 		case Windows::System::VirtualKey::Print:
-			Keystate->Print = down;
+			Keystate->Print = Down;
 			break;
 		case Windows::System::VirtualKey::Execute:
-			Keystate->Execute = down;
+			Keystate->Execute = Down;
 			break;
 		case Windows::System::VirtualKey::Snapshot:
-			Keystate->PrintScreen = down;
+			Keystate->PrintScreen = Down;
 			break;
 		case Windows::System::VirtualKey::Insert:
-			Keystate->Insert = down;
+			Keystate->Insert = Down;
 			break;
 		case Windows::System::VirtualKey::Delete:
-			Keystate->Delete = down;
+			Keystate->Delete = Down;
 			break;
 		case Windows::System::VirtualKey::Help:
-			Keystate->Help = down;
+			Keystate->Help = Down;
 			break;
 		case Windows::System::VirtualKey::Number0:
-			Keystate->D0 = down;
+			Keystate->D0 = Down;
 			break;
 		case Windows::System::VirtualKey::Number1:
-			Keystate->D1 = down;
+			Keystate->D1 = Down;
 			break;
 		case Windows::System::VirtualKey::Number2:
-			Keystate->D2 = down;
+			Keystate->D2 = Down;
 			break;
 		case Windows::System::VirtualKey::Number3:
-			Keystate->D3 = down;
+			Keystate->D3 = Down;
 			break;
 		case Windows::System::VirtualKey::Number4:
-			Keystate->D4 = down;
+			Keystate->D4 = Down;
 			break;
 		case Windows::System::VirtualKey::Number5:
-			Keystate->D5 = down;
+			Keystate->D5 = Down;
 			break;
 		case Windows::System::VirtualKey::Number6:
-			Keystate->D6 = down;
+			Keystate->D6 = Down;
 			break;
 		case Windows::System::VirtualKey::Number7:
-			Keystate->D7 = down;
+			Keystate->D7 = Down;
 			break;
 		case Windows::System::VirtualKey::Number8:
-			Keystate->D8 = down;
+			Keystate->D8 = Down;
 			break;
 		case Windows::System::VirtualKey::Number9:
-			Keystate->D9 = down;
+			Keystate->D9 = Down;
 			break;
 		case Windows::System::VirtualKey::A:
-			Keystate->A = down;
+			Keystate->A = Down;
 			break;
 		case Windows::System::VirtualKey::B:
-			Keystate->B = down;
+			Keystate->B = Down;
 			break;
 		case Windows::System::VirtualKey::C:
-			Keystate->C = down;
+			Keystate->C = Down;
 			break;
 		case Windows::System::VirtualKey::D:
-			Keystate->D = down;
+			Keystate->D = Down;
 			break;
 		case Windows::System::VirtualKey::E:
-			Keystate->E = down;
+			Keystate->E = Down;
 			break;
 		case Windows::System::VirtualKey::F:
-			Keystate->F = down;
+			Keystate->F = Down;
 			break;
 		case Windows::System::VirtualKey::G:
-			Keystate->G = down;
+			Keystate->G = Down;
 			break;
 		case Windows::System::VirtualKey::H:
-			Keystate->H = down;
+			Keystate->H = Down;
 			break;
 		case Windows::System::VirtualKey::I:
-			Keystate->I = down;
+			Keystate->I = Down;
 			break;
 		case Windows::System::VirtualKey::J:
-			Keystate->J = down;
+			Keystate->J = Down;
 			break;
 		case Windows::System::VirtualKey::K:
-			Keystate->K = down;
+			Keystate->K = Down;
 			break;
 		case Windows::System::VirtualKey::L:
-			Keystate->L = down;
+			Keystate->L = Down;
 			break;
 		case Windows::System::VirtualKey::M:
-			Keystate->M = down;
+			Keystate->M = Down;
 			break;
 		case Windows::System::VirtualKey::N:
-			Keystate->N = down;
+			Keystate->N = Down;
 			break;
 		case Windows::System::VirtualKey::O:
-			Keystate->O = down;
+			Keystate->O = Down;
 			break;
 		case Windows::System::VirtualKey::P:
-			Keystate->P = down;
+			Keystate->P = Down;
 			break;
 		case Windows::System::VirtualKey::Q:
-			Keystate->Q = down;
+			Keystate->Q = Down;
 			break;
 		case Windows::System::VirtualKey::R:
-			Keystate->R = down;
+			Keystate->R = Down;
 			break;
 		case Windows::System::VirtualKey::S:
-			Keystate->S = down;
+			Keystate->S = Down;
 			break;
 		case Windows::System::VirtualKey::T:
-			Keystate->T = down;
+			Keystate->T = Down;
 			break;
 		case Windows::System::VirtualKey::U:
-			Keystate->U = down;
+			Keystate->U = Down;
 			break;
 		case Windows::System::VirtualKey::V:
-			Keystate->V = down;
+			Keystate->V = Down;
 			break;
 		case Windows::System::VirtualKey::W:
-			Keystate->W = down;
+			Keystate->W = Down;
 			break;
 		case Windows::System::VirtualKey::X:
-			Keystate->X = down;
+			Keystate->X = Down;
 			break;
 		case Windows::System::VirtualKey::Y:
-			Keystate->Y = down;
+			Keystate->Y = Down;
 			break;
 		case Windows::System::VirtualKey::Z:
-			Keystate->Z = down;
+			Keystate->Z = Down;
 			break;
 		case Windows::System::VirtualKey::LeftWindows:
-			Keystate->LeftWindows = down;
+			Keystate->LeftWindows = Down;
 			break;
 		case Windows::System::VirtualKey::RightWindows:
-			Keystate->RightWindows = down;
+			Keystate->RightWindows = Down;
 			break;
 		case Windows::System::VirtualKey::Application:
-			Keystate->Apps = down;
+			Keystate->Apps = Down;
 			break;
 		case Windows::System::VirtualKey::Sleep:
-			Keystate->Sleep = down;
+			Keystate->Sleep = Down;
 			break;
 		case Windows::System::VirtualKey::NumberPad0:
-			Keystate->NumPad0 = down;
+			Keystate->NumPad0 = Down;
 			break;
 		case Windows::System::VirtualKey::NumberPad1:
-			Keystate->NumPad1 = down;
+			Keystate->NumPad1 = Down;
 			break;
 		case Windows::System::VirtualKey::NumberPad2:
-			Keystate->NumPad2 = down;
+			Keystate->NumPad2 = Down;
 			break;
 		case Windows::System::VirtualKey::NumberPad3:
-			Keystate->NumPad3 = down;
+			Keystate->NumPad3 = Down;
 			break;
 		case Windows::System::VirtualKey::NumberPad4:
-			Keystate->NumPad4 = down;
+			Keystate->NumPad4 = Down;
 			break;
 		case Windows::System::VirtualKey::NumberPad5:
-			Keystate->NumPad5 = down;
+			Keystate->NumPad5 = Down;
 			break;
 		case Windows::System::VirtualKey::NumberPad6:
-			Keystate->NumPad6 = down;
+			Keystate->NumPad6 = Down;
 			break;
 		case Windows::System::VirtualKey::NumberPad7:
-			Keystate->NumPad7 = down;
+			Keystate->NumPad7 = Down;
 			break;
 		case Windows::System::VirtualKey::NumberPad8:
-			Keystate->NumPad8 = down;
+			Keystate->NumPad8 = Down;
 			break;
 		case Windows::System::VirtualKey::NumberPad9:
-			Keystate->NumPad9 = down;
+			Keystate->NumPad9 = Down;
 			break;
 		case Windows::System::VirtualKey::Multiply:
-			Keystate->Multiply = down;
+			Keystate->Multiply = Down;
 			break;
 		case Windows::System::VirtualKey::Add:
-			Keystate->Add = down;
+			Keystate->Add = Down;
 			break;
 		case Windows::System::VirtualKey::Separator:
-			Keystate->Separator = down;
+			Keystate->Separator = Down;
 			break;
 		case Windows::System::VirtualKey::Subtract:
-			Keystate->Subtract = down;
+			Keystate->Subtract = Down;
 			break;
 		case Windows::System::VirtualKey::Decimal:
-			Keystate->Decimal = down;
+			Keystate->Decimal = Down;
 			break;
 		case Windows::System::VirtualKey::Divide:
-			Keystate->Divide = down;
+			Keystate->Divide = Down;
 			break;
 		case Windows::System::VirtualKey::F1:
-			Keystate->F1 = down;
+			Keystate->F1 = Down;
 			break;
 		case Windows::System::VirtualKey::F2:
-			Keystate->F2 = down;
+			Keystate->F2 = Down;
 			break;
 		case Windows::System::VirtualKey::F3:
-			Keystate->F3 = down;
+			Keystate->F3 = Down;
 			break;
 		case Windows::System::VirtualKey::F4:
-			Keystate->F4 = down;
+			Keystate->F4 = Down;
 			break;
 		case Windows::System::VirtualKey::F5:
-			Keystate->F5 = down;
+			Keystate->F5 = Down;
 			break;
 		case Windows::System::VirtualKey::F6:
-			Keystate->F6 = down;
+			Keystate->F6 = Down;
 			break;
 		case Windows::System::VirtualKey::F7:
-			Keystate-> F7= down;
+			Keystate-> F7= Down;
 			break;
 		case Windows::System::VirtualKey::F8:
-			Keystate->F8 = down;
+			Keystate->F8 = Down;
 			break;
 		case Windows::System::VirtualKey::F9:
-			Keystate-> F9= down;
+			Keystate-> F9= Down;
 			break;
 		case Windows::System::VirtualKey::F10:
-			Keystate->F10 = down;
+			Keystate->F10 = Down;
 			break;
 		case Windows::System::VirtualKey::F11:
-			Keystate->F11 = down;
+			Keystate->F11 = Down;
 			break;
 		case Windows::System::VirtualKey::F12:
-			Keystate->F12 = down;
+			Keystate->F12 = Down;
 			break;
 		case Windows::System::VirtualKey::F13:
-			Keystate->F13 = down;
+			Keystate->F13 = Down;
 			break;
 		case Windows::System::VirtualKey::F14:
-			Keystate->F14 = down;
+			Keystate->F14 = Down;
 			break;
 		case Windows::System::VirtualKey::F15:
-			Keystate->F15 = down;
+			Keystate->F15 = Down;
 			break;
 		case Windows::System::VirtualKey::F16:
-			Keystate->F16 = down;
+			Keystate->F16 = Down;
 			break;
 		case Windows::System::VirtualKey::F17:
-			Keystate->F17 = down;
+			Keystate->F17 = Down;
 			break;
 		case Windows::System::VirtualKey::F18:
-			Keystate->F18 = down;
+			Keystate->F18 = Down;
 			break;
 		case Windows::System::VirtualKey::F19:
-			Keystate->F19 = down;
+			Keystate->F19 = Down;
 			break;
 		case Windows::System::VirtualKey::F20:
-			Keystate->F20 = down;
+			Keystate->F20 = Down;
 			break;
 		case Windows::System::VirtualKey::F21:
-			Keystate->F21 = down;
+			Keystate->F21 = Down;
 			break;
 		case Windows::System::VirtualKey::F22:
-			Keystate->F22 = down;
+			Keystate->F22 = Down;
 			break;
 		case Windows::System::VirtualKey::F23:
-			Keystate->F23 = down;
+			Keystate->F23 = Down;
 			break;
 		case Windows::System::VirtualKey::F24:
-			Keystate->F24 = down;
+			Keystate->F24 = Down;
 			break;
 		case Windows::System::VirtualKey::NavigationView:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::NavigationMenu:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::NavigationUp:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::NavigationDown:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::NavigationLeft:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::NavigationRight:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::NavigationAccept:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::NavigationCancel:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::NumberKeyLock:
-			Keystate->NumLock = down;
+			Keystate->NumLock = Down;
 			break;
 		case Windows::System::VirtualKey::Scroll:
-			Keystate-> Scroll= down;
+			Keystate-> Scroll= Down;
 			break;
 		case Windows::System::VirtualKey::LeftShift:
-			Keystate->LeftShift = down;
+			Keystate->LeftShift = Down;
 			break;
 		case Windows::System::VirtualKey::RightShift:
-			Keystate->RightShift = down;
+			Keystate->RightShift = Down;
 			break;
 		case Windows::System::VirtualKey::LeftControl:
-			Keystate->LeftControl = down;
+			Keystate->LeftControl = Down;
 			break;
 		case Windows::System::VirtualKey::RightControl:
-			Keystate->RightControl = down;
+			Keystate->RightControl = Down;
 			break;
 		case Windows::System::VirtualKey::LeftMenu:
-			Keystate->LeftAlt = down;
+			Keystate->LeftAlt = Down;
 			break;
 		case Windows::System::VirtualKey::RightMenu:
-			Keystate->RightAlt = down;
+			Keystate->RightAlt = Down;
 			break;
 		case Windows::System::VirtualKey::GoBack:
-			Keystate->BrowserBack = down;
+			Keystate->BrowserBack = Down;
 			break;
 		case Windows::System::VirtualKey::GoForward:
-			Keystate->BrowserForward = down;
+			Keystate->BrowserForward = Down;
 			break;
 		case Windows::System::VirtualKey::Refresh:
-			Keystate->BrowserRefresh = down;
+			Keystate->BrowserRefresh = Down;
 			break;
 		case Windows::System::VirtualKey::Stop:
-			Keystate->BrowserStop = down;
+			Keystate->BrowserStop = Down;
 			break;
 		case Windows::System::VirtualKey::Search:
-			Keystate->BrowserSearch = down;
+			Keystate->BrowserSearch = Down;
 			break;
 		case Windows::System::VirtualKey::Favorites:
-			Keystate->BrowserFavorites = down;
+			Keystate->BrowserFavorites = Down;
 			break;
 		case Windows::System::VirtualKey::GoHome:
-			Keystate->BrowserHome = down;
+			Keystate->BrowserHome = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadA:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadB:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadX:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadY:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadRightShoulder:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadLeftShoulder:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadLeftTrigger:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadRightTrigger:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadDPadUp:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadDPadDown:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadDPadLeft:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadDPadRight:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadMenu:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadView:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadLeftThumbstickButton:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadRightThumbstickButton:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadLeftThumbstickUp:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadLeftThumbstickDown:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadLeftThumbstickRight:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadLeftThumbstickLeft:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadRightThumbstickUp:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadRightThumbstickDown:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadRightThumbstickRight:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::GamepadRightThumbstickLeft:
-			//Keystate-> = down;
+			//Keystate-> = Down;
 			break;
 		default:
 			break;

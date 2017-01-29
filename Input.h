@@ -5,7 +5,7 @@
 ///			File: Input.h
 ///
 ///			Created:	01.05.2014
-///			Edited:		25.01.2017
+///			Edited:		29.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_INPUT_H
@@ -348,11 +348,11 @@ namespace WOtech
 
 		// OrientationSensor
 		Platform::Boolean OrientationSensorConnected();
-		void ActivateOrientationSensor(_In_ uint32 Interval);
+		void ActivateOrientationSensor(_In_ Windows::Devices::Sensors::SensorReadingType Type, _In_ Windows::Devices::Sensors::SensorOptimizationGoal Goal, _In_ uint32 Interval);
 		void DeactivateOrientationSensor();
 		Platform::Boolean OrientationSensorActive();
-		void OrientationSensorQuaternion(_In_ Windows::Devices::Sensors::SensorQuaternion^ Quaternion);
-		void OrientationSensorMatrix(_Out_ Windows::Devices::Sensors::SensorRotationMatrix^ Martix);
+		void OrientationSensorQuaternion(_Out_ Windows::Devices::Sensors::SensorQuaternion^ Quaternion);
+		void OrientationSensorMatrix(_Out_ Windows::Devices::Sensors::SensorRotationMatrix^ Matrix);
 
 	private:
 		~InputManager();
@@ -379,34 +379,43 @@ namespace WOtech
 		// Hardware back button is only present on some device families such as Phone.
 		void OnHardwareBackButtonPressed(_In_ Platform::Object^ Sender, _In_ Windows::Phone::UI::Input::BackPressedEventArgs^ Args);
 
+		// Orientation Sensor
+		void ReadingChanged(_In_ Windows::Devices::Sensors::OrientationSensor^ Sender, _In_ Windows::Devices::Sensors::OrientationSensorReadingChangedEventArgs^ Args);
+
 		// Gamepad
 		void OnGamepadAdded(_In_ Platform::Object^ Sender, _In_ Windows::Gaming::Input::Gamepad^ Gamepad);
 		void OnGamepadRemoved(_In_ Platform::Object^ Sender, _In_ Windows::Gaming::Input::Gamepad^ Gamepad);
 
 	private:
-		Platform::Agile<Windows::UI::Core::CoreWindow>		m_window;
+		Platform::Agile<Windows::UI::Core::CoreWindow>			m_window;
 
-		Platform::Boolean									m_isInitialized;
-
-		// HardwarebackButton
-		Platform::Boolean									m_hwbbPressed;
-		Platform::Boolean									m_hwbbConfirmed;
+		Platform::Boolean										m_isInitialized;
 
 		// Keyboard
-		Windows::Devices::Input::KeyboardCapabilities^		m_keyBoardCapabilities;
-		Keyboard_State										m_keyboardState;
+		Windows::Devices::Input::KeyboardCapabilities^			m_keyBoardCapabilities;
+		Keyboard_State											m_keyboardState;
 
 		// Touch
-		Windows::Devices::Input::TouchCapabilities^			m_touchCapabilities;
+		Windows::Devices::Input::TouchCapabilities^				m_touchCapabilities;
 		// Mouse
-		Windows::Devices::Input::MouseCapabilities^			m_mouseCapabilities;
-		Mouse_Position										m_mouseDelta;
+		Windows::Devices::Input::MouseCapabilities^				m_mouseCapabilities;
+		Mouse_Position											m_mouseDelta;
 		// Pointer a.k.a. Touch/Pen/Mouse
-		std::map <UINT, Windows::UI::Input::PointerPoint^>	m_pointerdevices;
+		std::map <UINT, Windows::UI::Input::PointerPoint^>		m_pointerdevices;
+
+		// Orientation Sensor
+		Windows::Devices::Sensors::OrientationSensor^			m_orientationSensor;
+		Windows::Foundation::EventRegistrationToken				m_orientationToken;
+		Windows::Devices::Sensors::OrientationSensorReading^	m_orientationSensorReading;
+		Platform::Boolean										m_orientationActive;
+
+		// HardwarebackButton
+		Platform::Boolean										m_hwbbPressed;
+		Platform::Boolean										m_hwbbConfirmed;
 
 		// Gamepad
-		static const uint32	MAX_PLAYER_COUNT =				8;
-		Windows::Gaming::Input::Gamepad^					m_gamePad[MAX_PLAYER_COUNT];
+		static const uint32	MAX_PLAYER_COUNT =					8;
+		Windows::Gaming::Input::Gamepad^						m_gamePad[MAX_PLAYER_COUNT];
 	};//class InputClass
 }// namespace WOtech
 
