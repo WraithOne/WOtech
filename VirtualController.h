@@ -94,6 +94,7 @@ namespace WOtech
 			// Keyboard and Mice
 			void bindKeyboardKey(_In_ Virtual_Controller_Buttons Target, _In_ Windows::System::VirtualKey Key);
 			// Touch and Pen
+			void bindTouchArea(_In_ Virtual_Controller_Buttons Target, _In_ WOtech::DXWrapper::RECT Area);
 
 		internal:
 

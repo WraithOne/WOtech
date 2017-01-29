@@ -24,12 +24,11 @@ namespace WOtech
 {
 	Boolean InputManager::TouchConnected()
 	{
-		for (std::map<UINT, Windows::UI::Input::PointerPoint^>::iterator it = m_pointerdevices.begin(); it != m_pointerdevices.end(); ++it)
-		{
-			if (it->second->PointerDevice->PointerDeviceType == PointerDeviceType::Touch)
-				return true;
-		}
-		return false;
+		if (m_touchCapabilities->TouchPresent != 0)
+			return true;
+		else
+			return false;
+
 	}
 	Platform::Array<Touch_State>^ InputManager::getTouchState()
 	{

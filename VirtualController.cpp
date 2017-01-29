@@ -81,6 +81,10 @@ namespace WOtech
 				m_keyboardbinding.emplace(Target, Key);
 			}
 		}
+		void VirtualController::bindTouchArea(Virtual_Controller_Buttons Target, WOtech::DXWrapper::RECT Area)
+		{
+			throw ref new Platform::NotImplementedException();
+		}
 		void VirtualController::UpdateGamepad()
 		{
 			WOtech::Gamepad_State state = m_inputManager->GamepadState(m_currentGamepad);
