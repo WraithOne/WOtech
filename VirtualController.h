@@ -5,7 +5,7 @@
 ///			File: VirtualController.h
 ///
 ///			Created:	04.01.2017
-///			Edited:		25.01.2017
+///			Edited:		30.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_VIRTUALCONTROLLER_H
@@ -116,6 +116,7 @@ namespace WOtech
 			WOtech::Gamepad_Index												m_currentGamepad;
 			
 			std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>	m_keyboardbinding;
+			std::map<Virtual_Controller_Buttons, WOtech::DXWrapper::RECT>		m_touchbinding;
 		};
 	};
 };

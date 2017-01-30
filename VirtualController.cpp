@@ -5,7 +5,7 @@
 ///			File: VirtualController.h
 ///
 ///			Created:	04.01.2017
-///			Edited:		25.01.2017
+///			Edited:		30.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -15,11 +15,14 @@
 #include "pch.h"
 #include "VirtualController.h"
 
+using namespace WOtech;
+using namespace Windows::System;
+
 namespace WOtech
 {
 	namespace Gameframework
 	{
-		VirtualController::VirtualController(_In_ WOtech::InputManager^ Input)
+		VirtualController::VirtualController(_In_ InputManager^ Input)
 		{
 			m_inputManager = Input;
 		}
@@ -28,17 +31,17 @@ namespace WOtech
 		{
 			switch (m_currentInput)
 			{
-			case WOtech::Gameframework::Current_Input_Device::Gamepad:
+			case Current_Input_Device::Gamepad:
 				UpdateGamepad();
 				break;
-			case WOtech::Gameframework::Current_Input_Device::KeyboardandMouse:
+			case Current_Input_Device::KeyboardandMouse:
 				UpdateKeyboard();
 				UpdateMouse();
 				break;
-			case WOtech::Gameframework::Current_Input_Device::Touch:
+			case Current_Input_Device::Touch:
 				UpdateTouch();
 				break;
-			case WOtech::Gameframework::Current_Input_Device::Pen:
+			case Current_Input_Device::Pen:
 				UpdatePen();
 				break;
 			default:
@@ -67,9 +70,9 @@ namespace WOtech
 		{
 			m_currentGamepad = Number;
 		}
-		void VirtualController::bindKeyboardKey(_In_ Virtual_Controller_Buttons Target, _In_ Windows::System::VirtualKey Key)
+		void VirtualController::bindKeyboardKey(_In_ Virtual_Controller_Buttons Target, _In_ VirtualKey Key)
 		{
-			std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>::iterator it;
+			std::map<Virtual_Controller_Buttons, VirtualKey>::iterator it;
 			it = m_keyboardbinding.find(Target);
 
 			if (it != m_keyboardbinding.end())
@@ -81,9 +84,19 @@ namespace WOtech
 				m_keyboardbinding.emplace(Target, Key);
 			}
 		}
-		void VirtualController::bindTouchArea(Virtual_Controller_Buttons Target, WOtech::DXWrapper::RECT Area)
+		void VirtualController::bindTouchArea(_In_ Virtual_Controller_Buttons Target, _In_ DXWrapper::RECT Area)
 		{
-			throw ref new Platform::NotImplementedException();
+			std::map<Virtual_Controller_Buttons, DXWrapper::RECT>::iterator it;
+			it = m_touchbinding.find(Target);
+
+			if (it != m_touchbinding.end())
+			{
+				m_touchbinding[Target] = Area;
+			}
+			else
+			{
+				m_touchbinding.emplace(Target, Area);
+			}
 		}
 		void VirtualController::UpdateGamepad()
 		{
@@ -177,14 +190,83 @@ namespace WOtech
 				// Tumbstick states
 			}
 		}
+
+		Platform::Boolean PointerIntersect(_In_ Pointer_Position Position, _In_ DXWrapper::RECT Area)
+		{
+			if (((Position.X >= Area.X) && (Position.X <= Area.Width)) &&
+				((Position.Y >= Area.Y) && (Position.Y <= Area.Height)))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		Platform::Boolean TouchIntersect(_In_ Platform::Array<Touch_State>^ State, _In_ DXWrapper::RECT Area)
+		{
+			for (unsigned int i = 0; i != State->Length; i++)
+			{
+				if (State[i].pointerID != 0U)
+				{
+					return PointerIntersect(State[i].position, Area);
+				}
+			}
+
+			return false;
+		}
+
 		void VirtualController::UpdateMouse()
 		{
 			return; // TODO
 		}
-		
 		void VirtualController::UpdateTouch()
 		{
-			return; // TODO
+			Platform::Array<Touch_State>^ state = m_inputManager->getTouchState();
+
+			for (std::map<Virtual_Controller_Buttons, DXWrapper::RECT>::iterator it = m_touchbinding.begin(); it != m_touchbinding.end(); ++it)
+			{
+				// Buttons A-Y
+				if (it->first == Virtual_Controller_Buttons::A)
+					m_state.Button_A = TouchIntersect(state, it->second);
+				if (it->first == Virtual_Controller_Buttons::B)
+					m_state.Button_B = TouchIntersect(state, it->second);
+				if (it->first == Virtual_Controller_Buttons::X)
+					m_state.Button_X = TouchIntersect(state, it->second);
+				if (it->first == Virtual_Controller_Buttons::Y)
+					m_state.Button_Y = TouchIntersect(state, it->second);
+
+				// Buttons Menu, View
+				if (it->first == Virtual_Controller_Buttons::Menu)
+					m_state.Button_Menu = TouchIntersect(state, it->second);
+				if (it->first == Virtual_Controller_Buttons::View)
+					m_state.Button_View = TouchIntersect(state, it->second);
+
+				// Buttons Shoulder
+				if (it->first == Virtual_Controller_Buttons::LeftShoulder)
+					m_state.Button_LeftShoulder = TouchIntersect(state, it->second);
+				if (it->first == Virtual_Controller_Buttons::RightShoulder)
+					m_state.Button_RightShoulder = TouchIntersect(state, it->second);
+
+				// Buttons Sticks
+				if (it->first == Virtual_Controller_Buttons::LeftStick)
+					m_state.Button_LeftStick = TouchIntersect(state, it->second);
+				if (it->first == Virtual_Controller_Buttons::RightStick)
+					m_state.Button_RightStick = TouchIntersect(state, it->second);
+
+				// Buttons DPad
+				if (it->first == Virtual_Controller_Buttons::DPad_Up)
+					m_state.DPad_Up = TouchIntersect(state, it->second);
+				if (it->first == Virtual_Controller_Buttons::DPad_Down)
+					m_state.DPad_Down = TouchIntersect(state, it->second);
+				if (it->first == Virtual_Controller_Buttons::DPad_Left)
+					m_state.DPad_Left = TouchIntersect(state, it->second);
+				if (it->first == Virtual_Controller_Buttons::DPad_Right)
+					m_state.DPad_Right = TouchIntersect(state, it->second);
+
+				// Trigger states
+				// Tumbstick states
+			}
 		}
 		void VirtualController::UpdatePen()
 		{
