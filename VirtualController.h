@@ -5,7 +5,7 @@
 ///			File: VirtualController.h
 ///
 ///			Created:	04.01.2017
-///			Edited:		30.01.2017
+///			Edited:		31.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_VIRTUALCONTROLLER_H
@@ -48,7 +48,7 @@ namespace WOtech
 			DPad_Right
 		};
 
-		public value struct Virtual_Controller
+		public value struct Virtual_Controller_State
 		{
 			Platform::Boolean isConnected;
 			Platform::Boolean isWireless;
@@ -86,7 +86,7 @@ namespace WOtech
 			void setCurrentInput(_In_ Current_Input_Device Current);
 			Current_Input_Device getCurrent();
 
-			Virtual_Controller getState();
+			Virtual_Controller_State getState();
 
 			// Gamepad
 			void bindGamepad(_In_ Gamepad_Index number);
@@ -110,7 +110,7 @@ namespace WOtech
 		private:
 			WOtech::InputManager^												m_inputManager;
 
-			Virtual_Controller													m_state;
+			Virtual_Controller_State											m_state;
 
 			Current_Input_Device												m_currentInput;
 			WOtech::Gamepad_Index												m_currentGamepad;

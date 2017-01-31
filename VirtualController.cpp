@@ -5,7 +5,7 @@
 ///			File: VirtualController.h
 ///
 ///			Created:	04.01.2017
-///			Edited:		30.01.2017
+///			Edited:		31.01.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -59,7 +59,7 @@ namespace WOtech
 			return m_currentInput;
 		}
 
-		Virtual_Controller VirtualController::getState()
+		Virtual_Controller_State VirtualController::getState()
 		{
 			// Update state before returning
 			Update();
