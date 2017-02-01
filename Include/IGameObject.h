@@ -5,7 +5,7 @@
 ///			File: GameObject.h
 ///
 ///			Created:	10.04.2016
-///			Edited:		11.11.2016
+///			Edited:		01.02.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_GAMEOBJECT_H
@@ -17,8 +17,7 @@
 #include "pch.h"
 
 namespace WOtech
-{
-	
+{	
 	public interface class IGameObject 
 	{
 	public:

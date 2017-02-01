@@ -5,7 +5,7 @@
 ///			File: Gametimer.h
 ///
 ///			Created:	12.05.2014
-///			Edited:		06.11.2016
+///			Edited:		01.02.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_GAMETIMER_H
@@ -18,7 +18,6 @@
 
 namespace WOtech
 {
-	
 	public ref class GameTimer sealed
 	{
 	public:

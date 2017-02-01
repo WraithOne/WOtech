@@ -2,34 +2,20 @@
 ///
 ///			WraithOne tech Engine
 ///
-///			File: GameScene.h
+///			File: GameObject.cpp
 ///
 ///			Created:	10.04.2016
-///			Edited:		06.11.2016
+///			Edited:		01.02.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
-#ifndef WO_GAMESCENE_H
-#define WO_GAMESCENE_H
 
 //////////////
 // INCLUDES //
 //////////////
 #include "pch.h"
+#include "GameObject.h"
 
 namespace WOtech
 {
-	
-	ref class GameScene sealed
-	{
-	public:
-		
-	internal:
-		GameScene();
 
-	private:
-
-	};
 }
-#endif
-
-
