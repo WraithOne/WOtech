@@ -5,7 +5,7 @@
 ///			File: VirtualController.h
 ///
 ///			Created:	04.01.2017
-///			Edited:		31.01.2017
+///			Edited:		01.02.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_VIRTUALCONTROLLER_H
@@ -20,104 +20,101 @@
 
 namespace WOtech
 {
-	namespace Gameframework
+	public enum class Current_Input_Device
 	{
-		public enum class Current_Input_Device
-		{
-			Gamepad = 0,
-			KeyboardandMouse,
-			Touch,
-			Pen,
+		Gamepad = 0,
+		KeyboardandMouse,
+		Touch,
+		Pen,
 			
-		};
-		public enum class Virtual_Controller_Buttons
-		{
-			A = 0,
-			B,
-			X,
-			Y,
-			LeftStick,
-			RightStick,
-			LeftShoulder,
-			RightShoulder,
-			View,
-			Menu,
-			DPad_Up,
-			DPad_Down,
-			DPad_Left,
-			DPad_Right
-		};
+	};
+	public enum class Virtual_Controller_Buttons
+	{
+		A = 0,
+		B,
+		X,
+		Y,
+		LeftStick,
+		RightStick,
+		LeftShoulder,
+		RightShoulder,
+		View,
+		Menu,
+		DPad_Up,
+		DPad_Down,
+		DPad_Left,
+		DPad_Right
+	};
 
-		public value struct Virtual_Controller_State
-		{
-			Platform::Boolean isConnected;
-			Platform::Boolean isWireless;
+	public value struct Virtual_Controller_State
+	{
+		Platform::Boolean isConnected;
+		Platform::Boolean isWireless;
 
-			Platform::Boolean Button_A;
-			Platform::Boolean Button_B;
-			Platform::Boolean Button_X;
-			Platform::Boolean Button_Y;
-			Platform::Boolean Button_LeftStick;
-			Platform::Boolean Button_RightStick;
-			Platform::Boolean Button_LeftShoulder;
-			Platform::Boolean Button_RightShoulder;
-			Platform::Boolean Button_View;
-			Platform::Boolean Button_Menu;
+		Platform::Boolean Button_A;
+		Platform::Boolean Button_B;
+		Platform::Boolean Button_X;
+		Platform::Boolean Button_Y;
+		Platform::Boolean Button_LeftStick;
+		Platform::Boolean Button_RightStick;
+		Platform::Boolean Button_LeftShoulder;
+		Platform::Boolean Button_RightShoulder;
+		Platform::Boolean Button_View;
+		Platform::Boolean Button_Menu;
 
-			Platform::Boolean DPad_Up;
-			Platform::Boolean DPad_Down;
-			Platform::Boolean DPad_Left;
-			Platform::Boolean DPad_Right;
+		Platform::Boolean DPad_Up;
+		Platform::Boolean DPad_Down;
+		Platform::Boolean DPad_Left;
+		Platform::Boolean DPad_Right;
 
-			float64 Trigger_Left;
-			float64 Trigger_Right;
+		float64 Trigger_Left;
+		float64 Trigger_Right;
 
-			float64 Tumbstick_LeftX;
-			float64 Tumbstick_LeftY;
-			float64 Tumbstick_RightX;
-			float64 Tumbstick_RightY;
-		};
+		float64 Tumbstick_LeftX;
+		float64 Tumbstick_LeftY;
+		float64 Tumbstick_RightX;
+		float64 Tumbstick_RightY;
+	};
 
-		public ref class VirtualController sealed
-		{
-		public:
-			VirtualController(_In_ WOtech::InputManager^ Input);
+	public ref class VirtualController sealed
+	{
+	public:
+		VirtualController(_In_ WOtech::InputManager^ Input);
 
-			void setCurrentInput(_In_ Current_Input_Device Current);
-			Current_Input_Device getCurrent();
+		void setCurrentInput(_In_ Current_Input_Device Current);
+		Current_Input_Device getCurrent();
 
-			Virtual_Controller_State getState();
+		Virtual_Controller_State getState();
 
-			// Gamepad
-			void bindGamepad(_In_ Gamepad_Index number);
+		// Gamepad
+		void bindGamepad(_In_ Gamepad_Index number);
 
-			// Keyboard and Mice
-			void bindKeyboardKey(_In_ Virtual_Controller_Buttons Target, _In_ Windows::System::VirtualKey Key);
-			// Touch and Pen
-			void bindTouchArea(_In_ Virtual_Controller_Buttons Target, _In_ WOtech::DXWrapper::RECT Area);
+		// Keyboard and Mice
+		void bindKeyboardKey(_In_ Virtual_Controller_Buttons Target, _In_ Windows::System::VirtualKey Key);
+		// Touch and Pen
+		void bindTouchArea(_In_ Virtual_Controller_Buttons Target, _In_ WOtech::DXWrapper::RECT Area);
 
-		internal:
+	internal:
 
-		private:
-			void Update();
+	private:
+		void Update();
 
-			void UpdateGamepad();
-			void UpdateKeyboard();
-			void UpdateMouse();
-			void UpdateTouch();
-			void UpdatePen();
+		void UpdateGamepad();
+		void UpdateKeyboard();
+		void UpdateMouse();
+		void UpdateTouch();
+		void UpdatePen();
 			
-		private:
-			WOtech::InputManager^												m_inputManager;
+	private:
+		WOtech::InputManager^												m_inputManager;
 
-			Virtual_Controller_State											m_state;
+		Virtual_Controller_State											m_state;
 
-			Current_Input_Device												m_currentInput;
-			WOtech::Gamepad_Index												m_currentGamepad;
+		Current_Input_Device												m_currentInput;
+		WOtech::Gamepad_Index												m_currentGamepad;
 			
-			std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>	m_keyboardbinding;
-			std::map<Virtual_Controller_Buttons, WOtech::DXWrapper::RECT>		m_touchbinding;
-		};
+		std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>	m_keyboardbinding;
+		std::map<Virtual_Controller_Buttons, WOtech::DXWrapper::RECT>		m_touchbinding;
 	};
 };
 #endif
