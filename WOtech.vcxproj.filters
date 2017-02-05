@@ -27,9 +27,6 @@
     <ClInclude Include="Include\DXWrapper.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Include\FontFileLoader.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="Include\ForwardRenderer.h">
       <Filter>Graphic\3D\Renderer</Filter>
     </ClInclude>
@@ -41,9 +38,6 @@
     </ClInclude>
     <ClInclude Include="Include\RenderCommand.h">
       <Filter>Graphic\3D\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\WICTextureLoader.h">
-      <Filter>Utilities</Filter>
     </ClInclude>
     <ClInclude Include="Include\Network.h">
       <Filter>Network</Filter>
@@ -78,9 +72,6 @@
     <ClInclude Include="Include\Storage.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="Include\MediaReader.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="Include\VirtualController.h">
       <Filter>GameFrameWork</Filter>
     </ClInclude>
@@ -88,6 +79,15 @@
       <Filter>Utilities</Filter>
     </ClInclude>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="ThirdParty\FontFileLoader.h">
+      <Filter>ThirdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\MediaReader.h">
+      <Filter>ThirdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\WICTextureLoader.h">
+      <Filter>ThirdParty</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphic">
@@ -132,6 +132,9 @@
     <Filter Include="Input\Devices">
       <UniqueIdentifier>{e9f503d8-eacb-4c07-bd1f-b7313f38ca18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{c5399d54-4916-476f-a2c8-bb218eab6c19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\AnimatedSprite.cpp">
@@ -175,9 +178,6 @@
     </ClCompile>
     <ClCompile Include="Source\InputTouch.cpp">
       <Filter>Input\Devices</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\WICTextureLoader.cpp">
-      <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Source\Utilities.cpp">
       <Filter>Utilities</Filter>
@@ -242,15 +242,18 @@
     <ClCompile Include="Source\DXWrapper.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="Source\MediaReader.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\FontFileLoader.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SpriteBatch.cpp">
       <Filter>Graphic\2D</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="ThirdParty\FontFileLoader.cpp">
+      <Filter>ThirdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\MediaReader.cpp">
+      <Filter>ThirdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\WICTextureLoader.cpp">
+      <Filter>ThirdParty</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

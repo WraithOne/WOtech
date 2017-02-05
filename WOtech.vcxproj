@@ -130,8 +130,8 @@
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source;$(ProjectDir)ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,8 +150,8 @@
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source;$(ProjectDir)ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -167,8 +167,8 @@
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source;$(ProjectDir)ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -185,8 +185,8 @@
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source;$(ProjectDir)ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -202,8 +202,8 @@
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source;$(ProjectDir)ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -220,8 +220,8 @@
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source;$(ProjectDir)ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -240,7 +240,6 @@
     <ClInclude Include="Include\DeferredRenderer.h" />
     <ClInclude Include="Include\DeviceDX11.h" />
     <ClInclude Include="Include\DXWrapper.h" />
-    <ClInclude Include="Include\FontFileLoader.h" />
     <ClInclude Include="Include\ForwardRenderer.h" />
     <ClInclude Include="Include\Framecounter.h" />
     <ClInclude Include="Include\Gameframework.h" />
@@ -251,7 +250,6 @@
     <ClInclude Include="Include\IGameObject.h" />
     <ClInclude Include="Include\Input.h" />
     <ClInclude Include="Include\IRenderer.h" />
-    <ClInclude Include="Include\MediaReader.h" />
     <ClInclude Include="Include\Network.h" />
     <ClInclude Include="Include\RenderCommand.h" />
     <ClInclude Include="Include\SpriteBatch.h" />
@@ -260,8 +258,10 @@
     <ClInclude Include="Include\targetver.h" />
     <ClInclude Include="Include\Utilities.h" />
     <ClInclude Include="Include\VirtualController.h" />
-    <ClInclude Include="Include\WICTextureLoader.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="ThirdParty\FontFileLoader.h" />
+    <ClInclude Include="ThirdParty\MediaReader.h" />
+    <ClInclude Include="ThirdParty\WICTextureLoader.h" />
     <ClInclude Include="WOtech.h" />
   </ItemGroup>
   <ItemGroup>
@@ -280,7 +280,6 @@
     <ClCompile Include="Source\DeviceDX11.cpp" />
     <ClCompile Include="Source\DXWrapper.cpp" />
     <ClCompile Include="Source\Font.cpp" />
-    <ClCompile Include="Source\FontFileLoader.cpp" />
     <ClCompile Include="Source\ForwardRenderer.cpp" />
     <ClCompile Include="Source\Framecounter.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
@@ -296,7 +295,6 @@
     <ClCompile Include="Source\InputPen.cpp" />
     <ClCompile Include="Source\InputTouch.cpp" />
     <ClCompile Include="Source\Material.cpp" />
-    <ClCompile Include="Source\MediaReader.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\Sprite.cpp" />
@@ -307,7 +305,9 @@
     <ClCompile Include="Source\Texture.cpp" />
     <ClCompile Include="Source\Utilities.cpp" />
     <ClCompile Include="Source\VirtualController.cpp" />
-    <ClCompile Include="Source\WICTextureLoader.cpp" />
+    <ClCompile Include="ThirdParty\FontFileLoader.cpp" />
+    <ClCompile Include="ThirdParty\MediaReader.cpp" />
+    <ClCompile Include="ThirdParty\WICTextureLoader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
