@@ -212,9 +212,6 @@
     <ClCompile Include="Source\Camera.cpp">
       <Filter>Graphic\3D\Componnents</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Geometry.cpp">
-      <Filter>Graphic\3D\Componnents</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Material.cpp">
       <Filter>Graphic\3D\Componnents</Filter>
     </ClCompile>
@@ -254,6 +251,9 @@
     </ClCompile>
     <ClCompile Include="ThirdParty\WICTextureLoader.cpp">
       <Filter>ThirdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Geometry.cpp">
+      <Filter>Graphic\2D\Componnents</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

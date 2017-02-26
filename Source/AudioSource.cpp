@@ -5,7 +5,7 @@
 ///			File: AudioSource.h
 ///
 ///			Created:	10.10.2014
-///			Edited:		22.11.2016
+///			Edited:		11.02.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -19,9 +19,9 @@ using namespace Platform;
 
 namespace WOtech
 {
-	AudioSource::AudioSource(_In_ String^ filename, _In_ AudioEngine^ audioEngine, _In_ AUDIO_TYPE audioType)
+	AudioSource::AudioSource(_In_ String^ fileName, _In_ AudioEngine^ audioEngine, _In_ AUDIO_TYPE audioType)
 	{
-		m_fileName = filename;
+		m_fileName = fileName;
 		m_audioEngine = audioEngine;
 		m_audioType = audioType;
 
@@ -181,9 +181,9 @@ namespace WOtech
 		m_sourceVoice->GetVolume(&volume);
 	}
 
-	void AudioSource::getPlaybackState(_Out_ AUDIO_PLAYBACK_STATE playbackstate)
+	void AudioSource::getPlaybackState(_Out_ AUDIO_PLAYBACK_STATE playbackState)
 	{
-		playbackstate = m_playbackState;
+		playbackState = m_playbackState;
 	}
 
 	void AudioSource::getState(_Out_ AUDIOSOURCE_STATE state)

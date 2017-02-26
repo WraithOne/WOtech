@@ -2,7 +2,7 @@
 ///
 ///			WraithOne tech Engine
 ///
-///			File: 2DComponents.h
+///			File: Geometry.cpp
 ///
 ///			Created:	14.11.2016
 ///			Edited:		27.11.2016

@@ -5,7 +5,7 @@
 ///			File: Audio.h
 ///
 ///			Created:	01.05.2014
-///			Edited:		22.11.2016
+///			Edited:		11.02.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_AUDIO_H
@@ -30,36 +30,38 @@
 
 namespace WOtech
 {
+	//!
+	/*! Enumartion of available Audio typs. */
 	public enum class AUDIO_TYPE
 	{
-		Effect,	// Use for Sounds
-		Music	// Use for Music
+		Effect,	/*!< Use for Sounds.*/
+		Music	/*!< Use for Music.*/
 	};
 
 	public enum class AUDIO_PLAYBACK_STATE
 	{
-		Stopped,
-		Playing,
-		Paused
+		Stopped,	/*!< Playback stopped.*/
+		Playing,	/*!< Playback.*/
+		Paused		/*!< Playback paused.*/
 	};
 
 	public value struct VOICE_STATE
 	{
-		Platform::IntPtr pCurrentBufferContext;// Pointer to current Buffer, NULL if none
-		UINT32 BuffersQueued;// Total Buffer큦 qued
-		UINT64 SamplesPlayed;// Sample큦 play since last start, incl loops
+		Platform::IntPtr pCurrentBufferContext;	/*!< Pointer to current Buffer, NULL if none.*/
+		UINT32 BuffersQueued;					/*!< Total Buffer큦 qued.*/
+		UINT64 SamplesPlayed;					/*!< Sample큦 play since last start, incl. loops.*/
 	};
 
 	public value struct AUDIOSOURCE_STATE
 	{
-		AUDIO_PLAYBACK_STATE PlaybackState;// current PlaybackState
-		VOICE_STATE VoiceState;// Current VoiceState
+		AUDIO_PLAYBACK_STATE PlaybackState;	/*!< current PlaybackState.*/
+		VOICE_STATE VoiceState;				/*!< current VoiceState.*/
 	};
 
 	public value struct DEVICE_DETAILS
 	{
-		Platform::String^ DeviceID;// Device ID
-		Platform::String^ DisplayName;// Device Name
+		Platform::String^ DeviceID;		/*!< Device ID.*/
+		Platform::String^ DisplayName;	/*!< Device name.*/
 	};
 
 	
@@ -98,15 +100,15 @@ namespace WOtech
 		//! SetMasterVolume.
 		/*!
 		Sets the volume for Effects and Music Mastervoice
-		/param Volume for Effectvoice from 0.0f to 1.0f
-		/param Volume for Mastervoice from 0.0f to 1.0f
+		\param Volume for Effectvoice from 0.0f to 1.0f
+		\param Volume for Mastervoice from 0.0f to 1.0f
 		*/
 		void SetMasterVolume(_In_ float32 effectVolume, _In_ float32 musicVolume);
 		//! GetMasterVolume.
 		/*!
 		Sets the volume for Effects and Music Mastervoice
-		/param Volume for Effectvoice from 0.0f to 1.0f
-		/param Volume for Mastervoice from 0.0f to 1.0f
+		\param Volume for Effectvoice from 0.0f to 1.0f
+		\param Volume for Mastervoice from 0.0f to 1.0f
 		*/
 		void GetMasterVolome(_Out_ float32 effectVolume, _Out_ float32 musicVolume);	
 
@@ -124,16 +126,16 @@ namespace WOtech
 		//! GetDeviceCount.
 		/*!
 		Gets the amount of physical audio devices
-		/param The DirectX Audio device
-		/param Amount of physical devices
+		\param The DirectX Audio device
+		\param Amount of physical devices
 		*/
 		void GetDeviceCount(_In_ IXAudio2* device, _Out_ uint32* devCount);
 		//! GetDeviceDetails.
 		/*!
 		Sets the volume for Effects and Music Mastervoice
-		/param The DirectX Audio device
-		/param number of the device
-		/param Details of the physical device
+		\param The DirectX Audio device
+		\param number of the device
+		\param Details of the physical device
 		*/
 		void GetDeviceDetails(_In_ IXAudio2* device, _In_  uint32 index, _Out_ DEVICE_DETAILS details);
 	private:
@@ -144,10 +146,10 @@ namespace WOtech
 	private:
 		Platform::Boolean m_audioAvailable;
 
-		Microsoft::WRL::ComPtr<IXAudio2> m_effectdevice;
+		Microsoft::WRL::ComPtr<IXAudio2> m_effectDevice;
 		IXAudio2MasteringVoice*	m_effectMasterVoice;
 
-		Microsoft::WRL::ComPtr<IXAudio2> m_musicdevice;
+		Microsoft::WRL::ComPtr<IXAudio2> m_musicDevice;
 		IXAudio2MasteringVoice*	m_musicMasterVoice;
 	}; //ref class AudioEngine
 
@@ -160,7 +162,7 @@ namespace WOtech
 		\param audioEngine to Load/Play/Control the sound.
 		\param audioType Music or Effect.
 		*/
-		AudioSource(_In_ Platform::String^ filename, _In_ WOtech::AudioEngine^ audioEngine, _In_ WOtech::AUDIO_TYPE audioType);
+		AudioSource(_In_ Platform::String^ fileName, _In_ WOtech::AudioEngine^ audioEngine, _In_ WOtech::AUDIO_TYPE audioType);
 
 		//! LoadWave.
 		/*!
@@ -201,7 +203,7 @@ namespace WOtech
 		/*!
 		\param Gets the AudioSource playback state
 		*/
-		void getPlaybackState(_Out_ AUDIO_PLAYBACK_STATE playbackstate);
+		void getPlaybackState(_Out_ AUDIO_PLAYBACK_STATE playbackState);
 
 		//! getState.
 		/*!

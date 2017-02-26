@@ -5,7 +5,7 @@
 ///			File: Audio.h
 ///
 ///			Created:	20.09.2014
-///			Edited:		22.11.2016
+///			Edited:		11.02.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -43,13 +43,13 @@ namespace WOtech
 		if (m_effectMasterVoice != nullptr)
 		{
 			m_effectMasterVoice->DestroyVoice();
-			m_effectdevice = nullptr;
+			m_effectDevice = nullptr;
 		}
 
 		if (m_musicMasterVoice != nullptr)
 		{
 			m_musicMasterVoice->DestroyVoice();
-			m_musicdevice = nullptr;
+			m_musicDevice = nullptr;
 		}
 
 		m_audioAvailable = false;
@@ -76,11 +76,11 @@ namespace WOtech
 		uint32 Flags = NULL;
 
 		// Create the effect engine
-		hr = XAudio2Create(&m_effectdevice, Flags, xaProcessor);
+		hr = XAudio2Create(&m_effectDevice, Flags, xaProcessor);
 		ThrowIfFailed(hr);
 
 		// Create the music engine
-		hr = XAudio2Create(&m_musicdevice, Flags, xaProcessor);
+		hr = XAudio2Create(&m_musicDevice, Flags, xaProcessor);
 		ThrowIfFailed(hr);
 
 #if defined(_DEBUG)
@@ -88,8 +88,8 @@ namespace WOtech
 		XAUDIO2_DEBUG_CONFIGURATION debugConfiguration = { 0 };
 		debugConfiguration.BreakMask = XAUDIO2_LOG_ERRORS;
 		debugConfiguration.TraceMask = XAUDIO2_LOG_ERRORS;
-		m_effectdevice->SetDebugConfiguration(&debugConfiguration);
-		m_musicdevice->SetDebugConfiguration(&debugConfiguration);
+		m_effectDevice->SetDebugConfiguration(&debugConfiguration);
+		m_musicDevice->SetDebugConfiguration(&debugConfiguration);
 #endif
 	}
 
@@ -99,12 +99,12 @@ namespace WOtech
 		uint32 flags = 0;
 
 		// Check if devices are valid
-		if (m_effectdevice == nullptr || m_musicdevice == nullptr)
+		if (m_effectDevice == nullptr || m_musicDevice == nullptr)
 			ThrowIfFailed(XAUDIO2_E_DEVICE_INVALIDATED);
 
 
 		// Create Effectvoice
-		hr = m_effectdevice->CreateMasteringVoice(&m_effectMasterVoice,
+		hr = m_effectDevice->CreateMasteringVoice(&m_effectMasterVoice,
 												XAUDIO2_DEFAULT_CHANNELS,
 												XAUDIO2_DEFAULT_SAMPLERATE,
 												flags,
@@ -114,7 +114,7 @@ namespace WOtech
 		ThrowIfFailed(hr);
 
 		// Create Musicvoice
-		hr = m_musicdevice->CreateMasteringVoice(&m_musicMasterVoice,
+		hr = m_musicDevice->CreateMasteringVoice(&m_musicMasterVoice,
 												XAUDIO2_DEFAULT_CHANNELS,
 												XAUDIO2_DEFAULT_SAMPLERATE,
 												flags,
@@ -130,8 +130,8 @@ namespace WOtech
 	{
 		if (m_audioAvailable)
 		{
-			m_effectdevice->StopEngine();
-			m_musicdevice->StopEngine();
+			m_effectDevice->StopEngine();
+			m_musicDevice->StopEngine();
 		}
 	}
 
@@ -142,10 +142,10 @@ namespace WOtech
 		if (m_audioAvailable)
 		{
 			// resume Effect engine
-			hr = m_effectdevice->StartEngine();
+			hr = m_effectDevice->StartEngine();
 			ThrowIfFailed(hr);
 			// Resume music engine
-			hr = m_musicdevice->StartEngine();
+			hr = m_musicDevice->StartEngine();
 			ThrowIfFailed(hr);
 		}
 		else
@@ -175,12 +175,12 @@ namespace WOtech
 
 	IXAudio2* AudioEngine::GetEffectEngine()
 	{
-		return m_effectdevice.Get();
+		return m_effectDevice.Get();
 	}
 
 	IXAudio2* AudioEngine::GetMusicEngine()
 	{
-		return m_musicdevice.Get();
+		return m_musicDevice.Get();
 	}
 
 	void AudioEngine::GetMasterVolome(_Out_ float32 effectVolume, _Out_ float32 musicVolume)
