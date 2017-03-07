@@ -5,7 +5,7 @@
 ///			File: Font.cpp
 ///
 ///			Created:	31.08.2014
-///			Edited:		22.11.2016
+///			Edited:		07.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -16,6 +16,7 @@
 #include "2DComponents.h"
 #include "FontFileLoader.h"
 #include "Utilities.h"
+#include "ContentManager.h"
 
 using namespace Platform;
 using namespace Windows::Storage;
@@ -28,7 +29,7 @@ namespace WOtech
 	{
 		m_fileName = filename;
 
-		// todo: Content Manager
+		WOtech::ContentManager::Instance->AddFont(this);
 	}
 
 	void Font::Load()
@@ -54,6 +55,11 @@ namespace WOtech
 		ThrowIfFailed(hr);
 	}
 
+	void Font::UnLoad()
+	{
+		m_collection.Reset();
+	}
+
 	IDWriteFontCollection*	Font::getColletion()
 	{
 		return m_collection.Get();
@@ -65,7 +71,7 @@ namespace WOtech
 
 	Font::~Font()
 	{
-		// todo: Content Manager
+		WOtech::ContentManager::Instance->RemoveFont(this);
 	}
 
 	String^ Font::getFontname()

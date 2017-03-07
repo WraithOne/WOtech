@@ -5,7 +5,7 @@
 ///			File: Sprite.cpp
 ///
 ///			Created:	07.05.2014
-///			Edited:		27.11.2016
+///			Edited:		07.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -17,6 +17,7 @@
 #include "SpriteBatch.h"
 #include "Utilities.h"
 #include "DXWrapper.h"
+#include "ContentManager.h"
 
 using namespace Platform;
 using namespace Windows::Foundation;
@@ -41,7 +42,7 @@ namespace WOtech
 		m_interpolation = BITMAP_INTERPOLATION_MODE::BITMAP_INTERPOLATION_MODE_LINEAR;
 		m_flipMode = SPRITE_FLIP_MODE::None;
 
-		// todo: Content Manager
+		WOtech::ContentManager::Instance->AddSprite(this);
 	}
 	void Sprite::Load(_In_ SpriteBatch^ spriteBatch)
 	{
@@ -94,6 +95,11 @@ namespace WOtech
 		m_size.Height = m_sourceRect.Height = m_Bitmap->GetSize().height;
 	}
 
+	void Sprite::UnLoad()
+	{
+		m_Bitmap.Reset();
+	}
+
 	ID2D1Bitmap* Sprite::getBitmap()
 	{
 		return m_Bitmap.Get();
@@ -101,7 +107,7 @@ namespace WOtech
 
 	Sprite::~Sprite()
 	{
-		// todo: Content Manager
+		WOtech::ContentManager::Instance->RemoveSprite(this);
 	}
 
 	WOtech::DXWrapper::RECT Sprite::getSourceRect()

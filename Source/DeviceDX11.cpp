@@ -5,7 +5,7 @@
 ///			File: DeviceDX11.cpp
 ///
 ///			Created:	06.05.2014
-///			Edited:		19.02.2017
+///			Edited:		07.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -55,12 +55,13 @@ namespace WOtech
 		SystemManager::Instance->RemoveDeviceDX11(this);
 	}
 
-	void DeviceDX11::Create(_In_ Windows::UI::Core::CoreWindow^ window)
+	void DeviceDX11::Create()
 	{
 		// Create Device resources
 		CreateDevices();
 
 		// set current window to device resources
+		Windows::UI::Core::CoreWindow^ window = Windows::UI::Core::CoreWindow::GetForCurrentThread();
 		SetWindow(window);
 	}
 

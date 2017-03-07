@@ -64,5 +64,3 @@
 #pragma comment (lib, "dxguid.lib")
 #pragma comment (lib, "Dwrite.lib")
 #pragma comment (lib, "Windowscodecs.lib")
-
-

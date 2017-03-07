@@ -5,7 +5,7 @@
 ///			File: DeviceDX11.h
 ///
 ///			Created:	31.03.2016
-///			Edited:		19.02.2017
+///			Edited:		07.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DEVICEDX11_H
@@ -60,7 +60,7 @@ namespace WOtech
 	public:
 		DeviceDX11();
 
-		void Create(_In_ Windows::UI::Core::CoreWindow^ window);
+		void Create();
 
 		void Clear(_In_ Windows::UI::Color color);
 		void Clear(_In_ Windows::UI::Color color, _In_ WOtech::DXWrapper::CLEAR_FLAG ClearFlags, _In_ float32 Depth, _In_ uint8 Stencil);
@@ -71,7 +71,6 @@ namespace WOtech
 		void Trim();
 
 		// SETTERS
-		void SetWindow(_In_ Windows::UI::Core::CoreWindow^ window);
 		void SetLogicalSize(_In_ Windows::Foundation::Size logicalSize);
 		void SetCurrentOrientation(_In_ Windows::Graphics::Display::DisplayOrientations currentOrientation);
 		void SetDpi(_In_ float32 dpi);
@@ -92,6 +91,7 @@ namespace WOtech
 		Windows::Foundation::Size getRenderTargetSize();
 
 	internal:
+		void SetWindow(_In_ Windows::UI::Core::CoreWindow^ window);
 		void setRenderTarget(_In_ ID3D11RenderTargetView* Target);
 
 		void EnumerateAdapters(_Out_ std::list<IDXGIAdapter*>* adapterList);

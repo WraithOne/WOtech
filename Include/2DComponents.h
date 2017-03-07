@@ -5,7 +5,7 @@
 ///			File: 2DComponents.h
 ///
 ///			Created:	06.04.2016
-///			Edited:		27.11.2016
+///			Edited:		07.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_2DCOMPONENTS_H
@@ -98,6 +98,7 @@ namespace WOtech
 		Sprite(_In_ Platform::String^ filename);
 
 		void Load(_In_ WOtech::SpriteBatch^ spriteBatch);
+		void UnLoad();
 
 		//Setter
 		void setPosition(_In_ float32 x, _In_ float32 y);
@@ -145,6 +146,7 @@ namespace WOtech
 		AnimatedSprite(_In_ Platform::String^ filename);
 
 		void Load(_In_ WOtech::SpriteBatch^ spriteBatch);
+		void UnLoad();
 
 		Platform::Boolean AddAnimation(_In_ Platform::String^ name, _In_ uint32 framecount, _In_ float32 frametime, _In_ Windows::Foundation::Size framesize, _In_ Windows::Foundation::Point sourceposition);
 		void Update(_In_ Platform::String^ name, _In_ float32 elapsed);
@@ -195,6 +197,7 @@ namespace WOtech
 		Font(_In_ Platform::String^ filename);
 
 		void Load();
+		void UnLoad();
 
 		// GETTER
 		Platform::String^								getFontname();

@@ -5,7 +5,7 @@
 ///			File: AnimatedSprite.cpp
 ///
 ///			Created:	13.09.2014
-///			Edited:		27.11.2016
+///			Edited:		07.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -16,6 +16,7 @@
 #include "2DComponents.h"
 #include "SpriteBatch.h"
 #include "Utilities.h"
+#include "ContentManager.h"
 
 using namespace Platform;
 using namespace Windows::Foundation;
@@ -37,7 +38,7 @@ namespace WOtech
 		m_interpolation = BITMAP_INTERPOLATION_MODE::BITMAP_INTERPOLATION_MODE_LINEAR;
 		m_flipMode = SPRITE_FLIP_MODE::None;
 
-		// todo: Content Manager
+		WOtech::ContentManager::Instance->AddAnimatedSprite(this);
 	}
 
 	void AnimatedSprite::Load(_In_ SpriteBatch^ spriteBatch)
@@ -86,6 +87,10 @@ namespace WOtech
 		// Create a Direct2D bitmap from the WIC bitmap.
 		hr = spriteBatch->GetDeviceContext()->CreateBitmapFromWicBitmap(pConverter.Get(), NULL, &m_Bitmap);
 		ThrowIfFailed(hr);
+	}
+	void AnimatedSprite::UnLoad()
+	{
+		m_Bitmap.Reset();
 	}
 	Platform::Boolean AnimatedSprite::AddAnimation(_In_ String^ name, _In_ uint32 framecount, _In_ float32 frametime, _In_ Size framesize, _In_ Point sourceposition)
 	{
@@ -154,7 +159,7 @@ namespace WOtech
 	}
 	AnimatedSprite::~AnimatedSprite()
 	{
-		// todo: Content Manager
+		WOtech::ContentManager::Instance->RemoveAnimatedSprite(this);
 	}
 	Point AnimatedSprite::getPosition()
 	{
