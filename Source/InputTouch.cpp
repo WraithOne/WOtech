@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: InputTouch.cpp
+///
+///			Description:
 ///
 ///			Created:	27.08.2016
 ///			Edited:		15.01.2017

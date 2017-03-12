@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: Framecounter.cpp
+///
+///			Description:
 ///
 ///			Created:	06.09.2014
 ///			Edited:		06.11.2016

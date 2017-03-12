@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: Shader.cpp
+///
+///			Description:
 ///
 ///			Created:	06.05.2014
 ///			Edited:		08.11.2016

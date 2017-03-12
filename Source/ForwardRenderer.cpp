@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: ForwardRenderer.cpp
+///
+///			Description:
 ///
 ///			Created:	21.02.2016
 ///			Edited:		27.11.2016

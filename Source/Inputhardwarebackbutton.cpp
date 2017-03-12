@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: InputHardwarebackbutton.cpp
+///
+///			Description:
 ///
 ///			Created:	24.08.2016
 ///			Edited:		12.03.2017

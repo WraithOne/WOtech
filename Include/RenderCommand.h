@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: RenderCommand.h
+///
+///			Description:
 ///
 ///			Created:	27.02.2016
 ///			Edited:		06.04.2016

@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: InputMouse.cpp
+///
+///			Description:
 ///
 ///			Created:	28.08.2015
 ///			Edited:		12.03.2017

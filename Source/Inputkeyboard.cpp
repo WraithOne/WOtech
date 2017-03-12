@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: InputKeyboard.cpp
+///
+///			Description:
 ///
 ///			Created:	01.05.2014
 ///			Edited:		12.03.2017

@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: Mesh.cpp
+///
+///			Description:
 ///
 ///			Created:	23.02.2016
 ///			Edited:		11.11.2016

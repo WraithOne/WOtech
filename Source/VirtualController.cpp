@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: VirtualController.h
+///
+///			Description:
 ///
 ///			Created:	04.01.2017
 ///			Edited:		12.03.2017

@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: DeviceDX11.h
+///
+///			Description:
 ///
 ///			Created:	31.03.2016
 ///			Edited:		07.03.2017

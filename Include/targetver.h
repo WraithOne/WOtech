@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: targetver.h
+///
+///			Description:
 ///
 ///			Created:	01.03.2015
 ///			Edited:		06.04.2016

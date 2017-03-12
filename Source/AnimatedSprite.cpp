@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: AnimatedSprite.cpp
+///
+///			Description:
 ///
 ///			Created:	13.09.2014
 ///			Edited:		07.03.2017

@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: Storage.h
+///
+///			Description:
 ///
 ///			Created:	09.01.2016
 ///			Edited:		06.11.2016

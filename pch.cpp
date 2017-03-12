@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: pch.h
+///
+///			Description:
 ///
 ///			Created:	06.11.2016
 ///			Edited:		06.11.2016

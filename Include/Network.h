@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: Network.h
+///
+///			Description:
 ///
 ///			Created:	13.05.2014
 ///			Edited:		12.10.2016

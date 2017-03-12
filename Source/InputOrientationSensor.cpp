@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: InputOrientationSensor.cpp
+///
+///			Description:
 ///
 ///			Created:	26.08.2016
 ///			Edited:		29.01.2017

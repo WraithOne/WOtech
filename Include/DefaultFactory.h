@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: DefaultFactory.h
+///
+///			Description:
 ///
 ///			Created:	27.02.2016
 ///			Edited:		11.11.2016

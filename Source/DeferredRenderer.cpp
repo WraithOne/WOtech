@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: DeferredRenderer.cpp
+///
+///			Description:
 ///
 ///			Created:	21.02.2016
 ///			Edited:		13.11.2016

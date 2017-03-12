@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: Audio.h
+///
+///			Description:
 ///
 ///			Created:	20.09.2014
 ///			Edited:		11.02.2017

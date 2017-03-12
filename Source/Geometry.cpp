@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: Geometry.cpp
+///
+///			Description:
 ///
 ///			Created:	14.11.2016
 ///			Edited:		27.11.2016

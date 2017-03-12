@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: Texture.cpp
+///
+///			Description:
 ///
 ///			Created:	30.08.2014
 ///			Edited:		06.11.2016

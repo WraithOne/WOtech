@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: DXWrapper.h
+///
+///			Description:
 ///
 ///			Created:	06.11.2016
 ///			Edited:		26.12.2016

@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: GraphicComponent.h
+///
+///			Description:
 ///
 ///			Created:	22.02.2016
 ///			Edited:		13.11.2016

@@ -1,17 +1,3 @@
-////////////////////////////////////////////////////////////////////////////
-///
-///			WraithOne tech Engine
-///
-///			File: FonFileLoader.cpp
-///
-///			Created:	03.09.2014
-///			Edited:		06.11.2016
-///
-////////////////////////////////////////////////////////////////////////////
-
-//////////////
-// INCLUDES //
-//////////////
 #include "pch.h"
 #include "FontFileLoader.h"
 
@@ -187,4 +173,4 @@ namespace WOtech
 
 		return (currentFile_.Get() != NULL) ? S_OK : E_FAIL;
 	}
-}//namespace WOtech
+}

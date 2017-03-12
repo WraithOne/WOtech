@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: Utilities.cpp
+///
+///			Description:
 ///
 ///			Created:	09.11.2016
 ///			Edited:		09.11.2016

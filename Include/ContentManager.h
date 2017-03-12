@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: ContentManager.h
+///
+///			Description:
 ///
 ///			Created:	22.11.2016
 ///			Edited:		27.02.2017

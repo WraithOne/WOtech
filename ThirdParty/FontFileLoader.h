@@ -1,19 +1,6 @@
-////////////////////////////////////////////////////////////////////////////
-///
-///			WraithOne tech Engine
-///
-///			File: FontFileLoader.h
-///
-///			Created:	04.08.2015
-///			Edited:		12.10.2016
-///
-////////////////////////////////////////////////////////////////////////////
 #ifndef WO_FONTFILELOADER_H
 #define WO_FONTFILELOADER_H
 
-//////////////
-// INCLUDES //
-//////////////
 #include "Utilities.h"
 #include <dwrite.h>
 
@@ -68,5 +55,4 @@ namespace WOtech
 		Platform::Boolean isLoaded_;
 	};
 }
-
 #endif

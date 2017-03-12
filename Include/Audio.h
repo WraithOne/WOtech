@@ -2,7 +2,13 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: Audio.h
+///
+///			Description:
+///			Header file for AudioEngine and AudioSource
 ///
 ///			Created:	01.05.2014
 ///			Edited:		11.02.2017

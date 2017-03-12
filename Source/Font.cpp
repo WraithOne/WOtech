@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: Font.cpp
+///
+///			Description:
 ///
 ///			Created:	31.08.2014
 ///			Edited:		07.03.2017

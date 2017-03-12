@@ -2,7 +2,12 @@
 ///
 ///			WraithOne tech Engine
 ///
+///			https://github.com/WraithOne/WOtech
+///			by https://twitter.com/WraithOne
+///
 ///			File: SystemManager.cpp
+///
+///			Description:
 ///
 ///			Created:	18.03.2015
 ///			Edited:		22.11.2016
