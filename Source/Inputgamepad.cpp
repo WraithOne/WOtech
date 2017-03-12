@@ -2,10 +2,10 @@
 ///
 ///			WraithOne tech Engine
 ///
-///			File: Inputcontroller.cpp
+///			File: InputGamepad.cpp
 ///
 ///			Created:	01.05.2014
-///			Edited:		15.01.2017
+///			Edited:		12.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 

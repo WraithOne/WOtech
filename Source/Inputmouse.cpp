@@ -2,10 +2,10 @@
 ///
 ///			WraithOne tech Engine
 ///
-///			File: Inputmouse.cpp
+///			File: InputMouse.cpp
 ///
 ///			Created:	28.08.2015
-///			Edited:		25.01.2017
+///			Edited:		12.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 

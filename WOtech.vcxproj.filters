@@ -65,18 +65,6 @@
     <ClCompile Include="Source\Input.cpp">
       <Filter>Input</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Inputgamepad.cpp">
-      <Filter>Input\Devices</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Inputhardwarebackbutton.cpp">
-      <Filter>Input\Devices</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Inputkeyboard.cpp">
-      <Filter>Input\Devices</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Inputmouse.cpp">
-      <Filter>Input\Devices</Filter>
-    </ClCompile>
     <ClCompile Include="Source\InputOrientationSensor.cpp">
       <Filter>Input\Devices</Filter>
     </ClCompile>
@@ -160,6 +148,18 @@
     </ClCompile>
     <ClCompile Include="Source\DeviceDX11.cpp">
       <Filter>Graphic\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InputGamepad.cpp">
+      <Filter>Input\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InputHardwarebackbutton.cpp">
+      <Filter>Input\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InputKeyboard.cpp">
+      <Filter>Input\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InputMouse.cpp">
+      <Filter>Input\Devices</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

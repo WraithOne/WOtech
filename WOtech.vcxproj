@@ -272,10 +272,10 @@
     <ClCompile Include="Source\GameTimer.cpp" />
     <ClCompile Include="Source\Geometry.cpp" />
     <ClCompile Include="Source\Input.cpp" />
-    <ClCompile Include="Source\Inputgamepad.cpp" />
-    <ClCompile Include="Source\Inputhardwarebackbutton.cpp" />
-    <ClCompile Include="Source\Inputkeyboard.cpp" />
-    <ClCompile Include="Source\Inputmouse.cpp" />
+    <ClCompile Include="Source\InputGamepad.cpp" />
+    <ClCompile Include="Source\InputHardwarebackbutton.cpp" />
+    <ClCompile Include="Source\InputKeyboard.cpp" />
+    <ClCompile Include="Source\InputMouse.cpp" />
     <ClCompile Include="Source\InputOrientationSensor.cpp" />
     <ClCompile Include="Source\InputPen.cpp" />
     <ClCompile Include="Source\InputTouch.cpp" />

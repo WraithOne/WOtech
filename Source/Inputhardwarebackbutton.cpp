@@ -2,10 +2,10 @@
 ///
 ///			WraithOne tech Engine
 ///
-///			File: Inputhardwarebackbutton.cpp
+///			File: InputHardwarebackbutton.cpp
 ///
 ///			Created:	24.08.2016
-///			Edited:		25.01.2017
+///			Edited:		12.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 

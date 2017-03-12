@@ -2,10 +2,10 @@
 ///
 ///			WraithOne tech Engine
 ///
-///			File: Inputkeyboard.cpp
+///			File: InputKeyboard.cpp
 ///
 ///			Created:	01.05.2014
-///			Edited:		15.11.2016
+///			Edited:		12.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
