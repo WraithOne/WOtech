@@ -5,7 +5,7 @@
 ///			File: VirtualController.h
 ///
 ///			Created:	04.01.2017
-///			Edited:		01.02.2017
+///			Edited:		12.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -20,9 +20,9 @@ using namespace Windows::System;
 
 namespace WOtech
 {
-	VirtualController::VirtualController(_In_ InputManager^ Input)
+	VirtualController::VirtualController(_In_ InputManager^ input)
 	{
-		m_inputManager = Input;
+		m_inputManager = input;
 	}
 
 	void VirtualController::Update()
@@ -47,9 +47,9 @@ namespace WOtech
 		}
 	}
 
-	void VirtualController::setCurrentInput(_In_ Current_Input_Device Current)
+	void VirtualController::setCurrentInput(_In_ Current_Input_Device current)
 	{
-		m_currentInput = Current;
+		m_currentInput = current;
 	}
 
 	Current_Input_Device VirtualController::getCurrent()
@@ -64,38 +64,73 @@ namespace WOtech
 
 		return m_state;
 	}
-	void VirtualController::bindGamepad(_In_ Gamepad_Index Number)
+	void VirtualController::bindGamepad(_In_ Gamepad_Index number)
 	{
-		m_currentGamepad = Number;
+		m_currentGamepad = number;
 	}
-	void VirtualController::bindKeyboardKey(_In_ Virtual_Controller_Buttons Target, _In_ VirtualKey Key)
+
+	void VirtualController::bindKeyboardKey(_In_ Virtual_Controller_Buttons target, _In_ VirtualKey key)
 	{
 		std::map<Virtual_Controller_Buttons, VirtualKey>::iterator it;
-		it = m_keyboardbinding.find(Target);
+		it = m_keyboardButtonbinding.find(target);
 
-		if (it != m_keyboardbinding.end())
+		if (it != m_keyboardButtonbinding.end())
 		{
-			m_keyboardbinding[Target] = Key;
+			m_keyboardButtonbinding[target] = key;
 		}
 		else
 		{
-			m_keyboardbinding.emplace(Target, Key);
+			m_keyboardButtonbinding.emplace(target, key);
 		}
 	}
-	void VirtualController::bindTouchArea(_In_ Virtual_Controller_Buttons Target, _In_ DXWrapper::RECT Area)
+
+	void VirtualController::bindTouchButton(_In_ Virtual_Controller_Buttons target, _In_ DXWrapper::RECT area)
 	{
 		std::map<Virtual_Controller_Buttons, DXWrapper::RECT>::iterator it;
-		it = m_touchbinding.find(Target);
+		it = m_touchButtonbinding.find(target);
 
-		if (it != m_touchbinding.end())
+		if (it != m_touchButtonbinding.end())
 		{
-			m_touchbinding[Target] = Area;
+			m_touchButtonbinding[target] = area;
 		}
 		else
 		{
-			m_touchbinding.emplace(Target, Area);
+			m_touchButtonbinding.emplace(target, area);
 		}
 	}
+	void VirtualController::bindTouchTrigger(_In_ Virtual_Controller_Triggers target, _In_ WOtech::DXWrapper::RECT area)
+	{
+		std::map<Virtual_Controller_Triggers, DXWrapper::RECT>::iterator it;
+		it = m_touchTriggerbinding.find(target);
+
+		if (it != m_touchTriggerbinding.end())
+		{
+			m_touchTriggerbinding[target] = area;
+		}
+		else
+		{
+			m_touchTriggerbinding.emplace(target, area);
+		}
+	}
+	void VirtualController::bindTouchStick(_In_ Virtual_Controller_Sticks target, _In_ Windows::Foundation::Point center, _In_ float32 radius)
+	{
+		virtual_Stick stick;
+		stick.center = center;
+		stick.radius = radius;
+
+		std::map<Virtual_Controller_Sticks, virtual_Stick>::iterator it;
+		it = m_touchStickbinding.find(target);
+
+		if (it != m_touchStickbinding.end())
+		{
+			m_touchStickbinding[target] = stick;
+		}
+		else
+		{
+			m_touchStickbinding.emplace(target, stick);
+		}
+	}
+
 	void VirtualController::UpdateGamepad()
 	{
 		WOtech::Gamepad_State state = m_inputManager->GamepadState(m_currentGamepad);
@@ -144,7 +179,7 @@ namespace WOtech
 		m_state.isWireless = false;
 		WOtech::Keyboard_State keyState = m_inputManager->getKeyboardState();
 
-		for(std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>::iterator it = m_keyboardbinding.begin(); it != m_keyboardbinding.end(); ++it)
+		for(std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>::iterator it = m_keyboardButtonbinding.begin(); it != m_keyboardButtonbinding.end(); ++it)
 		{
 			// Buttons A-Y
 			if (it->first == Virtual_Controller_Buttons::A)
@@ -188,11 +223,13 @@ namespace WOtech
 			// Tumbstick states
 		}
 	}
-
-	Platform::Boolean PointerIntersect(_In_ Pointer_Position Position, _In_ DXWrapper::RECT Area)
+	
+	Platform::Boolean PointerIntersect(_In_ Touch_State state, _In_ DXWrapper::RECT area)
 	{
-		if (((Position.X >= Area.X) && (Position.X <= Area.Width)) &&
-			((Position.Y >= Area.Y) && (Position.Y <= Area.Height)))
+		WOtech::Pointer_Position position = state.position;
+
+		if (((position.X >= area.X) && (position.X <= area.Width)) &&
+			((position.Y >= area.Y) && (position.Y <= area.Height)))
 		{
 			return true;
 		}
@@ -201,17 +238,29 @@ namespace WOtech
 			return false;
 		}
 	}
-	Platform::Boolean TouchIntersect(_In_ Platform::Array<Touch_State>^ State, _In_ DXWrapper::RECT Area)
+
+	Touch_State TouchIntersect(_In_ Platform::Array<Touch_State>^ state, _In_ DXWrapper::RECT area)
 	{
-		for (unsigned int i = 0; i != State->Length; i++)
+		Touch_State temp;
+
+		for (unsigned int i = 0; i != state->Length; i++)
 		{
-			if (State[i].pointerID != 0U)
+			if (state[i].pointerID != 0U)
 			{
-				return PointerIntersect(State[i].position, Area);
+				if (PointerIntersect(state[i], area))
+					return state[i];
 			}
 		}
 
-		return false;
+		return temp;
+	}
+
+	Platform::Boolean isIntersecting(Touch_State state)
+	{
+		if (state.pointerID != 0U)
+			return true;
+		else
+			return false;
 	}
 
 	void VirtualController::UpdateMouse()
@@ -220,50 +269,166 @@ namespace WOtech
 	}
 	void VirtualController::UpdateTouch()
 	{
-		Platform::Array<Touch_State>^ state = m_inputManager->getTouchState();
+		Platform::Array<Touch_State>^ touchstate = m_inputManager->getTouchState();
 
-		for (std::map<Virtual_Controller_Buttons, DXWrapper::RECT>::iterator it = m_touchbinding.begin(); it != m_touchbinding.end(); ++it)
+		// Button states
+		for (std::map<Virtual_Controller_Buttons, DXWrapper::RECT>::iterator it = m_touchButtonbinding.begin(); it != m_touchButtonbinding.end(); ++it)
 		{
 			// Buttons A-Y
 			if (it->first == Virtual_Controller_Buttons::A)
-				m_state.Button_A = TouchIntersect(state, it->second);
+				m_state.Button_A = isIntersecting(TouchIntersect(touchstate, it->second));
 			if (it->first == Virtual_Controller_Buttons::B)
-				m_state.Button_B = TouchIntersect(state, it->second);
+				m_state.Button_B = isIntersecting(TouchIntersect(touchstate, it->second));
 			if (it->first == Virtual_Controller_Buttons::X)
-				m_state.Button_X = TouchIntersect(state, it->second);
+				m_state.Button_X = isIntersecting(TouchIntersect(touchstate, it->second));
 			if (it->first == Virtual_Controller_Buttons::Y)
-				m_state.Button_Y = TouchIntersect(state, it->second);
+				m_state.Button_Y = isIntersecting(TouchIntersect(touchstate, it->second));
 
 			// Buttons Menu, View
 			if (it->first == Virtual_Controller_Buttons::Menu)
-				m_state.Button_Menu = TouchIntersect(state, it->second);
+				m_state.Button_Menu = isIntersecting(TouchIntersect(touchstate, it->second));
 			if (it->first == Virtual_Controller_Buttons::View)
-				m_state.Button_View = TouchIntersect(state, it->second);
+				m_state.Button_View = isIntersecting(TouchIntersect(touchstate, it->second));
 
 			// Buttons Shoulder
 			if (it->first == Virtual_Controller_Buttons::LeftShoulder)
-				m_state.Button_LeftShoulder = TouchIntersect(state, it->second);
+				m_state.Button_LeftShoulder = isIntersecting(TouchIntersect(touchstate, it->second));
 			if (it->first == Virtual_Controller_Buttons::RightShoulder)
-				m_state.Button_RightShoulder = TouchIntersect(state, it->second);
+				m_state.Button_RightShoulder = isIntersecting(TouchIntersect(touchstate, it->second));
 
 			// Buttons Sticks
 			if (it->first == Virtual_Controller_Buttons::LeftStick)
-				m_state.Button_LeftStick = TouchIntersect(state, it->second);
+				m_state.Button_LeftStick = isIntersecting(TouchIntersect(touchstate, it->second));
 			if (it->first == Virtual_Controller_Buttons::RightStick)
-				m_state.Button_RightStick = TouchIntersect(state, it->second);
+				m_state.Button_RightStick = isIntersecting(TouchIntersect(touchstate, it->second));
 
 			// Buttons DPad
 			if (it->first == Virtual_Controller_Buttons::DPad_Up)
-				m_state.DPad_Up = TouchIntersect(state, it->second);
+				m_state.DPad_Up = isIntersecting(TouchIntersect(touchstate, it->second));
 			if (it->first == Virtual_Controller_Buttons::DPad_Down)
-				m_state.DPad_Down = TouchIntersect(state, it->second);
+				m_state.DPad_Down = isIntersecting(TouchIntersect(touchstate, it->second));
 			if (it->first == Virtual_Controller_Buttons::DPad_Left)
-				m_state.DPad_Left = TouchIntersect(state, it->second);
+				m_state.DPad_Left = isIntersecting(TouchIntersect(touchstate, it->second));
 			if (it->first == Virtual_Controller_Buttons::DPad_Right)
-				m_state.DPad_Right = TouchIntersect(state, it->second);
+				m_state.DPad_Right = isIntersecting(TouchIntersect(touchstate, it->second));
+		}
+		// Trigger states
+		for (std::map<Virtual_Controller_Triggers, DXWrapper::RECT>::iterator it_t = m_touchTriggerbinding.begin(); it_t != m_touchTriggerbinding.end(); ++it_t)
+		{
+			Touch_State state;
+			if (it_t->first == Virtual_Controller_Triggers::Left)
+			{
+				state = TouchIntersect(touchstate, it_t->second);
+				if (state.pointerID != 0U)
+				{
+					if (m_currentTriggerLeftID == 0U)
+					{
+						m_currentTriggerLeftID = state.pointerID;
+					}
+					if (m_currentTriggerLeftID == state.pointerID)
+					{
+						// betwen 0.0 and 1.0
+						m_state.Trigger_Left = state.position.Y / (it_t->second.Height - it_t->second.Y);
+						if (m_state.Trigger_Left > 1.0)
+							m_state.Trigger_Left = 1.0;
 
-			// Trigger states
-			// Tumbstick states
+						// TODO : Invert or not
+						m_state.Trigger_Left = 1 - m_state.Trigger_Left;
+					}
+				}
+				else
+				{
+					m_currentTriggerLeftID = 0U;
+					m_state.Trigger_Left = 0.0;
+				}
+			}
+			else
+			{
+				state = TouchIntersect(touchstate, it_t->second);
+				if (state.pointerID != 0U)
+				{
+					if (m_currentTriggerRightID == 0U)
+					{
+						m_currentTriggerRightID = state.pointerID;
+					}
+					if (m_currentTriggerRightID == state.pointerID)
+					{
+						// betwen 0.0 and 1.0
+						m_state.Trigger_Right = (it_t->second.Height - it_t->second.Y) / state.position.Y;
+						if (m_state.Trigger_Right > 1.0)
+							m_state.Trigger_Right = 1.0;
+
+						// TODO : Invert or not
+						m_state.Trigger_Right = 1 - m_state.Trigger_Right;
+					}
+				}
+				else
+				{
+					m_currentTriggerRightID = 0U;
+					m_state.Trigger_Right = 0.0;
+				}
+			}
+		}
+		// Stick states
+		for (std::map<Virtual_Controller_Sticks, virtual_Stick>::iterator it_s = m_touchStickbinding.begin(); it_s != m_touchStickbinding.end(); ++it_s)
+		{
+			// TODO: Circle insteed of RECT
+			WOtech::DXWrapper::RECT rect{ it_s->second.center.X - it_s->second.radius, it_s->second.center.Y - it_s->second.radius, it_s->second.center.X + it_s->second.radius, it_s->second.center.Y + it_s->second.radius };
+			Touch_State state;
+			if (it_s->first == Virtual_Controller_Sticks::Left)
+			{
+				state = TouchIntersect(touchstate, rect);
+				if (state.pointerID != 0U)
+				{
+					if (m_currentStickLeftID == 0U)
+					{
+						m_currentStickLeftID = state.pointerID;
+					}
+					if (m_currentStickLeftID == state.pointerID)
+					{
+						// betwen -1.0 and 1.0
+						m_state.Tumbstick_LeftX = (rect.Width - rect.X) / state.position.X;
+						if (state.position.X < (rect.X + ((rect.Width - rect.X) / 2)))
+							m_state.Tumbstick_LeftX *= -1;
+						m_state.Tumbstick_LeftY = (rect.Height - rect.Y) / state.position.Y;
+						if (state.position.Y > (rect.Y + ((rect.Height - rect.Y) / 2)))
+							m_state.Tumbstick_LeftY *= -1;
+					}
+				}
+				else
+				{
+					m_currentStickLeftID = 0U;
+					m_state.Tumbstick_LeftX = 0.0;
+					m_state.Tumbstick_LeftY = 0.0;
+				}
+			}
+			else
+			{
+				state = TouchIntersect(touchstate, rect);
+				if (state.pointerID != 0U)
+				{
+					if (m_currentStickLeftID == 0U)
+					{
+						m_currentStickLeftID = state.pointerID;
+					}
+					if (m_currentStickLeftID == state.pointerID)
+					{
+						// betwen -1.0 and 1.0
+						m_state.Tumbstick_RightX = (rect.Width - rect.X) / state.position.X;
+						if (state.position.X < (rect.X + ((rect.Width - rect.X) / 2)))
+							m_state.Tumbstick_RightX *= -1;
+						m_state.Tumbstick_RightY = (rect.Height - rect.Y) / state.position.Y;
+						if (state.position.Y >(rect.Y + ((rect.Height - rect.Y) / 2)))
+							m_state.Tumbstick_RightY *= -1;
+					}
+				}
+				else
+				{
+					m_currentStickLeftID = 0U;
+					m_state.Tumbstick_LeftX = 0.0;
+					m_state.Tumbstick_LeftY = 0.0;
+				}
+			}
 		}
 	}
 	void VirtualController::UpdatePen()

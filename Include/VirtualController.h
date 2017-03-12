@@ -5,7 +5,7 @@
 ///			File: VirtualController.h
 ///
 ///			Created:	04.01.2017
-///			Edited:		01.02.2017
+///			Edited:		12.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_VIRTUALCONTROLLER_H
@@ -45,6 +45,16 @@ namespace WOtech
 		DPad_Left,
 		DPad_Right
 	};
+	public enum class Virtual_Controller_Triggers
+	{
+		Left,
+		Right
+	};
+	public enum class Virtual_Controller_Sticks
+	{
+		Left,
+		Right
+	};
 
 	public value struct Virtual_Controller_State
 	{
@@ -79,9 +89,9 @@ namespace WOtech
 	public ref class VirtualController sealed
 	{
 	public:
-		VirtualController(_In_ WOtech::InputManager^ Input);
+		VirtualController(_In_ WOtech::InputManager^ input);
 
-		void setCurrentInput(_In_ Current_Input_Device Current);
+		void setCurrentInput(_In_ Current_Input_Device current);
 		Current_Input_Device getCurrent();
 
 		Virtual_Controller_State getState();
@@ -90,10 +100,11 @@ namespace WOtech
 		void bindGamepad(_In_ Gamepad_Index number);
 
 		// Keyboard and Mice
-		void bindKeyboardKey(_In_ Virtual_Controller_Buttons Target, _In_ Windows::System::VirtualKey Key);
+		void bindKeyboardKey(_In_ Virtual_Controller_Buttons target, _In_ Windows::System::VirtualKey key);
 		// Touch and Pen
-		void bindTouchArea(_In_ Virtual_Controller_Buttons Target, _In_ WOtech::DXWrapper::RECT Area);
-
+		void bindTouchButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::DXWrapper::RECT area);
+		void bindTouchTrigger(_In_ Virtual_Controller_Triggers target, _In_ WOtech::DXWrapper::RECT Area);
+		void bindTouchStick(_In_ Virtual_Controller_Sticks target, _In_ Windows::Foundation::Point center, _In_ float32 radius);
 	internal:
 
 	private:
@@ -113,8 +124,20 @@ namespace WOtech
 		Current_Input_Device												m_currentInput;
 		WOtech::Gamepad_Index												m_currentGamepad;
 			
-		std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>	m_keyboardbinding;
-		std::map<Virtual_Controller_Buttons, WOtech::DXWrapper::RECT>		m_touchbinding;
+		std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>	m_keyboardButtonbinding;
+		std::map<Virtual_Controller_Buttons, WOtech::DXWrapper::RECT>		m_touchButtonbinding;
+		std::map<Virtual_Controller_Triggers, WOtech::DXWrapper::RECT>		m_touchTriggerbinding;
+		UINT																m_currentTriggerLeftID;
+		UINT																m_currentTriggerRightID;
+
+		struct virtual_Stick
+		{
+			Windows::Foundation::Point center;
+			float32 radius;
+		};
+		std::map<Virtual_Controller_Sticks, virtual_Stick>					m_touchStickbinding;
+		UINT																m_currentStickLeftID;
+		UINT																m_currentStickRightID;
 	};
 };
 #endif
