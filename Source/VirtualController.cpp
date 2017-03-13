@@ -307,14 +307,14 @@ namespace WOtech
 				if (m_inputManager->KeyDown(it_t->second))
 					m_state.Trigger_Left = 1.0;
 				else
-					m_state.Trigger_Left = 1.0;
+					m_state.Trigger_Left = 0.0;
 			}
 			else
 			{
 				if (m_inputManager->KeyDown(it_t->second))
 					m_state.Trigger_Right = 1.0;
 				else
-					m_state.Trigger_Right = 1.0;
+					m_state.Trigger_Right = 0.0;
 			}
 		}
 
