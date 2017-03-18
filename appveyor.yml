@@ -3,7 +3,7 @@ version: 0.1.{build}
 configuration:
 - Debug
 - Release
-platform: Win32
+platform: x86
 build:
   project: WOtech.sln
   verbosity: minimal
