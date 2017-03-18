@@ -26,6 +26,10 @@ namespace WOtech
 	{
 		
 	}
+	void SystemInformation::GatherInformations()
+	{
+		
+	}
 	SystemInformation::~SystemInformation()
 	{
 		
