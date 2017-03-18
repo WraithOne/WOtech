@@ -1,0 +1,9 @@
+
+version: 0.1.{build}
+configuration:
+- Debug
+- Release
+platform: Win32
+build:
+  project: WOtech.sln
+verbosity: minimal
