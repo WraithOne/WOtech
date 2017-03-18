@@ -161,6 +161,9 @@
     <ClCompile Include="Source\InputMouse.cpp">
       <Filter>Input\Devices</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SystemInformation.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -246,6 +249,9 @@
     </ClInclude>
     <ClInclude Include="Include\DeviceDX11.h">
       <Filter>Graphic\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\SystemInformation.h">
+      <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

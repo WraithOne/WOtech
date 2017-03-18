@@ -236,6 +236,7 @@
     <ClInclude Include="Include\RenderCommand.h" />
     <ClInclude Include="Include\SpriteBatch.h" />
     <ClInclude Include="Include\Storage.h" />
+    <ClInclude Include="Include\SystemInformation.h" />
     <ClInclude Include="Include\SystemManager.h" />
     <ClInclude Include="Include\targetver.h" />
     <ClInclude Include="Include\Utilities.h" />
@@ -285,6 +286,7 @@
     <ClCompile Include="Source\Sprite.cpp" />
     <ClCompile Include="Source\SpriteBatch.cpp" />
     <ClCompile Include="Source\Storage.cpp" />
+    <ClCompile Include="Source\SystemInformation.cpp" />
     <ClCompile Include="Source\SystemManager.cpp" />
     <ClCompile Include="Source\Text.cpp" />
     <ClCompile Include="Source\Texture.cpp" />

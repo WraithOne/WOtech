@@ -10,11 +10,11 @@
 ///			Description:
 ///
 ///			Created:	18.03.2015
-///			Edited:		22.11.2016
+///			Edited:		18.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
-#ifndef WO_STORAGEMANAGER_H
-#define WO_STORAGEMANAGER_H
+#ifndef WO_SYSTEMMANAGER_H
+#define WO_SYSTEMMANAGER_H
 
 //////////////
 // INCLUDES //
