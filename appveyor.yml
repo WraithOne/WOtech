@@ -6,4 +6,4 @@ configuration:
 platform: Win32
 build:
   project: WOtech.sln
-verbosity: minimal
+  verbosity: minimal
