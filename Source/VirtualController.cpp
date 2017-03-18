@@ -100,6 +100,43 @@ namespace WOtech
 		}
 	}
 
+	void VirtualController::bindMousetoButton(Virtual_Controller_Buttons target, WOtech::DXWrapper::RECT area)
+	{
+		std::map<Virtual_Controller_Buttons, DXWrapper::RECT>::iterator it;
+		it = m_mouseButtonbinding.find(target);
+
+		if (it != m_mouseButtonbinding.end())
+		{
+			m_mouseButtonbinding[target] = area;
+		}
+		else
+		{
+			m_mouseButtonbinding.emplace(target, area);
+		}
+	}
+	void VirtualController::bindMouseKeytoButton(Virtual_Controller_Buttons target, WOtech::DXWrapper::VirtualKey_Mouse key)
+	{
+		std::map<Virtual_Controller_Buttons, WOtech::DXWrapper::VirtualKey_Mouse>::iterator it;
+		it = m_mouseKeybinding.find(target);
+
+		if (it != m_mouseKeybinding.end())
+		{
+			m_mouseKeybinding[target] = key;
+		}
+		else
+		{
+			m_mouseKeybinding.emplace(target, key);
+		}
+	}
+	void VirtualController::bindMouseWheeltoTrigger(Virtual_Controller_Triggers target)
+	{
+		m_mouseWheelbinding = target;
+	}
+	void VirtualController::bindMousetoTumbstick(Virtual_Controller_Sticks target)
+	{
+		m_mousebinding = target;
+	}
+
 	void VirtualController::bindTouchtoButton(_In_ Virtual_Controller_Buttons target, _In_ DXWrapper::RECT area)
 	{
 		std::map<Virtual_Controller_Buttons, DXWrapper::RECT>::iterator it;
