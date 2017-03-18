@@ -94,6 +94,9 @@ namespace WOtech
 		Windows::Foundation::Size getRenderTargetSize();
 
 	internal:
+		void CreateDevices();
+		void CreateWindowSizeDependentResources();
+
 		void SetWindow(_In_ Windows::UI::Core::CoreWindow^ window);
 		void setRenderTarget(_In_ ID3D11RenderTargetView* Target);
 
@@ -115,11 +118,9 @@ namespace WOtech
 		D2D1::Matrix3x2F			get2DOrientation();
 		DirectX::XMFLOAT4X4			get3DOrientation();
 
+		DXGI_MODE_ROTATION			ComputeDisplayRotation();
 	private:
 		~DeviceDX11();
-		void CreateDevices();
-		void CreateWindowSizeDependentResources();
-		DXGI_MODE_ROTATION			ComputeDisplayRotation();
 
 	private:
 		// Reference to Window
