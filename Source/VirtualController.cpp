@@ -221,6 +221,23 @@ namespace WOtech
 			return false;
 	}
 
+	VirtualController::~VirtualController()
+	{
+		// Keyboard
+		m_keyboardButtonbinding.clear();
+		m_keyboardTriggerbinding.clear();
+		m_keyboardStickbinding.clear();
+
+		// Mouse
+		m_mouseKeybinding.clear();
+		m_mouseButtonbinding.clear();
+		
+		// Touch
+		m_touchButtonbinding.clear();
+		m_touchTriggerbinding.clear();
+		m_touchStickbinding.clear();
+	}
+
 	void VirtualController::Update()
 	{
 		switch (m_currentInput)

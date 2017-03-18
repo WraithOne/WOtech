@@ -120,6 +120,8 @@ namespace WOtech
 	internal:
 
 	private:
+		~VirtualController();
+
 		void Update();
 
 		void UpdateGamepad();
