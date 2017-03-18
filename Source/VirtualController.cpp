@@ -266,7 +266,7 @@ namespace WOtech
 		m_state.Button_RightShoulder = state.Buttons.RightShoulder;
 
 		// Buttons Sticks
-		m_state.Button_LeftStick = state.Buttons.LeftStick;	
+		m_state.Button_LeftStick = state.Buttons.LeftStick;
 		m_state.Button_RightStick = state.Buttons.RightStick;
 
 		// Buttons DPad
@@ -292,7 +292,7 @@ namespace WOtech
 		WOtech::Keyboard_State keyState = m_inputManager->getKeyboardState();
 
 		// Buttons
-		for(std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>::iterator it = m_keyboardButtonbinding.begin(); it != m_keyboardButtonbinding.end(); ++it)
+		for (std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>::iterator it = m_keyboardButtonbinding.begin(); it != m_keyboardButtonbinding.end(); ++it)
 		{
 			// Buttons A-Y
 			if (it->first == Virtual_Controller_Buttons::A)
@@ -339,7 +339,7 @@ namespace WOtech
 		// Triggers
 		for (std::map<Virtual_Controller_Triggers, Windows::System::VirtualKey>::iterator it_t = m_keyboardTriggerbinding.begin(); it_t != m_keyboardTriggerbinding.end(); ++it_t)
 		{
-			if(it_t->first == Virtual_Controller_Triggers::Left)
+			if (it_t->first == Virtual_Controller_Triggers::Left)
 			{
 				if (m_inputManager->KeyDown(it_t->second))
 					m_state.Trigger_Left = 1.0;
@@ -551,7 +551,7 @@ namespace WOtech
 						if (state.position.X < (rect.X + ((rect.Width - rect.X) / 2)))
 							m_state.Tumbstick_RightX *= -1;
 						m_state.Tumbstick_RightY = (rect.Height - rect.Y) / state.position.Y;
-						if (state.position.Y >(rect.Y + ((rect.Height - rect.Y) / 2)))
+						if (state.position.Y > (rect.Y + ((rect.Height - rect.Y) / 2)))
 							m_state.Tumbstick_RightY *= -1;
 					}
 				}

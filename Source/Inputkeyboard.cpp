@@ -95,18 +95,18 @@ namespace WOtech
 		case Windows::System::VirtualKey::Kana:
 			return m_keyboardState.Kana;
 			break;
-		//case Windows::System::VirtualKey::Hangul:
-			//return false;
-			//break;
+			//case Windows::System::VirtualKey::Hangul:
+				//return false;
+				//break;
 		case Windows::System::VirtualKey::Junja:
 			return false;
 			break;
 		case Windows::System::VirtualKey::Final:
 			return false;
 			break;
-		//case Windows::System::VirtualKey::Hanja:
-			//return m_keyboardState.;
-			//break;
+			//case Windows::System::VirtualKey::Hanja:
+				//return m_keyboardState.;
+				//break;
 		case Windows::System::VirtualKey::Kanji:
 			return m_keyboardState.Kanji;
 			break;
@@ -559,5 +559,4 @@ namespace WOtech
 			break;
 		}
 	}// InputManager KeyboardKeyDown
-
 }//namespace WOtech

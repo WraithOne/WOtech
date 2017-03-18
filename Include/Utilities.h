@@ -126,7 +126,7 @@ namespace WOtech
 			nullptr,                    // No need to keep the D3D device reference.
 			nullptr,                    // No need to know the feature level.
 			nullptr                     // No need to keep the D3D device context reference.
-			);
+		);
 
 		return SUCCEEDED(hr);
 	}
@@ -144,7 +144,6 @@ namespace WOtech
 
 		virtual ~TSingleton()
 		{
-
 		} // Destructor
 
 		inline static T* Get()
@@ -162,7 +161,7 @@ namespace WOtech
 				delete (m_pSingleton);
 				m_pSingleton = NULL;
 			}
-		}//Del	
+		}//Del
 	};
 
 	template <class T>

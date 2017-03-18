@@ -70,7 +70,6 @@ namespace WOtech
 		Platform::String^ DisplayName;	/*!< Device name.*/
 	};
 
-	
 	public ref class AudioEngine sealed
 	{
 	public:
@@ -82,7 +81,7 @@ namespace WOtech
 		/*!
 		Initializes the AudioEngine with default options
 		*/
-		void Initialize();	
+		void Initialize();
 		//! CreateDeviceIndependentResources.
 		/*!
 		\param xaProcessor assign AudioEngine to specific CPU, default is XADUIO_DEFAULT_PROCESSOR..
@@ -116,7 +115,7 @@ namespace WOtech
 		\param Volume for Effectvoice from 0.0f to 1.0f
 		\param Volume for Mastervoice from 0.0f to 1.0f
 		*/
-		void GetMasterVolome(_Out_ float32 effectVolume, _Out_ float32 musicVolume);	
+		void GetMasterVolome(_Out_ float32 effectVolume, _Out_ float32 musicVolume);
 
 	internal:
 		//! GetEffectEngine.
@@ -255,6 +254,6 @@ namespace WOtech
 		VoiceCallback										m_voiceCallback;
 		IXAudio2SourceVoice*								m_sourceVoice;
 		Platform::Array<byte>^								m_soundData;
-		}; // ref class AudioSource
+	}; // ref class AudioSource
 }//namespace WOtech
 #endif

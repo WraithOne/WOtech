@@ -22,8 +22,8 @@
 #include "pch.h"
 
 namespace WOtech
-{	
-	public interface class IGameObject 
+{
+	public interface class IGameObject
 	{
 	public:
 		UINT32 getID();

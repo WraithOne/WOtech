@@ -80,7 +80,7 @@ namespace WOtech
 			// Submit Vertex and Index data and render the final mesh
 			command.mesh->Render(m_device);
 		}
-			
+
 		m_device->Present();
 	}
 

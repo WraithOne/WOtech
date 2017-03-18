@@ -134,7 +134,6 @@ namespace WOtech
 
 		// Create Gridbrush
 		CreateGrid();
-
 	}
 	void SpriteBatch::ReleaseRendertarget()
 	{
@@ -215,7 +214,7 @@ namespace WOtech
 		{
 			auto rect = WOtech::DXWrapper::RECT{ text->getPosition().X, text->getPosition().Y, text->getlayoutbox().Width, text->getlayoutbox().Height };
 			setRotation(rect, text->getRotation());
-			m_deviceContext->DrawTextLayout(D2D1::Point2F(text->getPosition().X,text->getPosition().Y), text->getLayout(), text->getBrush());
+			m_deviceContext->DrawTextLayout(D2D1::Point2F(text->getPosition().X, text->getPosition().Y), text->getLayout(), text->getBrush());
 		}
 	}
 	void SpriteBatch::DrawFont(_In_ Font^ font, _In_ float32 fontSize, _In_ WOtech::DXWrapper::RECT layoutbox, _In_ FONT_STYLE style, _In_ Color color, _In_ float32 rotation, _In_ String^ text)
@@ -282,7 +281,7 @@ namespace WOtech
 
 		//Flipmode
 		D2D1_RECT_F temp;
-	
+
 		switch (flipmode)
 		{
 		case WOtech::SPRITE_FLIP_MODE::None:
@@ -337,7 +336,7 @@ namespace WOtech
 		setRotation(rect, animatedsprite->getRotation());
 
 		// Draw the AnimatedSprite
-		m_deviceContext->DrawBitmap(animatedsprite->getBitmap(), destRect, animatedsprite->getOpacity(), wrapBitmapInterpolationMode(animatedsprite->getInterpolation()),temp );//wrapRect(animatedsprite->getFrame(name))
+		m_deviceContext->DrawBitmap(animatedsprite->getBitmap(), destRect, animatedsprite->getOpacity(), wrapBitmapInterpolationMode(animatedsprite->getInterpolation()), temp);//wrapRect(animatedsprite->getFrame(name))
 	}
 
 	void SpriteBatch::DrawGrid(_In_ WOtech::DXWrapper::RECT area, _In_ Color color, _In_ float32 rotation)
@@ -450,9 +449,9 @@ namespace WOtech
 		Windows::Foundation::Size logicalSize = m_deviceDX11->getLogicalSize();
 
 		D2D1_POINT_2F  spriteCenter = D2D1::Point2F(logicalSize.Width - (area.X + halfwidth), logicalSize.Height - (area.Y + halfheight));
-	
+
 		D2D1_MATRIX_3X2_F rotationMatrix = D2D1::Matrix3x2F::Rotation(rotation, spriteCenter);
-			
+
 		m_deviceContext->SetTransform(rotationMatrix * m_deviceDX11->get2DOrientation());
 	}
 	void SpriteBatch::SortBatch()

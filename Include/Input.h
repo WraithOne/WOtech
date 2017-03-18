@@ -307,7 +307,7 @@ namespace WOtech
 		Gamepad_Tumbstick_State tumbsticks;
 		Gamepad_Trigger_State triggers;
 	};
-	
+
 	public ref class InputManager sealed
 	{
 	public:
@@ -348,8 +348,6 @@ namespace WOtech
 		Platform::Boolean GamepadConnected(_In_ Gamepad_Index PlayerIndex);
 		Gamepad_State GamepadState(_In_ Gamepad_Index PlayerIndex);
 		void GamepadSetVibration(_In_ Gamepad_Index PlayerIndex, _In_ Windows::Gaming::Input::GamepadVibration Vibration);
-		
-
 
 		// OrientationSensor
 		Platform::Boolean OrientationSensorConnected();
@@ -419,7 +417,7 @@ namespace WOtech
 		Platform::Boolean										m_hwbbConfirmed;
 
 		// Gamepad
-		static const uint32	MAX_PLAYER_COUNT =					8;
+		static const uint32	MAX_PLAYER_COUNT = 8;
 		Windows::Gaming::Input::Gamepad^						m_gamePad[MAX_PLAYER_COUNT];
 	};//class InputClass
 }// namespace WOtech

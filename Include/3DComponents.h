@@ -22,11 +22,11 @@
 #include "pch.h"
 #include "DXWrapper.h"
 
-namespace WOtech 
+namespace WOtech
 {
 	// Forward Decl.
 	ref class DeviceDX11;
-	
+
 	public ref class Camera sealed
 	{
 	public:
@@ -36,7 +36,7 @@ namespace WOtech
 			_In_ Windows::Foundation::Numerics::float3 lookAt,
 			_In_ Windows::Foundation::Numerics::float3 up);
 
-		void SetProjParams(_In_ float32 fieldOfView, _In_ float32 aspectRatio,_In_ float32 nearPlane, _In_ float32 farPlane);
+		void SetProjParams(_In_ float32 fieldOfView, _In_ float32 aspectRatio, _In_ float32 nearPlane, _In_ float32 farPlane);
 
 		void LookDirection(_In_ Windows::Foundation::Numerics::float3 lookDirection);
 		void Eye(_In_ Windows::Foundation::Numerics::float3 position);
@@ -80,7 +80,6 @@ namespace WOtech
 		VertexShader(_In_ Platform::String^ compiledVertexShaderObject, _In_ const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^ inputElementDesc);
 		VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint);
 		VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint, _In_ const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^ inputElementDesc);
-		
 
 		void Load(_In_ WOtech::DeviceDX11^ device);
 
@@ -118,14 +117,14 @@ namespace WOtech
 		Microsoft::WRL::ComPtr<ID3DBlob>				m_vertexBlob;
 		Microsoft::WRL::ComPtr<ID3D11InputLayout>		m_inputLayout;
 	};//class VertexShader
-	
+
 	public ref class PixelShader sealed
 	{
 	public:
 		PixelShader(_In_ Platform::String^ CSOFilename);
-		
+
 		void Load(_In_ WOtech::DeviceDX11^ device);
-		
+
 	private:
 		void LoadfromFile(_In_ WOtech::DeviceDX11^ device);
 		void LoadfromByteArray(_In_ WOtech::DeviceDX11^ device);
@@ -175,7 +174,7 @@ namespace WOtech
 
 		UINT32 getStride();
 		UINT32 getOffset();
-	
+
 	internal:
 		VertexBuffer(_In_ void* data, _In_  UINT32 size, _In_  UINT32 stride, _In_  DeviceDX11^ device);
 
@@ -221,7 +220,6 @@ namespace WOtech
 		uint32 m_numMatrials;
 		std::vector<Texture^> m_textures;
 		Microsoft::WRL::ComPtr<ID3D11SamplerState> m_samplerState;
-
 	};
 
 	public ref class MaterialInstance sealed
@@ -246,7 +244,7 @@ namespace WOtech
 
 		void Render(DeviceDX11^ device);
 
-		inline MaterialInstance^ GetMaterialInstance(){ return m_MaterialInstance; }
+		inline MaterialInstance^ GetMaterialInstance() { return m_MaterialInstance; }
 
 	private:
 		VertexBuffer^		m_vertexBuffer;
@@ -261,6 +259,5 @@ namespace WOtech
 		Windows::Foundation::Numerics::float4x4 WorldMatrix;
 		Windows::Foundation::Numerics::float4x4 ModelMatrix;
 	};
-
 }// WOtech
 #endif

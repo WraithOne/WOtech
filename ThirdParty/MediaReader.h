@@ -23,7 +23,6 @@
 #pragma comment(lib, "Mfplat.lib")
 #pragma comment(lib, "Mfuuid.lib")
 
-
 ref class MediaReader
 {
 internal:

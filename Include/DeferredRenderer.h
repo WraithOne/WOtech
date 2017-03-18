@@ -23,8 +23,7 @@
 
 namespace WOtech
 {
-	
-	ref class DeferredRenderer sealed :  IRenderer
+	ref class DeferredRenderer sealed : IRenderer
 	{
 	public:
 		DeferredRenderer(DeviceDX11^ device);

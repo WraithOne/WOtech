@@ -48,7 +48,7 @@ namespace WOtech
 		{
 			return true;
 		}
-			
+
 		return false;
 	}
 
@@ -59,9 +59,8 @@ namespace WOtech
 			GamepadReading reading;
 			reading = m_gamePad[(unsigned int)PlayerIndex]->GetCurrentReading();
 
-
 			Gamepad_State state;
-			
+
 			state.Connected = true;
 			state.isWireless = m_gamePad[(unsigned int)PlayerIndex]->IsWireless;
 
@@ -101,6 +100,5 @@ namespace WOtech
 		{
 			m_gamePad[(unsigned int)PlayerIndex]->Vibration = Vibration;
 		}
-
 	}// InputClass GamePadSetVibration
 } // namespace WOtech

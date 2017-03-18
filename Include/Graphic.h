@@ -29,6 +29,3 @@
 // 2D
 #include "SpriteBatch.h"
 #include "2DComponents.h"
-
-
-

@@ -59,7 +59,6 @@ namespace ScreenRotation
 
 namespace WOtech
 {
-	
 	public ref class DeviceDX11 sealed
 	{
 	public:
@@ -81,7 +80,6 @@ namespace WOtech
 		void SetDpi(_In_ float32 dpi);
 		void SetCompositionScale(_In_ float32 compositionScaleX, _In_ float32 compositionScaleY);
 
-		
 		void setDepthStencil(_In_ Platform::Boolean Enable);
 		void setWireframe(_In_ Platform::Boolean Enable);
 		void setViewPort(_In_ float32 Width, _In_ float32 Height, _In_ float32 Mindept, _In_ float32 Maxdept, _In_ float32 Topleftx, _In_ float32 Toplefty);

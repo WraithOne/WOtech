@@ -37,7 +37,7 @@ namespace WOtech
 	{
 		m_fileName = filename;
 		m_position = Point(0.0f, 0.0f);
-		m_size = Size(10.0f,10.0f);
+		m_size = Size(10.0f, 10.0f);
 		m_rotation = 0.0f;
 		m_opacity = 1.0f;
 		m_interpolation = BITMAP_INTERPOLATION_MODE::BITMAP_INTERPOLATION_MODE_LINEAR;
@@ -191,7 +191,7 @@ namespace WOtech
 
 		return temp;
 	}
-	
+
 	WOtech::DXWrapper::RECT AnimatedSprite::getFrame(_In_ String^ name)
 	{
 		std::list<ANIMATION>::iterator iterator;
@@ -227,7 +227,6 @@ namespace WOtech
 	}
 	BITMAP_INTERPOLATION_MODE AnimatedSprite::getInterpolation()
 	{
-
 		return m_interpolation;
 	}
 

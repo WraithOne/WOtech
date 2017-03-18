@@ -79,11 +79,11 @@ namespace WOtech
 
 		// Calculate the view matrix.
 		XMMATRIX view = XMMatrixLookAtLH(
-			XMLoadFloat3(&DirectX::XMFLOAT3(eye.x,eye.y,eye.z)),
+			XMLoadFloat3(&DirectX::XMFLOAT3(eye.x, eye.y, eye.z)),
 			XMLoadFloat3(&DirectX::XMFLOAT3(lookAt.x, lookAt.y, lookAt.z)),
 			XMLoadFloat3(&DirectX::XMFLOAT3(up.x, up.y, up.z))
-			);
-		 
+		);
+
 		XMVECTOR det;
 		XMMATRIX inverseView = XMMatrixInverse(&det, view);
 		XMStoreFloat4x4(&m_viewMatrix, view);
@@ -108,7 +108,7 @@ namespace WOtech
 		m_aspectRatio = aspectRatio;
 		m_nearPlane = nearPlane;
 		m_farPlane = farPlane;
-		XMStoreFloat4x4(&m_projectionMatrix,XMMatrixPerspectiveFovLH(m_fieldOfView,m_aspectRatio,m_nearPlane,m_farPlane));
+		XMStoreFloat4x4(&m_projectionMatrix, XMMatrixPerspectiveFovLH(m_fieldOfView, m_aspectRatio, m_nearPlane, m_farPlane));
 	}
 
 	float4x4 Camera::View()

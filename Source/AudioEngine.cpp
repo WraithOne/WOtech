@@ -67,12 +67,10 @@ namespace WOtech
 		XAUDIO2_PROCESSOR xaProcessor = XAUDIO2_DEFAULT_PROCESSOR;
 		CreateDeviceIndependentResources(xaProcessor);
 
-
 		// Default Device
 		Platform::String^ deviceID = "0";
 
 		CreateDevicedependentResources(deviceID);
-
 	}
 
 	void AudioEngine::CreateDeviceIndependentResources(_In_ UINT32 xaProcessor)
@@ -107,25 +105,24 @@ namespace WOtech
 		if (m_effectDevice == nullptr || m_musicDevice == nullptr)
 			ThrowIfFailed(XAUDIO2_E_DEVICE_INVALIDATED);
 
-
 		// Create Effectvoice
 		hr = m_effectDevice->CreateMasteringVoice(&m_effectMasterVoice,
-												XAUDIO2_DEFAULT_CHANNELS,
-												XAUDIO2_DEFAULT_SAMPLERATE,
-												flags,
-												LPCWSTR(0),  // todo: get the real device ID
-												NULL,
-												_AUDIO_STREAM_CATEGORY::AudioCategory_GameEffects);
+			XAUDIO2_DEFAULT_CHANNELS,
+			XAUDIO2_DEFAULT_SAMPLERATE,
+			flags,
+			LPCWSTR(0),  // todo: get the real device ID
+			NULL,
+			_AUDIO_STREAM_CATEGORY::AudioCategory_GameEffects);
 		ThrowIfFailed(hr);
 
 		// Create Musicvoice
 		hr = m_musicDevice->CreateMasteringVoice(&m_musicMasterVoice,
-												XAUDIO2_DEFAULT_CHANNELS,
-												XAUDIO2_DEFAULT_SAMPLERATE,
-												flags,
-												LPCWSTR(0),  // todo: get the real device ID
-												NULL,
-												_AUDIO_STREAM_CATEGORY::AudioCategory_GameMedia);
+			XAUDIO2_DEFAULT_CHANNELS,
+			XAUDIO2_DEFAULT_SAMPLERATE,
+			flags,
+			LPCWSTR(0),  // todo: get the real device ID
+			NULL,
+			_AUDIO_STREAM_CATEGORY::AudioCategory_GameMedia);
 		ThrowIfFailed(hr);
 
 		m_audioAvailable = true;

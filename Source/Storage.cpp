@@ -76,7 +76,7 @@ namespace WOtech
 			{
 				setting = m_localSettings->Containers->Lookup(containerName)->Values->Lookup(settingName);
 				hasSetting = true;
-			}	
+			}
 		}
 		return hasSetting;
 	}

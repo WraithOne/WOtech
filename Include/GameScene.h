@@ -26,14 +26,11 @@ namespace WOtech
 	ref class GameScene sealed
 	{
 	public:
-		
+
 	internal:
 		GameScene();
 
 	private:
-
 	};
 }
 #endif
-
-

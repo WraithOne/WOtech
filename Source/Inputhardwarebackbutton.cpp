@@ -59,7 +59,6 @@ namespace WOtech
 				m_hwbbConfirmed = false;
 			}
 		}
-			
 	}
 
 	Boolean InputManager::HardwarebackbuttonInUse()

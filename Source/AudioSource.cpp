@@ -106,7 +106,7 @@ namespace WOtech
 			buffer.AudioBytes = m_soundData->Length;
 			buffer.pAudioData = m_soundData->Data;
 			buffer.Flags = 0;
-				
+
 			// Submit Buffer to the Device
 			hr = m_sourceVoice->SubmitSourceBuffer(&buffer);
 			ThrowIfFailed(hr);
@@ -149,7 +149,7 @@ namespace WOtech
 		hr = m_sourceVoice->Start();
 		ThrowIfFailed(hr);
 
-		m_playbackState = AUDIO_PLAYBACK_STATE::Playing;	
+		m_playbackState = AUDIO_PLAYBACK_STATE::Playing;
 	}
 
 	void AudioSource::Stop()

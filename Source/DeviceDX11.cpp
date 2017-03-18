@@ -51,7 +51,7 @@ namespace WOtech
 		m_initialCreationCompleted = false;
 
 		// add to SystemManager
-		
+
 		SystemManager::Instance->AddDeviceDX11(this);
 	}
 
@@ -87,7 +87,7 @@ namespace WOtech
 		// Discard the contents of the depth stencil.
 		m_context->DiscardView(m_depthStencilView.Get());
 
-		// If the device was removed either by a disconnection or a driver upgrade, we 
+		// If the device was removed either by a disconnection or a driver upgrade, we
 		// must recreate all device resources.
 		if (hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET)
 		{
@@ -150,7 +150,6 @@ namespace WOtech
 			++i;
 		}
 		outputList = &temp;
-
 	}
 	void DeviceDX11::EnumerateDisplayModes(_In_ IDXGIOutput* output, _Out_ std::list<DXGI_MODE_DESC*>* displayModeList)
 	{
@@ -222,7 +221,6 @@ namespace WOtech
 
 			// Create a new device and swap chain.
 			HandleDeviceLost();
-			
 		}
 	}
 	void DeviceDX11::HandleDeviceLost()
@@ -234,13 +232,12 @@ namespace WOtech
 
 		// Create resources
 		CreateWindowSizeDependentResources();
-
 	}
 	void DeviceDX11::Trim()
 	{
 		m_dxgiDevice->Trim();
 	}
-			
+
 	// SETTERS
 	void DeviceDX11::SetWindow(_In_ Windows::UI::Core::CoreWindow^ window)
 	{
@@ -261,7 +258,6 @@ namespace WOtech
 		{
 			m_logicalSize = logicalSize;
 			CreateWindowSizeDependentResources();
-
 		}
 	}
 	void DeviceDX11::SetCurrentOrientation(_In_ DisplayOrientations currentOrientation)
@@ -286,7 +282,6 @@ namespace WOtech
 	}
 	void DeviceDX11::SetCompositionScale(_In_ float32 compositionScaleX, _In_ float32 compositionScaleY)
 	{
-
 		if (m_compositionScaleX != compositionScaleX || m_compositionScaleY != compositionScaleY)
 		{
 			m_compositionScaleX = compositionScaleX;
@@ -474,7 +469,7 @@ namespace WOtech
 			&device,					// Returns the Direct3D device created.
 			&m_featureLevel,			// Returns feature level of device created.
 			&context					// Returns the device immediate context.
-			);
+		);
 
 		if (FAILED(hr))
 		{
@@ -543,7 +538,7 @@ namespace WOtech
 				static_cast<uint32>(m_d3dRenderTargetSize.Height),
 				DXGI_FORMAT_B8G8R8A8_UNORM,
 				0
-				);
+			);
 
 			if (hr == DXGI_ERROR_DEVICE_REMOVED)
 			{
@@ -663,7 +658,7 @@ namespace WOtech
 
 		// Set RasterizerState
 		setWireframe(false);
-		
+
 		// Set the 3D rendering viewport to target the entire window.
 		m_viewport = CD3D11_VIEWPORT(0.0f, 0.0f, m_d3dRenderTargetSize.Width, m_d3dRenderTargetSize.Height);
 

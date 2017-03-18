@@ -33,11 +33,10 @@ namespace WOtech
 			DirectX::XMMATRIX ModelMatrix;
 		};
 
-		struct RenderCommand 
+		struct RenderCommand
 		{
 			Mesh^ mesh;
 			RendererUniforms uniforms;
 		};
 	}
 }
-

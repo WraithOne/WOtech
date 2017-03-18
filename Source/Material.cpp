@@ -55,14 +55,14 @@ namespace WOtech
 	void Material::bindMaterial(DeviceDX11^ device)
 	{
 		auto context = device->GetContext();
-			
+
 		context->IASetInputLayout(m_vertexShader->getInputLayout());// todo: eigenes Layout erstellen
 		context->VSSetShader(m_vertexShader->getShader(), nullptr, 0);
 
 		context->PSSetShader(m_pixelShader->getShader(), nullptr, 0);
 		for (uint32 i = 0; i < m_textures.size(); i++)
 		{
-			if(m_textures.at(i) != nullptr)
+			if (m_textures.at(i) != nullptr)
 				m_textures.at(i)->SubmitTexture(device, i);
 		}
 		context->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
@@ -97,5 +97,5 @@ namespace WOtech
 	void MaterialInstance::UnbindMaterialInstance(DeviceDX11^ device)
 	{
 		m_material->unbindMaterial(device);
-	}	
+	}
 }

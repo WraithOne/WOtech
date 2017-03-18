@@ -38,7 +38,6 @@ namespace WOtech
 
 	Platform::Array<Pen_State>^ InputManager::getPenState()
 	{
-	
 		auto temp = ref new Platform::Array<Pen_State>(m_touchCapabilities->Contacts); // TODO: max pen supportet
 		unsigned int nr = 0;
 		for (std::map<UINT, Windows::UI::Input::PointerPoint^>::iterator it = m_pointerdevices.begin(); it != m_pointerdevices.end(); ++it)
@@ -51,7 +50,7 @@ namespace WOtech
 				temp[nr].position.X = it->second->Position.X;
 				temp[nr].position.Y = it->second->Position.Y;
 				temp[nr].pressure = it->second->Properties->Pressure;
-			}	
+			}
 		}
 		return temp;
 	}

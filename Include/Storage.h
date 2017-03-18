@@ -23,7 +23,6 @@
 
 namespace WOtech
 {
-	
 	public ref class Storage_WINRT sealed
 	{
 	internal:
@@ -52,7 +51,6 @@ namespace WOtech
 		Platform::Boolean m_roamingChanged;
 	};
 
-	
 	public ref class DA_Storage sealed
 	{
 	internal:
@@ -67,7 +65,7 @@ namespace WOtech
 		void WriteRoamingData(_In_ Platform::String^ fileName);
 
 		// Read
-		Platform::Boolean ReadLocalSetting(_In_ Platform::String^ containerName,_In_ Platform::String^ settingName, _Out_ Platform::Object^ setting);
+		Platform::Boolean ReadLocalSetting(_In_ Platform::String^ containerName, _In_ Platform::String^ settingName, _Out_ Platform::Object^ setting);
 		Platform::Boolean ReadLocalData(_In_ Platform::String^ fileName);
 
 		Platform::Boolean ReadRoamingSetting(_In_ Platform::String^ containerName, _In_ Platform::String^ settingName, _Out_ Platform::Object^ setting);

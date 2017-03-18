@@ -51,8 +51,7 @@ namespace WOtech
 			0, 1, 5, 5, 4, 0,
 			1, 5, 6, 6, 2, 1
 		};
-			
-			
+
 		IndexBuffer^ iB = ref new IndexBuffer(indices, 36, device);
 
 		UINT32 stride = sizeof(VertexPositionNormalTexture);
@@ -73,7 +72,6 @@ namespace WOtech
 		{
 			0, 1, 2
 		};
-
 
 		IndexBuffer^ iB = ref new IndexBuffer(indices, 3, device);
 		UINT32 stride = sizeof(VertexPositionNormalTexture);

@@ -29,12 +29,12 @@ namespace WOtech
 	{
 		D2D1_COLOR_F wrapColor(_In_ Color& color)
 		{
-			return D2D1::ColorF(static_cast<float>(color.R), static_cast<float>(color.G), static_cast<float>(color.B), static_cast<float>(color.A) );
+			return D2D1::ColorF(static_cast<float>(color.R), static_cast<float>(color.G), static_cast<float>(color.B), static_cast<float>(color.A));
 		}
 
 		D2D1_RECT_F wrapRect(_In_ RECT& rect)
 		{
-			return D2D1::RectF(rect.X, rect.Y,rect.Width, rect.Height);
+			return D2D1::RectF(rect.X, rect.Y, rect.Width, rect.Height);
 		}
 
 		D2D1_SIZE_F wrapSize(_In_ Size& size)
@@ -114,7 +114,6 @@ namespace WOtech
 				return D2D1_FIGURE_END();
 				break;
 			}
-			
 		}
 
 		D2D1_BEZIER_SEGMENT wrapBezierSegment(_In_ BEZIER_SEGMENT& beziersegment)
@@ -135,7 +134,7 @@ namespace WOtech
 			default:
 				return D2D1_SWEEP_DIRECTION();
 				break;
-			}	
+			}
 		}
 
 		D2D1_ARC_SIZE wrapArcSize(_In_ ARC_SIZE& arcsize)
@@ -151,12 +150,12 @@ namespace WOtech
 			default:
 				return D2D1_ARC_SIZE();
 				break;
-			}	
+			}
 		}
 
 		D2D1_ARC_SEGMENT wrapArcSegment(_In_ ARC_SEGMENT& arcsegment)
 		{
-			return D2D1::ArcSegment(wrapPoint(arcsegment.point),wrapSize(arcsegment.size),arcsegment.rotationAngle,wrapSweepDirection(arcsegment.sweepDirection),wrapArcSize(arcsegment.arcSize));
+			return D2D1::ArcSegment(wrapPoint(arcsegment.point), wrapSize(arcsegment.size), arcsegment.rotationAngle, wrapSweepDirection(arcsegment.sweepDirection), wrapArcSize(arcsegment.arcSize));
 		}
 
 		D3D11_CLEAR_FLAG wrapClearFlag(_In_ CLEAR_FLAG& clearflag)
@@ -564,7 +563,6 @@ namespace WOtech
 		D3D11_INPUT_ELEMENT_DESC* wrapInputElementDesc(_In_ const Platform::Array<INPUT_ELEMENT_DESC>^ inputelementdesc)
 		{
 			const UINT size = inputelementdesc->Length;
-
 
 			D3D11_INPUT_ELEMENT_DESC* InputElementDESC = new D3D11_INPUT_ELEMENT_DESC;
 

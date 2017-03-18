@@ -41,9 +41,8 @@ namespace WOtech
 		Texture,
 		BacktoFront,
 		FronttoBack
-
 	};
-	
+
 	public ref class SpriteBatch sealed
 	{
 	public:

@@ -227,7 +227,7 @@ namespace WOtech
 			b->UnLoad();
 		for (auto c : m_geometryList)
 			c;
-		for (auto d: m_fontList)
+		for (auto d : m_fontList)
 			d->UnLoad();
 		for (auto e : m_textList)
 			e;

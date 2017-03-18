@@ -31,7 +31,6 @@ namespace WOtech
 		KeyboardandMouse,
 		Touch,
 		Pen,
-			
 	};
 	public enum class Virtual_Controller_Buttons
 	{
@@ -107,7 +106,7 @@ namespace WOtech
 		void bindKeyboardtoButton(_In_ Virtual_Controller_Buttons target, _In_ Windows::System::VirtualKey key);
 		void bindKeyboardtoTrigger(_In_ Virtual_Controller_Triggers target, _In_ Windows::System::VirtualKey key);
 		void bindKeyboardtoTumbstick(_In_ Virtual_Controller_Sticks target, _In_ Windows::System::VirtualKey keyUP, _In_ Windows::System::VirtualKey keyDOWN, _In_ Windows::System::VirtualKey keyLEFT, _In_ Windows::System::VirtualKey keyRIGHT);
-		
+
 		void bindMousetoButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::DXWrapper::RECT area);
 		void bindMouseKeytoButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::DXWrapper::VirtualKey_Mouse key);
 		void bindMouseWheeltoTrigger(_In_ Virtual_Controller_Triggers target);
@@ -128,7 +127,7 @@ namespace WOtech
 		void UpdateMouse();
 		void UpdateTouch();
 		void UpdatePen();
-			
+
 	private:
 		WOtech::InputManager^														m_inputManager;
 
@@ -136,7 +135,7 @@ namespace WOtech
 
 		Current_Input_Device														m_currentInput;
 		WOtech::Gamepad_Index														m_currentGamepad;
-		
+
 		struct virtual_Stick_keyboard
 		{
 			Windows::System::VirtualKey up;
@@ -169,4 +168,3 @@ namespace WOtech
 	};
 };
 #endif
-

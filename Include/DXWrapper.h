@@ -37,7 +37,7 @@ namespace WOtech
 			X2Button
 		};
 		///////////////////////////////////////////////////////////////
-		// D2D1 Wrapper 
+		// D2D1 Wrapper
 		///////////////////////////////////////////////////////////////
 		public enum class FONT_STYLE
 		{
@@ -55,12 +55,10 @@ namespace WOtech
 			/// Font slope style : Italic.
 			/// </summary>
 			FONT_STYLE_ITALIC
-
 		};
 
 		public enum class BITMAP_INTERPOLATION_MODE
 		{
-
 			/// <summary>
 			/// Nearest Neighbor filtering. Also known as nearest pixel or nearest point
 			/// sampling.
@@ -96,7 +94,7 @@ namespace WOtech
 		public enum class SWEEP_DIRECTION
 		{
 			D2D1_SWEEP_DIRECTION_COUNTER_CLOCKWISE, // Arcs are drawn in a counterclockwise(negative - angle) direction.
-			D2D1_SWEEP_DIRECTION_CLOCKWISE // Arcs are drawn in a clockwise (positive-angle) direction. 
+			D2D1_SWEEP_DIRECTION_CLOCKWISE // Arcs are drawn in a clockwise (positive-angle) direction.
 		};
 
 		public enum class ARC_SIZE
@@ -122,7 +120,7 @@ namespace WOtech
 			float Width;
 			float Height;
 		};
-		
+
 		///////////////////////////////////////////////////////////////
 		// D2D1 Wrapper Functions
 		///////////////////////////////////////////////////////////////
@@ -151,14 +149,14 @@ namespace WOtech
 		D2D1_ARC_SEGMENT wrapArcSegment(_In_ ARC_SEGMENT& arcsegment);
 
 		///////////////////////////////////////////////////////////////
-		// D3D11 Wrapper 
+		// D3D11 Wrapper
 		///////////////////////////////////////////////////////////////
 		public value struct VertexPosition
 		{
 			Windows::Foundation::Numerics::float3 Position;
 		};
 
-		public value struct VertexPositionColor 
+		public value struct VertexPositionColor
 		{
 			Windows::Foundation::Numerics::float3 Position;
 			Windows::Foundation::Numerics::float4 Color;
@@ -204,7 +202,6 @@ namespace WOtech
 			Windows::Foundation::Numerics::float4 Color;
 			Windows::Foundation::Numerics::float2 TextureCoordinate;
 		};
-
 
 		public enum class CLEAR_FLAG
 		{

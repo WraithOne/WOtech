@@ -50,7 +50,7 @@ namespace WOtech
 
 	void Geometry::StartFigure(Point startposition, FIGURE_BEGIN begin)
 	{
-		m_geometrySink->BeginFigure(wrapPoint(startposition),wrapFigureBegin(begin));
+		m_geometrySink->BeginFigure(wrapPoint(startposition), wrapFigureBegin(begin));
 	}
 	void Geometry::addArc(ARC_SEGMENT arcsegment)
 	{

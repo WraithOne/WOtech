@@ -34,7 +34,6 @@ namespace WOtech
 
 	typedef std::vector<RenderCommand> CommandQueue;
 
-	
 	public interface class IRenderer
 	{
 	public:

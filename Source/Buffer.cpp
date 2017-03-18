@@ -87,7 +87,7 @@ namespace WOtech
 	IndexBuffer::IndexBuffer(_In_ void* data, _In_  UINT32 count, _In_  DeviceDX11^ device)
 	{
 		m_count = count;
-			
+
 		CreateBuffer(data, count, device);
 	}
 	void IndexBuffer::SubmitBuffer(_In_ DeviceDX11^ device)
@@ -105,7 +105,7 @@ namespace WOtech
 		indexDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		indexDesc.ByteWidth = sizeof(WORD)* count;
 		indexDesc.CPUAccessFlags = 0;
-			
+
 		D3D11_SUBRESOURCE_DATA resourceData;
 		ZeroMemory(&resourceData, sizeof(resourceData));
 		resourceData.pSysMem = data;

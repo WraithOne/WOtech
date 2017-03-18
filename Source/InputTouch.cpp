@@ -33,7 +33,6 @@ namespace WOtech
 			return true;
 		else
 			return false;
-
 	}
 	Platform::Array<Touch_State>^ InputManager::getTouchState()
 	{

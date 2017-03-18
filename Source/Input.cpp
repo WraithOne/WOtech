@@ -48,7 +48,7 @@ namespace WOtech
 		{
 			pads = nullptr;
 		}
-		
+
 		//todo: gamepad reset?!?
 	}
 
@@ -125,7 +125,6 @@ namespace WOtech
 			}
 #pragma warning (default : 4014)
 		}
-
 	}
 	Platform::Boolean InputManager::SystemoverlaySupressed()
 	{
@@ -207,17 +206,17 @@ namespace WOtech
 		case Windows::System::VirtualKey::Kana:
 			Keystate->Kana = Down;
 			break;
-		//case Windows::System::VirtualKey::Hangul:
-			//Keystate-> = Down;
-			//	break;
+			//case Windows::System::VirtualKey::Hangul:
+				//Keystate-> = Down;
+				//	break;
 		case Windows::System::VirtualKey::Junja:
 			//Keystate-> = Down;
 			break;
 		case Windows::System::VirtualKey::Final:
 			break;
-		//case Windows::System::VirtualKey::Hanja:
-			//Keystate-> = Down;
-			//break;
+			//case Windows::System::VirtualKey::Hanja:
+				//Keystate-> = Down;
+				//break;
 		case Windows::System::VirtualKey::Kanji:
 			Keystate->Kanji = Down;
 			break;
@@ -471,13 +470,13 @@ namespace WOtech
 			Keystate->F6 = Down;
 			break;
 		case Windows::System::VirtualKey::F7:
-			Keystate-> F7= Down;
+			Keystate->F7 = Down;
 			break;
 		case Windows::System::VirtualKey::F8:
 			Keystate->F8 = Down;
 			break;
 		case Windows::System::VirtualKey::F9:
-			Keystate-> F9= Down;
+			Keystate->F9 = Down;
 			break;
 		case Windows::System::VirtualKey::F10:
 			Keystate->F10 = Down;
@@ -552,7 +551,7 @@ namespace WOtech
 			Keystate->NumLock = Down;
 			break;
 		case Windows::System::VirtualKey::Scroll:
-			Keystate-> Scroll= Down;
+			Keystate->Scroll = Down;
 			break;
 		case Windows::System::VirtualKey::LeftShift:
 			Keystate->LeftShift = Down;
@@ -767,12 +766,12 @@ namespace WOtech
 		it = m_pointerdevices.find(device->PointerId);
 
 		if (it != m_pointerdevices.end())
-		{ 
+		{
 			m_pointerdevices[device->PointerId] = device;
 		}
 		else
 		{
-			m_pointerdevices.emplace(device->PointerId, device);	
+			m_pointerdevices.emplace(device->PointerId, device);
 		}
 	}
 	void InputManager::RemovePointerDevice(_In_ PointerPoint ^ device)

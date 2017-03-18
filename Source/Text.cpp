@@ -55,7 +55,7 @@ namespace WOtech
 		m_layoutbox = layoutsize;
 
 		makeBrush(spriteBatch);
-		
+
 		m_brush->SetColor(wrapColor(color));
 
 		makeText();
@@ -63,7 +63,7 @@ namespace WOtech
 
 	void Text::setSize(_In_ float32 size)
 	{
-	if (size != m_size)
+		if (size != m_size)
 		{
 			m_size = size;
 

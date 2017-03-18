@@ -43,7 +43,6 @@ namespace WOtech
 		}
 	};
 
-	
 	public ref class Framecounter sealed
 	{
 	public:

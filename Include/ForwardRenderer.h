@@ -23,7 +23,6 @@
 
 namespace WOtech
 {
-	
 	public ref class ForwardRenderer sealed : public IRenderer
 	{
 	public:
