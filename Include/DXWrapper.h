@@ -149,97 +149,6 @@ namespace WOtech
 		D2D1_ARC_SEGMENT wrapArcSegment(_In_ ARC_SEGMENT& arcsegment);
 
 		///////////////////////////////////////////////////////////////
-		// D3D11 Wrapper
-		///////////////////////////////////////////////////////////////
-		public value struct VertexPosition
-		{
-			Windows::Foundation::Numerics::float3 Position;
-		};
-
-		public value struct VertexPositionColor
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float4 Color;
-		};
-
-		public value struct VertexPositionTexture
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float2 TextureCoordinate;
-		};
-
-		public value struct VertexPositionNormal
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float2 Normal;
-		};
-
-		public value struct VertexPositionNormalColor
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float2 Normal;
-			Windows::Foundation::Numerics::float4 Color;
-		};
-
-		public value struct VertexPositionColorTexture
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float4 Color;
-			Windows::Foundation::Numerics::float2 TextureCoordinate;
-		};
-
-		public value struct VertexPositionNormalTexture
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float3 Normal;
-			Windows::Foundation::Numerics::float2 TextureCoordinate;
-		};
-
-		public value struct VertexPositionNormalColorTexture
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float3 Normal;
-			Windows::Foundation::Numerics::float4 Color;
-			Windows::Foundation::Numerics::float2 TextureCoordinate;
-		};
-
-		public enum class CLEAR_FLAG
-		{
-			CLEAR_DEPTH = 0x1L,
-			CLEAR_STENCIL = 0x2L
-		};
-
-		public enum class INPUT_CLASSIFICATION
-		{
-			D3D11_INPUT_PER_VERTEX_DATA = 0,
-			D3D11_INPUT_PER_INSTANCE_DATA = 1
-		};
-
-		public value struct INPUT_ELEMENT_DESC
-		{
-			Platform::String^				SemanticName;
-			UINT							SemanticIndex;
-			FORMAT_DXGI						Format;
-			UINT							InputSlot;
-			UINT							AlignedByteOffset;
-			INPUT_CLASSIFICATION			InputSlotClass;
-			UINT							InstanceDataStepRate;
-		};
-
-		///////////////////////////////////////////////////////////////
-		// D3D11 Wrapper Functions
-		///////////////////////////////////////////////////////////////
-		D3D11_CLEAR_FLAG wrapClearFlag(_In_ CLEAR_FLAG& clearflag);
-
-		D3D11_INPUT_CLASSIFICATION wrapInputClassification(_In_ INPUT_CLASSIFICATION& inputclassification);
-
-		D3D11_INPUT_ELEMENT_DESC* wrapInputElementDesc(_In_ const Platform::Array<INPUT_ELEMENT_DESC>^ inputelementdesc);
-
-		DirectX::XMFLOAT4X4 wrapFloat4x4(_In_ Windows::Foundation::Numerics::float4x4& matrix);
-
-		Windows::Foundation::Numerics::float4x4 wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4& matrix);
-
-		///////////////////////////////////////////////////////////////
 		// DXGI Wrapper
 		///////////////////////////////////////////////////////////////
 		public enum class FORMAT_DXGI {
@@ -430,7 +339,7 @@ namespace WOtech
 			RATIONAL_DXGI            RefreshRate;
 			FORMAT_DXGI              Format;
 			MODE_SCANLINE_ORDER_DXGI ScanlineOrdering;
-			DXGI_MODE_SCALING        Scaling;
+			MODE_SCALING_DXGI        Scaling;
 		};
 		///////////////////////////////////////////////////////////////
 		// DXGI Wrapper Functions
@@ -442,6 +351,97 @@ namespace WOtech
 		DXGI_MODE_SCANLINE_ORDER warpDXGIModeScanlineOrder(_In_ MODE_SCANLINE_ORDER_DXGI modescanlineorderDXGI);
 
 		DXGI_MODE_SCALING warpDXGIModeScaling(_In_ MODE_SCALING_DXGI modescalingmodeDXGI);
+
+		///////////////////////////////////////////////////////////////
+		// D3D11 Wrapper
+		///////////////////////////////////////////////////////////////
+		public value struct VertexPosition
+		{
+			Windows::Foundation::Numerics::float3 Position;
+		};
+
+		public value struct VertexPositionColor
+		{
+			Windows::Foundation::Numerics::float3 Position;
+			Windows::Foundation::Numerics::float4 Color;
+		};
+
+		public value struct VertexPositionTexture
+		{
+			Windows::Foundation::Numerics::float3 Position;
+			Windows::Foundation::Numerics::float2 TextureCoordinate;
+		};
+
+		public value struct VertexPositionNormal
+		{
+			Windows::Foundation::Numerics::float3 Position;
+			Windows::Foundation::Numerics::float2 Normal;
+		};
+
+		public value struct VertexPositionNormalColor
+		{
+			Windows::Foundation::Numerics::float3 Position;
+			Windows::Foundation::Numerics::float2 Normal;
+			Windows::Foundation::Numerics::float4 Color;
+		};
+
+		public value struct VertexPositionColorTexture
+		{
+			Windows::Foundation::Numerics::float3 Position;
+			Windows::Foundation::Numerics::float4 Color;
+			Windows::Foundation::Numerics::float2 TextureCoordinate;
+		};
+
+		public value struct VertexPositionNormalTexture
+		{
+			Windows::Foundation::Numerics::float3 Position;
+			Windows::Foundation::Numerics::float3 Normal;
+			Windows::Foundation::Numerics::float2 TextureCoordinate;
+		};
+
+		public value struct VertexPositionNormalColorTexture
+		{
+			Windows::Foundation::Numerics::float3 Position;
+			Windows::Foundation::Numerics::float3 Normal;
+			Windows::Foundation::Numerics::float4 Color;
+			Windows::Foundation::Numerics::float2 TextureCoordinate;
+		};
+
+		public enum class CLEAR_FLAG
+		{
+			CLEAR_DEPTH = 0x1L,
+			CLEAR_STENCIL = 0x2L
+		};
+
+		public enum class INPUT_CLASSIFICATION
+		{
+			D3D11_INPUT_PER_VERTEX_DATA = 0,
+			D3D11_INPUT_PER_INSTANCE_DATA = 1
+		};
+
+		public value struct INPUT_ELEMENT_DESC
+		{
+			Platform::String^				SemanticName;
+			UINT							SemanticIndex;
+			FORMAT_DXGI						Format;
+			UINT							InputSlot;
+			UINT							AlignedByteOffset;
+			INPUT_CLASSIFICATION			InputSlotClass;
+			UINT							InstanceDataStepRate;
+		};
+
+		///////////////////////////////////////////////////////////////
+		// D3D11 Wrapper Functions
+		///////////////////////////////////////////////////////////////
+		D3D11_CLEAR_FLAG wrapClearFlag(_In_ CLEAR_FLAG& clearflag);
+
+		D3D11_INPUT_CLASSIFICATION wrapInputClassification(_In_ INPUT_CLASSIFICATION& inputclassification);
+
+		D3D11_INPUT_ELEMENT_DESC* wrapInputElementDesc(_In_ const Platform::Array<INPUT_ELEMENT_DESC>^ inputelementdesc);
+
+		DirectX::XMFLOAT4X4 wrapFloat4x4(_In_ Windows::Foundation::Numerics::float4x4& matrix);
+
+		Windows::Foundation::Numerics::float4x4 wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4& matrix);
 	}
 }
 #endif
