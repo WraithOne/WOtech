@@ -174,6 +174,74 @@ namespace WOtech
 			}
 		}
 
+		D3D11_INPUT_CLASSIFICATION wrapInputClassification(_In_ INPUT_CLASSIFICATION& inputclassification)
+		{
+			switch (inputclassification)
+			{
+			case INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA:
+				return D3D11_INPUT_PER_VERTEX_DATA;
+				break;
+			case INPUT_CLASSIFICATION::D3D11_INPUT_PER_INSTANCE_DATA:
+				return D3D11_INPUT_PER_INSTANCE_DATA;
+				break;
+			default:
+				return D3D11_INPUT_PER_VERTEX_DATA;
+				break;
+			}
+		}
+
+		D3D11_INPUT_ELEMENT_DESC* wrapInputElementDesc(_In_ const Platform::Array<INPUT_ELEMENT_DESC>^ inputelementdesc)
+		{
+			const UINT size = inputelementdesc->Length;
+
+			D3D11_INPUT_ELEMENT_DESC* InputElementDESC = new D3D11_INPUT_ELEMENT_DESC;
+
+			for (unsigned int i = 0; i <= size; i++)
+			{
+				InputElementDESC[i].AlignedByteOffset = inputelementdesc[i].AlignedByteOffset;// DATA type!!!! buffer OVERFLOW
+				InputElementDESC[i].Format = wrapDXGIFormat(inputelementdesc[i].Format);
+				InputElementDESC[i].InputSlot = inputelementdesc[i].InputSlot;
+				InputElementDESC[i].InputSlotClass = wrapInputClassification(inputelementdesc[i].InputSlotClass);
+				InputElementDESC[i].InstanceDataStepRate = inputelementdesc[i].InstanceDataStepRate;
+				InputElementDESC[i].SemanticIndex = inputelementdesc[i].SemanticIndex;
+
+				std::string semanticName = WOtech::utf8_encode(inputelementdesc[i].SemanticName->Data());
+				InputElementDESC[i].SemanticName = semanticName.data();
+			}
+
+			return InputElementDESC;
+		}
+
+		DirectX::XMFLOAT4X4 wrapFloat4x4(_In_ Windows::Foundation::Numerics::float4x4& matrix)
+		{
+			return DirectX::XMFLOAT4X4(matrix.m11, matrix.m12, matrix.m13, matrix.m14,
+				matrix.m21, matrix.m22, matrix.m23, matrix.m24,
+				matrix.m31, matrix.m32, matrix.m33, matrix.m34,
+				matrix.m41, matrix.m42, matrix.m43, matrix.m44);
+		}
+
+		Windows::Foundation::Numerics::float4x4 wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4& matrix)
+		{
+			Windows::Foundation::Numerics::float4x4 temp;
+			temp.m11 = matrix._11;
+			temp.m12 = matrix._12;
+			temp.m13 = matrix._13;
+			temp.m14 = matrix._14;
+			temp.m21 = matrix._21;
+			temp.m22 = matrix._22;
+			temp.m23 = matrix._23;
+			temp.m23 = matrix._24;
+			temp.m31 = matrix._31;
+			temp.m32 = matrix._32;
+			temp.m33 = matrix._33;
+			temp.m34 = matrix._34;
+			temp.m41 = matrix._41;
+			temp.m42 = matrix._42;
+			temp.m43 = matrix._43;
+			temp.m44 = matrix._44;
+			return temp;
+		}
+
 		DXGI_FORMAT wrapDXGIFormat(_In_ FORMAT_DXGI& formatDXGI)
 		{
 			switch (formatDXGI)
@@ -544,72 +612,70 @@ namespace WOtech
 			}
 		}
 
-		D3D11_INPUT_CLASSIFICATION wrapInputClassification(_In_ INPUT_CLASSIFICATION& inputclassification)
+		DXGI_MODE_ROTATION wrapDXGIModeRotation(MODE_ROTATION_DXGI moderotationDXGI)
 		{
-			switch (inputclassification)
+			switch (moderotationDXGI)
 			{
-			case INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA:
-				return D3D11_INPUT_PER_VERTEX_DATA;
+			case WOtech::DXWrapper::MODE_ROTATION_DXGI::DXGI_MODE_ROTATION_UNSPECIFIED:
+				return DXGI_MODE_ROTATION::DXGI_MODE_ROTATION_UNSPECIFIED;
 				break;
-			case INPUT_CLASSIFICATION::D3D11_INPUT_PER_INSTANCE_DATA:
-				return D3D11_INPUT_PER_INSTANCE_DATA;
+			case WOtech::DXWrapper::MODE_ROTATION_DXGI::DXGI_MODE_ROTATION_IDENTITY:
+				return DXGI_MODE_ROTATION::DXGI_MODE_ROTATION_IDENTITY;
+				break;
+			case WOtech::DXWrapper::MODE_ROTATION_DXGI::DXGI_MODE_ROTATION_ROTATE90:
+				return DXGI_MODE_ROTATION::DXGI_MODE_ROTATION_ROTATE90;
+				break;
+			case WOtech::DXWrapper::MODE_ROTATION_DXGI::DXGI_MODE_ROTATION_ROTATE180:
+				return DXGI_MODE_ROTATION::DXGI_MODE_ROTATION_ROTATE180;
+				break;
+			case WOtech::DXWrapper::MODE_ROTATION_DXGI::DXGI_MODE_ROTATION_ROTATE270:
+				return DXGI_MODE_ROTATION::DXGI_MODE_ROTATION_ROTATE270;
 				break;
 			default:
-				return D3D11_INPUT_PER_VERTEX_DATA;
+				return DXGI_MODE_ROTATION::DXGI_MODE_ROTATION_UNSPECIFIED;
 				break;
 			}
 		}
 
-		D3D11_INPUT_ELEMENT_DESC* wrapInputElementDesc(_In_ const Platform::Array<INPUT_ELEMENT_DESC>^ inputelementdesc)
+		DXGI_MODE_SCANLINE_ORDER warpDXGIModeScanlineOrder(MODE_SCANLINE_ORDER_DXGI modescanlineorderDXGI)
 		{
-			const UINT size = inputelementdesc->Length;
-
-			D3D11_INPUT_ELEMENT_DESC* InputElementDESC = new D3D11_INPUT_ELEMENT_DESC;
-
-			for (unsigned int i = 0; i <= size; i++)
+			switch (modescanlineorderDXGI)
 			{
-				InputElementDESC[i].AlignedByteOffset = inputelementdesc[i].AlignedByteOffset;// DATA type!!!! buffer OVERFLOW
-				InputElementDESC[i].Format = wrapDXGIFormat(inputelementdesc[i].Format);
-				InputElementDESC[i].InputSlot = inputelementdesc[i].InputSlot;
-				InputElementDESC[i].InputSlotClass = wrapInputClassification(inputelementdesc[i].InputSlotClass);
-				InputElementDESC[i].InstanceDataStepRate = inputelementdesc[i].InstanceDataStepRate;
-				InputElementDESC[i].SemanticIndex = inputelementdesc[i].SemanticIndex;
-
-				std::string semanticName = WOtech::utf8_encode(inputelementdesc[i].SemanticName->Data());
-				InputElementDESC[i].SemanticName = semanticName.data();
+			case WOtech::DXWrapper::MODE_SCANLINE_ORDER_DXGI::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED:
+				return DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+				break;
+			case WOtech::DXWrapper::MODE_SCANLINE_ORDER_DXGI::DXGI_MODE_SCANLINE_ORDER_PROGRESSIVE:
+				return DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_PROGRESSIVE;
+				break;
+			case WOtech::DXWrapper::MODE_SCANLINE_ORDER_DXGI::DXGI_MODE_SCANLINE_ORDER_UPPER_FIELD_FIRST:
+				return DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UPPER_FIELD_FIRST;
+				break;
+			case WOtech::DXWrapper::MODE_SCANLINE_ORDER_DXGI::DXGI_MODE_SCANLINE_ORDER_LOWER_FIELD_FIRST:
+				return DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_LOWER_FIELD_FIRST;
+				break;
+			default:
+				return DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+				break;
 			}
-
-			return InputElementDESC;
 		}
 
-		DirectX::XMFLOAT4X4 wrapFloat4x4(_In_ Windows::Foundation::Numerics::float4x4& matrix)
+		DXGI_MODE_SCALING warpDXGIModeScaling(MODE_SCALING_DXGI modescalingmodeDXGI)
 		{
-			return DirectX::XMFLOAT4X4(matrix.m11, matrix.m12, matrix.m13, matrix.m14,
-				matrix.m21, matrix.m22, matrix.m23, matrix.m24,
-				matrix.m31, matrix.m32, matrix.m33, matrix.m34,
-				matrix.m41, matrix.m42, matrix.m43, matrix.m44);
-		}
-
-		Windows::Foundation::Numerics::float4x4 wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4& matrix)
-		{
-			Windows::Foundation::Numerics::float4x4 temp;
-			temp.m11 = matrix._11;
-			temp.m12 = matrix._12;
-			temp.m13 = matrix._13;
-			temp.m14 = matrix._14;
-			temp.m21 = matrix._21;
-			temp.m22 = matrix._22;
-			temp.m23 = matrix._23;
-			temp.m23 = matrix._24;
-			temp.m31 = matrix._31;
-			temp.m32 = matrix._32;
-			temp.m33 = matrix._33;
-			temp.m34 = matrix._34;
-			temp.m41 = matrix._41;
-			temp.m42 = matrix._42;
-			temp.m43 = matrix._43;
-			temp.m44 = matrix._44;
-			return temp;
+			switch (modescalingmodeDXGI)
+			{
+			case WOtech::DXWrapper::MODE_SCALING_DXGI::DXGI_MODE_SCALING_UNSPECIFIED:
+				return DXGI_MODE_SCALING::DXGI_MODE_SCALING_UNSPECIFIED;
+				break;
+			case WOtech::DXWrapper::MODE_SCALING_DXGI::DXGI_MODE_SCALING_CENTERED:
+				return DXGI_MODE_SCALING::DXGI_MODE_SCALING_CENTERED;
+				break;
+			case WOtech::DXWrapper::MODE_SCALING_DXGI::DXGI_MODE_SCALING_STRETCHED:
+				return DXGI_MODE_SCALING::DXGI_MODE_SCALING_STRETCHED;
+				break;
+			default:
+				return DXGI_MODE_SCALING::DXGI_MODE_SCALING_UNSPECIFIED;
+				break;
+			}
 		}
 	}
 }

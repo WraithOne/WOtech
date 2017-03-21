@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.11.2016
-///			Edited:		13.03.2017
+///			Edited:		21.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DXWRAPPER_H
@@ -209,6 +209,39 @@ namespace WOtech
 			CLEAR_STENCIL = 0x2L
 		};
 
+		public enum class INPUT_CLASSIFICATION
+		{
+			D3D11_INPUT_PER_VERTEX_DATA = 0,
+			D3D11_INPUT_PER_INSTANCE_DATA = 1
+		};
+
+		public value struct INPUT_ELEMENT_DESC
+		{
+			Platform::String^				SemanticName;
+			UINT							SemanticIndex;
+			FORMAT_DXGI						Format;
+			UINT							InputSlot;
+			UINT							AlignedByteOffset;
+			INPUT_CLASSIFICATION			InputSlotClass;
+			UINT							InstanceDataStepRate;
+		};
+
+		///////////////////////////////////////////////////////////////
+		// D3D11 Wrapper Functions
+		///////////////////////////////////////////////////////////////
+		D3D11_CLEAR_FLAG wrapClearFlag(_In_ CLEAR_FLAG& clearflag);
+
+		D3D11_INPUT_CLASSIFICATION wrapInputClassification(_In_ INPUT_CLASSIFICATION& inputclassification);
+
+		D3D11_INPUT_ELEMENT_DESC* wrapInputElementDesc(_In_ const Platform::Array<INPUT_ELEMENT_DESC>^ inputelementdesc);
+
+		DirectX::XMFLOAT4X4 wrapFloat4x4(_In_ Windows::Foundation::Numerics::float4x4& matrix);
+
+		Windows::Foundation::Numerics::float4x4 wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4& matrix);
+
+		///////////////////////////////////////////////////////////////
+		// DXGI Wrapper
+		///////////////////////////////////////////////////////////////
 		public enum class FORMAT_DXGI {
 			FORMAT_UNKNOWN,
 			FORMAT_R32G32B32A32_TYPELESS,
@@ -332,37 +365,83 @@ namespace WOtech
 			FORMAT_FORCE_UINT
 		};
 
-		public enum class INPUT_CLASSIFICATION
+		public value struct LUID_DXGI
 		{
-			D3D11_INPUT_PER_VERTEX_DATA = 0,
-			D3D11_INPUT_PER_INSTANCE_DATA = 1
+			UINT64	LowPart;
+			INT64	HighPart;
 		};
 
-		public value struct INPUT_ELEMENT_DESC
+		public value struct ADAPTER_DXGI
 		{
-			Platform::String^				SemanticName;
-			UINT							SemanticIndex;
-			FORMAT_DXGI						Format;
-			UINT							InputSlot;
-			UINT							AlignedByteOffset;
-			INPUT_CLASSIFICATION			InputSlotClass;
-			UINT							InstanceDataStepRate;
+			Platform::String^	Description;
+			UINT				VendorId;
+			UINT				DeviceId;
+			UINT				SubSysId;
+			UINT				Revision;
+			Platform::SizeT		DedicatedVideoMemory;
+			Platform::SizeT		DedicatedSystemMemory;
+			Platform::SizeT		SharedSystemMemory;
+			LUID_DXGI			AdapterLUID;
 		};
 
-		///////////////////////////////////////////////////////////////
-		// D3D11 Wrapper Functions
-		///////////////////////////////////////////////////////////////
-		D3D11_CLEAR_FLAG wrapClearFlag(_In_ CLEAR_FLAG& clearflag);
+		public enum class MODE_ROTATION_DXGI
+		{
+			DXGI_MODE_ROTATION_UNSPECIFIED = 0,
+			DXGI_MODE_ROTATION_IDENTITY = 1,
+			DXGI_MODE_ROTATION_ROTATE90 = 2,
+			DXGI_MODE_ROTATION_ROTATE180 = 3,
+			DXGI_MODE_ROTATION_ROTATE270 = 4
+		};
 
+		public value struct DXGI_OUTPUT_DESC
+		{
+			Platform::String^       DeviceName;
+			WOtech::DXWrapper::RECT	DesktopCoordinates;
+			Platform::Boolean		AttachedToDesktop;
+			MODE_ROTATION_DXGI		Rotation;
+			//HMONITOR           Monitor;
+		};
+
+		public value struct RATIONAL_DXGI
+		{
+			UINT Numerator;
+			UINT Denominator;
+		};
+
+		public enum class MODE_SCANLINE_ORDER_DXGI
+		{
+			DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED = 0,
+			DXGI_MODE_SCANLINE_ORDER_PROGRESSIVE = 1,
+			DXGI_MODE_SCANLINE_ORDER_UPPER_FIELD_FIRST = 2,
+			DXGI_MODE_SCANLINE_ORDER_LOWER_FIELD_FIRST = 3
+		};
+
+		public enum class MODE_SCALING_DXGI
+		{
+			DXGI_MODE_SCALING_UNSPECIFIED = 0,
+			DXGI_MODE_SCALING_CENTERED = 1,
+			DXGI_MODE_SCALING_STRETCHED = 2
+		};
+
+		public value struct MODE_DESC_DXGI
+		{
+			UINT                     Width;
+			UINT                     Height;
+			RATIONAL_DXGI            RefreshRate;
+			FORMAT_DXGI              Format;
+			MODE_SCANLINE_ORDER_DXGI ScanlineOrdering;
+			DXGI_MODE_SCALING        Scaling;
+		};
+		///////////////////////////////////////////////////////////////
+		// DXGI Wrapper Functions
+		///////////////////////////////////////////////////////////////
 		DXGI_FORMAT wrapDXGIFormat(_In_ FORMAT_DXGI& formatDXGI);
 
-		D3D11_INPUT_CLASSIFICATION wrapInputClassification(_In_ INPUT_CLASSIFICATION& inputclassification);
+		DXGI_MODE_ROTATION wrapDXGIModeRotation(_In_ MODE_ROTATION_DXGI moderotationDXGI);
 
-		D3D11_INPUT_ELEMENT_DESC* wrapInputElementDesc(_In_ const Platform::Array<INPUT_ELEMENT_DESC>^ inputelementdesc);
+		DXGI_MODE_SCANLINE_ORDER warpDXGIModeScanlineOrder(_In_ MODE_SCANLINE_ORDER_DXGI modescanlineorderDXGI);
 
-		DirectX::XMFLOAT4X4 wrapFloat4x4(_In_ Windows::Foundation::Numerics::float4x4& matrix);
-
-		Windows::Foundation::Numerics::float4x4 wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4& matrix);
+		DXGI_MODE_SCALING warpDXGIModeScaling(_In_ MODE_SCALING_DXGI modescalingmodeDXGI);
 	}
 }
 #endif
