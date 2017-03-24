@@ -230,7 +230,7 @@ namespace WOtech
 			temp.m21 = matrix._21;
 			temp.m22 = matrix._22;
 			temp.m23 = matrix._23;
-			temp.m23 = matrix._24;
+			temp.m24 = matrix._24;
 			temp.m31 = matrix._31;
 			temp.m32 = matrix._32;
 			temp.m33 = matrix._33;
