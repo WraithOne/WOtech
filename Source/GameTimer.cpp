@@ -22,7 +22,7 @@
 
 namespace WOtech
 {
-	GameTimer::GameTimer() : m_active(false)
+	GameTimer::GameTimer() : m_active(false), m_secondsPerCount(0.0f), m_deltaTime(0.0f)
 	{
 		LARGE_INTEGER frequency;
 
