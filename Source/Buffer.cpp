@@ -33,10 +33,11 @@ namespace WOtech
 	///////////////////////////////////////////////////////////////////
 	/// Vertex Buffer
 	///////////////////////////////////////////////////////////////////
-	VertexBuffer::VertexBuffer(_In_ void* data, _In_ UINT32 size, _In_  UINT32 stride, _In_ DeviceDX11^ device)
+	VertexBuffer::VertexBuffer(_In_ void* data, _In_ UINT32 size, _In_  UINT32 stride, _In_ UINT32 offset, _In_ DeviceDX11^ device)
 	{
 		CreateBuffer(data, size, device);
 		m_stride = stride;
+		m_offset = offset;
 	}
 
 	void VertexBuffer::SubmitBuffer(_In_ DeviceDX11^ device)

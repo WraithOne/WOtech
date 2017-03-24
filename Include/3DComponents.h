@@ -176,7 +176,7 @@ namespace WOtech
 		UINT32 getOffset();
 
 	internal:
-		VertexBuffer(_In_ void* data, _In_  UINT32 size, _In_  UINT32 stride, _In_  DeviceDX11^ device);
+		VertexBuffer(_In_ void* data, _In_  UINT32 size, _In_  UINT32 stride, _In_ UINT32 offset, _In_  DeviceDX11^ device);
 
 	private:
 		void CreateBuffer(_In_ void* data, _In_  UINT32 size, _In_  DeviceDX11^ device);

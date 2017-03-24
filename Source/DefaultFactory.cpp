@@ -55,7 +55,7 @@ namespace WOtech
 		IndexBuffer^ iB = ref new IndexBuffer(indices, 36, device);
 
 		UINT32 stride = sizeof(VertexPositionNormalTexture);
-		VertexBuffer^ vB = ref new VertexBuffer(data, 8 * sizeof(VertexPositionNormalTexture), stride, device);
+		VertexBuffer^ vB = ref new VertexBuffer(data, 8 * sizeof(VertexPositionNormalTexture), stride, 0U, device);
 
 		return ref new Mesh(vB, iB, material);
 	}
@@ -75,7 +75,7 @@ namespace WOtech
 
 		IndexBuffer^ iB = ref new IndexBuffer(indices, 3, device);
 		UINT32 stride = sizeof(VertexPositionNormalTexture);
-		VertexBuffer^ vB = ref new VertexBuffer(data, 3 * sizeof(VertexPositionNormalTexture), stride, device);
+		VertexBuffer^ vB = ref new VertexBuffer(data, 3 * sizeof(VertexPositionNormalTexture), stride, 0U, device);
 
 		return ref new Mesh(vB, iB, material);
 	}
