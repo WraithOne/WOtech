@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	09.01.2016
-///			Edited:		06.11.2016
+///			Edited:		24.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -26,7 +26,7 @@ using namespace Platform;
 
 namespace WOtech
 {
-	DA_Storage::DA_Storage()
+	DA_Storage::DA_Storage() : m_roamingChanged(false)
 	{
 		m_WINRT = ref new Storage_WINRT();
 
