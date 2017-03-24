@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	25.02.2016
-///			Edited:		11.11.2016
+///			Edited:		24.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -31,7 +31,7 @@ namespace WOtech
 	///////////////////////
 	// Material
 	///////////////////////
-	Material::Material(VertexShader^ Vshader, PixelShader^ Pshader, DeviceDX11^ device)
+	Material::Material(VertexShader^ Vshader, PixelShader^ Pshader, DeviceDX11^ device) : m_numMatrials(0U)
 	{
 		m_vertexShader = Vshader;
 		m_pixelShader = Pshader;
