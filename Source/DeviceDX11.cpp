@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		07.03.2017
+///			Edited:		24.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -129,22 +129,19 @@ namespace WOtech
 			ThrowIfFailed(hr);
 		}
 
-		for (uint32 i = 0; i != DXGI_ERROR_NOT_FOUND; ++i)
+		for (UINT i = 0; m_factory->EnumAdapters(i, &pAdapter) != DXGI_ERROR_NOT_FOUND; ++i)
 		{
-			hr = m_factory->EnumAdapters(i, &pAdapter);
 			ThrowIfFailed(hr);
 			adapterList->push_back(pAdapter.Get());
 		}
 	}
 	void DeviceDX11::EnumerateOutputs(_In_ IDXGIAdapter* adapter, _Out_ std::list<IDXGIOutput*>* outputList)
 	{
-		HRESULT hr;
-
 		uint32 i = 0;
 		ComPtr<IDXGIOutput> pOutput;
 		std::list<IDXGIOutput*> temp;
 
-		while (hr = adapter->EnumOutputs(i, &pOutput) != DXGI_ERROR_NOT_FOUND)
+		while (adapter->EnumOutputs(i, &pOutput) != DXGI_ERROR_NOT_FOUND)
 		{
 			temp.push_back(pOutput.Get());
 			++i;
@@ -322,7 +319,7 @@ namespace WOtech
 
 		// Setup rasterizer state.
 		D3D11_RASTERIZER_DESC1 rasterizerDesc;
-		ZeroMemory(&rasterizerDesc, sizeof(D3D11_RASTERIZER_DESC));
+		ZeroMemory(&rasterizerDesc, sizeof(D3D11_RASTERIZER_DESC1));
 
 		rasterizerDesc.AntialiasedLineEnable = false;
 		rasterizerDesc.CullMode = D3D11_CULL_BACK;
