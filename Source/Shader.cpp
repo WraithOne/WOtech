@@ -43,6 +43,10 @@ namespace WOtech
 		m_CVSO = compiledVertexShaderObject;
 
 		m_useInputElementDesc = false;
+		m_loadfromFile = false;
+		m_useShaderByteCode = false;
+		m_shaderByteCode = nullptr;
+		m_byteCodeLength = 0U;
 	}
 	VertexShader::VertexShader(_In_ String^ compiledVertexShaderObject, _In_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc)
 	{
@@ -51,6 +55,11 @@ namespace WOtech
 
 		m_useInputElementDesc = true;
 		m_inputElementDesc = inputElementDesc;
+
+		m_loadfromFile = false;
+		m_useShaderByteCode = false;
+		m_shaderByteCode = nullptr;
+		m_byteCodeLength = 0U;
 	}
 	VertexShader::VertexShader(_In_ String^ filename, _In_ String^ entryPoint)
 	{
@@ -58,6 +67,12 @@ namespace WOtech
 		m_entryPoint = entryPoint;
 
 		m_useInputElementDesc = false;
+
+		m_loadfromFile = false;
+		m_useCVSO = false;
+		m_useShaderByteCode = false;
+		m_shaderByteCode = nullptr;
+		m_byteCodeLength = 0U;
 	}
 	VertexShader::VertexShader(_In_ String^ filename, _In_ String^ entryPoint, _In_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc)
 	{
@@ -66,6 +81,12 @@ namespace WOtech
 
 		m_useInputElementDesc = true;
 		m_inputElementDesc = inputElementDesc;
+
+		m_loadfromFile = false;
+		m_useCVSO = false;
+		m_useShaderByteCode = false;
+		m_shaderByteCode = nullptr;
+		m_byteCodeLength = 0U;
 	}
 	VertexShader::VertexShader(_In_ void* ShaderBytecode, _In_ SizeT BytecodeLength, _In_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc)
 	{
@@ -75,6 +96,9 @@ namespace WOtech
 
 		m_useInputElementDesc = true;
 		m_inputElementDesc = inputElementDesc;
+
+		m_loadfromFile = false;
+		m_useCVSO = false;
 	}
 
 	void VertexShader::Load(_In_ DeviceDX11 ^ device)
@@ -275,6 +299,8 @@ namespace WOtech
 	///////////////////////////////////////////////////////////////////
 	PixelShader::PixelShader(_In_ String^ CSOFilename)
 	{
+		m_shaderByteCode = nullptr;
+		m_BytecodeLength = 0U;
 		m_csoFilename = CSOFilename;
 		m_useBytecode = false;
 	}
