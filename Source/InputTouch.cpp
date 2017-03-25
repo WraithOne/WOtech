@@ -36,19 +36,20 @@ namespace WOtech
 	}
 	Platform::Array<Touch_State>^ InputManager::getTouchState()
 	{
-		auto temp = ref new Platform::Array<Touch_State>(m_touchCapabilities->Contacts);//TODO : max contacts supportet
+		auto output = ref new Platform::Array<Touch_State>(m_touchCapabilities->Contacts);//TODO : max contacts supportet
 		unsigned int nr = 0;
 
 		for (std::map<UINT, Windows::UI::Input::PointerPoint^>::iterator it = m_pointerdevices.begin(); it != m_pointerdevices.end(); ++it)
 		{
-			if (it->second->PointerDevice->PointerDeviceType == PointerDeviceType::Touch)
+			Windows::UI::Input::PointerPoint^ pointer = it->second;
+
+			if (pointer->PointerDevice->PointerDeviceType == PointerDeviceType::Touch)
 			{
-				temp[nr].pointerID = it->second->PointerId;
-				temp[nr].position.X = it->second->Position.X;
-				temp[nr].position.Y = it->second->Position.Y;
+				Touch_State temp{ pointer->PointerId ,Pointer_Position{ pointer->Position.X , pointer->Position.Y } };
+				output->set(nr,temp);		
 			}
 			nr++;
 		}
-		return temp;
+		return output;
 	}
 }

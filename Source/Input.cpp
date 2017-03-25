@@ -693,7 +693,7 @@ namespace WOtech
 
 		ScanGamePad();
 	}
-	void InputManager::OnGamepadRemoved(_In_ Object ^ Sender, _In_  Gamepad ^ Gamepad)
+	void InputManager::OnGamepadRemoved(_In_ Object ^ Sender, _In_  Gamepad ^ Gamepad) //-V524
 	{
 		UNREFERENCED_PARAMETER(Sender);
 		UNREFERENCED_PARAMETER(Gamepad);
@@ -735,14 +735,14 @@ namespace WOtech
 			UpdatePointerDevices(pointer);
 		}
 	}
-	void InputManager::OnPointerExited(_In_ CoreWindow ^ Sender, _In_ PointerEventArgs ^ Args)
+	void InputManager::OnPointerExited(_In_ CoreWindow ^ Sender, _In_ PointerEventArgs ^ Args) //-V524
 	{
 		UNREFERENCED_PARAMETER(Sender);
 		Windows::UI::Input::PointerPoint^ pointer = Args->CurrentPoint;
 
 		RemovePointerDevice(pointer);
 	}
-	void InputManager::OnPointerWheelChanged(_In_ CoreWindow^ Sender, _In_ PointerEventArgs^ Args)
+	void InputManager::OnPointerWheelChanged(_In_ CoreWindow^ Sender, _In_ PointerEventArgs^ Args) //-V524
 	{
 		UNREFERENCED_PARAMETER(Sender);
 		Windows::UI::Input::PointerPoint^ pointer = Args->CurrentPoint;
