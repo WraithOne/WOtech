@@ -124,27 +124,27 @@ namespace WOtech
 		///////////////////////////////////////////////////////////////
 		// D2D1 Wrapper Functions
 		///////////////////////////////////////////////////////////////
-		D2D1_COLOR_F wrapColor(_In_ Windows::UI::Color& color);
+		D2D1_COLOR_F wrapColor(_In_ Windows::UI::Color color);
 
 		D2D1_RECT_F wrapRect(_In_ WOtech::DXWrapper::RECT& rect);
 
-		D2D1_SIZE_F wrapSize(_In_ Windows::Foundation::Size& size);
+		D2D1_SIZE_F wrapSize(_In_ Windows::Foundation::Size size);
 
-		D2D1_POINT_2F wrapPoint(_In_ Windows::Foundation::Point& point);
+		D2D1_POINT_2F wrapPoint(_In_ Windows::Foundation::Point point);
 
-		DWRITE_FONT_STYLE wraptFontStyle(_In_ FONT_STYLE& fontstyle);
+		DWRITE_FONT_STYLE wraptFontStyle(_In_ FONT_STYLE fontstyle);
 
 		D2D1_BITMAP_INTERPOLATION_MODE wrapBitmapInterpolationMode(_In_ const BITMAP_INTERPOLATION_MODE& bitmapinterpolationmode);
 
-		D2D1_FIGURE_BEGIN wrapFigureBegin(_In_ FIGURE_BEGIN& figurebegin);
+		D2D1_FIGURE_BEGIN wrapFigureBegin(_In_ FIGURE_BEGIN figurebegin);
 
-		D2D1_FIGURE_END wrapFigureEnd(_In_ FIGURE_END& figureend);
+		D2D1_FIGURE_END wrapFigureEnd(_In_ FIGURE_END figureend);
 
 		D2D1_BEZIER_SEGMENT wrapBezierSegment(_In_ BEZIER_SEGMENT& beziersegment);
 
-		D2D1_SWEEP_DIRECTION wrapSweepDirection(_In_ SWEEP_DIRECTION& sweepdirection);
+		D2D1_SWEEP_DIRECTION wrapSweepDirection(_In_ SWEEP_DIRECTION sweepdirection);
 
-		D2D1_ARC_SIZE wrapArcSize(_In_ ARC_SIZE& arcsize);
+		D2D1_ARC_SIZE wrapArcSize(_In_ ARC_SIZE arcsize);
 
 		D2D1_ARC_SEGMENT wrapArcSegment(_In_ ARC_SEGMENT& arcsegment);
 
@@ -344,7 +344,7 @@ namespace WOtech
 		///////////////////////////////////////////////////////////////
 		// DXGI Wrapper Functions
 		///////////////////////////////////////////////////////////////
-		DXGI_FORMAT wrapDXGIFormat(_In_ FORMAT_DXGI& formatDXGI);
+		DXGI_FORMAT wrapDXGIFormat(_In_ FORMAT_DXGI formatDXGI);
 
 		DXGI_MODE_ROTATION wrapDXGIModeRotation(_In_ MODE_ROTATION_DXGI moderotationDXGI);
 
@@ -433,13 +433,13 @@ namespace WOtech
 		///////////////////////////////////////////////////////////////
 		// D3D11 Wrapper Functions
 		///////////////////////////////////////////////////////////////
-		D3D11_CLEAR_FLAG wrapClearFlag(_In_ CLEAR_FLAG& clearflag);
+		D3D11_CLEAR_FLAG wrapClearFlag(_In_ CLEAR_FLAG clearflag);
 
-		D3D11_INPUT_CLASSIFICATION wrapInputClassification(_In_ INPUT_CLASSIFICATION& inputclassification);
+		D3D11_INPUT_CLASSIFICATION wrapInputClassification(_In_ INPUT_CLASSIFICATION inputclassification);
 
 		D3D11_INPUT_ELEMENT_DESC* wrapInputElementDesc(_In_ const Platform::Array<INPUT_ELEMENT_DESC>^ inputelementdesc);
 
-		DirectX::XMFLOAT4X4 wrapFloat4x4(_In_ Windows::Foundation::Numerics::float4x4& matrix);
+		DirectX::XMFLOAT4X4 wrapFloat4x4(_In_ Windows::Foundation::Numerics::float4x4 matrix);
 
 		Windows::Foundation::Numerics::float4x4 wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4& matrix);
 	}

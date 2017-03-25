@@ -27,7 +27,7 @@ namespace WOtech
 {
 	namespace DXWrapper
 	{
-		D2D1_COLOR_F wrapColor(_In_ Color& color)
+		D2D1_COLOR_F wrapColor(_In_ Color color)
 		{
 			return D2D1::ColorF(static_cast<float>(color.R), static_cast<float>(color.G), static_cast<float>(color.B), static_cast<float>(color.A));
 		}
@@ -37,17 +37,17 @@ namespace WOtech
 			return D2D1::RectF(rect.X, rect.Y, rect.Width, rect.Height);
 		}
 
-		D2D1_SIZE_F wrapSize(_In_ Size& size)
+		D2D1_SIZE_F wrapSize(_In_ Size size)
 		{
 			return D2D1::SizeF(size.Width, size.Height);
 		}
 
-		D2D1_POINT_2F wrapPoint(_In_ Point& point)
+		D2D1_POINT_2F wrapPoint(_In_ Point point)
 		{
 			return D2D1::Point2F(point.X, point.Y);
 		}
 
-		DWRITE_FONT_STYLE wraptFontStyle(_In_ FONT_STYLE& fontstyle)
+		DWRITE_FONT_STYLE wraptFontStyle(_In_ FONT_STYLE fontstyle)
 		{
 			switch (fontstyle)
 			{
@@ -84,7 +84,7 @@ namespace WOtech
 			}
 		}
 
-		D2D1_FIGURE_BEGIN wrapFigureBegin(_In_ FIGURE_BEGIN& figurebegin)
+		D2D1_FIGURE_BEGIN wrapFigureBegin(_In_ FIGURE_BEGIN figurebegin)
 		{
 			switch (figurebegin)
 			{
@@ -100,7 +100,7 @@ namespace WOtech
 			}
 		}
 
-		D2D1_FIGURE_END wrapFigureEnd(_In_ FIGURE_END& figureend)
+		D2D1_FIGURE_END wrapFigureEnd(_In_ FIGURE_END figureend)
 		{
 			switch (figureend)
 			{
@@ -121,7 +121,7 @@ namespace WOtech
 			return D2D1::BezierSegment(wrapPoint(beziersegment.point1), wrapPoint(beziersegment.point1), wrapPoint(beziersegment.point1));
 		}
 
-		D2D1_SWEEP_DIRECTION wrapSweepDirection(_In_ SWEEP_DIRECTION& sweepdirection)
+		D2D1_SWEEP_DIRECTION wrapSweepDirection(_In_ SWEEP_DIRECTION sweepdirection)
 		{
 			switch (sweepdirection)
 			{
@@ -137,7 +137,7 @@ namespace WOtech
 			}
 		}
 
-		D2D1_ARC_SIZE wrapArcSize(_In_ ARC_SIZE& arcsize)
+		D2D1_ARC_SIZE wrapArcSize(_In_ ARC_SIZE arcsize)
 		{
 			switch (arcsize)
 			{
@@ -158,7 +158,7 @@ namespace WOtech
 			return D2D1::ArcSegment(wrapPoint(arcsegment.point), wrapSize(arcsegment.size), arcsegment.rotationAngle, wrapSweepDirection(arcsegment.sweepDirection), wrapArcSize(arcsegment.arcSize));
 		}
 
-		D3D11_CLEAR_FLAG wrapClearFlag(_In_ CLEAR_FLAG& clearflag)
+		D3D11_CLEAR_FLAG wrapClearFlag(_In_ CLEAR_FLAG clearflag)
 		{
 			switch (clearflag)
 			{
@@ -174,7 +174,7 @@ namespace WOtech
 			}
 		}
 
-		D3D11_INPUT_CLASSIFICATION wrapInputClassification(_In_ INPUT_CLASSIFICATION& inputclassification)
+		D3D11_INPUT_CLASSIFICATION wrapInputClassification(_In_ INPUT_CLASSIFICATION inputclassification)
 		{
 			switch (inputclassification)
 			{
@@ -212,7 +212,7 @@ namespace WOtech
 			return InputElementDESC;
 		}
 
-		DirectX::XMFLOAT4X4 wrapFloat4x4(_In_ Windows::Foundation::Numerics::float4x4& matrix)
+		DirectX::XMFLOAT4X4 wrapFloat4x4(_In_ Windows::Foundation::Numerics::float4x4 matrix)
 		{
 			return DirectX::XMFLOAT4X4(matrix.m11, matrix.m12, matrix.m13, matrix.m14,
 				matrix.m21, matrix.m22, matrix.m23, matrix.m24,
@@ -242,7 +242,7 @@ namespace WOtech
 			return temp;
 		}
 
-		DXGI_FORMAT wrapDXGIFormat(_In_ FORMAT_DXGI& formatDXGI)
+		DXGI_FORMAT wrapDXGIFormat(_In_ FORMAT_DXGI formatDXGI)
 		{
 			switch (formatDXGI)
 			{
