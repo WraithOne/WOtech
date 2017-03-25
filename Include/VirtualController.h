@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	04.01.2017
-///			Edited:		13.03.2017
+///			Edited:		25.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_VIRTUALCONTROLLER_H
@@ -27,6 +27,7 @@ namespace WOtech
 {
 	public enum class Current_Input_Device
 	{
+		Unspecified,
 		Gamepad,
 		KeyboardandMouse,
 		Touch,

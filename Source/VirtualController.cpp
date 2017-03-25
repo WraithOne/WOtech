@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	04.01.2017
-///			Edited:		13.03.2017
+///			Edited:		25.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -28,6 +28,16 @@ namespace WOtech
 	VirtualController::VirtualController(_In_ InputManager^ input)
 	{
 		m_inputManager = input;
+
+		m_state = WOtech::Virtual_Controller_State();
+		m_currentInput = WOtech::Current_Input_Device::Unspecified;
+		m_currentGamepad = WOtech::Gamepad_Index::PlayerOne; // TODO: Player unknown
+		m_mouseWheelbinding = WOtech::Virtual_Controller_Triggers::Left;
+		m_mousebinding = WOtech::Virtual_Controller_Sticks::Left;
+		m_currentStickLeftID = 0U;
+		m_currentStickRightID = 0U;
+		m_currentTriggerLeftID = 0U;
+		m_currentTriggerRightID = 0U;
 	}
 
 	void VirtualController::setCurrentInput(_In_ Current_Input_Device current)
@@ -184,7 +194,7 @@ namespace WOtech
 		}
 	}
 
-	Platform::Boolean PointerIntersect(_In_ Touch_State state, _In_ DXWrapper::RECT area)
+	Platform::Boolean PointerIntersect(_In_ Touch_State& state, _In_ DXWrapper::RECT& area)
 	{
 		WOtech::Pointer_Position position = state.position;
 
@@ -198,22 +208,22 @@ namespace WOtech
 			return false;
 		}
 	}
-	Touch_State TouchIntersect(_In_ Platform::Array<Touch_State>^ state, _In_ DXWrapper::RECT area)
+	Touch_State TouchIntersect(_In_ Platform::Array<Touch_State>^ state, _In_ DXWrapper::RECT& area)
 	{
 		Touch_State temp;
 
 		for (unsigned int i = 0; i != state->Length; i++)
 		{
-			if (state[i].pointerID != 0U)
+			if (state->get(i).pointerID != 0U)
 			{
-				if (PointerIntersect(state[i], area))
-					return state[i];
+				if (PointerIntersect(state->get(i), area))
+					return state->get(i);
 			}
 		}
 
 		return temp;
 	}
-	Platform::Boolean isIntersecting(Touch_State state)
+	Platform::Boolean isIntersecting(Touch_State& state)
 	{
 		if (state.pointerID != 0U)
 			return true;
@@ -375,20 +385,27 @@ namespace WOtech
 		// Tumbsticks
 		for (std::map<Virtual_Controller_Sticks, virtual_Stick_keyboard>::iterator it_s = m_keyboardStickbinding.begin(); it_s != m_keyboardStickbinding.end(); ++it_s)
 		{
+			virtual_Stick_keyboard keyboard = it_s->second;
+
+			Platform::Boolean key_up = m_inputManager->KeyDown(keyboard.up);
+			Platform::Boolean key_down = m_inputManager->KeyDown(keyboard.down);
+			Platform::Boolean key_left = m_inputManager->KeyDown(keyboard.left);
+			Platform::Boolean key_right = m_inputManager->KeyDown(keyboard.right);
+
 			if (it_s->first == Virtual_Controller_Sticks::Left)
 			{
 				// Vertical
-				if (m_inputManager->KeyDown(it_s->second.up) && !m_inputManager->KeyDown(it_s->second.down))
+				if (key_up && !key_down)
 					m_state.Tumbstick_LeftY = 1.0;
-				else if (!m_inputManager->KeyDown(it_s->second.up) && m_inputManager->KeyDown(it_s->second.down))
+				else if (!key_up && key_down)
 					m_state.Tumbstick_LeftY = -1.0;
 				else
 					m_state.Tumbstick_LeftY = 0.0;
 
 				// Horizontal
-				if (m_inputManager->KeyDown(it_s->second.right) && !m_inputManager->KeyDown(it_s->second.left))
+				if (key_right && !key_left)
 					m_state.Tumbstick_LeftX = 1.0;
-				else if (!m_inputManager->KeyDown(it_s->second.right) && m_inputManager->KeyDown(it_s->second.left))
+				else if (!key_right && key_left)
 					m_state.Tumbstick_LeftX = -1.0;
 				else
 					m_state.Tumbstick_LeftX = 0.0;
@@ -396,17 +413,17 @@ namespace WOtech
 			else
 			{
 				// Vertical
-				if (m_inputManager->KeyDown(it_s->second.up) && !m_inputManager->KeyDown(it_s->second.down))
+				if (key_up && !key_down)
 					m_state.Tumbstick_RightY = 1.0;
-				else if (!m_inputManager->KeyDown(it_s->second.up) && m_inputManager->KeyDown(it_s->second.down))
+				else if (!key_up && key_down)
 					m_state.Tumbstick_RightY = -1.0;
 				else
 					m_state.Tumbstick_RightY = 0.0;
 
 				// Horizontal
-				if (m_inputManager->KeyDown(it_s->second.right) && !m_inputManager->KeyDown(it_s->second.left))
+				if (key_right && !key_left)
 					m_state.Tumbstick_RightX = 1.0;
-				else if (!m_inputManager->KeyDown(it_s->second.right) && m_inputManager->KeyDown(it_s->second.left))
+				else if (!key_right && key_left)
 					m_state.Tumbstick_RightX = -1.0;
 				else
 					m_state.Tumbstick_RightX = 0.0;
@@ -523,7 +540,9 @@ namespace WOtech
 		for (std::map<Virtual_Controller_Sticks, virtual_Stick_touch>::iterator it_s = m_touchStickbinding.begin(); it_s != m_touchStickbinding.end(); ++it_s)
 		{
 			// TODO: Circle insteed of RECT
-			WOtech::DXWrapper::RECT rect{ it_s->second.center.X - it_s->second.radius, it_s->second.center.Y - it_s->second.radius, it_s->second.center.X + it_s->second.radius, it_s->second.center.Y + it_s->second.radius };
+			virtual_Stick_touch stick = it_s->second;
+			WOtech::DXWrapper::RECT rect{ stick.center.X - stick.radius, stick.center.Y - stick.radius, stick.center.X + stick.radius, stick.center.Y + stick.radius };
+
 			Touch_State state;
 			if (it_s->first == Virtual_Controller_Sticks::Left)
 			{
