@@ -101,7 +101,7 @@ namespace WOtech
 	{
 		std::list<ANIMATION>::iterator iterator;
 
-		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); iterator++)
+		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); ++iterator)
 		{
 			if (iterator->Name == name)
 			{
@@ -127,7 +127,7 @@ namespace WOtech
 	{
 		std::list<ANIMATION>::iterator iterator;
 
-		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); iterator++)
+		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); ++iterator)
 		{
 			if (iterator->Name == name)
 			{
@@ -148,7 +148,7 @@ namespace WOtech
 	{
 		std::list<ANIMATION>::iterator iterator;
 
-		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); iterator++)
+		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); ++iterator)
 		{
 			if (iterator->Name == name)
 			{
@@ -178,7 +178,7 @@ namespace WOtech
 	{
 		std::list<ANIMATION>::iterator iterator;
 
-		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); iterator++)
+		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); ++iterator)
 		{
 			if (iterator->Name == name)
 			{
@@ -196,17 +196,19 @@ namespace WOtech
 	{
 		std::list<ANIMATION>::iterator iterator;
 
-		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); iterator++)
+		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); ++iterator)
 		{
 			if (iterator->Name == name)
 			{
 				WOtech::DXWrapper::RECT temp;
-				float32 left = iterator->SourcePosition.X + (iterator->FrameSize.Width * iterator->ActualFrame);
-				float32 top = iterator->SourcePosition.Y + iterator->FrameSize.Height;
+				WOtech::ANIMATION animation = *iterator;
+
+				float32 left = animation.SourcePosition.X + (animation.FrameSize.Width * animation.ActualFrame);
+				float32 top = animation.SourcePosition.Y + animation.FrameSize.Height;
 				temp.X = left;
 				temp.Y = top;
-				temp.Width = left + iterator->FrameSize.Width;
-				temp.Height = top + iterator->FrameSize.Height;
+				temp.Width = left + animation.FrameSize.Width;
+				temp.Height = top + animation.FrameSize.Height;
 
 				return temp;
 			}
