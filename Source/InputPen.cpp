@@ -42,14 +42,16 @@ namespace WOtech
 		unsigned int nr = 0;
 		for (std::map<UINT, Windows::UI::Input::PointerPoint^>::iterator it = m_pointerdevices.begin(); it != m_pointerdevices.end(); ++it)
 		{
-			if (it->second->PointerDevice->PointerDeviceType == PointerDeviceType::Pen)
+			auto pointer = it->second;
+
+			if (pointer->PointerDevice->PointerDeviceType == PointerDeviceType::Pen)
 			{
-				temp[nr].pointerID = it->second->PointerId;
-				temp[nr].BarrelButton = it->second->Properties->IsBarrelButtonPressed;
-				temp[nr].isErazer = it->second->Properties->IsEraser;
-				temp[nr].position.X = it->second->Position.X;
-				temp[nr].position.Y = it->second->Position.Y;
-				temp[nr].pressure = it->second->Properties->Pressure;
+				temp[nr].pointerID = pointer->PointerId;
+				temp[nr].BarrelButton = pointer->Properties->IsBarrelButtonPressed;
+				temp[nr].isErazer = pointer->Properties->IsEraser;
+				temp[nr].position.X = pointer->Position.X;
+				temp[nr].position.Y = pointer->Position.Y;
+				temp[nr].pressure = pointer->Properties->Pressure;
 			}
 		}
 		return temp;
