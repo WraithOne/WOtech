@@ -612,7 +612,7 @@ namespace WOtech
 			}
 		}
 
-		DXGI_MODE_ROTATION wrapDXGIModeRotation(MODE_ROTATION_DXGI moderotationDXGI)
+		DXGI_MODE_ROTATION wrapDXGIModeRotation(_In_ MODE_ROTATION_DXGI moderotationDXGI)
 		{
 			switch (moderotationDXGI)
 			{
@@ -637,7 +637,7 @@ namespace WOtech
 			}
 		}
 
-		DXGI_MODE_SCANLINE_ORDER warpDXGIModeScanlineOrder(MODE_SCANLINE_ORDER_DXGI modescanlineorderDXGI)
+		DXGI_MODE_SCANLINE_ORDER warpDXGIModeScanlineOrder(_In_ MODE_SCANLINE_ORDER_DXGI modescanlineorderDXGI)
 		{
 			switch (modescanlineorderDXGI)
 			{
@@ -659,7 +659,7 @@ namespace WOtech
 			}
 		}
 
-		DXGI_MODE_SCALING warpDXGIModeScaling(MODE_SCALING_DXGI modescalingmodeDXGI)
+		DXGI_MODE_SCALING warpDXGIModeScaling(_In_ MODE_SCALING_DXGI modescalingmodeDXGI)
 		{
 			switch (modescalingmodeDXGI)
 			{
