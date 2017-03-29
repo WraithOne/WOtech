@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	04.01.2017
-///			Edited:		25.03.2017
+///			Edited:		29.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -75,7 +75,7 @@ namespace WOtech
 			m_keyboardButtonbinding.emplace(target, key);
 		}
 	}
-	void VirtualController::bindKeyboardtoTrigger(Virtual_Controller_Triggers target, Windows::System::VirtualKey key)
+	void VirtualController::bindKeyboardtoTrigger(_In_ Virtual_Controller_Triggers target, _In_ Windows::System::VirtualKey key)
 	{
 		std::map<Virtual_Controller_Triggers, VirtualKey>::iterator it;
 		it = m_keyboardTriggerbinding.find(target);
@@ -89,7 +89,7 @@ namespace WOtech
 			m_keyboardTriggerbinding.emplace(target, key);
 		}
 	}
-	void VirtualController::bindKeyboardtoTumbstick(Virtual_Controller_Sticks target, Windows::System::VirtualKey keyUP, Windows::System::VirtualKey keyDOWN, Windows::System::VirtualKey keyLEFT, Windows::System::VirtualKey keyRIGHT)
+	void VirtualController::bindKeyboardtoTumbstick(_In_ Virtual_Controller_Sticks target, _In_ Windows::System::VirtualKey keyUP, _In_ Windows::System::VirtualKey keyDOWN, _In_ Windows::System::VirtualKey keyLEFT, _In_ Windows::System::VirtualKey keyRIGHT)
 	{
 		virtual_Stick_keyboard temp;
 		temp.up = keyUP;
@@ -110,7 +110,7 @@ namespace WOtech
 		}
 	}
 
-	void VirtualController::bindMousetoButton(Virtual_Controller_Buttons target, WOtech::DXWrapper::RECT area)
+	void VirtualController::bindMousetoButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::DXWrapper::RECT area)
 	{
 		std::map<Virtual_Controller_Buttons, DXWrapper::RECT>::iterator it;
 		it = m_mouseButtonbinding.find(target);
@@ -124,7 +124,7 @@ namespace WOtech
 			m_mouseButtonbinding.emplace(target, area);
 		}
 	}
-	void VirtualController::bindMouseKeytoButton(Virtual_Controller_Buttons target, WOtech::DXWrapper::VirtualKey_Mouse key)
+	void VirtualController::bindMouseKeytoButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::DXWrapper::VirtualKey_Mouse key)
 	{
 		std::map<Virtual_Controller_Buttons, WOtech::DXWrapper::VirtualKey_Mouse>::iterator it;
 		it = m_mouseKeybinding.find(target);
@@ -138,11 +138,11 @@ namespace WOtech
 			m_mouseKeybinding.emplace(target, key);
 		}
 	}
-	void VirtualController::bindMouseWheeltoTrigger(Virtual_Controller_Triggers target)
+	void VirtualController::bindMouseWheeltoTrigger(_In_ Virtual_Controller_Triggers target)
 	{
 		m_mouseWheelbinding = target;
 	}
-	void VirtualController::bindMousetoTumbstick(Virtual_Controller_Sticks target)
+	void VirtualController::bindMousetoTumbstick(_In_ Virtual_Controller_Sticks target)
 	{
 		m_mousebinding = target;
 	}

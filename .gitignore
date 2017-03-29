@@ -50,3 +50,5 @@ Release/WOtech/WOtech.ipdb
 *.codeanalysisast
 *.codeanalysis
 /Debug/pch.pch.codeanalysis
+/x64/Debug/WOtech/WOtech.dll.lastcodeanalysissucceeded
+*.lastcodeanalysissucceeded
