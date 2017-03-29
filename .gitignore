@@ -44,3 +44,9 @@ WOtech.vcxproj.filters
 Release/WOtech/WOtech.ipdb
 *.manifest
 *.opendb
+*.codeanalysis
+*.codeanalysisast
+/x64/Debug/pch.pch.codeanalysis
+*.codeanalysisast
+*.codeanalysis
+/Debug/pch.pch.codeanalysis

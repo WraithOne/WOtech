@@ -125,9 +125,6 @@
     <ClCompile Include="Source\Camera.cpp">
       <Filter>Graphic\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DefaultFactory.cpp">
-      <Filter>Graphic\3D</Filter>
-    </ClCompile>
     <ClCompile Include="Source\DeferredRenderer.cpp">
       <Filter>Graphic\3D</Filter>
     </ClCompile>
@@ -163,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="Source\SystemInformation.cpp">
       <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DefaultFactory.cpp">
+      <Filter>Graphic\3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -232,9 +232,6 @@
     <ClInclude Include="Include\3DComponents.h">
       <Filter>Graphic\3D</Filter>
     </ClInclude>
-    <ClInclude Include="Include\DefaultFactory.h">
-      <Filter>Graphic\3D</Filter>
-    </ClInclude>
     <ClInclude Include="Include\DeferredRenderer.h">
       <Filter>Graphic\3D</Filter>
     </ClInclude>
@@ -252,6 +249,12 @@
     </ClInclude>
     <ClInclude Include="Include\SystemInformation.h">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\VertexTypes.h">
+      <Filter>Graphic\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DefaultFactory.h">
+      <Filter>Graphic\3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

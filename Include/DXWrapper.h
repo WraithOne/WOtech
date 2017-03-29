@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.11.2016
-///			Edited:		21.03.2017
+///			Edited:		29.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DXWRAPPER_H
@@ -21,6 +21,7 @@
 //////////////
 #include "pch.h"
 #include "Utilities.h"
+
 namespace WOtech
 {
 	namespace DXWrapper
@@ -355,58 +356,6 @@ namespace WOtech
 		///////////////////////////////////////////////////////////////
 		// D3D11 Wrapper
 		///////////////////////////////////////////////////////////////
-		public value struct VertexPosition
-		{
-			Windows::Foundation::Numerics::float3 Position;
-		};
-
-		public value struct VertexPositionColor
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float4 Color;
-		};
-
-		public value struct VertexPositionTexture
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float2 TextureCoordinate;
-		};
-
-		public value struct VertexPositionNormal
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float2 Normal;
-		};
-
-		public value struct VertexPositionNormalColor
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float2 Normal;
-			Windows::Foundation::Numerics::float4 Color;
-		};
-
-		public value struct VertexPositionColorTexture
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float4 Color;
-			Windows::Foundation::Numerics::float2 TextureCoordinate;
-		};
-
-		public value struct VertexPositionNormalTexture
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float3 Normal;
-			Windows::Foundation::Numerics::float2 TextureCoordinate;
-		};
-
-		public value struct VertexPositionNormalColorTexture
-		{
-			Windows::Foundation::Numerics::float3 Position;
-			Windows::Foundation::Numerics::float3 Normal;
-			Windows::Foundation::Numerics::float4 Color;
-			Windows::Foundation::Numerics::float2 TextureCoordinate;
-		};
-
 		public enum class CLEAR_FLAG
 		{
 			CLEAR_DEPTH = 0x1L,

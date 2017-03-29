@@ -240,6 +240,7 @@
     <ClInclude Include="Include\SystemManager.h" />
     <ClInclude Include="Include\targetver.h" />
     <ClInclude Include="Include\Utilities.h" />
+    <ClInclude Include="Include\VertexTypes.h" />
     <ClInclude Include="Include\VirtualController.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ThirdParty\FontFileLoader.h" />
