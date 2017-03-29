@@ -129,11 +129,14 @@ namespace WOtech
 			ThrowIfFailed(hr);
 		}
 
+		std::list<IDXGIAdapter*> temp;
+
 		for (UINT i = 0; m_factory->EnumAdapters(i, &pAdapter) != DXGI_ERROR_NOT_FOUND; ++i)
 		{
 			ThrowIfFailed(hr);
-			adapterList->push_back(pAdapter.Get());
+			temp.push_back(pAdapter.Get());
 		}
+		adapterList = &temp;
 	}
 	void DeviceDX11::EnumerateOutputs(_In_ IDXGIAdapter* adapter, _Out_ std::list<IDXGIOutput*>* outputList)
 	{
