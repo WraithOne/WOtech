@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	02.05.2014
-///			Edited:		15.01.2017
+///			Edited:		29.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -44,7 +44,7 @@ namespace WOtech
 
 	void InputManager::SuspendInput()
 	{
-		for (UINT i = 0; i != sizeof(m_gamePad); i++)
+		for (UINT i = 0; i != MAX_PLAYER_COUNT; i++)
 		{
 			m_gamePad[i] = nullptr;
 		}
