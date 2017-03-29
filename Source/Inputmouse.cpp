@@ -39,16 +39,18 @@ namespace WOtech
 		Mouse_State temp;
 		for (std::map<UINT, Windows::UI::Input::PointerPoint^>::iterator it = m_pointerdevices.begin(); it != m_pointerdevices.end(); ++it)
 		{
-			if (it->second->PointerDevice->PointerDeviceType == PointerDeviceType::Mouse)
+			auto pointer = it->second;
+
+			if (pointer->PointerDevice->PointerDeviceType == PointerDeviceType::Mouse)
 			{
-				temp.pointerID = it->second->PointerId;
+				temp.pointerID = pointer->PointerId;
 				temp.position = m_mouseDelta;
-				temp.buttons.LeftButton = it->second->Properties->IsLeftButtonPressed;
-				temp.buttons.RightButton = it->second->Properties->IsRightButtonPressed;
-				temp.buttons.MiddleButton = it->second->Properties->IsMiddleButtonPressed;
-				temp.buttons.X1Button = it->second->Properties->IsXButton1Pressed;
-				temp.buttons.X2Button = it->second->Properties->IsXButton2Pressed;
-				temp.wheeldelta = it->second->Properties->MouseWheelDelta;
+				temp.buttons.LeftButton = pointer->Properties->IsLeftButtonPressed;
+				temp.buttons.RightButton = pointer->Properties->IsRightButtonPressed;
+				temp.buttons.MiddleButton = pointer->Properties->IsMiddleButtonPressed;
+				temp.buttons.X1Button = pointer->Properties->IsXButton1Pressed;
+				temp.buttons.X2Button = pointer->Properties->IsXButton2Pressed;
+				temp.wheeldelta = pointer->Properties->MouseWheelDelta;
 			}
 		}
 		return temp;
