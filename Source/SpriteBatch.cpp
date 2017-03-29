@@ -225,7 +225,7 @@ namespace WOtech
 		m_fontBrush->SetColor(wrapColor(color));
 
 		// Create text format
-		IDWriteTextFormat* temp = NULL;
+		IDWriteTextFormat* temp = nullptr;
 		hr = m_Wfactory->CreateTextFormat(font->getFontname()->Data(), font->getColletion(), DWRITE_FONT_WEIGHT_NORMAL, wraptFontStyle(style), DWRITE_FONT_STRETCH_NORMAL, fontSize, L"", &temp);
 		ThrowIfFailed(hr);
 
