@@ -115,7 +115,7 @@ namespace WOtech
 	void DeviceDX11::EnumerateAdapters(_Out_ std::list<IDXGIAdapter*>* adapterList)
 	{
 		ComPtr<IDXGIAdapter> pAdapter;
-		HRESULT hr;
+		HRESULT hr = E_FAIL;
 
 		uint32 flags = 0;
 #ifdef _DEBUG
@@ -131,7 +131,7 @@ namespace WOtech
 
 		std::list<IDXGIAdapter*> temp;
 
-		for (UINT i = 0; m_factory->EnumAdapters(i, &pAdapter) != DXGI_ERROR_NOT_FOUND; ++i)
+		for (UINT i = 0; (hr = m_factory->EnumAdapters(i, &pAdapter)) != DXGI_ERROR_NOT_FOUND; ++i)
 		{
 			ThrowIfFailed(hr);
 			temp.push_back(pAdapter.Get());
