@@ -53,7 +53,7 @@ namespace WOtech
 		SetViewParams(eye, lookAt, up);
 
 		// Setup the projection matrix.
-		SetProjParams(XM_PI / 4, 1.0f, 1.0f, 1000.0f);
+		SetProjParams(XM_PI / 4.0f, 1.0f, 1.0f, 1000.0f);
 	}
 
 	void Camera::LookDirection(_In_ float3 lookDirection)
