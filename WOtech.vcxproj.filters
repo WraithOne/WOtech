@@ -44,6 +44,15 @@
     <Filter Include="Graphic\Device">
       <UniqueIdentifier>{e77831f7-7673-4d09-81a4-fb9da18cf6cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphic\2D\Components">
+      <UniqueIdentifier>{a840e174-1640-4407-8a3f-3f040c3dd9a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\3D\Components">
+      <UniqueIdentifier>{8d9e6dee-4d54-4b78-bf32-7193e156968c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\3D\Renderer">
+      <UniqueIdentifier>{31af39b5-b62d-4c1b-80a3-9b8acf7d87f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -101,47 +110,8 @@
     <ClCompile Include="Source\VirtualController.cpp">
       <Filter>Input\VirtualController</Filter>
     </ClCompile>
-    <ClCompile Include="Source\AnimatedSprite.cpp">
-      <Filter>Graphic\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Font.cpp">
-      <Filter>Graphic\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Geometry.cpp">
-      <Filter>Graphic\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Sprite.cpp">
-      <Filter>Graphic\2D</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SpriteBatch.cpp">
       <Filter>Graphic\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Text.cpp">
-      <Filter>Graphic\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Buffer.cpp">
-      <Filter>Graphic\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Camera.cpp">
-      <Filter>Graphic\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\DeferredRenderer.cpp">
-      <Filter>Graphic\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ForwardRenderer.cpp">
-      <Filter>Graphic\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Material.cpp">
-      <Filter>Graphic\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Mesh.cpp">
-      <Filter>Graphic\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Shader.cpp">
-      <Filter>Graphic\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Texture.cpp">
-      <Filter>Graphic\3D</Filter>
     </ClCompile>
     <ClCompile Include="Source\DeviceDX11.cpp">
       <Filter>Graphic\Device</Filter>
@@ -163,6 +133,45 @@
     </ClCompile>
     <ClCompile Include="Source\DefaultFactory.cpp">
       <Filter>Graphic\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AnimatedSprite.cpp">
+      <Filter>Graphic\2D\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Font.cpp">
+      <Filter>Graphic\2D\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Geometry.cpp">
+      <Filter>Graphic\2D\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Sprite.cpp">
+      <Filter>Graphic\2D\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Text.cpp">
+      <Filter>Graphic\2D\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Buffer.cpp">
+      <Filter>Graphic\3D\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Graphic\3D\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Material.cpp">
+      <Filter>Graphic\3D\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mesh.cpp">
+      <Filter>Graphic\3D\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Texture.cpp">
+      <Filter>Graphic\3D\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Shader.cpp">
+      <Filter>Graphic\3D\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DeferredRenderer.cpp">
+      <Filter>Graphic\3D\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ForwardRenderer.cpp">
+      <Filter>Graphic\3D\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,26 +232,8 @@
     <ClInclude Include="Include\VirtualController.h">
       <Filter>Input\VirtualController</Filter>
     </ClInclude>
-    <ClInclude Include="Include\2DComponents.h">
-      <Filter>Graphic\2D</Filter>
-    </ClInclude>
     <ClInclude Include="Include\SpriteBatch.h">
       <Filter>Graphic\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\3DComponents.h">
-      <Filter>Graphic\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\DeferredRenderer.h">
-      <Filter>Graphic\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\ForwardRenderer.h">
-      <Filter>Graphic\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\IRenderer.h">
-      <Filter>Graphic\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\RenderCommand.h">
-      <Filter>Graphic\3D</Filter>
     </ClInclude>
     <ClInclude Include="Include\DeviceDX11.h">
       <Filter>Graphic\Device</Filter>
@@ -250,11 +241,29 @@
     <ClInclude Include="Include\SystemInformation.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="Include\VertexTypes.h">
-      <Filter>Graphic\3D</Filter>
-    </ClInclude>
     <ClInclude Include="Include\DefaultFactory.h">
       <Filter>Graphic\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\2DComponents.h">
+      <Filter>Graphic\2D\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\3DComponents.h">
+      <Filter>Graphic\3D\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\VertexTypes.h">
+      <Filter>Graphic\3D\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DeferredRenderer.h">
+      <Filter>Graphic\3D\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ForwardRenderer.h">
+      <Filter>Graphic\3D\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\IRenderer.h">
+      <Filter>Graphic\3D\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderCommand.h">
+      <Filter>Graphic\3D\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
