@@ -46,7 +46,7 @@ namespace WOtech
 			if (pointer->PointerDevice->PointerDeviceType == PointerDeviceType::Touch)
 			{
 				Touch_State temp{ pointer->PointerId ,Pointer_Position{ pointer->Position.X , pointer->Position.Y } };
-				output->set(nr,temp);		
+				output->set(nr, temp);
 			}
 			nr++;
 		}

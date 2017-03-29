@@ -20,12 +20,10 @@
 #include "pch.h"
 #include <WindowsNumerics.h>
 
-
 #include "DefaultFactory.h"
 #include "VertexTypes.h"
 #include "DeviceDX11.h"
 #include "3DComponents.h"
-
 
 namespace WOtech
 {

@@ -29,7 +29,7 @@ namespace WOtech
 	ref class MaterialInstance;
 	ref class Mesh;
 
-	Mesh^ CreateCube( _In_ float size, _In_ WOtech::MaterialInstance^ material, _In_ WOtech::DeviceDX11^ device);
-	Mesh^ CreateTriangle( _In_ float size, _In_ WOtech::MaterialInstance^ material, _In_ WOtech::DeviceDX11^ device);
+	Mesh^ CreateCube(_In_ float size, _In_ WOtech::MaterialInstance^ material, _In_ WOtech::DeviceDX11^ device);
+	Mesh^ CreateTriangle(_In_ float size, _In_ WOtech::MaterialInstance^ material, _In_ WOtech::DeviceDX11^ device);
 }
 #endif

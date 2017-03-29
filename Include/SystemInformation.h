@@ -57,7 +57,6 @@ namespace WOtech
 		~SystemInformation();
 
 	private:
-
 	};
 }
 #endif

@@ -24,11 +24,9 @@ namespace WOtech
 {
 	SystemInformation::SystemInformation()
 	{
-		
 	}
 	void SystemInformation::GatherInformations()
 	{
-		
 	}
 	Platform::Array<WOtech::DXWrapper::ADAPTER_DXGI>^ SystemInformation::getGraphicInformations()
 	{
@@ -39,6 +37,5 @@ namespace WOtech
 	}
 	SystemInformation::~SystemInformation()
 	{
-		
 	}
 }

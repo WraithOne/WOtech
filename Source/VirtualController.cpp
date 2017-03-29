@@ -241,7 +241,7 @@ namespace WOtech
 		// Mouse
 		m_mouseKeybinding.clear();
 		m_mouseButtonbinding.clear();
-		
+
 		// Touch
 		m_touchButtonbinding.clear();
 		m_touchTriggerbinding.clear();
