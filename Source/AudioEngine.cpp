@@ -211,10 +211,9 @@ namespace WOtech
 		*devcount = 1;
 #else
 		// TODO, WinRT: make xaudio2 device enumeration only happen once, and in the background
+
 		auto operation = DeviceInformation::FindAllAsync(DeviceClass::AudioRender);
-		while (operation->Status != Windows::Foundation::AsyncStatus::Completed)
-		{
-		}
+		while (operation->Status != Windows::Foundation::AsyncStatus::Completed);
 
 		DeviceInformationCollection^ devices = operation->GetResults();
 		*devCount = devices->Size;
@@ -242,9 +241,7 @@ namespace WOtech
 		return S_OK;
 #else
 		auto operation = DeviceInformation::FindAllAsync(DeviceClass::AudioRender);
-		while (operation->Status != Windows::Foundation::AsyncStatus::Completed)
-		{
-		}
+		while (operation->Status != Windows::Foundation::AsyncStatus::Completed);
 
 		DeviceInformationCollection^ devices = operation->GetResults();
 		if (index >= devices->Size)
