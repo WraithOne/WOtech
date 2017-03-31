@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	20.09.2014
-///			Edited:		11.02.2017
+///			Edited:		31.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -185,19 +185,19 @@ namespace WOtech
 		return m_musicDevice.Get();
 	}
 
-	void AudioEngine::GetMasterVolome(_Out_ float32 effectVolume, _Out_ float32 musicVolume)
+	void AudioEngine::GetMasterVolome(_Out_ float32* effectVolume, _Out_ float32* musicVolume)
 	{
 		float32 failed = 0.0f;
 
 		if (m_effectMasterVoice)
-			m_effectMasterVoice->GetVolume(&effectVolume);
+			m_effectMasterVoice->GetVolume(effectVolume);
 		else
-			effectVolume = failed;
+			effectVolume = &failed;
 
 		if (m_musicMasterVoice)
-			m_musicMasterVoice->GetVolume(&musicVolume);
+			m_musicMasterVoice->GetVolume(musicVolume);
 		else
-			musicVolume = failed;
+			musicVolume = &failed;
 	}
 
 	void AudioEngine::GetDeviceCount(_In_ IXAudio2* device, _Out_ uint32* devCount)
@@ -220,7 +220,7 @@ namespace WOtech
 #endif
 	}
 
-	void AudioEngine::GetDeviceDetails(_In_ IXAudio2* device, _In_  uint32 index, _Out_ DEVICE_DETAILS details)
+	void AudioEngine::GetDeviceDetails(_In_ IXAudio2* device, _In_  uint32 index, _Out_ DEVICE_DETAILS* details)
 	{
 		UNREFERENCED_PARAMETER(device);
 
@@ -250,8 +250,8 @@ namespace WOtech
 		}
 
 		DeviceInformation^ d = devices->GetAt(index);
-		details.DeviceID = d->Id;
-		details.DisplayName = d->Name;
+		details->DeviceID = d->Id;
+		details->DisplayName = d->Name;
 
 #endif
 	}

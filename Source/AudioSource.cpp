@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	10.10.2014
-///			Edited:		11.02.2017
+///			Edited:		31.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -181,17 +181,17 @@ namespace WOtech
 		ThrowIfFailed(hr);
 	}
 
-	void AudioSource::getVolume(_Out_ float32 volume)
+	void AudioSource::getVolume(_Out_ float32* volume)
 	{
-		m_sourceVoice->GetVolume(&volume);
+		m_sourceVoice->GetVolume(volume);
 	}
 
-	void AudioSource::getPlaybackState(_Out_ AUDIO_PLAYBACK_STATE playbackState)
+	void AudioSource::getPlaybackState(_Out_ AUDIO_PLAYBACK_STATE* playbackState)
 	{
-		playbackState = m_playbackState;
+		playbackState = &m_playbackState;
 	}
 
-	void AudioSource::getState(_Out_ AUDIOSOURCE_STATE state)
+	void AudioSource::getState(_Out_ AUDIOSOURCE_STATE* state)
 	{
 		XAUDIO2_VOICE_STATE temp_state;
 
@@ -201,9 +201,9 @@ namespace WOtech
 			if (m_playbackState != AUDIO_PLAYBACK_STATE::Stopped)
 				m_playbackState = AUDIO_PLAYBACK_STATE::Stopped;
 
-		state.PlaybackState = m_playbackState;
-		state.VoiceState.BuffersQueued = temp_state.BuffersQueued;
-		state.VoiceState.SamplesPlayed = temp_state.SamplesPlayed;
-		state.VoiceState.pCurrentBufferContext = DecodePointer(temp_state.pCurrentBufferContext);
+		state->PlaybackState = m_playbackState;
+		state->VoiceState.BuffersQueued = temp_state.BuffersQueued;
+		state->VoiceState.SamplesPlayed = temp_state.SamplesPlayed;
+		state->VoiceState.pCurrentBufferContext = DecodePointer(temp_state.pCurrentBufferContext);
 	}
 } //namespace WOtech

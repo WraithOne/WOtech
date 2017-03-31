@@ -11,7 +11,7 @@
 ///			Header file for AudioEngine and AudioSource
 ///
 ///			Created:	01.05.2014
-///			Edited:		11.02.2017
+///			Edited:		31.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_AUDIO_H
@@ -115,7 +115,7 @@ namespace WOtech
 		\param Volume for Effectvoice from 0.0f to 1.0f
 		\param Volume for Mastervoice from 0.0f to 1.0f
 		*/
-		void GetMasterVolome(_Out_ float32 effectVolume, _Out_ float32 musicVolume);
+		void GetMasterVolome(_Out_ float32* effectVolume, _Out_ float32* musicVolume);
 
 	internal:
 		//! GetEffectEngine.
@@ -142,7 +142,7 @@ namespace WOtech
 		\param number of the device
 		\param Details of the physical device
 		*/
-		void GetDeviceDetails(_In_ IXAudio2* device, _In_  uint32 index, _Out_ DEVICE_DETAILS details);
+		void GetDeviceDetails(_In_ IXAudio2* device, _In_  uint32 index, _Out_ DEVICE_DETAILS* details);
 	private:
 		//! AudioEngine Deconstructor.
 		/*!
@@ -203,18 +203,18 @@ namespace WOtech
 		/*!
 		\param Get´s the AudioSource volume
 		*/
-		void getVolume(_Out_ float32 volume);
+		void getVolume(_Out_ float32* volume);
 		//! getPlaybackState.
 		/*!
 		\param Gets the AudioSource playback state
 		*/
-		void getPlaybackState(_Out_ AUDIO_PLAYBACK_STATE playbackState);
+		void getPlaybackState(_Out_ AUDIO_PLAYBACK_STATE* playbackState);
 
 		//! getState.
 		/*!
 		\param Gets the AudioSource state
 		*/
-		void getState(_Out_ AUDIOSOURCE_STATE state);
+		void getState(_Out_ AUDIOSOURCE_STATE* state);
 
 	private:
 		//! Deconstructor.
