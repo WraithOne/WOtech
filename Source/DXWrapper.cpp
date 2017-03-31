@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.11.2016
-///			Edited:		26.12.2016
+///			Edited:		31.03.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -118,7 +118,7 @@ namespace WOtech
 
 		D2D1_BEZIER_SEGMENT wrapBezierSegment(_In_ BEZIER_SEGMENT& beziersegment)
 		{
-			return D2D1::BezierSegment(wrapPoint(beziersegment.point1), wrapPoint(beziersegment.point1), wrapPoint(beziersegment.point1));
+			return D2D1::BezierSegment(wrapPoint(beziersegment.point1), wrapPoint(beziersegment.point2), wrapPoint(beziersegment.point3));
 		}
 
 		D2D1_SWEEP_DIRECTION wrapSweepDirection(_In_ SWEEP_DIRECTION sweepdirection)
