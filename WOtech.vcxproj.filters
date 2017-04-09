@@ -192,7 +192,6 @@
       <Filter>Graphic</Filter>
     </ClInclude>
     <ClInclude Include="Include\targetver.h" />
-    <ClInclude Include="WOtech.h" />
     <ClInclude Include="Include\Input.h">
       <Filter>Input</Filter>
     </ClInclude>

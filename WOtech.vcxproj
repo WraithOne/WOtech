@@ -247,7 +247,6 @@
     <ClInclude Include="ThirdParty\FontFileLoader.h" />
     <ClInclude Include="ThirdParty\MediaReader.h" />
     <ClInclude Include="ThirdParty\WICTextureLoader.h" />
-    <ClInclude Include="WOtech.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
