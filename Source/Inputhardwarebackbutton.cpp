@@ -20,33 +20,24 @@
 #include "pch.h"
 #include "Input.h"
 
-using namespace Windows::UI::Core;
-using namespace Windows::System;
-using namespace Windows::Foundation;
-using namespace Windows::Devices::Input;
-using namespace Windows::Gaming::Input;
-using namespace Windows::Foundation::Collections;
-using namespace Windows::Foundation::Metadata;
-using namespace Platform;
-
 namespace WOtech
 {
-	Boolean InputManager::HardwarebackbuttonConnceted()
+	Platform::Boolean InputManager::HardwarebackbuttonConnceted()
 	{
-		if (ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
+		if (Windows::Foundation::Metadata::ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
 			return true;
 
 		return false;
 	}
 
-	void InputManager::HardwarebackbuttonUse(_In_ Boolean Comfirm)
+	void InputManager::HardwarebackbuttonUse(_In_ Platform::Boolean Comfirm)
 	{
 		if (Comfirm)
 		{
 			// Hardware back button is only available on some device families such as Phone.
-			if (ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
+			if (Windows::Foundation::Metadata::ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
 			{
-				Windows::Phone::UI::Input::HardwareButtons::BackPressed += ref new EventHandler<Windows::Phone::UI::Input::BackPressedEventArgs^>(this, &InputManager::OnHardwareBackButtonPressed);
+				Windows::Phone::UI::Input::HardwareButtons::BackPressed += ref new Windows::Foundation::EventHandler<Windows::Phone::UI::Input::BackPressedEventArgs^>(this, &InputManager::OnHardwareBackButtonPressed);
 
 				m_hwbbConfirmed = true;
 			}
@@ -54,19 +45,19 @@ namespace WOtech
 		else
 		{
 			// Hardware back button is only available on some device families such as Phone.
-			if (ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
+			if (Windows::Foundation::Metadata::ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
 			{
 				m_hwbbConfirmed = false;
 			}
 		}
 	}
 
-	Boolean InputManager::HardwarebackbuttonInUse()
+	Platform::Boolean InputManager::HardwarebackbuttonInUse()
 	{
 		return m_hwbbConfirmed;
 	}
 
-	Boolean InputManager::HardwarebackbuttonPressed()
+	Platform::Boolean InputManager::HardwarebackbuttonPressed()
 	{
 		if (m_hwbbPressed)
 		{
