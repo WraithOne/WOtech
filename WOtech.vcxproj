@@ -153,6 +153,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -291,7 +292,6 @@
     <ClCompile Include="Source\SystemManager.cpp" />
     <ClCompile Include="Source\Text.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
-    <ClCompile Include="Source\Utilities.cpp" />
     <ClCompile Include="Source\VirtualController.cpp" />
     <ClCompile Include="ThirdParty\FontFileLoader.cpp" />
     <ClCompile Include="ThirdParty\MediaReader.cpp" />

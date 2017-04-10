@@ -194,7 +194,7 @@ namespace WOtech
 		}
 	}
 
-	Platform::Boolean PointerIntersect(_In_ Touch_State& state, _In_ DXWrapper::RECT& area)
+	inline Platform::Boolean PointerIntersect(_In_ Touch_State& state, _In_ DXWrapper::RECT& area)
 	{
 		WOtech::Pointer_Position position = state.position;
 
@@ -208,7 +208,7 @@ namespace WOtech
 			return false;
 		}
 	}
-	Touch_State TouchIntersect(_In_ Platform::Array<Touch_State>^ state, _In_ DXWrapper::RECT& area)
+	inline Touch_State TouchIntersect(_In_ Platform::Array<Touch_State>^ state, _In_ DXWrapper::RECT& area)
 	{
 		Touch_State temp;
 
@@ -223,7 +223,7 @@ namespace WOtech
 
 		return temp;
 	}
-	Platform::Boolean isIntersecting(Touch_State& state)
+	inline Platform::Boolean isIntersecting(Touch_State& state)
 	{
 		if (state.pointerID != 0U)
 			return true;
