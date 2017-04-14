@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		27.11.2016
+///			Edited:		12.04.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -236,7 +236,7 @@ namespace WOtech
 		setRotation(layoutbox, rotation);
 
 		// Draw the text
-		m_deviceContext->DrawText(text->Data(), text->Length(), temp, destRect, m_fontBrush.Get());
+		m_deviceContext->DrawText(text->Data(), text->Length(), temp, destRect, m_fontBrush.Get()); // todo: Analyzer -> temp cannot be 0
 
 		SafeRelease(&temp);
 	}

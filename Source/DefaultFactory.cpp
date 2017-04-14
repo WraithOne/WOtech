@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	27.02.2016
-///			Edited:		29.03.2017
+///			Edited:		12.04.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -29,38 +29,39 @@ namespace WOtech
 {
 	Mesh^ CreateCube(_In_ float size, _In_ MaterialInstance^ material, _In_ DeviceDX11^ device)
 	{
-		Platform::Array<VertexPositionNormalTexture^>^ data;
-		data->get(0)->Position = Windows::Foundation::Numerics::float3{ -size / 2.0f, -size / 2.0f, size / 2.0f };
-		data->get(0)->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);
-		data->get(0)->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		auto data = ref new Platform::Array<VertexPositionNormalTexture^>(9);
 
-		data->get(1)->Position = Windows::Foundation::Numerics::float3(0.0f, 0.0f, 1.0f);
-		data->get(1)->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, 1.0f);
-		data->get(1)->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[0]->Position = Windows::Foundation::Numerics::float3{ -size / 2.0f, -size / 2.0f, size / 2.0f };
+		data[0]->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);
+		data[0]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
 
-		data->get(2)->Position = Windows::Foundation::Numerics::float3(size / 2.0f, size / 2.0f, size / 2.0f);
-		data->get(2)->Normal = Windows::Foundation::Numerics::float3(1.0f, 0.0f, -1.0f);
-		data->get(2)->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[1]->Position = Windows::Foundation::Numerics::float3(0.0f, 0.0f, 1.0f);
+		data[1]->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, 1.0f);
+		data[1]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
 
-		data->get(3)->Position = Windows::Foundation::Numerics::float3(-size / 2.0f, size / 2.0f, size / 2.0f);
-		data->get(3)->Normal = Windows::Foundation::Numerics::float3(-1.0f, 1.0f, 1.0f);
-		data->get(3)->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[2]->Position = Windows::Foundation::Numerics::float3(size / 2.0f, size / 2.0f, size / 2.0f);
+		data[2]->Normal = Windows::Foundation::Numerics::float3(1.0f, 0.0f, -1.0f);
+		data[2]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
 
-		data->get(4)->Position = Windows::Foundation::Numerics::float3(-size / 2.0f, -size / 2.0f, -size / 2.0f);
-		data->get(4)->Normal = Windows::Foundation::Numerics::float3(-1.0f, -1.0f, -1.0f);
-		data->get(4)->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[3]->Position = Windows::Foundation::Numerics::float3(-size / 2.0f, size / 2.0f, size / 2.0f);
+		data[3]->Normal = Windows::Foundation::Numerics::float3(-1.0f, 1.0f, 1.0f);
+		data[3]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
 
-		data->get(5)->Position = Windows::Foundation::Numerics::float3(size / 2.0f, -size / 2.0f, -size / 2.0f);
-		data->get(5)->Normal = Windows::Foundation::Numerics::float3(1.0f, -1.0f, -1.0f);
-		data->get(5)->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[4]->Position = Windows::Foundation::Numerics::float3(-size / 2.0f, -size / 2.0f, -size / 2.0f);
+		data[4]->Normal = Windows::Foundation::Numerics::float3(-1.0f, -1.0f, -1.0f);
+		data[4]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
 
-		data->get(6)->Position = Windows::Foundation::Numerics::float3(size / 2.0f, size / 2.0f, -size / 2.0f);
-		data->get(6)->Normal = Windows::Foundation::Numerics::float3(1.0f, 1.0f, -1.0f);
-		data->get(6)->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[5]->Position = Windows::Foundation::Numerics::float3(size / 2.0f, -size / 2.0f, -size / 2.0f);
+		data[5]->Normal = Windows::Foundation::Numerics::float3(1.0f, -1.0f, -1.0f);
+		data[6]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
 
-		data->get(7)->Position = Windows::Foundation::Numerics::float3(-size / 2.0f, size / 2.0f, -size / 2.0f);
-		data->get(7)->Normal = Windows::Foundation::Numerics::float3(-1.0f, 1.0f, -1.0f);
-		data->get(7)->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[7]->Position = Windows::Foundation::Numerics::float3(size / 2.0f, size / 2.0f, -size / 2.0f);
+		data[7]->Normal = Windows::Foundation::Numerics::float3(1.0f, 1.0f, -1.0f);
+		data[7]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+
+		data[8]->Position = Windows::Foundation::Numerics::float3(-size / 2.0f, size / 2.0f, -size / 2.0f);
+		data[8]->Normal = Windows::Foundation::Numerics::float3(-1.0f, 1.0f, -1.0f);
+		data[8]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
 
 		WORD indices[] =
 		{
@@ -81,19 +82,19 @@ namespace WOtech
 	}
 	Mesh^ CreateTriangle(_In_ float size, _In_ MaterialInstance^ material, _In_ DeviceDX11^ device)
 	{
-		Platform::Array<VertexPositionNormalTexture^>^ data;
+		auto data = ref new Platform::Array<VertexPositionNormalTexture^>(3);
 
-		data->get(0)->Position = Windows::Foundation::Numerics::float3(0.5f, 0.5f, 0.5f);
-		data->get(0)->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);
-		data->get(0)->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[0]->Position = Windows::Foundation::Numerics::float3(0.5f, 0.5f, 0.5f);
+		data[0]->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);
+		data[0]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
 
-		data->get(1)->Position = Windows::Foundation::Numerics::float3(0.5f, -0.5f, 0.5f);
-		data->get(1)->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);
-		data->get(1)->TextureCoordinate = Windows::Foundation::Numerics::float2(0.5f, 1.0f);
+		data[1]->Position = Windows::Foundation::Numerics::float3(0.5f, -0.5f, 0.5f);
+		data[1]->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);
+		data[1]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.5f, 1.0f);
 
-		data->get(1)->Position = Windows::Foundation::Numerics::float3(-0.5f, -0.5f, 0.5f);
-		data->get(1)->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);
-		data->get(1)->TextureCoordinate = Windows::Foundation::Numerics::float2(1.0f, 0.0f);
+		data[2]->Position = Windows::Foundation::Numerics::float3(-0.5f, -0.5f, 0.5f);
+		data[2]->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);
+		data[2]->TextureCoordinate = Windows::Foundation::Numerics::float2(1.0f, 0.0f);
 
 		WORD indices[] =
 		{

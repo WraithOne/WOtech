@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.11.2016
-///			Edited:		29.03.2017
+///			Edited:		12.04.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DXWRAPPER_H
@@ -374,7 +374,7 @@ namespace WOtech
 			UINT							SemanticIndex;
 			FORMAT_DXGI						Format;
 			UINT							InputSlot;
-			UINT							AlignedByteOffset;
+			unsigned int					AlignedByteOffset;
 			INPUT_CLASSIFICATION			InputSlotClass;
 			UINT							InstanceDataStepRate;
 		};
