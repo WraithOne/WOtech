@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.02.2016
-///			Edited:		13.11.2016
+///			Edited:		14.04.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_3DCOMPONENTS_H
@@ -171,6 +171,7 @@ namespace WOtech
 		void SubmitBuffer(_In_ DeviceDX11^ device);
 
 		void setOffset(_In_ UINT32 offset);
+		void setStride(_In_ UINT32 stride);
 
 		UINT32 getStride();
 		UINT32 getOffset();

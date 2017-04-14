@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.02.2016
-///			Edited:		11.11.2016
+///			Edited:		14.04.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -48,6 +48,11 @@ namespace WOtech
 	void VertexBuffer::setOffset(_In_ UINT32 offset)
 	{
 		m_offset = offset;
+	}
+
+	void VertexBuffer::setStride(UINT32 stride)
+	{
+		m_stride = stride;
 	}
 
 	UINT32 VertexBuffer::getStride()
