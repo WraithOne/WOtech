@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	27.02.2016
-///			Edited:		29.03.2017
+///			Edited:		14.04.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DEFAULTFACTORY_H
@@ -29,7 +29,11 @@ namespace WOtech
 	ref class MaterialInstance;
 	ref class Mesh;
 
-	Mesh^ CreateCube(_In_ float size, _In_ WOtech::MaterialInstance^ material, _In_ WOtech::DeviceDX11^ device);
-	Mesh^ CreateTriangle(_In_ float size, _In_ WOtech::MaterialInstance^ material, _In_ WOtech::DeviceDX11^ device);
+	public ref class DefaultFactory sealed
+	{
+	public:
+		static Mesh^ CreateCube(_In_ float size, _In_ WOtech::MaterialInstance^ material, _In_ WOtech::DeviceDX11^ device);
+		static Mesh^ CreateTriangle(_In_ float size, _In_ WOtech::MaterialInstance^ material, _In_ WOtech::DeviceDX11^ device);
+	};
 }
 #endif

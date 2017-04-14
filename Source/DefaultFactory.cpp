@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	27.02.2016
-///			Edited:		12.04.2017
+///			Edited:		14.04.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -27,7 +27,7 @@
 
 namespace WOtech
 {
-	Mesh^ CreateCube(_In_ float size, _In_ MaterialInstance^ material, _In_ DeviceDX11^ device)
+	Mesh^ DefaultFactory::CreateCube(_In_ float size, _In_ MaterialInstance^ material, _In_ DeviceDX11^ device)
 	{
 		auto data = ref new Platform::Array<VertexPositionNormalTexture^>(9);
 
@@ -80,7 +80,7 @@ namespace WOtech
 
 		return ref new Mesh(vB, iB, material);
 	}
-	Mesh^ CreateTriangle(_In_ float size, _In_ MaterialInstance^ material, _In_ DeviceDX11^ device)
+	Mesh^ DefaultFactory::CreateTriangle(_In_ float size, _In_ MaterialInstance^ material, _In_ DeviceDX11^ device)
 	{
 		auto data = ref new Platform::Array<VertexPositionNormalTexture^>(3);
 
