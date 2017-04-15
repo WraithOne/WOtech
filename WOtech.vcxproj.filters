@@ -53,6 +53,18 @@
     <Filter Include="Graphic\3D\Renderer">
       <UniqueIdentifier>{31af39b5-b62d-4c1b-80a3-9b8acf7d87f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphic\3D\Default">
+      <UniqueIdentifier>{a1638e32-9b46-481b-8fb8-390bf0a549c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\3D\Default\Shader">
+      <UniqueIdentifier>{bc11bf76-dec5-44a2-b355-eed8dc6c46c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\3D\Default\Shader\Shared">
+      <UniqueIdentifier>{dc5cdbd7-a142-46a0-95cf-abe242906866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\3D\Default\Shader\Compiled">
+      <UniqueIdentifier>{c3b27fe3-7c20-40e0-824a-8bbf4ca24999}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -128,9 +140,6 @@
     <ClCompile Include="Source\SystemInformation.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DefaultFactory.cpp">
-      <Filter>Graphic\3D</Filter>
-    </ClCompile>
     <ClCompile Include="Source\AnimatedSprite.cpp">
       <Filter>Graphic\2D\Components</Filter>
     </ClCompile>
@@ -169,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="Source\ForwardRenderer.cpp">
       <Filter>Graphic\3D\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DefaultFactory.cpp">
+      <Filter>Graphic\3D\Default</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -237,9 +249,6 @@
     <ClInclude Include="Include\SystemInformation.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="Include\DefaultFactory.h">
-      <Filter>Graphic\3D</Filter>
-    </ClInclude>
     <ClInclude Include="Include\2DComponents.h">
       <Filter>Graphic\2D\Components</Filter>
     </ClInclude>
@@ -261,5 +270,36 @@
     <ClInclude Include="Include\RenderCommand.h">
       <Filter>Graphic\3D\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Include\DefaultFactory.h">
+      <Filter>Graphic\3D\Default</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Shader\Shared\Common.hlsli">
+      <Filter>Graphic\3D\Default\Shader\Shared</Filter>
+    </None>
+    <None Include="Source\Shader\Shared\Lighting.hlsli">
+      <Filter>Graphic\3D\Default\Shader\Shared</Filter>
+    </None>
+    <None Include="Source\Shader\Shared\Structures.hlsli">
+      <Filter>Graphic\3D\Default\Shader\Shared</Filter>
+    </None>
+    <None Include="Source\Shader\Compiled\PS_Basic.inc">
+      <Filter>Graphic\3D\Default\Shader\Compiled</Filter>
+    </None>
+    <None Include="Source\Shader\Compiled\VS_Basic.inc">
+      <Filter>Graphic\3D\Default\Shader\Compiled</Filter>
+    </None>
+    <None Include="Source\Shader\Shared\Parameters.hlsli">
+      <Filter>Graphic\3D\Default\Shader\Shared</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Source\Shader\PS_Basic.hlsl">
+      <Filter>Graphic\3D\Default\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shader\VS_Basic.hlsl">
+      <Filter>Graphic\3D\Default\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
