@@ -50,7 +50,7 @@ namespace WOtech
 		m_offset = offset;
 	}
 
-	void VertexBuffer::setStride(UINT32 stride)
+	void VertexBuffer::setStride(_In_ UINT32 stride)
 	{
 		m_stride = stride;
 	}

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	27.02.2016
-///			Edited:		14.04.2017
+///			Edited:		15.04.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -25,11 +25,27 @@
 #include "DeviceDX11.h"
 #include "3DComponents.h"
 
+#include "Source\Shader\Compiled\VS_Basic.inc"
+#include "Source\Shader\Compiled\PS_Basic.inc"
+
 namespace WOtech
 {
+	Material ^ DefaultFactory::CreateBasicMaterial(_In_ WOtech::DeviceDX11 ^ device)
+	{
+		WOtech::VertexShader^ vertexshader = ref new VertexShader(VS_Basic, sizeof(VS_Basic), nullptr, device);
+		WOtech::PixelShader^ pixelshader = ref new PixelShader(PS_Basic, sizeof(PS_Basic), device);
+
+		return ref new Material(vertexshader, pixelshader, device);
+	}
+
 	Mesh^ DefaultFactory::CreateCube(_In_ float size, _In_ MaterialInstance^ material, _In_ DeviceDX11^ device)
 	{
 		auto data = ref new Platform::Array<VertexPositionNormalTexture^>(9);
+
+		for (unsigned int i = 0; i < data->Length; i++)
+		{
+			data[i] = ref new VertexPositionNormalTexture;
+		}
 
 		data[0]->Position = Windows::Foundation::Numerics::float3{ -size / 2.0f, -size / 2.0f, size / 2.0f };
 		data[0]->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);
@@ -83,6 +99,11 @@ namespace WOtech
 	Mesh^ DefaultFactory::CreateTriangle(_In_ float size, _In_ MaterialInstance^ material, _In_ DeviceDX11^ device)
 	{
 		auto data = ref new Platform::Array<VertexPositionNormalTexture^>(3);
+
+		for (unsigned int i = 0; i < data->Length; i++)
+		{
+			data[i] = ref new VertexPositionNormalTexture;
+		}
 
 		data[0]->Position = Windows::Foundation::Numerics::float3(0.5f, 0.5f, 0.5f);
 		data[0]->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);

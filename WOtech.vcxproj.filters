@@ -284,14 +284,14 @@
     <None Include="Source\Shader\Shared\Structures.hlsli">
       <Filter>Graphic\3D\Default\Shader\Shared</Filter>
     </None>
+    <None Include="Source\Shader\Shared\Parameters.hlsli">
+      <Filter>Graphic\3D\Default\Shader\Shared</Filter>
+    </None>
     <None Include="Source\Shader\Compiled\PS_Basic.inc">
       <Filter>Graphic\3D\Default\Shader\Compiled</Filter>
     </None>
     <None Include="Source\Shader\Compiled\VS_Basic.inc">
       <Filter>Graphic\3D\Default\Shader\Compiled</Filter>
-    </None>
-    <None Include="Source\Shader\Shared\Parameters.hlsli">
-      <Filter>Graphic\3D\Default\Shader\Shared</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

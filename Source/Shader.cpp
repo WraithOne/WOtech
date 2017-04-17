@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		08.11.2016
+///			Edited:		15.04.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -37,7 +37,7 @@ namespace WOtech
 	/// Vertex Shader
 	///////////////////////////////////////////////////////////////////
 
-	VertexShader::VertexShader(_In_ String^ compiledVertexShaderObject)
+	VertexShader::VertexShader(_In_ String^ compiledVertexShaderObject, _In_ WOtech::DeviceDX11^ device)
 	{
 		m_useCVSO = true;
 		m_CVSO = compiledVertexShaderObject;
@@ -47,8 +47,10 @@ namespace WOtech
 		m_useShaderByteCode = false;
 		m_shaderByteCode = nullptr;
 		m_byteCodeLength = 0U;
+
+		Load(device);
 	}
-	VertexShader::VertexShader(_In_ String^ compiledVertexShaderObject, _In_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc)
+	VertexShader::VertexShader(_In_ String^ compiledVertexShaderObject, _In_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device)
 	{
 		m_useCVSO = true;
 		m_CVSO = compiledVertexShaderObject;
@@ -60,8 +62,10 @@ namespace WOtech
 		m_useShaderByteCode = false;
 		m_shaderByteCode = nullptr;
 		m_byteCodeLength = 0U;
+
+		Load(device);
 	}
-	VertexShader::VertexShader(_In_ String^ filename, _In_ String^ entryPoint)
+	VertexShader::VertexShader(_In_ String^ filename, _In_ String^ entryPoint, _In_ WOtech::DeviceDX11^ device)
 	{
 		m_fileName = filename;
 		m_entryPoint = entryPoint;
@@ -73,8 +77,10 @@ namespace WOtech
 		m_useShaderByteCode = false;
 		m_shaderByteCode = nullptr;
 		m_byteCodeLength = 0U;
+
+		Load(device);
 	}
-	VertexShader::VertexShader(_In_ String^ filename, _In_ String^ entryPoint, _In_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc)
+	VertexShader::VertexShader(_In_ String^ filename, _In_ String^ entryPoint, _In_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device)
 	{
 		m_fileName = filename;
 		m_entryPoint = entryPoint;
@@ -87,8 +93,10 @@ namespace WOtech
 		m_useShaderByteCode = false;
 		m_shaderByteCode = nullptr;
 		m_byteCodeLength = 0U;
+
+		Load(device);
 	}
-	VertexShader::VertexShader(_In_ void* ShaderBytecode, _In_ SizeT BytecodeLength, _In_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc)
+	VertexShader::VertexShader(_In_ void const* ShaderBytecode, _In_ SizeT BytecodeLength, _In_opt_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device)
 	{
 		m_useShaderByteCode = true;
 		m_shaderByteCode = ShaderBytecode;
@@ -99,6 +107,8 @@ namespace WOtech
 
 		m_loadfromFile = false;
 		m_useCVSO = false;
+
+		Load(device);
 	}
 
 	void VertexShader::Load(_In_ DeviceDX11 ^ device)
@@ -204,11 +214,11 @@ namespace WOtech
 		hr = device->getDevice()->CreateVertexShader(m_vertexBlob->GetBufferPointer(), m_vertexBlob->GetBufferSize(), nullptr, &m_vertexShader);
 		ThrowIfFailed(hr);
 	}
-	void VertexShader::LoadfromByteArray(_In_ DeviceDX11^ device, _In_ IntPtr pShaderBytecode, _In_ SizeT BytecodeLength)
+	void VertexShader::LoadfromByteArray(_In_ DeviceDX11^ device, _In_ void const* pShaderBytecode, _In_ SizeT BytecodeLength)
 	{
 		HRESULT hr;
 
-		hr = device->getDevice()->CreateVertexShader(pShaderBytecode.operator void *, BytecodeLength, nullptr, m_vertexShader.ReleaseAndGetAddressOf());
+		hr = device->getDevice()->CreateVertexShader(pShaderBytecode, BytecodeLength, nullptr, m_vertexShader.ReleaseAndGetAddressOf());
 		ThrowIfFailed(hr);
 	}
 
@@ -226,8 +236,17 @@ namespace WOtech
 		// Reflect shader info
 		ComPtr<ID3D11ShaderReflection> pVertexShaderReflection;
 
-		hr = D3DReflect(m_vertexBlob->GetBufferPointer(), m_vertexBlob->GetBufferSize(), IID_ID3D11ShaderReflection, &pVertexShaderReflection);
-		ThrowIfFailed(hr);
+		if (m_useShaderByteCode)
+		{
+			hr = D3DReflect(m_shaderByteCode, m_byteCodeLength, IID_ID3D11ShaderReflection, &pVertexShaderReflection);
+			ThrowIfFailed(hr);
+		}
+		else
+		{
+			hr = D3DReflect(m_vertexBlob->GetBufferPointer(), m_vertexBlob->GetBufferSize(), IID_ID3D11ShaderReflection, &pVertexShaderReflection);
+			ThrowIfFailed(hr);
+		}
+		
 
 		// Get shader info
 		D3D11_SHADER_DESC shaderDesc;
@@ -280,8 +299,16 @@ namespace WOtech
 		}
 
 		// Try to create Input Layout
-		hr = device->getDevice()->CreateInputLayout(&inputLayoutDesc[0], (uint32)inputLayoutDesc.size(), m_vertexBlob->GetBufferPointer(), m_vertexBlob->GetBufferSize(), &m_inputLayout);
-		ThrowIfFailed(hr);
+		if (m_useShaderByteCode)
+		{
+			hr = device->getDevice()->CreateInputLayout(&inputLayoutDesc[0], (uint32)inputLayoutDesc.size(), m_shaderByteCode, m_byteCodeLength, &m_inputLayout);
+			ThrowIfFailed(hr);
+		}
+		else
+		{
+			hr = device->getDevice()->CreateInputLayout(&inputLayoutDesc[0], (uint32)inputLayoutDesc.size(), m_vertexBlob->GetBufferPointer(), m_vertexBlob->GetBufferSize(), &m_inputLayout);
+			ThrowIfFailed(hr);
+		}
 	}
 
 	//Getter
@@ -297,18 +324,22 @@ namespace WOtech
 	///////////////////////////////////////////////////////////////////
 	/// Pixel Shader
 	///////////////////////////////////////////////////////////////////
-	PixelShader::PixelShader(_In_ String^ CSOFilename)
+	PixelShader::PixelShader(_In_ String^ CSOFilename, _In_ WOtech::DeviceDX11^ device)
 	{
 		m_shaderByteCode = nullptr;
 		m_BytecodeLength = 0U;
 		m_csoFilename = CSOFilename;
 		m_useBytecode = false;
+
+		Load(device);
 	}
-	PixelShader::PixelShader(_In_ void* ShaderBytecode, _In_ SizeT BytecodeLength)
+	PixelShader::PixelShader(_In_ void const* ShaderBytecode, _In_ SizeT BytecodeLength, _In_ WOtech::DeviceDX11^ device)
 	{
 		m_shaderByteCode = ShaderBytecode;
 		m_BytecodeLength = BytecodeLength;
 		m_useBytecode = true;
+
+		Load(device);
 	}
 
 	void PixelShader::Load(_In_ DeviceDX11^ device)

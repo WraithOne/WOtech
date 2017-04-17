@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.02.2016
-///			Edited:		14.04.2017
+///			Edited:		15.04.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_3DCOMPONENTS_H
@@ -74,18 +74,19 @@ namespace WOtech
 
 	public ref class VertexShader sealed
 	{
+	internal:
+		VertexShader(_In_ void const* pShaderBytecode, _In_ Platform::SizeT BytecodeLength, _In_opt_ const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device);
+
 	public:
 		[Windows::Foundation::Metadata::DefaultOverloadAttribute]
-		VertexShader(_In_ Platform::String^ compiledVertexShaderObject);
-		VertexShader(_In_ Platform::String^ compiledVertexShaderObject, _In_ const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^ inputElementDesc);
-		VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint);
-		VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint, _In_ const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^ inputElementDesc);
+		VertexShader(_In_ Platform::String^ compiledVertexShaderObject, _In_ WOtech::DeviceDX11^ device);
+		VertexShader(_In_ Platform::String^ compiledVertexShaderObject, _In_ const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device);
+		VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint, _In_ WOtech::DeviceDX11^ device);
+		VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint, _In_ const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device);
 
 		void Load(_In_ WOtech::DeviceDX11^ device);
-
+	
 	internal:
-		VertexShader(_In_ void* pShaderBytecode, _In_ Platform::SizeT BytecodeLength, _In_ const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^ inputElementDesc);
-
 		//Getter
 		ID3D11VertexShader*	getShader();
 		ID3D11InputLayout* getInputLayout();
@@ -93,35 +94,38 @@ namespace WOtech
 	private:
 		void ComilefromFile(_In_ WOtech::DeviceDX11^ device, _In_ Platform::String^ filename, _In_ Platform::String^ entryPoint);
 		void LoadfromFile(_In_ WOtech::DeviceDX11^ device, _In_ Platform::String^ compiledVertexShaderObject);
-		void LoadfromByteArray(_In_ WOtech::DeviceDX11^ device, _In_ Platform::IntPtr pShaderBytecode, _In_ Platform::SizeT BytecodeLength);
+		void LoadfromByteArray(_In_ WOtech::DeviceDX11^ device, _In_ void const* pShaderBytecode, _In_ Platform::SizeT BytecodeLength);
 
 		void CreateInputLayout(_In_ WOtech::DeviceDX11^ device);
 		void ReflectInputLayout(_In_ WOtech::DeviceDX11^ device);
 
 	private:
-		Platform::Boolean								m_loadfromFile;
-		Platform::String^								m_fileName;
-		Platform::String^								m_entryPoint;
+		Platform::Boolean												m_loadfromFile;
+		Platform::String^												m_fileName;
+		Platform::String^												m_entryPoint;
 
-		Platform::Boolean								m_useCVSO;
-		Platform::String^								m_CVSO;
+		Platform::Boolean												m_useCVSO;
+		Platform::String^												m_CVSO;
 
-		Platform::Boolean								m_useShaderByteCode;
-		Platform::IntPtr								m_shaderByteCode;
-		SIZE_T											m_byteCodeLength;
+		Platform::Boolean												m_useShaderByteCode;
+		const void*															m_shaderByteCode;
+		SIZE_T															m_byteCodeLength;
 
-		Platform::Boolean								m_useInputElementDesc;
+		Platform::Boolean												m_useInputElementDesc;
 		const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^	m_inputElementDesc;
 
-		Microsoft::WRL::ComPtr<ID3D11VertexShader>		m_vertexShader;
-		Microsoft::WRL::ComPtr<ID3DBlob>				m_vertexBlob;
-		Microsoft::WRL::ComPtr<ID3D11InputLayout>		m_inputLayout;
+		Microsoft::WRL::ComPtr<ID3D11VertexShader>						m_vertexShader;
+		Microsoft::WRL::ComPtr<ID3DBlob>								m_vertexBlob;
+		Microsoft::WRL::ComPtr<ID3D11InputLayout>						m_inputLayout;
 	};//class VertexShader
 
 	public ref class PixelShader sealed
 	{
+	internal:
+		PixelShader(_In_ void const* ShaderBytecode, _In_ Platform::SizeT BytecodeLength, _In_ WOtech::DeviceDX11^ device);
+
 	public:
-		PixelShader(_In_ Platform::String^ CSOFilename);
+		PixelShader(_In_ Platform::String^ CSOFilename, _In_ WOtech::DeviceDX11^ device);
 
 		void Load(_In_ WOtech::DeviceDX11^ device);
 
@@ -130,20 +134,19 @@ namespace WOtech
 		void LoadfromByteArray(_In_ WOtech::DeviceDX11^ device);
 
 	internal:
-		PixelShader(_In_ void* ShaderBytecode, _In_ Platform::SizeT BytecodeLength);
 		//Getter
 		ID3D11PixelShader* getShader();
 
 	private:
-		Platform::Boolean m_useBytecode;
+		Platform::Boolean							m_useBytecode;
 
-		Platform::String^ m_csoFilename;
+		Platform::String^							m_csoFilename;
 
-		const void* m_shaderByteCode;
-		SIZE_T m_BytecodeLength;
+		const void*									m_shaderByteCode;
+		SIZE_T										m_BytecodeLength;
 
-		Microsoft::WRL::ComPtr<ID3DBlob> m_pixelBlob;
-		Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
+		Microsoft::WRL::ComPtr<ID3DBlob>			m_pixelBlob;
+		Microsoft::WRL::ComPtr<ID3D11PixelShader>	m_pixelShader;
 	};//class Pixelshader
 
 	public ref class Texture sealed
