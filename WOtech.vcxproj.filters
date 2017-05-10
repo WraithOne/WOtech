@@ -67,7 +67,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp" />
     <ClCompile Include="ThirdParty\FontFileLoader.cpp">
       <Filter>ThirdParty</Filter>
     </ClCompile>
@@ -182,6 +181,7 @@
     <ClCompile Include="Source\DefaultFactory.cpp">
       <Filter>Graphic\3D\Default</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
