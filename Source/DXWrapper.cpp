@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.11.2016
-///			Edited:		12.04.2017
+///			Edited:		10.05.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -32,7 +32,7 @@ namespace WOtech
 			return D2D1::ColorF(static_cast<float>(color.R), static_cast<float>(color.G), static_cast<float>(color.B), static_cast<float>(color.A));
 		}
 
-		D2D1_RECT_F wrapRect(_In_ RECT& rect)
+		D2D1_RECT_F wrapRect(_In_ RECT rect)
 		{
 			return D2D1::RectF(rect.X, rect.Y, rect.Width, rect.Height);
 		}
@@ -65,7 +65,7 @@ namespace WOtech
 			}
 		}
 
-		D2D1_BITMAP_INTERPOLATION_MODE wrapBitmapInterpolationMode(_In_ const BITMAP_INTERPOLATION_MODE& bitmapinterpolationmode)
+		D2D1_BITMAP_INTERPOLATION_MODE wrapBitmapInterpolationMode(_In_ const BITMAP_INTERPOLATION_MODE bitmapinterpolationmode)
 		{
 			switch (bitmapinterpolationmode)
 			{
@@ -116,7 +116,7 @@ namespace WOtech
 			}
 		}
 
-		D2D1_BEZIER_SEGMENT wrapBezierSegment(_In_ BEZIER_SEGMENT& beziersegment)
+		D2D1_BEZIER_SEGMENT wrapBezierSegment(_In_ BEZIER_SEGMENT beziersegment)
 		{
 			return D2D1::BezierSegment(wrapPoint(beziersegment.point1), wrapPoint(beziersegment.point2), wrapPoint(beziersegment.point3));
 		}
@@ -153,7 +153,7 @@ namespace WOtech
 			}
 		}
 
-		D2D1_ARC_SEGMENT wrapArcSegment(_In_ ARC_SEGMENT& arcsegment)
+		D2D1_ARC_SEGMENT wrapArcSegment(_In_ ARC_SEGMENT arcsegment)
 		{
 			return D2D1::ArcSegment(wrapPoint(arcsegment.point), wrapSize(arcsegment.size), arcsegment.rotationAngle, wrapSweepDirection(arcsegment.sweepDirection), wrapArcSize(arcsegment.arcSize));
 		}
@@ -220,7 +220,7 @@ namespace WOtech
 				matrix.m41, matrix.m42, matrix.m43, matrix.m44);
 		}
 
-		Windows::Foundation::Numerics::float4x4 wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4& matrix)
+		Windows::Foundation::Numerics::float4x4 wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4 matrix)
 		{
 			Windows::Foundation::Numerics::float4x4 temp;
 			temp.m11 = matrix._11;
