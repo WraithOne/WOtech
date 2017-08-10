@@ -26,11 +26,11 @@ using namespace Windows::UI;
 
 namespace WOtech
 {
-	DeferredRenderer::DeferredRenderer(DeviceDX11^ device)
+	DeferredRenderer::DeferredRenderer(_In_ DeviceDX11^ device)
 	{
 		m_device = device;
 	}
-	void DeferredRenderer::Init(Color clearColor)
+	void DeferredRenderer::Init(_In_ Color clearColor)
 	{
 		m_clearColor = clearColor;
 	}
@@ -44,7 +44,7 @@ namespace WOtech
 
 		m_device->Clear(m_clearColor);
 	}
-	void DeferredRenderer::Submit(Mesh^ mesh, Camera^ camera, float4x4 transform)
+	void DeferredRenderer::Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ float4x4 transform)
 	{
 	}
 	void DeferredRenderer::Submit()

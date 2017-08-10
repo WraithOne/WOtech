@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.11.2016
-///			Edited:		10.05.2017
+///			Edited:		10.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -198,7 +198,7 @@ namespace WOtech
 
 			for (unsigned int i = 0; i <= size; i++)
 			{
-				InputElementDESC[i].AlignedByteOffset = inputelementdesc[i].AlignedByteOffset;// DATA type!!!! buffer OVERFLOW
+				InputElementDESC[i].AlignedByteOffset = static_cast<UINT>(inputelementdesc[i].AlignedByteOffset);// DATA type!!!! buffer OVERFLOW
 				InputElementDESC[i].Format = wrapDXGIFormat(inputelementdesc[i].Format);
 				InputElementDESC[i].InputSlot = inputelementdesc[i].InputSlot;
 				InputElementDESC[i].InputSlotClass = wrapInputClassification(inputelementdesc[i].InputSlotClass);

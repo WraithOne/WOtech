@@ -26,7 +26,7 @@ namespace WOtech
 	ref class DeferredRenderer sealed : IRenderer
 	{
 	public:
-		DeferredRenderer(DeviceDX11^ device);
+		DeferredRenderer(_In_ DeviceDX11^ device);
 
 		virtual void Begin();
 		virtual void Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ Windows::Foundation::Numerics::float4x4 transform);

@@ -26,7 +26,7 @@ namespace WOtech
 	public ref class ForwardRenderer sealed : public IRenderer
 	{
 	public:
-		ForwardRenderer(DeviceDX11^ device);
+		ForwardRenderer(_In_ DeviceDX11^ device);
 
 		virtual void Begin();
 		virtual void Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ Windows::Foundation::Numerics::float4x4 transform);

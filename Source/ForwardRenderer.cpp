@@ -28,7 +28,7 @@ using namespace Windows::UI;
 
 namespace WOtech
 {
-	ForwardRenderer::ForwardRenderer(DeviceDX11^ device)
+	ForwardRenderer::ForwardRenderer(_In_ DeviceDX11^ device)
 	{
 		m_device = device;
 	}
@@ -38,7 +38,7 @@ namespace WOtech
 
 		m_device->Clear(m_clearColor);
 	}
-	void ForwardRenderer::Submit(Mesh^ mesh, Camera^ camera, float4x4 transform)
+	void ForwardRenderer::Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ float4x4 transform)
 	{
 		RenderCommand command;
 		command.mesh = mesh;
