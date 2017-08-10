@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		24.03.2017
+///			Edited:		10.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -105,7 +105,7 @@ namespace WOtech
 	void DeviceDX11::Clear(_In_ Color color, _In_ CLEAR_FLAG ClearFlags, _In_ float32 Depth, _In_ uint8 Stencil)
 	{
 		D2D1_COLOR_F d2d1color = wrapColor(color);
-		float32 ColorRGBA[4] = { d2d1color.r, d2d1color.g, d2d1color.b, d2d1color.a };
+		float32 ColorRGBA[4] = { d2d1color.r / 256.0f, d2d1color.g / 256.0f, d2d1color.b / 256.0f, 1.0f };
 
 		m_context->OMSetRenderTargets(1, m_backBuffer.GetAddressOf(), m_depthStencilView.Get());
 		m_context->ClearRenderTargetView(m_backBuffer.Get(), ColorRGBA);

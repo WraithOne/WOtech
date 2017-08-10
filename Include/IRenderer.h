@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		13.11.2016
+///			Edited:		10.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_RENDERER_H
@@ -38,14 +38,14 @@ namespace WOtech
 	{
 	public:
 		void Begin();
-		void Submit(Mesh^ mesh, Camera^ camera, Windows::Foundation::Numerics::float4x4 transform);
+		void Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ Windows::Foundation::Numerics::float4x4 transform);
 		void Submit();
 		void End();
 		void Present();
 
 		DeviceDX11^ getDeviceDX11();
 
-		void Init();
+		void Init(_In_ Windows::UI::Color clearColor);
 	};
 }
 #endif

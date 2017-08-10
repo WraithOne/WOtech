@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	21.02.2016
-///			Edited:		27.11.2016
+///			Edited:		10.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -31,14 +31,12 @@ namespace WOtech
 	ForwardRenderer::ForwardRenderer(DeviceDX11^ device)
 	{
 		m_device = device;
-		Init();
 	}
 	void ForwardRenderer::Begin()
 	{
 		m_CommandQueue.clear();
 
-		Color clearColor = Colors::Gray;
-		m_device->Clear(clearColor);
+		m_device->Clear(m_clearColor);
 	}
 	void ForwardRenderer::Submit(Mesh^ mesh, Camera^ camera, float4x4 transform)
 	{
@@ -85,8 +83,10 @@ namespace WOtech
 		m_device->Present();
 	}
 
-	void ForwardRenderer::Init()
+	void ForwardRenderer::Init(_In_ Color clearColor)
 	{
+		m_clearColor = clearColor;
+
 		HRESULT hr;
 		D3D11_BUFFER_DESC constDesc;
 		ZeroMemory(&constDesc, sizeof(constDesc));

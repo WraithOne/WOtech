@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	21.02.2016
-///			Edited:		13.11.2016
+///			Edited:		10.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -22,6 +22,7 @@
 #include "Utilities.h"
 
 using namespace Windows::Foundation::Numerics;
+using namespace Windows::UI;
 
 namespace WOtech
 {
@@ -29,8 +30,9 @@ namespace WOtech
 	{
 		m_device = device;
 	}
-	void DeferredRenderer::Init()
+	void DeferredRenderer::Init(Color clearColor)
 	{
+		m_clearColor = clearColor;
 	}
 	DeviceDX11^ DeferredRenderer::getDeviceDX11()
 	{
@@ -38,6 +40,9 @@ namespace WOtech
 	}
 	void DeferredRenderer::Begin()
 	{
+		m_CommandQueue.clear();
+
+		m_device->Clear(m_clearColor);
 	}
 	void DeferredRenderer::Submit(Mesh^ mesh, Camera^ camera, float4x4 transform)
 	{
@@ -50,8 +55,5 @@ namespace WOtech
 	}
 	void DeferredRenderer::Present()
 	{
-		HRESULT hr = S_OK;
-
-		ThrowIfFailed(hr);
 	}
 }

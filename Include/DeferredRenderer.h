@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		13.11.2016
+///			Edited:		10.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DEFERREDRENDERER_H
@@ -29,14 +29,14 @@ namespace WOtech
 		DeferredRenderer(DeviceDX11^ device);
 
 		virtual void Begin();
-		virtual void Submit(Mesh^ mesh, Camera^ camera, Windows::Foundation::Numerics::float4x4 transform);
+		virtual void Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ Windows::Foundation::Numerics::float4x4 transform);
 		virtual void Submit();
 		virtual void End();
 		virtual void Present();
 
 		virtual DeviceDX11^  getDeviceDX11();
 
-		virtual void Init();
+		virtual void Init(_In_ Windows::UI::Color clearColor);
 
 	private:
 		CommandQueue m_CommandQueue;
@@ -47,6 +47,9 @@ namespace WOtech
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_viewCB;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_pojectionCB;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_modelCB;
+
+		// ClearColor
+		Windows::UI::Color m_clearColor;
 	};
 }
 #endif
