@@ -11,7 +11,7 @@
 ///			Header file for AudioEngine and AudioSource
 ///
 ///			Created:	01.05.2014
-///			Edited:		31.03.2017
+///			Edited:		10.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_AUDIO_H
@@ -44,6 +44,8 @@ namespace WOtech
 		Music	/*!< Use for Music.*/
 	};
 
+	//!
+	/*! Enumartion of the current Playback state. */
 	public enum class AUDIO_PLAYBACK_STATE
 	{
 		Stopped,	/*!< Playback stopped.*/
@@ -51,25 +53,65 @@ namespace WOtech
 		Paused		/*!< Playback paused.*/
 	};
 
-	public value struct VOICE_STATE
+	//!
+	/*! Pointer to a buffer context provided in the XAUDIO2_BUFFER that is processed currently. */
+	public ref class BufferContext sealed
 	{
-		Platform::IntPtr pCurrentBufferContext;	/*!< Pointer to current Buffer, NULL if none.*/
-		UINT32 BuffersQueued;					/*!< Total Buffer큦 qued.*/
-		UINT64 SamplesPlayed;					/*!< Sample큦 play since last start, incl. loops.*/
+	public:
+		//! Constructor.
+		/*!
+		*/
+		BufferContext();
+
+	internal:
+		//! setBufferContext.
+		/*!
+		\param Pointer to a buffer context provided in the XAUDIO2_BUFFER that is processed currently.
+		*/
+		void setBufferContext(_In_ void* pCurrentBufferContext);
+		//! getBufferContext.
+		/*!
+		\param Pointer to a buffer context provided in the XAUDIO2_BUFFER that is processed currently, or, if the voice is stopped currently, to the next buffer due to be processed. pCurrentBufferContext is NULL if there are no buffers in the queue.
+		*/
+		void getBufferContext(_Out_ void* pCurrentBufferContext);
+	private:
+		void* m_pCurrentBufferContext;
+
 	};
 
-	public value struct AUDIOSOURCE_STATE
+	//!
+	/*! Current Voice state. */
+	public ref class VOICE_STATE sealed
 	{
-		AUDIO_PLAYBACK_STATE PlaybackState;	/*!< current PlaybackState.*/
-		VOICE_STATE VoiceState;				/*!< current VoiceState.*/
+	public:
+		property UINT32 BuffersQueued;	/*!< Total Buffer큦 qued.*/
+		property UINT64 SamplesPlayed;	/*!< Sample큦 play since last start, incl. loops.*/
+
+	internal:
+		BufferContext pCurrentBufferContext;	/*!< Pointer to current Buffer, NULL if none.*/
 	};
 
+	//!
+	/*! Current Audiosource state. */
+	public ref class AUDIOSOURCE_STATE sealed
+	{
+	public:
+		property AUDIO_PLAYBACK_STATE PlaybackState;	/*!< current PlaybackState.*/
+
+	internal:
+		VOICE_STATE VoiceState;	/*!< current VoiceState.*/
+	};
+
+	//!
+	/*! Device details. */
 	public value struct DEVICE_DETAILS
 	{
 		Platform::String^ DeviceID;		/*!< Device ID.*/
 		Platform::String^ DisplayName;	/*!< Device name.*/
 	};
 
+	//! AudioEngine
+	/*! Manages all audio engine states, the audio processing thread, the voice graph, and so forth.  */
 	public ref class AudioEngine sealed
 	{
 	public:
@@ -158,6 +200,8 @@ namespace WOtech
 		IXAudio2MasteringVoice*	m_musicMasterVoice;
 	}; //ref class AudioEngine
 
+	   //! AudioSource
+	   /*! Use a source voice to submit audio data to the AudioEngine processing pipeline.You must send voice data to a mastering voice to be heard, either directly or through intermediate submix voices.   */
 	public ref class AudioSource sealed
 	{
 	public:
@@ -214,7 +258,7 @@ namespace WOtech
 		/*!
 		\param Gets the AudioSource state
 		*/
-		void getState(_Out_ AUDIOSOURCE_STATE* state);
+		void getState(_Out_ AUDIOSOURCE_STATE^ state);
 
 	private:
 		//! Deconstructor.

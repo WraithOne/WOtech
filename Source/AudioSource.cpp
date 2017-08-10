@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	10.10.2014
-///			Edited:		31.03.2017
+///			Edited:		10.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -24,6 +24,21 @@ using namespace Platform;
 
 namespace WOtech
 {
+	BufferContext::BufferContext()
+	{
+		m_pCurrentBufferContext = nullptr;
+	}
+
+	void BufferContext::setBufferContext(_In_ void* pCurrentBufferContext)
+	{
+		m_pCurrentBufferContext = pCurrentBufferContext;
+	}
+
+	void BufferContext::getBufferContext(_Out_ void* pCurrentBufferContext)
+	{
+		pCurrentBufferContext = m_pCurrentBufferContext;
+	}
+
 	AudioSource::AudioSource(_In_ String^ fileName, _In_ AudioEngine^ audioEngine, _In_ AUDIO_TYPE audioType)
 	{
 		m_fileName = fileName;
@@ -191,7 +206,7 @@ namespace WOtech
 		playbackState = &m_playbackState;
 	}
 
-	void AudioSource::getState(_Out_ AUDIOSOURCE_STATE* state)
+	void AudioSource::getState(_Out_ AUDIOSOURCE_STATE^ state)
 	{
 		XAUDIO2_VOICE_STATE temp_state;
 
@@ -204,6 +219,6 @@ namespace WOtech
 		state->PlaybackState = m_playbackState;
 		state->VoiceState.BuffersQueued = temp_state.BuffersQueued;
 		state->VoiceState.SamplesPlayed = temp_state.SamplesPlayed;
-		state->VoiceState.pCurrentBufferContext = DecodePointer(temp_state.pCurrentBufferContext);
+		state->VoiceState.pCurrentBufferContext.setBufferContext(temp_state.pCurrentBufferContext);
 	}
 } //namespace WOtech
