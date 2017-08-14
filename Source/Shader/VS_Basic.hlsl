@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	15.04.2017
-///			Edited:		15.04.2017
+///			Edited:		14.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -23,12 +23,14 @@
 #include "Shared\lighting.hlsli"
 
 // Vertex shader: basic.
-VSOutput main(VSInput vin)
+VSOutputNoFog main(VSInputVc vin)
 {
-	VSOutput vout;
+	VSOutputNoFog vout;
 
 	CommonVSOutput cout = ComputeCommonVSOutput(vin.Position);
-	SetCommonVSOutputParams;
+	SetCommonVSOutputParamsNoFog;
+
+	vout.Diffuse *= vin.Color;
 
 	return vout;
 }

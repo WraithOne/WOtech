@@ -40,44 +40,30 @@ namespace WOtech
 
 	Mesh^ DefaultFactory::CreateCube(_In_ float size, _In_ MaterialInstance^ material, _In_ DeviceDX11^ device)
 	{
-		auto data = ref new Platform::Array<VertexPositionNormalTexture^>(9);
+		auto data = ref new Platform::Array<VertexPositionColor^>(6);
 
 		for (unsigned int i = 0; i < data->Length; i++)
 		{
-			data[i] = ref new VertexPositionNormalTexture;
+			data[i] = ref new VertexPositionColor;
 		}
 
 		data[0]->Position = Windows::Foundation::Numerics::float3{ -size / 2.0f, -size / 2.0f, size / 2.0f };
-		data[0]->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);
-		data[0]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[0]->Color = Windows::Foundation::Numerics::float4(1.0f, 0.0f, 0.0f, 1.0f);
 
 		data[1]->Position = Windows::Foundation::Numerics::float3(0.0f, 0.0f, 1.0f);
-		data[1]->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, 1.0f);
-		data[1]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[1]->Color = Windows::Foundation::Numerics::float4(1.0f, 0.0f, 0.0f, 1.0f);
 
 		data[2]->Position = Windows::Foundation::Numerics::float3(size / 2.0f, size / 2.0f, size / 2.0f);
-		data[2]->Normal = Windows::Foundation::Numerics::float3(1.0f, 0.0f, -1.0f);
-		data[2]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[2]->Color = Windows::Foundation::Numerics::float4(1.0f, 0.0f, 0.0f, 1.0f);
 
 		data[3]->Position = Windows::Foundation::Numerics::float3(-size / 2.0f, size / 2.0f, size / 2.0f);
-		data[3]->Normal = Windows::Foundation::Numerics::float3(-1.0f, 1.0f, 1.0f);
-		data[3]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[3]->Color = Windows::Foundation::Numerics::float4(1.0f, 0.0f, 0.0f, 1.0f);
 
 		data[4]->Position = Windows::Foundation::Numerics::float3(-size / 2.0f, -size / 2.0f, -size / 2.0f);
-		data[4]->Normal = Windows::Foundation::Numerics::float3(-1.0f, -1.0f, -1.0f);
-		data[4]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[4]->Color = Windows::Foundation::Numerics::float4(1.0f, 0.0f, 0.0f, 1.0f);
 
 		data[5]->Position = Windows::Foundation::Numerics::float3(size / 2.0f, -size / 2.0f, -size / 2.0f);
-		data[5]->Normal = Windows::Foundation::Numerics::float3(1.0f, -1.0f, -1.0f);
-		data[6]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
-
-		data[7]->Position = Windows::Foundation::Numerics::float3(size / 2.0f, size / 2.0f, -size / 2.0f);
-		data[7]->Normal = Windows::Foundation::Numerics::float3(1.0f, 1.0f, -1.0f);
-		data[7]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
-
-		data[8]->Position = Windows::Foundation::Numerics::float3(-size / 2.0f, size / 2.0f, -size / 2.0f);
-		data[8]->Normal = Windows::Foundation::Numerics::float3(-1.0f, 1.0f, -1.0f);
-		data[8]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[5]->Color = Windows::Foundation::Numerics::float4(1.0f, 0.0f, 0.0f, 1.0f);
 
 		WORD indices[] =
 		{
@@ -91,31 +77,31 @@ namespace WOtech
 
 		IndexBuffer^ iB = ref new IndexBuffer(indices, 36, device);
 
-		UINT32 stride = sizeof(VertexPositionNormalTexture);
-		VertexBuffer^ vB = ref new VertexBuffer(data->Data, 8 * sizeof(VertexPositionNormalTexture), stride, 0U, device);
+		UINT32 stride = sizeof(VertexPositionColor);
+		VertexBuffer^ vB = ref new VertexBuffer(data->Data, 8 * sizeof(VertexPositionColor), stride, 0U, device);
 
 		return ref new Mesh(vB, iB, material);
 	}
 	Mesh^ DefaultFactory::CreateTriangle(_In_ float size, _In_ MaterialInstance^ material, _In_ DeviceDX11^ device)
 	{
-		auto data = ref new Platform::Array<VertexPositionNormalTexture^>(3);
+		auto data = ref new Platform::Array<VertexPositionColor^>(3);
 
 		for (unsigned int i = 0; i < data->Length; i++)
 		{
-			data[i] = ref new VertexPositionNormalTexture;
+			data[i] = ref new VertexPositionColor;
 		}
 
 		data[0]->Position = Windows::Foundation::Numerics::float3(0.5f, 0.5f, 0.5f);
-		data[0]->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);
-		data[0]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.0f, 0.0f);
+		data[0]->Color = Windows::Foundation::Numerics::float4(1.0f, 0.0f, 0.0f, 1.0f);
+		
 
 		data[1]->Position = Windows::Foundation::Numerics::float3(0.5f, -0.5f, 0.5f);
-		data[1]->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);
-		data[1]->TextureCoordinate = Windows::Foundation::Numerics::float2(0.5f, 1.0f);
+		data[1]->Color = Windows::Foundation::Numerics::float4(1.0f, 0.0f, 0.0f, 1.0f);
+		
 
 		data[2]->Position = Windows::Foundation::Numerics::float3(-0.5f, -0.5f, 0.5f);
-		data[2]->Normal = Windows::Foundation::Numerics::float3(0.0f, 0.0f, -1.0f);
-		data[2]->TextureCoordinate = Windows::Foundation::Numerics::float2(1.0f, 0.0f);
+		data[2]->Color = Windows::Foundation::Numerics::float4(1.0f, 0.0f, 0.0f, 1.0f);
+		
 
 		WORD indices[] =
 		{
@@ -123,8 +109,8 @@ namespace WOtech
 		};
 
 		IndexBuffer^ iB = ref new IndexBuffer(indices, 3, device);
-		UINT32 stride = sizeof(VertexPositionNormalTexture);
-		VertexBuffer^ vB = ref new VertexBuffer(data->Data, 3 * sizeof(VertexPositionNormalTexture), stride, 0U, device);
+		UINT32 stride = sizeof(VertexPositionColor);
+		VertexBuffer^ vB = ref new VertexBuffer(data->Data, 3 * sizeof(VertexPositionColor), stride, 0U, device);
 
 		return ref new Mesh(vB, iB, material);
 	}

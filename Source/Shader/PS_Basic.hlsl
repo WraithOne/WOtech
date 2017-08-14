@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	15.04.2017
-///			Edited:		15.04.2017
+///			Edited:		14.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -23,11 +23,7 @@
 #include "Shared\lighting.hlsli"
 
 // Pixel shader: basic.
-float4 main(PSInput pin) : SV_Target0
+float4 main(PSInputNoFog pin) : SV_Target0
 {
-	float4 color = pin.Diffuse;
-
-	ApplyFog(color, pin.Specular.w);
-
-	return color;
+	return pin.Diffuse;
 }

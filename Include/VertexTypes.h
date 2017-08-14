@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	25.03.2017
-///			Edited:		29.03.2017
+///			Edited:		14.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_VERTEXTYPES_H
@@ -26,7 +26,7 @@ namespace WOtech
 {
 	public interface struct IVertexData
 	{
-		UINT getSizeoff();
+		UINT Sizeof();
 	};
 	public interface struct IVertexPosition
 	{
@@ -64,7 +64,7 @@ namespace WOtech
 	public ref struct VertexPositionColor sealed : public IVertexData, IVertexPosition, IVertexColor
 	{
 	public:
-		virtual UINT getSizeoff() { return (sizeof(m_Position) + sizeof(m_Color)); }
+		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_Color)); }
 		virtual property Windows::Foundation::Numerics::float3 Position
 		{
 			Windows::Foundation::Numerics::float3 get() { return m_Position; }
@@ -84,7 +84,7 @@ namespace WOtech
 	public ref struct VertexPositionTexture sealed : public IVertexData, IVertexPosition, IVertexTexture
 	{
 	public:
-		virtual UINT getSizeoff() { return (sizeof(m_Position) + sizeof(m_TextureCoordinate)); }
+		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_TextureCoordinate)); }
 		virtual property Windows::Foundation::Numerics::float3 Position
 		{
 			Windows::Foundation::Numerics::float3 get() { return m_Position; }
@@ -104,7 +104,7 @@ namespace WOtech
 	public ref struct VertexPositionNormal sealed : public IVertexData, IVertexPosition, IVertexNormal
 	{
 	public:
-		virtual UINT getSizeoff() { return (sizeof(m_Position) + sizeof(m_Normal)); }
+		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_Normal)); }
 		virtual property Windows::Foundation::Numerics::float3 Position
 		{
 			Windows::Foundation::Numerics::float3 get() { return m_Position; }
@@ -124,7 +124,7 @@ namespace WOtech
 	public ref struct VertexPositionNormalColor sealed : public IVertexData, IVertexPosition, IVertexNormal, IVertexColor
 	{
 	public:
-		virtual UINT getSizeoff() { return (sizeof(m_Position) + sizeof(m_Normal) + sizeof(m_Color)); }
+		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_Normal) + sizeof(m_Color)); }
 		virtual property Windows::Foundation::Numerics::float3 Position
 		{
 			Windows::Foundation::Numerics::float3 get() { return m_Position; }
@@ -150,7 +150,7 @@ namespace WOtech
 	public ref struct VertexPositionColorTexture sealed : public IVertexData, IVertexPosition, IVertexColor, IVertexTexture
 	{
 	public:
-		virtual UINT getSizeoff() { return (sizeof(m_Position) + sizeof(m_Color) + sizeof(m_TextureCoordinate)); }
+		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_Color) + sizeof(m_TextureCoordinate)); }
 		virtual property Windows::Foundation::Numerics::float3 Position
 		{
 			Windows::Foundation::Numerics::float3 get() { return m_Position; }
@@ -176,7 +176,7 @@ namespace WOtech
 	public ref struct VertexPositionNormalTexture sealed : public IVertexData, IVertexPosition, IVertexNormal, IVertexTexture
 	{
 	public:
-		virtual UINT getSizeoff() { return (sizeof(m_Position) + sizeof(m_Normal) + sizeof(m_TextureCoordinate)); }
+		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_Normal) + sizeof(m_TextureCoordinate)); }
 		virtual property Windows::Foundation::Numerics::float3 Position
 		{
 			Windows::Foundation::Numerics::float3 get() { return m_Position; }
@@ -202,7 +202,7 @@ namespace WOtech
 	public ref struct VertexPositionNormalColorTexture sealed : public IVertexData, IVertexPosition, IVertexNormal, IVertexColor, IVertexTexture
 	{
 	public:
-		virtual UINT getSizeoff() { return (sizeof(m_Position) + sizeof(m_Normal) + sizeof(m_Color) + sizeof(m_TextureCoordinate)); }
+		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_Normal) + sizeof(m_Color) + sizeof(m_TextureCoordinate)); }
 		virtual property Windows::Foundation::Numerics::float3 Position
 		{
 			Windows::Foundation::Numerics::float3 get() { return m_Position; }
