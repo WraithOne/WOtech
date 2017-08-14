@@ -120,7 +120,7 @@ namespace WOtech
 
 		for (auto j : m_deviceDX11List)
 		{
-			j->SetLogicalSize(Size(window->Bounds.Width, window->Bounds.Height));
+			j->setLogicalSize(Size(window->Bounds.Width, window->Bounds.Height));
 		}
 
 		for (auto k : m_spriteBatchList)
@@ -135,7 +135,7 @@ namespace WOtech
 
 		for (auto j : m_deviceDX11List)
 		{
-			j->SetDpi(dpi);
+			j->setDpi(dpi);
 		}
 		for (auto k : m_spriteBatchList)
 		{
@@ -149,7 +149,7 @@ namespace WOtech
 
 		for (auto j : m_deviceDX11List)
 		{
-			j->SetCurrentOrientation(currentOrientation);
+			j->setCurrentOrientation(currentOrientation);
 		}
 
 		for (auto k : m_spriteBatchList)

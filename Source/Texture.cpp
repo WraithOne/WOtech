@@ -35,13 +35,13 @@ namespace WOtech
 
 	Platform::Boolean Texture::Load(_In_ DeviceDX11^ device)
 	{
-		CreateWICTextureFromFile(device->getDevice(), device->GetContext(), m_filenName->Data(), nullptr, m_texture.ReleaseAndGetAddressOf(), 2048);
+		CreateWICTextureFromFile(device->getDevice(), device->getContext(), m_filenName->Data(), nullptr, m_texture.ReleaseAndGetAddressOf(), 2048);
 		return true;
 	}
 
 	void Texture::SubmitTexture(_In_ DeviceDX11^ device, _In_ uint32 slot)
 	{
-		device->GetContext()->PSSetShaderResources(slot, 1, m_texture.GetAddressOf());
+		device->getContext()->PSSetShaderResources(slot, 1, m_texture.GetAddressOf());
 	}
 
 	ID3D11ShaderResourceView* Texture::getTexture()

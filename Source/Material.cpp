@@ -54,7 +54,7 @@ namespace WOtech
 
 	void Material::bindMaterial(DeviceDX11^ device)
 	{
-		auto context = device->GetContext();
+		auto context = device->getContext();
 
 		context->IASetInputLayout(m_vertexShader->getInputLayout());// todo: eigenes Layout erstellen
 		context->VSSetShader(m_vertexShader->getShader(), nullptr, 0);
@@ -69,7 +69,7 @@ namespace WOtech
 	}
 	void Material::unbindMaterial(DeviceDX11^ device)
 	{
-		auto context = device->GetContext();
+		auto context = device->getContext();
 
 		context->IASetInputLayout(nullptr);// todo: eigenes Layout erstellen
 		context->VSSetShader(nullptr, 0, 0);

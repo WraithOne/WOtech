@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		10.08.2017
+///			Edited:		14.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -67,7 +67,7 @@ namespace WOtech
 
 		// set current window to device resources
 		Windows::UI::Core::CoreWindow^ window = Windows::UI::Core::CoreWindow::GetForCurrentThread();
-		SetWindow(window);
+		setWindow(window);
 	}
 
 	void DeviceDX11::Present()
@@ -102,14 +102,14 @@ namespace WOtech
 	{
 		Clear(color, CLEAR_FLAG::CLEAR_DEPTH, 1.0f, 0);
 	}
-	void DeviceDX11::Clear(_In_ Color color, _In_ CLEAR_FLAG ClearFlags, _In_ float32 Depth, _In_ uint8 Stencil)
+	void DeviceDX11::Clear(_In_ Color color, _In_ CLEAR_FLAG clearFlags, _In_ float32 depth, _In_ uint8 stencil)
 	{
 		D2D1_COLOR_F d2d1color = wrapColor(color);
 		float32 ColorRGBA[4] = { d2d1color.r / 256.0f, d2d1color.g / 256.0f, d2d1color.b / 256.0f, 1.0f };
 
 		m_context->OMSetRenderTargets(1, m_backBuffer.GetAddressOf(), m_depthStencilView.Get());
 		m_context->ClearRenderTargetView(m_backBuffer.Get(), ColorRGBA);
-		m_context->ClearDepthStencilView(m_depthStencilView.Get(), wrapClearFlag(ClearFlags), Depth, Stencil);
+		m_context->ClearDepthStencilView(m_depthStencilView.Get(), wrapClearFlag(clearFlags), depth, stencil);
 	}
 
 	void DeviceDX11::EnumerateAdapters(_Out_ std::list<IDXGIAdapter*>* adapterList)
@@ -239,7 +239,7 @@ namespace WOtech
 	}
 
 	// SETTERS
-	void DeviceDX11::SetWindow(_In_ Windows::UI::Core::CoreWindow^ window)
+	void DeviceDX11::setWindow(_In_ Windows::UI::Core::CoreWindow^ window)
 	{
 		m_window = window;
 
@@ -252,7 +252,7 @@ namespace WOtech
 
 		CreateWindowSizeDependentResources();
 	}
-	void DeviceDX11::SetLogicalSize(_In_ Windows::Foundation::Size logicalSize)
+	void DeviceDX11::setLogicalSize(_In_ Windows::Foundation::Size logicalSize)
 	{
 		if (m_logicalSize != logicalSize)
 		{
@@ -260,7 +260,7 @@ namespace WOtech
 			CreateWindowSizeDependentResources();
 		}
 	}
-	void DeviceDX11::SetCurrentOrientation(_In_ DisplayOrientations currentOrientation)
+	void DeviceDX11::setCurrentOrientation(_In_ DisplayOrientations currentOrientation)
 	{
 		if (m_currentOrientation != currentOrientation)
 		{
@@ -268,7 +268,7 @@ namespace WOtech
 			CreateWindowSizeDependentResources();
 		}
 	}
-	void DeviceDX11::SetDpi(_In_ float32 dpi)
+	void DeviceDX11::setDpi(_In_ float32 dpi)
 	{
 		if (dpi != m_dpi)
 		{
@@ -280,7 +280,7 @@ namespace WOtech
 			CreateWindowSizeDependentResources();
 		}
 	}
-	void DeviceDX11::SetCompositionScale(_In_ float32 compositionScaleX, _In_ float32 compositionScaleY)
+	void DeviceDX11::setCompositionScale(_In_ float32 compositionScaleX, _In_ float32 compositionScaleY)
 	{
 		if (m_compositionScaleX != compositionScaleX || m_compositionScaleY != compositionScaleY)
 		{
@@ -347,16 +347,36 @@ namespace WOtech
 
 		m_context->RSSetState(m_rasterizerState.Get());
 	}
-	void DeviceDX11::setViewPort(_In_ float32 width, _In_ float32 height, _In_ float32 mindept, _In_ float32 maxdept, _In_ float32 topleftx, _In_ float32 toplefty)
+	void DeviceDX11::setViewPort(_In_ float32 topleftx, _In_ float32 toplefty, _In_ float32 width, _In_ float32 height, _In_ float32 mindept, _In_ float32 maxdept, _In_ Platform::Boolean useActualOriantation)
 	{
-		D3D11_VIEWPORT viewPort;
+		// Range Check
+		float32 temptopleftx = WOtech::InRange(topleftx, D3D11_VIEWPORT_BOUNDS_MIN, D3D11_VIEWPORT_BOUNDS_MAX);
+		float32 temptoplefty = WOtech::InRange(toplefty, D3D11_VIEWPORT_BOUNDS_MIN, D3D11_VIEWPORT_BOUNDS_MAX);
+		float32 tempwidth = WOtech::InRange(width, D3D11_VIEWPORT_BOUNDS_MIN, D3D11_VIEWPORT_BOUNDS_MAX);
+		float32 tempheight = WOtech::InRange(height, D3D11_VIEWPORT_BOUNDS_MIN, D3D11_VIEWPORT_BOUNDS_MAX);
+		float32 tempmindepth = WOtech::InRange(topleftx, 0.0f, 1.0f);
+		float32 tempmaxdepth = WOtech::InRange(topleftx, 0.0f, 1.0f);
 
-		viewPort.Width = width;
-		viewPort.Height = height;
-		viewPort.MinDepth = mindept;
-		viewPort.MaxDepth = maxdept;
-		viewPort.TopLeftX = topleftx;
-		viewPort.TopLeftY = toplefty;
+		D3D11_VIEWPORT viewPort;
+		if (useActualOriantation)
+		{
+			DXGI_MODE_ROTATION displayRotation = ComputeDisplayRotation();
+
+			Platform::Boolean swapDimensions = displayRotation == DXGI_MODE_ROTATION_ROTATE90 || displayRotation == DXGI_MODE_ROTATION_ROTATE270;
+			viewPort.Width = swapDimensions ? tempheight : tempwidth;
+			viewPort.Height = swapDimensions ? tempwidth : tempheight;
+			viewPort.TopLeftX = swapDimensions ? temptoplefty : temptopleftx;
+			viewPort.TopLeftY = swapDimensions ? temptopleftx : temptoplefty;
+		}
+		else
+		{
+			viewPort.Width = tempwidth;
+			viewPort.Height = tempheight;
+			viewPort.TopLeftX = temptopleftx;
+			viewPort.TopLeftY = temptoplefty;
+		}
+		viewPort.MinDepth = tempmindepth;
+		viewPort.MaxDepth = tempmaxdepth;
 
 		m_viewport = viewPort;
 		m_context->RSSetViewports(1, &viewPort);
@@ -375,7 +395,7 @@ namespace WOtech
 	{
 		return m_dxgiDevice.Get();
 	}
-	ID3D11DeviceContext2* DeviceDX11::GetContext()
+	ID3D11DeviceContext2* DeviceDX11::getContext()
 	{
 		return m_context.Get();
 	}
@@ -660,7 +680,7 @@ namespace WOtech
 		setWireframe(false);
 
 		// Set the 3D rendering viewport to target the entire window.
-		m_viewport = CD3D11_VIEWPORT(0.0f, 0.0f, m_d3dRenderTargetSize.Width, m_d3dRenderTargetSize.Height);
+		m_viewport = CD3D11_VIEWPORT(0.0f, 0.0f, m_d3dRenderTargetSize.Width, m_d3dRenderTargetSize.Height, 0.0f, 1.0f);
 
 		m_context->RSSetViewports(1, &m_viewport);
 

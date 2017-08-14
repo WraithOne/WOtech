@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	31.03.2016
-///			Edited:		07.03.2017
+///			Edited:		14.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DEVICEDX11_H
@@ -67,7 +67,7 @@ namespace WOtech
 		void Create();
 
 		void Clear(_In_ Windows::UI::Color color);
-		void Clear(_In_ Windows::UI::Color color, _In_ WOtech::DXWrapper::CLEAR_FLAG ClearFlags, _In_ float32 Depth, _In_ uint8 Stencil);
+		void Clear(_In_ Windows::UI::Color color, _In_ WOtech::DXWrapper::CLEAR_FLAG clearFlags, _In_ float32 depth, _In_ uint8 stencil);
 
 		void Present();
 		void ValidateDevice();
@@ -75,14 +75,14 @@ namespace WOtech
 		void Trim();
 
 		// SETTERS
-		void SetLogicalSize(_In_ Windows::Foundation::Size logicalSize);
-		void SetCurrentOrientation(_In_ Windows::Graphics::Display::DisplayOrientations currentOrientation);
-		void SetDpi(_In_ float32 dpi);
-		void SetCompositionScale(_In_ float32 compositionScaleX, _In_ float32 compositionScaleY);
+		void setLogicalSize(_In_ Windows::Foundation::Size logicalSize);
+		void setCurrentOrientation(_In_ Windows::Graphics::Display::DisplayOrientations currentOrientation);
+		void setDpi(_In_ float32 dpi);
+		void setCompositionScale(_In_ float32 compositionScaleX, _In_ float32 compositionScaleY);
 
-		void setDepthStencil(_In_ Platform::Boolean Enable);
-		void setWireframe(_In_ Platform::Boolean Enable);
-		void setViewPort(_In_ float32 Width, _In_ float32 Height, _In_ float32 Mindept, _In_ float32 Maxdept, _In_ float32 Topleftx, _In_ float32 Toplefty);
+		void setDepthStencil(_In_ Platform::Boolean enable);
+		void setWireframe(_In_ Platform::Boolean enable);
+		void setViewPort(_In_ float32 topleftx, _In_ float32 toplefty, _In_ float32 width, _In_ float32 height, _In_ float32 mindept, _In_ float32 maxdept, _In_ Platform::Boolean useActualOriantation);
 
 		// GETTERS
 		uint32 getSampleCount();
@@ -97,8 +97,8 @@ namespace WOtech
 		void CreateDevices();
 		void CreateWindowSizeDependentResources();
 
-		void SetWindow(_In_ Windows::UI::Core::CoreWindow^ window);
-		void setRenderTarget(_In_ ID3D11RenderTargetView* Target);
+		void setWindow(_In_ Windows::UI::Core::CoreWindow^ window);
+		void setRenderTarget(_In_ ID3D11RenderTargetView* target);
 
 		void EnumerateAdapters(_Out_ std::list<IDXGIAdapter*>* adapterList);
 		void EnumerateOutputs(_In_ IDXGIAdapter* adapter, _Out_ std::list<IDXGIOutput*>* outputList);
@@ -107,7 +107,7 @@ namespace WOtech
 		IDXGIFactory2*				getFactory();
 		ID3D11Device2*				getDevice();
 		IDXGIDevice3*				getDXGIDevice();
-		ID3D11DeviceContext2*		GetContext();
+		ID3D11DeviceContext2*		getContext();
 
 		IDXGISurface2*				getSurface();
 

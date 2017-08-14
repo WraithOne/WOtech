@@ -36,6 +36,6 @@ namespace WOtech
 
 		m_vertexBuffer->SubmitBuffer(device);
 		m_IndexBuffer->SubmitBuffer(device);
-		device->GetContext()->DrawIndexed(m_IndexBuffer->getCount(), 0, 0);
+		device->getContext()->DrawIndexed(m_IndexBuffer->getCount(), 0, 0);
 	}
 }// namespace WOtech

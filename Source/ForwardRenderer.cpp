@@ -65,7 +65,7 @@ namespace WOtech
 			const RenderCommand& command = m_CommandQueue[i];
 			command.mesh->GetMaterialInstance()->bindMaterialInstance(m_device);
 
-			auto context = m_device->GetContext();
+			auto context = m_device->getContext();
 			// Submit Uniforms
 			context->UpdateSubresource(m_worldCB.Get(), 0, 0, &command.uniforms.WorldMatrix, 0, 0);
 			context->UpdateSubresource(m_viewCB.Get(), 0, 0, &command.uniforms.ViewMatrix, 0, 0);

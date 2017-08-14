@@ -42,7 +42,7 @@ namespace WOtech
 
 	void VertexBuffer::SubmitBuffer(_In_ DeviceDX11^ device)
 	{
-		device->GetContext()->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &m_stride, &m_offset);
+		device->getContext()->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &m_stride, &m_offset);
 	}
 
 	void VertexBuffer::setOffset(_In_ UINT32 offset)
@@ -98,8 +98,10 @@ namespace WOtech
 	}
 	void IndexBuffer::SubmitBuffer(_In_ DeviceDX11^ device)
 	{
-		device->GetContext()->IASetIndexBuffer(m_indexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0);
-		device->GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		auto context = device->getContext();
+
+		context->IASetIndexBuffer(m_indexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0);
+		context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	}
 	void IndexBuffer::CreateBuffer(_In_ void* data, _In_  UINT32 count, _In_  DeviceDX11^ device)
 	{

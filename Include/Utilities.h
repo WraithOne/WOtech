@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	12.05.2014
-///			Edited:		06.04.2016
+///			Edited:		14.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_UTILITIES_H
@@ -76,7 +76,7 @@ namespace WOtech
 	}
 
 	// Convert DirectX error codes to exceptions.
-	inline void ThrowIfFailed(HRESULT hr)
+	inline void ThrowIfFailed(_In_ HRESULT hr)
 	{
 		if (FAILED(hr))
 		{
@@ -102,13 +102,27 @@ namespace WOtech
 		return degree;
 	}
 	// Converts Degree to Radians
-	inline float32 DegreetoRadian(float32 degree)
+	inline float32 DegreetoRadian(_In_ float32 degree)
 	{
 		float32 radian;
 
 		radian = degree*(DA_PI / 180);
 
 		return radian;
+	}
+
+	// Ceck if value is between min and max
+	inline float32 InRange(_In_ float32 value, _In_ float32 min, _In_ float32 max)
+	{
+		float32 output = 0.0f;
+		if (value < min)
+			output = min;
+		else if (value > max)
+			output = max;
+		else
+			output = value;
+
+		return value;
 	}
 
 #if defined(_DEBUG)
@@ -168,7 +182,7 @@ namespace WOtech
 	T* TSingleton<T>::m_pSingleton = 0;
 
 	// Convert a wide Unicode string to an UTF8 string
-	inline std::string utf8_encode(const std::wstring &wstr)
+	inline std::string utf8_encode(_In_ const std::wstring &wstr)
 	{
 		if (wstr.empty()) return std::string();
 		int size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), NULL, 0, NULL, NULL);
@@ -178,7 +192,7 @@ namespace WOtech
 	}
 
 	// Convert an UTF8 string to a wide Unicode String
-	inline std::wstring utf8_decode(const std::string &str)
+	inline std::wstring utf8_decode(_In_ const std::string &str)
 	{
 		if (str.empty()) return std::wstring();
 		int size_needed = MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0);
