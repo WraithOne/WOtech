@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.02.2016
-///			Edited:		15.04.2017
+///			Edited:		14.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_3DCOMPONENTS_H
@@ -74,18 +74,17 @@ namespace WOtech
 
 	public ref class VertexShader sealed
 	{
-	internal:
-		VertexShader(_In_ void const* pShaderBytecode, _In_ Platform::SizeT BytecodeLength, _In_opt_ const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device);
-
 	public:
-		[Windows::Foundation::Metadata::DefaultOverloadAttribute]
 		VertexShader(_In_ Platform::String^ compiledVertexShaderObject, _In_ WOtech::DeviceDX11^ device);
 		VertexShader(_In_ Platform::String^ compiledVertexShaderObject, _In_ const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device);
-		VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint, _In_ WOtech::DeviceDX11^ device);
-		VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint, _In_ const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device);
+		VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint, _In_ int unUsed, _In_ WOtech::DeviceDX11^ device);
+		VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint, _In_ const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ int unUsed, _In_ WOtech::DeviceDX11^ device);
 
 		void Load(_In_ WOtech::DeviceDX11^ device);
-	
+
+	internal:
+		VertexShader(_In_ void const* pShaderBytecode, _In_ Platform::SizeT BytecodeLength, _In_opt_ const Platform::Array<WOtech::DXWrapper::INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ int unUsed, _In_ int unUsed2, _In_ WOtech::DeviceDX11^ device);
+
 	internal:
 		//Getter
 		ID3D11VertexShader*	getShader();

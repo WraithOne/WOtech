@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		15.04.2017
+///			Edited:		14.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -65,8 +65,10 @@ namespace WOtech
 
 		Load(device);
 	}
-	VertexShader::VertexShader(_In_ String^ filename, _In_ String^ entryPoint, _In_ WOtech::DeviceDX11^ device)
+	VertexShader::VertexShader(_In_ String^ filename, _In_ String^ entryPoint, _In_ int unUsed, _In_ WOtech::DeviceDX11^ device)
 	{
+		UNREFERENCED_PARAMETER(unUsed); // todo: WinRT madness
+
 		m_fileName = filename;
 		m_entryPoint = entryPoint;
 
@@ -80,8 +82,10 @@ namespace WOtech
 
 		Load(device);
 	}
-	VertexShader::VertexShader(_In_ String^ filename, _In_ String^ entryPoint, _In_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device)
+	VertexShader::VertexShader(_In_ String^ filename, _In_ String^ entryPoint, _In_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ int unUsed, _In_ WOtech::DeviceDX11^ device)
 	{
+		UNREFERENCED_PARAMETER(unUsed); // todo: WinRT madness
+
 		m_fileName = filename;
 		m_entryPoint = entryPoint;
 
@@ -96,8 +100,11 @@ namespace WOtech
 
 		Load(device);
 	}
-	VertexShader::VertexShader(_In_ void const* ShaderBytecode, _In_ SizeT BytecodeLength, _In_opt_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device)
+	VertexShader::VertexShader(_In_ void const* ShaderBytecode, _In_ SizeT BytecodeLength, _In_opt_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ int unUsed, _In_ int unUsed2, _In_ WOtech::DeviceDX11^ device)
 	{
+		UNREFERENCED_PARAMETER(unUsed); // todo: WinRT madness
+		UNREFERENCED_PARAMETER(unUsed2); // todo: WinRT madness
+
 		m_useShaderByteCode = true;
 		m_shaderByteCode = ShaderBytecode;
 		m_byteCodeLength = BytecodeLength;
