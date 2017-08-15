@@ -691,7 +691,8 @@ namespace WOtech
 		hr = m_swapChain->GetBuffer(0, IID_PPV_ARGS(backBuffer.GetAddressOf()));
 		ThrowIfFailed(hr);
 
-		hr = m_device->CreateRenderTargetView(backBuffer.Get(), nullptr, &m_backBuffer);
+		CD3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc(D3D11_RTV_DIMENSION_TEXTURE2D, DXGI_FORMAT_B8G8R8A8_UNORM);
+		hr = m_device->CreateRenderTargetView(backBuffer.Get(), &renderTargetViewDesc, m_backBuffer.ReleaseAndGetAddressOf());
 		ThrowIfFailed(hr);
 
 		// Create a depth stencil view for use with 3D rendering if needed.
