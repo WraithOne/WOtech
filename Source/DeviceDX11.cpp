@@ -483,8 +483,6 @@ namespace WOtech
 	// Private
 	void DeviceDX11::CreateDevices()
 	{
-		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"DeviceDX11::CreateDevices");
-
 		uint32 creationFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 
 #if defined(_DEBUG)
@@ -510,8 +508,6 @@ namespace WOtech
 
 		HRESULT hr;
 
-		PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"D3D11CreateDevice HW");
-
 		hr = D3D11CreateDevice(
 			nullptr,					// Specify nullptr to use the default adapter.
 			D3D_DRIVER_TYPE_HARDWARE,	// Create a device using the hardware graphics driver.
@@ -525,12 +521,8 @@ namespace WOtech
 			&context					// Returns the device immediate context.
 		);
 
-		PIXENDEVENT();
-
 		if (FAILED(hr))
 		{
-			PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"D3D11CreateDevice WARP");
-
 			// If the initialization fails, fall back to the WARP device.
 			// For more information on WARP, see:
 			// http://go.microsoft.com/fwlink/?LinkId=286690
@@ -545,8 +537,6 @@ namespace WOtech
 				&m_featureLevel,
 				&context);
 			ThrowIfFailed(hr);
-
-			PIXENDEVENT();
 		}
 
 		// Store pointers to the Direct3D 11.1 API device ,immediate context and DXGI device.
@@ -558,8 +548,6 @@ namespace WOtech
 
 		hr = m_device.As(&m_dxgiDevice);
 		ThrowIfFailed(hr);
-
-		PIXENDEVENT();
 	}
 	void DeviceDX11::CreateWindowSizeDependentResources()
 	{
