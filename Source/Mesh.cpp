@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.02.2016
-///			Edited:		11.11.2016
+///			Edited:		15.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -32,10 +32,18 @@ namespace WOtech
 
 	void Mesh::Render(DeviceDX11^ device)
 	{
+		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"Mesh::Render");
 		m_MaterialInstance->bindMaterialInstance(device);
 
 		m_vertexBuffer->SubmitBuffer(device);
 		m_IndexBuffer->SubmitBuffer(device);
-		device->getContext()->DrawIndexed(m_IndexBuffer->getCount(), 0, 0);
+
+		auto context = device->getContext();
+
+		PIXBEGINEVENTCONTEXT(context, PIX_COLOR_DEFAULT, L"Mesh DrawIndexed");
+		context->DrawIndexed(m_IndexBuffer->getCount(), 0, 0);
+		PIXENDEVENT();
+		
+		PIXENDEVENT();
 	}
 }// namespace WOtech

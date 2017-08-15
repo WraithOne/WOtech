@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		14.08.2017
+///			Edited:		15.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -74,6 +74,8 @@ namespace WOtech
 	{
 		HRESULT hr;
 
+		PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"DeviceDX11::Present");
+
 		// The first argument instructs DXGI to block until VSync, putting the application
 		// to sleep until the next VSync. This ensures we don't waste any cycles rendering
 		// frames that will never be displayed to the screen.
@@ -84,9 +86,12 @@ namespace WOtech
 		// overwritten. If dirty or scroll rects are used, this call should be removed.
 		m_context->DiscardView(m_backBuffer.Get());
 
-		// Discard the contents of the depth stencil.
-		m_context->DiscardView(m_depthStencilView.Get());
-
+		if (m_depthStencilView)
+		{
+			// Discard the contents of the depth stencil.
+			m_context->DiscardView(m_depthStencilView.Get());
+		}
+			
 		// If the device was removed either by a disconnection or a driver upgrade, we
 		// must recreate all device resources.
 		if (hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET)
@@ -97,6 +102,8 @@ namespace WOtech
 		{
 			ThrowIfFailed(hr);
 		}
+
+		PIXENDEVENT();
 	}
 	void DeviceDX11::Clear(_In_ Color color)
 	{
@@ -106,10 +113,15 @@ namespace WOtech
 	{
 		D2D1_COLOR_F d2d1color = wrapColor(color);
 		float32 ColorRGBA[4] = { d2d1color.r / 256.0f, d2d1color.g / 256.0f, d2d1color.b / 256.0f, 1.0f };
+		
+		PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"DEviceDX11::Clear");
 
-		m_context->OMSetRenderTargets(1, m_backBuffer.GetAddressOf(), m_depthStencilView.Get());
 		m_context->ClearRenderTargetView(m_backBuffer.Get(), ColorRGBA);
 		m_context->ClearDepthStencilView(m_depthStencilView.Get(), wrapClearFlag(clearFlags), depth, stencil);
+		m_context->OMSetRenderTargets(1, m_backBuffer.GetAddressOf(), m_depthStencilView.Get());
+
+		m_context->RSSetViewports(1, &m_viewport);
+		PIXENDEVENT();
 	}
 
 	void DeviceDX11::EnumerateAdapters(_Out_ std::list<IDXGIAdapter*>* adapterList)
@@ -293,7 +305,13 @@ namespace WOtech
 	void DeviceDX11::setRenderTarget(_In_ ID3D11RenderTargetView* Target)
 	{
 		if (Target)
+		{
+			PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"DeviceDX11::setRenderTarget");
+
 			m_context->OMSetRenderTargets(1, &Target, m_depthStencilView.Get());
+
+			PIXENDEVENT();
+		}		
 	}
 
 	void DeviceDX11::setDepthStencil(_In_ Platform::Boolean enable)
@@ -313,8 +331,12 @@ namespace WOtech
 		else
 			depthStencilStateDesc.StencilEnable = TRUE;
 
+		PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"DeviceDX11::setDepthStencil");
+
 		hr = m_device->CreateDepthStencilState(&depthStencilStateDesc, &m_depthStencilState);
 		ThrowIfFailed(hr);
+
+		PIXENDEVENT();
 	}
 	void DeviceDX11::setWireframe(_In_ Platform::Boolean enable)
 	{
@@ -341,11 +363,15 @@ namespace WOtech
 		rasterizerDesc.SlopeScaledDepthBias = 0.0f;
 		rasterizerDesc.ForcedSampleCount = 0;
 
+		PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"DeviceDX11::setWireframe");
+
 		// Create the rasterizer state object.
 		hr = m_device->CreateRasterizerState1(&rasterizerDesc, m_rasterizerState.ReleaseAndGetAddressOf());
 		ThrowIfFailed(hr);
 
 		m_context->RSSetState(m_rasterizerState.Get());
+
+		PIXENDEVENT();
 	}
 	void DeviceDX11::setViewPort(_In_ float32 topleftx, _In_ float32 toplefty, _In_ float32 width, _In_ float32 height, _In_ float32 mindept, _In_ float32 maxdept, _In_ Platform::Boolean useActualOriantation)
 	{
@@ -379,7 +405,12 @@ namespace WOtech
 		viewPort.MaxDepth = tempmaxdepth;
 
 		m_viewport = viewPort;
+
+		PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"DeviceDX11::setViewPort");
+
 		m_context->RSSetViewports(1, &viewPort);
+
+		PIXENDEVENT();
 	}
 
 	// GETTERS
@@ -453,6 +484,8 @@ namespace WOtech
 	// Private
 	void DeviceDX11::CreateDevices()
 	{
+		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"DeviceDX11::CreateDevices");
+
 		uint32 creationFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 
 #if defined(_DEBUG)
@@ -478,6 +511,8 @@ namespace WOtech
 
 		HRESULT hr;
 
+		PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"D3D11CreateDevice HW");
+
 		hr = D3D11CreateDevice(
 			nullptr,					// Specify nullptr to use the default adapter.
 			D3D_DRIVER_TYPE_HARDWARE,	// Create a device using the hardware graphics driver.
@@ -491,8 +526,12 @@ namespace WOtech
 			&context					// Returns the device immediate context.
 		);
 
+		PIXENDEVENT();
+
 		if (FAILED(hr))
 		{
+			PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"D3D11CreateDevice WARP");
+
 			// If the initialization fails, fall back to the WARP device.
 			// For more information on WARP, see:
 			// http://go.microsoft.com/fwlink/?LinkId=286690
@@ -507,6 +546,8 @@ namespace WOtech
 				&m_featureLevel,
 				&context);
 			ThrowIfFailed(hr);
+
+			PIXENDEVENT();
 		}
 
 		// Store pointers to the Direct3D 11.1 API device ,immediate context and DXGI device.
@@ -518,11 +559,16 @@ namespace WOtech
 
 		hr = m_device.As(&m_dxgiDevice);
 		ThrowIfFailed(hr);
+
+		PIXENDEVENT();
 	}
 	void DeviceDX11::CreateWindowSizeDependentResources()
 	{
 		HRESULT hr;
+		
+		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"DeviceDX11::CreateWindowDependentResources");
 
+		PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"Clear previous Content");
 		// Clear the previous window size specific context.
 		ID3D11RenderTargetView* nullViews[] = { nullptr };
 		m_context->OMSetRenderTargets(ARRAYSIZE(nullViews), nullViews, m_depthStencilView.Get());
@@ -531,6 +577,7 @@ namespace WOtech
 
 		m_context->Flush();
 		m_context->ClearState();
+		PIXENDEVENT();
 
 		// Calculate the necessary render target size in pixels (for CoreWindow).
 		m_outputSize.Width = ConvertDipsToPixels(m_logicalSize.Width, m_dpi);
@@ -551,6 +598,7 @@ namespace WOtech
 
 		if (m_swapChain != nullptr)
 		{
+			PIXBEGINEVENT(PIX_COLOR_DEFAULT, L" Swapchain->ResizeBuffers");
 			// If the swap chain already exists, resize it.
 			hr = m_swapChain->ResizeBuffers(
 				0, //0= preserv 2 =Double-buffered swap chain.
@@ -559,6 +607,7 @@ namespace WOtech
 				DXGI_FORMAT_B8G8R8A8_UNORM,
 				0
 			);
+			PIXENDEVENT();
 
 			if (hr == DXGI_ERROR_DEVICE_REMOVED)
 			{
@@ -602,11 +651,13 @@ namespace WOtech
 			ComPtr<IDXGIFactory2> dxgiFactory;
 			ThrowIfFailed(dxgiAdapter->GetParent(IID_PPV_ARGS(&dxgiFactory)));
 
+			PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"CreateSwapChainForCoreWindow");
 			ThrowIfFailed(dxgiFactory->CreateSwapChainForCoreWindow(m_device.Get(),
 				reinterpret_cast<IUnknown*>(m_window.Get()),
 				&swapChainDesc,
 				nullptr,
 				&m_swapChain));
+			PIXENDEVENT();
 
 			// Ensure that DXGI does not queue more than one frame at a time. This both reduces latency and
 			// ensures that the application will only render after each VSync, minimizing power consumption.
@@ -682,11 +733,16 @@ namespace WOtech
 		// Set the 3D rendering viewport to target the entire window.
 		m_viewport = CD3D11_VIEWPORT(0.0f, 0.0f, m_d3dRenderTargetSize.Width, m_d3dRenderTargetSize.Height, 0.0f, 1.0f);
 
+		PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"SetViewPort");
 		m_context->RSSetViewports(1, &m_viewport);
+		PIXENDEVENT();
 
 		// Create DXGI Buffer for D2D1
 		hr = m_swapChain->GetBuffer(0, IID_PPV_ARGS(&m_dxgiBackBuffer));
 		ThrowIfFailed(hr);
+
+		PIXENDEVENT();
+		
 	}
 	DXGI_MODE_ROTATION DeviceDX11::ComputeDisplayRotation()
 	{

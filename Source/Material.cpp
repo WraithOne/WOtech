@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	25.02.2016
-///			Edited:		24.03.2017
+///			Edited:		15.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -35,7 +35,7 @@ namespace WOtech
 	{
 		m_vertexShader = Vshader;
 		m_pixelShader = Pshader;
-
+		
 		size_t maxSize = 16;
 		m_textures.reserve(maxSize);// todo: reserve to MAX_HW_TEXTURES_SUPPORTET
 		m_textures.resize(maxSize);
@@ -56,7 +56,8 @@ namespace WOtech
 	{
 		auto context = device->getContext();
 
-		context->IASetInputLayout(m_vertexShader->getInputLayout());// todo: eigenes Layout erstellen
+		PIXBEGINEVENTCONTEXT(context, PIX_COLOR_DEFAULT, L"Material::bindMaterial");
+		context->IASetInputLayout(m_vertexShader->getInputLayout());
 		context->VSSetShader(m_vertexShader->getShader(), nullptr, 0);
 
 		context->PSSetShader(m_pixelShader->getShader(), nullptr, 0);
@@ -66,17 +67,20 @@ namespace WOtech
 				m_textures.at(i)->SubmitTexture(device, i);
 		}
 		context->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
+		PIXENDEVENT();
 	}
 	void Material::unbindMaterial(DeviceDX11^ device)
 	{
 		auto context = device->getContext();
 
-		context->IASetInputLayout(nullptr);// todo: eigenes Layout erstellen
+		PIXBEGINEVENTCONTEXT(context, PIX_COLOR_DEFAULT, L"Material::unbindMaterial");
+		context->IASetInputLayout(nullptr);
 		context->VSSetShader(nullptr, 0, 0);
 
 		context->PSSetShader(nullptr, 0, 0);
 		context->PSSetShaderResources(0, safe_cast<UINT>(m_textures.size()), nullptr);
 		context->PSSetSamplers(0, 1, nullptr);
+		PIXENDEVENT();
 	}
 	void Material::addTexture(Texture^ texture, uint32 slot)
 	{

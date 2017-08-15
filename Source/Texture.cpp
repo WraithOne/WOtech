@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	30.08.2014
-///			Edited:		06.11.2016
+///			Edited:		15.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -41,7 +41,11 @@ namespace WOtech
 
 	void Texture::SubmitTexture(_In_ DeviceDX11^ device, _In_ uint32 slot)
 	{
-		device->getContext()->PSSetShaderResources(slot, 1, m_texture.GetAddressOf());
+		auto context = device->getContext();
+
+		PIXBEGINEVENTCONTEXT(context, PIX_COLOR_DEFAULT, L"TExture::SubmitTexture");
+		context->PSSetShaderResources(slot, 1, m_texture.GetAddressOf());
+		PIXENDEVENT();
 	}
 
 	ID3D11ShaderResourceView* Texture::getTexture()

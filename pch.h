@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.03.2015
-///			Edited:		06.04.2016
+///			Edited:		14.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #pragma once
@@ -58,6 +58,9 @@
 
 #include <xaudio2.h>
 #include <xaudio2fx.h>
+
+#include <pix.h>
+#include <pix_win.h>
 
 /////////////
 // LINKING //
