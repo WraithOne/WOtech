@@ -688,7 +688,7 @@ namespace WOtech
 
 		// Create a render target view of the swap chain back buffer.
 		ComPtr<ID3D11Texture2D> backBuffer;
-		hr = m_swapChain->GetBuffer(0, IID_PPV_ARGS(&backBuffer));
+		hr = m_swapChain->GetBuffer(0, IID_PPV_ARGS(backBuffer.GetAddressOf()));
 		ThrowIfFailed(hr);
 
 		hr = m_device->CreateRenderTargetView(backBuffer.Get(), nullptr, &m_backBuffer);
