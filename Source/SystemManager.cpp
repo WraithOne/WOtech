@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	18.03.2015
-///			Edited:		22.11.2016
+///			Edited:		15.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -111,16 +111,14 @@ namespace WOtech
 		for (auto j : m_inputManagerList)
 			j->ResumeInput();
 	}
-	void SystemManager::OnWindowSizeChanged()
+	void SystemManager::OnWindowSizeChanged(_In_ Size windowSize)
 	{
-		CoreWindow^ window = CoreWindow::GetForCurrentThread();
-
 		for (auto i : m_spriteBatchList)
 			i->ReleaseRendertarget();
 
 		for (auto j : m_deviceDX11List)
 		{
-			j->setLogicalSize(Size(window->Bounds.Width, window->Bounds.Height));
+			j->setLogicalSize(windowSize);
 		}
 
 		for (auto k : m_spriteBatchList)

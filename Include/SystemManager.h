@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	18.03.2015
-///			Edited:		18.03.2017
+///			Edited:		15.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SYSTEMMANAGER_H
@@ -65,7 +65,7 @@ namespace WOtech
 
 		void OnSuspending();
 		void OnResume();
-		void OnWindowSizeChanged();
+		void OnWindowSizeChanged(_In_ Windows::Foundation::Size windowSize);
 		void OnDpiChanged(_In_ float32 dpi);
 		void OnOrientationChanged(_In_ Windows::Graphics::Display::DisplayOrientations currentOrientation);
 		void OnDisplayContentsInvalidated();
