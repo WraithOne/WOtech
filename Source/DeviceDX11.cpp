@@ -50,8 +50,9 @@ namespace WOtech
 		m_overlaySupportExists = false;
 		m_initialCreationCompleted = false;
 
-		// add to SystemManager
+		m_backBufferCount = 2;
 
+		// add to SystemManager
 		SystemManager::Instance->AddDeviceDX11(this);
 	}
 
@@ -82,7 +83,7 @@ namespace WOtech
 		// Discard the contents of the render target.
 		// This is a valid operation only when the existing contents will be entirely
 		// overwritten. If dirty or scroll rects are used, this call should be removed.
-		m_context->DiscardView(m_backBuffer.Get());
+		m_context->DiscardView(m_renderTargetView.Get());
 
 		if (m_depthStencilView)
 		{
@@ -110,9 +111,9 @@ namespace WOtech
 		D2D1_COLOR_F d2d1color = wrapColor(color);
 		float32 ColorRGBA[4] = { d2d1color.r / 256.0f, d2d1color.g / 256.0f, d2d1color.b / 256.0f, 1.0f };
 
-		m_context->ClearRenderTargetView(m_backBuffer.Get(), ColorRGBA);
+		m_context->ClearRenderTargetView(m_renderTargetView.Get(), ColorRGBA);
 		m_context->ClearDepthStencilView(m_depthStencilView.Get(), wrapClearFlag(clearFlags), depth, stencil);
-		m_context->OMSetRenderTargets(1, m_backBuffer.GetAddressOf(), m_depthStencilView.Get());
+		m_context->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_depthStencilView.Get());
 
 		m_context->RSSetViewports(1, &m_viewport);
 	}
@@ -534,7 +535,7 @@ namespace WOtech
 		ID3D11RenderTargetView* nullViews[] = { nullptr };
 		m_context->OMSetRenderTargets(_countof(nullViews), nullViews, nullptr);
 
-		m_backBuffer.Reset();
+		m_renderTargetView.Reset();
 		m_depthStencilView.Reset();
 
 		m_context->Flush();
@@ -560,7 +561,7 @@ namespace WOtech
 		{
 			// If the swap chain already exists, resize it.
 			hr = m_swapChain->ResizeBuffers(
-				0, //0= preserv 2 =Double-buffered swap chain.
+				m_backBufferCount,
 				static_cast<uint32>(m_d3dRenderTargetSize.Width),
 				static_cast<uint32>(m_d3dRenderTargetSize.Height),
 				DXGI_FORMAT_B8G8R8A8_UNORM,
@@ -606,7 +607,7 @@ namespace WOtech
 			swapChainDesc.SampleDesc.Count = 1; // Don't use multi-sampling.
 			swapChainDesc.SampleDesc.Quality = 0;
 			swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-			swapChainDesc.BufferCount = 2; // Use double-buffering to minimize latency.
+			swapChainDesc.BufferCount = m_backBufferCount;
 			swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; // All Windows Store apps must use this SwapEffect. default: DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL
 			swapChainDesc.Flags = 0;
 			swapChainDesc.AlphaMode = DXGI_ALPHA_MODE_IGNORE; // When using XAML interop, this value cannot be DXGI_ALPHA_MODE_PREMULTIPLIED.
@@ -680,7 +681,7 @@ namespace WOtech
 		ThrowIfFailed(hr);
 
 		CD3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc(D3D11_RTV_DIMENSION_TEXTURE2D, DXGI_FORMAT_B8G8R8A8_UNORM);
-		hr = m_device->CreateRenderTargetView(backBuffer.Get(), &renderTargetViewDesc, m_backBuffer.ReleaseAndGetAddressOf());
+		hr = m_device->CreateRenderTargetView(backBuffer.Get(), &renderTargetViewDesc, m_renderTargetView.ReleaseAndGetAddressOf());
 		ThrowIfFailed(hr);
 
 		// Create a depth stencil view for use with 3D rendering if needed.
@@ -694,7 +695,7 @@ namespace WOtech
 		ThrowIfFailed(hr);
 
 		// Set REnder Target View and depth Stencil View
-		m_context->OMSetRenderTargets(1, m_backBuffer.GetAddressOf(), m_depthStencilView.Get());
+		m_context->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_depthStencilView.Get());
 
 		// Set RasterizerState
 		setWireframe(false);

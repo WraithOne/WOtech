@@ -134,7 +134,8 @@ namespace WOtech
 		Microsoft::WRL::ComPtr<IDXGISwapChain4>			m_swapChain;
 
 		Microsoft::WRL::ComPtr<IDXGISurface2>			m_dxgiBackBuffer;
-		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>	m_backBuffer;
+		UINT											m_backBufferCount;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>	m_renderTargetView;
 
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>	m_depthStencilView;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D>			m_depthStencilBuffer;
