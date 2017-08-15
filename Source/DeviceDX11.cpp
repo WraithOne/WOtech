@@ -74,12 +74,13 @@ namespace WOtech
 	{
 		HRESULT hr;
 
-		PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"DeviceDX11::Present");
+		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"DeviceDX11::Present");
 
 		// The first argument instructs DXGI to block until VSync, putting the application
 		// to sleep until the next VSync. This ensures we don't waste any cycles rendering
 		// frames that will never be displayed to the screen.
 		hr = m_swapChain->Present(1, 0);
+		PIXENDEVENT();
 
 		// Discard the contents of the render target.
 		// This is a valid operation only when the existing contents will be entirely
@@ -102,8 +103,6 @@ namespace WOtech
 		{
 			ThrowIfFailed(hr);
 		}
-
-		PIXENDEVENT();
 	}
 	void DeviceDX11::Clear(_In_ Color color)
 	{
