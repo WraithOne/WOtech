@@ -285,7 +285,6 @@
     <ClInclude Include="Include\Gameframework.h" />
     <ClInclude Include="Include\GameScene.h" />
     <ClInclude Include="Include\GameTimer.h" />
-    <ClInclude Include="Include\Graphic.h" />
     <ClInclude Include="Include\IGameObject.h" />
     <ClInclude Include="Include\Input.h" />
     <ClInclude Include="Include\IRenderer.h" />
