@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	31.03.2016
-///			Edited:		14.08.2017
+///			Edited:		15.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DEVICEDX11_H
@@ -105,7 +105,7 @@ namespace WOtech
 		void EnumerateDisplayModes(_In_ IDXGIOutput* output, _Out_ std::list<DXGI_MODE_DESC*>* displayModeList);
 
 		IDXGIFactory5*				getFactory();
-		ID3D11Device5*				getDevice();
+		ID3D11Device4*				getDevice();
 		IDXGIDevice4*				getDXGIDevice();
 		ID3D11DeviceContext4*		getContext();
 
@@ -126,7 +126,7 @@ namespace WOtech
 		// Reference to Window
 		Platform::Agile<Windows::UI::Core::CoreWindow>	m_window;
 
-		Microsoft::WRL::ComPtr<ID3D11Device5>			m_device;
+		Microsoft::WRL::ComPtr<ID3D11Device4>			m_device;// todo: update to Version 5 when debug tools supports
 		Microsoft::WRL::ComPtr<IDXGIDevice4>			m_dxgiDevice;
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext4>	m_context;
 		Microsoft::WRL::ComPtr<IDXGIFactory5>			m_factory;

@@ -145,32 +145,6 @@ namespace WOtech
 
 		return SUCCEEDED(hr);
 	}
-
-	// PIX support
-#define PIXBEGINEVENT(color, text)\
-	PIXBeginEvent(color, text);
-
-#define PIXBEGINEVENTCONTEXT(context, color, text)\
-	PIXBeginEvent(context,color,text);
-
-#define PIXENDEVENT()\
-		PIXEndEvent();
-#else
-#define PIXBEGINEVENT(color, text)		\
-	{									\
-		UNREFERENCED_PARAMETER(color);	\
-		UNREFERENCED_PARAMETER(text);	\
-	}
-
-#define PIXBEGINEVENTCONTEXT(context, color, text)	\
-	{										\
-		UNREFERENCED_PARAMETER(context);	\
-		UNREFERENCED_PARAMETER(color);		\
-		UNREFERENCED_PARAMETER(text);		\
-	}
-
-#define PIXENDEVENT();
-
 #endif
 
 	//  Template Singleton Class

@@ -40,30 +40,20 @@ namespace WOtech
 	}
 	void DeferredRenderer::Begin()
 	{
-		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"DeferredRenderer::Begin");
 		m_CommandQueue.clear();
 
 		m_device->Clear(m_clearColor);
-		PIXENDEVENT();
 	}
 	void DeferredRenderer::Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ float4x4 transform)
 	{
-		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"DeferredRenderer::Submit Mesh");
-		PIXENDEVENT();
 	}
 	void DeferredRenderer::Submit()
 	{
-		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"DeferredRenderer::Submit Lights");
-		PIXENDEVENT();
 	}
 	void DeferredRenderer::End()
 	{
-		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"DeferredRenderer::End");
-		PIXENDEVENT();
 	}
 	void DeferredRenderer::Present()
 	{
-		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"DeferredRenderer::Present");
-		PIXENDEVENT();
 	}
 }

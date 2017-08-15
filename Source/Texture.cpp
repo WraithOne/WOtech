@@ -43,9 +43,7 @@ namespace WOtech
 	{
 		auto context = device->getContext();
 
-		PIXBEGINEVENTCONTEXT(context, PIX_COLOR_DEFAULT, L"TExture::SubmitTexture");
 		context->PSSetShaderResources(slot, 1, m_texture.GetAddressOf());
-		PIXENDEVENT();
 	}
 
 	ID3D11ShaderResourceView* Texture::getTexture()

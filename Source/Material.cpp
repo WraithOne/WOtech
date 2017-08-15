@@ -56,7 +56,6 @@ namespace WOtech
 	{
 		auto context = device->getContext();
 
-		PIXBEGINEVENTCONTEXT(context, PIX_COLOR_DEFAULT, L"Material::bindMaterial");
 		context->IASetInputLayout(m_vertexShader->getInputLayout());
 		context->VSSetShader(m_vertexShader->getShader(), nullptr, 0);
 
@@ -67,20 +66,17 @@ namespace WOtech
 				m_textures.at(i)->SubmitTexture(device, i);
 		}
 		context->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
-		PIXENDEVENT();
 	}
 	void Material::unbindMaterial(DeviceDX11^ device)
 	{
 		auto context = device->getContext();
 
-		PIXBEGINEVENTCONTEXT(context, PIX_COLOR_DEFAULT, L"Material::unbindMaterial");
 		context->IASetInputLayout(nullptr);
 		context->VSSetShader(nullptr, 0, 0);
 
 		context->PSSetShader(nullptr, 0, 0);
 		context->PSSetShaderResources(0, safe_cast<UINT>(m_textures.size()), nullptr);
 		context->PSSetSamplers(0, 1, nullptr);
-		PIXENDEVENT();
 	}
 	void Material::addTexture(Texture^ texture, uint32 slot)
 	{

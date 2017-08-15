@@ -32,7 +32,6 @@ namespace WOtech
 
 	void Mesh::Render(DeviceDX11^ device)
 	{
-		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"Mesh::Render");
 		m_MaterialInstance->bindMaterialInstance(device);
 
 		m_vertexBuffer->SubmitBuffer(device);
@@ -40,10 +39,6 @@ namespace WOtech
 
 		auto context = device->getContext();
 
-		PIXBEGINEVENTCONTEXT(context, PIX_COLOR_DEFAULT, L"Mesh DrawIndexed");
 		context->DrawIndexed(m_IndexBuffer->getCount(), 0, 0);
-		PIXENDEVENT();
-		
-		PIXENDEVENT();
 	}
 }// namespace WOtech

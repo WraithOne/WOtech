@@ -34,15 +34,12 @@ namespace WOtech
 	}
 	void ForwardRenderer::Begin()
 	{
-		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"ForwardRenderer::Begin");
 		m_CommandQueue.clear();
 
 		m_device->Clear(m_clearColor);
-		PIXENDEVENT();
 	}
 	void ForwardRenderer::Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ float4x4 transform)
 	{
-		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"ForwardRenderer::Submit Mesh");
 		RenderCommand command;
 		command.mesh = mesh;
 		command.uniforms.ModelMatrix = transform;
@@ -51,23 +48,17 @@ namespace WOtech
 		command.uniforms.WorldMatrix = camera->World();
 
 		m_CommandQueue.push_back(command);
-		PIXENDEVENT();
 	}
 	void ForwardRenderer::Submit()
 	{
 		// for lights
-		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"ForwardRenderer::Submit Lights");
-		PIXENDEVENT();
 	}
 	void ForwardRenderer::End()
 	{
 		// do sorting here
-		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"ForwardRenderer::End");
-		PIXENDEVENT();
 	}
 	void ForwardRenderer::Present()
 	{
-		PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"ForwardRenderer::Present");
 		for (uint32 i = 0; i < m_CommandQueue.size(); i++)
 		{
 			// Submit Shaders, Textures
@@ -75,25 +66,22 @@ namespace WOtech
 			command.mesh->GetMaterialInstance()->bindMaterialInstance(m_device);
 
 			auto context = m_device->getContext();
+
 			// Submit Uniforms
-			PIXBEGINEVENTCONTEXT(context, PIX_COLOR_DEFAULT, L"UpdateSubresource Matrix");
 			context->UpdateSubresource(m_worldCB.Get(), 0, 0, &command.uniforms.WorldMatrix, 0, 0);
 			context->UpdateSubresource(m_viewCB.Get(), 0, 0, &command.uniforms.ViewMatrix, 0, 0);
 			context->UpdateSubresource(m_pojectionCB.Get(), 0, 0, &command.uniforms.ProjectionMatrix, 0, 0);
 			context->UpdateSubresource(m_modelCB.Get(), 0, 0, &command.uniforms.ModelMatrix, 0, 0);
-			PIXENDEVENT();
-			PIXBEGINEVENTCONTEXT(context, PIX_COLOR_DEFAULT, L"SetConstantBuffer Matrix");
 			context->VSSetConstantBuffers(0, 1, m_worldCB.GetAddressOf());
 			context->VSSetConstantBuffers(1, 1, m_viewCB.GetAddressOf());
 			context->VSSetConstantBuffers(2, 1, m_pojectionCB.GetAddressOf());
 			context->VSSetConstantBuffers(3, 1, m_modelCB.GetAddressOf());
-			PIXENDEVENT();
+
 			// Submit Vertex and Index data and render the final mesh
 			command.mesh->Render(m_device);
 		}
 
 		m_device->Present();
-		PIXENDEVENT();
 	}
 
 	void ForwardRenderer::Init(_In_ Color clearColor)

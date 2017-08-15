@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.02.2016
-///			Edited:		18.08.2017
+///			Edited:		15.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -44,9 +44,7 @@ namespace WOtech
 	{
 		auto context = device->getContext();
 
-		PIXBEGINEVENTCONTEXT(context, PIX_COLOR_DEFAULT, L"VertexBuffer::SubmitBuffer");
 		context->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &m_stride, &m_offset);
-		PIXENDEVENT();
 	}
 
 	void VertexBuffer::setOffset(_In_ UINT32 offset)
@@ -104,10 +102,8 @@ namespace WOtech
 	{
 		auto context = device->getContext();
 
-		PIXBEGINEVENTCONTEXT(context, PIX_COLOR_DEFAULT, L"IndexBuffer::SubmitBuffer");
 		context->IASetIndexBuffer(m_indexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0);
 		context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		PIXENDEVENT();
 	}
 	void IndexBuffer::CreateBuffer(_In_ void* data, _In_  UINT32 count, _In_  DeviceDX11^ device)
 	{
