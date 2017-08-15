@@ -82,17 +82,6 @@ namespace WOtech
 		hr = m_swapChain->Present(1, 0);
 		PIXENDEVENT();
 
-		// Discard the contents of the render target.
-		// This is a valid operation only when the existing contents will be entirely
-		// overwritten. If dirty or scroll rects are used, this call should be removed.
-		m_context->DiscardView(m_backBuffer.Get());
-
-		if (m_depthStencilView)
-		{
-			// Discard the contents of the depth stencil.
-			m_context->DiscardView(m_depthStencilView.Get());
-		}
-			
 		// If the device was removed either by a disconnection or a driver upgrade, we
 		// must recreate all device resources.
 		if (hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET)
