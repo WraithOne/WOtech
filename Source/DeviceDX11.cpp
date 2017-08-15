@@ -331,30 +331,29 @@ namespace WOtech
 		HRESULT hr;
 
 		// Setup rasterizer state.
-		D3D11_RASTERIZER_DESC1 rasterizerDesc;
+		D3D11_RASTERIZER_DESC2 rasterizerDesc;
 		ZeroMemory(&rasterizerDesc, sizeof(D3D11_RASTERIZER_DESC1));
-
-		rasterizerDesc.AntialiasedLineEnable = false;
-		rasterizerDesc.CullMode = D3D11_CULL_BACK;
-		rasterizerDesc.DepthBias = 0;
-		rasterizerDesc.DepthBiasClamp = 0.0f;
-		rasterizerDesc.DepthClipEnable = true;
 
 		if (enable == false)
 			rasterizerDesc.FillMode = D3D11_FILL_SOLID;
 		else
 			rasterizerDesc.FillMode = D3D11_FILL_WIREFRAME;
-
+		rasterizerDesc.CullMode = D3D11_CULL_BACK;
 		rasterizerDesc.FrontCounterClockwise = false;
-		rasterizerDesc.MultisampleEnable = false;
-		rasterizerDesc.ScissorEnable = false;
+		rasterizerDesc.DepthBias = 0;
+		rasterizerDesc.DepthBiasClamp = 0.0f;
 		rasterizerDesc.SlopeScaledDepthBias = 0.0f;
+		rasterizerDesc.DepthClipEnable = true;
+		rasterizerDesc.ScissorEnable = false;
+		rasterizerDesc.MultisampleEnable = false;// todo: multisampling?
+		rasterizerDesc.AntialiasedLineEnable = false;
 		rasterizerDesc.ForcedSampleCount = 0;
+		rasterizerDesc.ConservativeRaster = D3D11_CONSERVATIVE_RASTERIZATION_MODE_OFF;
 
 		PIXBEGINEVENTCONTEXT(m_context.Get(), PIX_COLOR_DEFAULT, L"DeviceDX11::setWireframe");
 
 		// Create the rasterizer state object.
-		hr = m_device->CreateRasterizerState1(&rasterizerDesc, m_rasterizerState.ReleaseAndGetAddressOf());
+		hr = m_device->CreateRasterizerState2(&rasterizerDesc, m_rasterizerState.ReleaseAndGetAddressOf());
 		ThrowIfFailed(hr);
 
 		m_context->RSSetState(m_rasterizerState.Get());
@@ -402,19 +401,19 @@ namespace WOtech
 	}
 
 	// GETTERS
-	IDXGIFactory2* DeviceDX11::getFactory()
+	IDXGIFactory5* DeviceDX11::getFactory()
 	{
 		return m_factory.Get();
 	}
-	ID3D11Device2* DeviceDX11::getDevice()
+	ID3D11Device5* DeviceDX11::getDevice()
 	{
 		return m_device.Get();
 	}
-	IDXGIDevice3* DeviceDX11::getDXGIDevice()
+	IDXGIDevice4* DeviceDX11::getDXGIDevice()
 	{
 		return m_dxgiDevice.Get();
 	}
-	ID3D11DeviceContext2* DeviceDX11::getContext()
+	ID3D11DeviceContext4* DeviceDX11::getContext()
 	{
 		return m_context.Get();
 	}
@@ -618,22 +617,27 @@ namespace WOtech
 			swapChainDesc.Scaling = DXGI_SCALING_NONE;
 
 			// This sequence obtains the DXGI factory that was used to create the Direct3D device above.
-			ComPtr<IDXGIDevice3> dxgiDevice;
+			ComPtr<IDXGIDevice4> dxgiDevice;
 			ThrowIfFailed(m_device.As(&dxgiDevice));
 
 			ComPtr<IDXGIAdapter> dxgiAdapter;
 			ThrowIfFailed(dxgiDevice->GetAdapter(&dxgiAdapter));
 
-			ComPtr<IDXGIFactory2> dxgiFactory;
+			ComPtr<IDXGIFactory5> dxgiFactory;
 			ThrowIfFailed(dxgiAdapter->GetParent(IID_PPV_ARGS(&dxgiFactory)));
+
+			ComPtr<IDXGISwapChain1> dxgiSwapChain;
 
 			PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"CreateSwapChainForCoreWindow");
 			ThrowIfFailed(dxgiFactory->CreateSwapChainForCoreWindow(m_device.Get(),
 				reinterpret_cast<IUnknown*>(m_window.Get()),
 				&swapChainDesc,
 				nullptr,
-				&m_swapChain));
+				&dxgiSwapChain));
 			PIXENDEVENT();
+
+			// Convert to IDXGISwapChain4
+			ThrowIfFailed(dxgiSwapChain.As(&m_swapChain));
 
 			// Ensure that DXGI does not queue more than one frame at a time. This both reduces latency and
 			// ensures that the application will only render after each VSync, minimizing power consumption.

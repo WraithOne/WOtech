@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	04.01.2017
-///			Edited:		25.03.2017
+///			Edited:		15.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_VIRTUALCONTROLLER_H
@@ -21,7 +21,6 @@
 //////////////
 #include "pch.h"
 #include "Input.h"
-#include "Graphic.h"
 
 namespace WOtech
 {

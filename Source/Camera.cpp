@@ -18,7 +18,8 @@
 // INCLUDES //
 //////////////
 #include "pch.h"
-#include "Graphic.h"
+#include <3DComponents.h>
+#include <DXWrapper.h>
 
 ///////////////////////////////
 // PRE-PROCESSING DIRECTIVES //

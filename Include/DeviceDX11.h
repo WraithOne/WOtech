@@ -104,10 +104,10 @@ namespace WOtech
 		void EnumerateOutputs(_In_ IDXGIAdapter* adapter, _Out_ std::list<IDXGIOutput*>* outputList);
 		void EnumerateDisplayModes(_In_ IDXGIOutput* output, _Out_ std::list<DXGI_MODE_DESC*>* displayModeList);
 
-		IDXGIFactory2*				getFactory();
-		ID3D11Device2*				getDevice();
-		IDXGIDevice3*				getDXGIDevice();
-		ID3D11DeviceContext2*		getContext();
+		IDXGIFactory5*				getFactory();
+		ID3D11Device5*				getDevice();
+		IDXGIDevice4*				getDXGIDevice();
+		ID3D11DeviceContext4*		getContext();
 
 		IDXGISurface2*				getSurface();
 
@@ -126,12 +126,12 @@ namespace WOtech
 		// Reference to Window
 		Platform::Agile<Windows::UI::Core::CoreWindow>	m_window;
 
-		Microsoft::WRL::ComPtr<ID3D11Device2>			m_device;
-		Microsoft::WRL::ComPtr<IDXGIDevice3>			m_dxgiDevice;
-		Microsoft::WRL::ComPtr<ID3D11DeviceContext2>	m_context;
-		Microsoft::WRL::ComPtr<IDXGIFactory2>			m_factory;
+		Microsoft::WRL::ComPtr<ID3D11Device5>			m_device;
+		Microsoft::WRL::ComPtr<IDXGIDevice4>			m_dxgiDevice;
+		Microsoft::WRL::ComPtr<ID3D11DeviceContext4>	m_context;
+		Microsoft::WRL::ComPtr<IDXGIFactory5>			m_factory;
 
-		Microsoft::WRL::ComPtr<IDXGISwapChain1>			m_swapChain;
+		Microsoft::WRL::ComPtr<IDXGISwapChain4>			m_swapChain;
 
 		Microsoft::WRL::ComPtr<IDXGISurface2>			m_dxgiBackBuffer;
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>	m_backBuffer;
@@ -139,7 +139,7 @@ namespace WOtech
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>	m_depthStencilView;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D>			m_depthStencilBuffer;
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilState>	m_depthStencilState;
-		Microsoft::WRL::ComPtr<ID3D11RasterizerState1>	m_rasterizerState;
+		Microsoft::WRL::ComPtr<ID3D11RasterizerState2>	m_rasterizerState;
 
 		D3D11_VIEWPORT									m_viewport;
 		D3D_FEATURE_LEVEL								m_featureLevel;

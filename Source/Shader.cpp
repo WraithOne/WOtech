@@ -18,8 +18,10 @@
 // INCLUDES //
 //////////////
 #include "pch.h"
-#include "Graphic.h"
 #include "Utilities.h"
+#include <3DComponents.h>
+#include <DeviceDX11.h>
+#include <DXWrapper.h>
 
 #include <stdio.h>
 #include <d3dcompiler.h>
