@@ -626,14 +626,15 @@ namespace WOtech
 			ComPtr<IDXGIFactory5> dxgiFactory;
 			ThrowIfFailed(dxgiAdapter->GetParent(IID_PPV_ARGS(&dxgiFactory)));
 
-			ComPtr<IDXGISwapChain1> dxgiSwapChain;
-
 			PIXBEGINEVENT(PIX_COLOR_DEFAULT, L"CreateSwapChainForCoreWindow");
-			ThrowIfFailed(dxgiFactory->CreateSwapChainForCoreWindow(m_device.Get(),
+			ComPtr<IDXGISwapChain1> dxgiSwapChain;
+			ThrowIfFailed(dxgiFactory->CreateSwapChainForCoreWindow(
+				m_device.Get(),
 				reinterpret_cast<IUnknown*>(m_window.Get()),
 				&swapChainDesc,
 				nullptr,
-				&dxgiSwapChain));
+				dxgiSwapChain.GetAddressOf()
+				));
 			PIXENDEVENT();
 
 			// Convert to IDXGISwapChain4
