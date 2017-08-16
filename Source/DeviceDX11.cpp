@@ -537,8 +537,11 @@ namespace WOtech
 
 		m_renderTargetView.Reset();
 		m_depthStencilView.Reset();
+		m_depthStencilBuffer.Reset();
+		m_dxgiBackBuffer.Reset();
 
 		m_context->Flush();
+		m_context->ClearState();
 
 		// Calculate the necessary render target size in pixels (for CoreWindow).
 		m_outputSize.Width = ConvertDipsToPixels(m_logicalSize.Width, m_dpi);
