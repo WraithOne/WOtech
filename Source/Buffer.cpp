@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.02.2016
-///			Edited:		15.08.2017
+///			Edited:		17.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -119,6 +119,8 @@ namespace WOtech
 		D3D11_SUBRESOURCE_DATA resourceData;
 		ZeroMemory(&resourceData, sizeof(resourceData));
 		resourceData.pSysMem = data;
+		resourceData.SysMemPitch = 0;
+		resourceData.SysMemSlicePitch = 0;
 
 		hr = device->getDevice()->CreateBuffer(&indexDesc, &resourceData, m_indexBuffer.ReleaseAndGetAddressOf());
 		ThrowIfFailed(hr);
