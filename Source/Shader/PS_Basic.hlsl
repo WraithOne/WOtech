@@ -17,13 +17,16 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "Shared\Parameters.hlsli"
-#include "Shared\Structures.hlsli"
-#include "Shared\Common.hlsli"
-#include "Shared\lighting.hlsli"
 
-// Pixel shader: basic.
-float4 main(PSInputNoFog pin) : SV_Target0
+// Pro-Pixel-Farbdaten an den Pixelshader übergeben.
+struct PixelShaderInput
 {
-	return pin.Diffuse;
+	float4 pos : SV_POSITION;
+	float3 color : COLOR0;
+};
+
+// Eine Pass-Through-Funktion für die (interpolierten) Farbdaten.
+float4 main(PixelShaderInput input) : SV_TARGET
+{
+	return float4(input.color, 1.0f);
 }

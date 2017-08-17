@@ -17,20 +17,43 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "Shared\Parameters.hlsli"
-#include "Shared\Structures.hlsli"
-#include "Shared\Common.hlsli"
-#include "Shared\lighting.hlsli"
 
-// Vertex shader: basic.
-VSOutputNoFog main(VSInputVc vin)
+// Ein Konstantenpuffer, der die drei grundlegenden spaltengerichteten Matrizen für das Zusammensetzen von Geometrien speichert.
+cbuffer ModelViewProjectionConstantBuffer : register(b0)
 {
-	VSOutputNoFog vout;
+	matrix model;
+	matrix view;
+	matrix projection;
+};
 
-	CommonVSOutput cout = ComputeCommonVSOutput(vin.Position);
-	SetCommonVSOutputParamsNoFog;
+// Pro-Vertex-Daten als Eingabe für den Vertex-Shader verwendet.
+struct VertexShaderInput
+{
+	float3 pos : POSITION;
+	float3 color : COLOR0;
+};
 
-	vout.Diffuse *= vin.Color;
+// Pro-Pixel-Farbdaten an den Pixelshader übergeben.
+struct PixelShaderInput
+{
+	float4 pos : SV_POSITION;
+	float3 color : COLOR0;
+};
 
-	return vout;
+// Einfacher Shader für Vertex-Bearbeitung auf der GPU.
+PixelShaderInput main(VertexShaderInput input)
+{
+	PixelShaderInput output;
+	float4 pos = float4(input.pos, 1.0f);
+
+	// Die Position des Scheitelpunkts in den projektierten Raum transformieren.
+	pos = mul(pos, model);
+	pos = mul(pos, view);
+	pos = mul(pos, projection);
+	output.pos = pos;
+
+	// Die Farbe unverändert durchlaufen.
+	output.color = input.color;
+
+	return output;
 }
