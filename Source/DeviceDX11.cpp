@@ -51,6 +51,7 @@ namespace WOtech
 		m_initialCreationCompleted = false;
 
 		m_backBufferCount = 2;
+		m_presentParameters = { 0 };
 
 		// add to SystemManager
 		SystemManager::Instance->AddDeviceDX11(this);
@@ -75,20 +76,13 @@ namespace WOtech
 	{
 		HRESULT hr;
 
-		// The first argument instructs DXGI to block until VSync, putting the application
-		// to sleep until the next VSync. This ensures we don't waste any cycles rendering
-		// frames that will never be displayed to the screen.
-		hr = m_swapChain->Present(1, 0);
+		hr = m_swapChain->Present1(1, 0, &m_presentParameters);
 
-		// Discard the contents of the render target.
-		// This is a valid operation only when the existing contents will be entirely
-		// overwritten. If dirty or scroll rects are used, this call should be removed.
-		m_context->DiscardView(m_renderTargetView.Get());
+		m_context->DiscardView1(m_renderTargetView.Get(), nullptr, 0);
 
 		if (m_depthStencilView)
 		{
-			// Discard the contents of the depth stencil.
-			m_context->DiscardView(m_depthStencilView.Get());
+			m_context->DiscardView1(m_depthStencilView.Get(), nullptr, 0);
 		}
 
 		// If the device was removed either by a disconnection or a driver upgrade, we

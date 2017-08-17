@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	31.03.2016
-///			Edited:		15.08.2017
+///			Edited:		17.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DEVICEDX11_H
@@ -163,6 +163,7 @@ namespace WOtech
 		Windows::Foundation::Size						m_d3dRenderTargetSize;
 		Windows::Foundation::Size						m_outputSize;
 
+		DXGI_PRESENT_PARAMETERS							m_presentParameters;
 		uint32											m_sampleQuality;
 		uint32											m_sampleCount;
 
