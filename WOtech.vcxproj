@@ -327,7 +327,6 @@
     <ClCompile Include="Source\DefaultFactory.cpp" />
     <ClCompile Include="Source\DeferredRenderer.cpp" />
     <ClCompile Include="Source\DeviceDX11.cpp" />
-    <ClCompile Include="Source\DXWrapper.cpp" />
     <ClCompile Include="Source\Font.cpp" />
     <ClCompile Include="Source\ForwardRenderer.cpp" />
     <ClCompile Include="Source\Framecounter.cpp" />

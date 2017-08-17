@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	05.09.2014
-///			Edited:		27.11.2016
+///			Edited:		17.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -56,7 +56,7 @@ namespace WOtech
 
 		makeBrush(spriteBatch);
 
-		m_brush->SetColor(wrapColor(color));
+		m_brush->SetColor(wrapColorD2D(color));
 
 		makeText();
 	}
@@ -117,7 +117,7 @@ namespace WOtech
 	{
 		if (m_brush)
 		{
-			m_brush->SetColor(wrapColor(color));
+			m_brush->SetColor(wrapColorD2D(color));
 		}
 	}
 

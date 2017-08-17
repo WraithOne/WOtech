@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		15.08.2017
+///			Edited:		17.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -108,14 +108,13 @@ namespace WOtech
 	}
 	void DeviceDX11::Clear(_In_ Color color, _In_ CLEAR_FLAG clearFlags, _In_ float32 depth, _In_ uint8 stencil)
 	{
-		D2D1_COLOR_F d2d1color = wrapColor(color);
-		float32 ColorRGBA[4] = { d2d1color.r / 256.0f, d2d1color.g / 256.0f, d2d1color.b / 256.0f, 1.0f };
-
-		m_context->ClearRenderTargetView(m_renderTargetView.Get(), ColorRGBA);
-		m_context->ClearDepthStencilView(m_depthStencilView.Get(), wrapClearFlag(clearFlags), depth, stencil);
-		m_context->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_depthStencilView.Get());
-
 		m_context->RSSetViewports(1, &m_viewport);
+
+		ID3D11RenderTargetView *const targets[2] = { m_renderTargetView.Get() };// todo: make it backbuffer count
+		m_context->OMSetRenderTargets(1, targets, m_depthStencilView.Get());
+
+		m_context->ClearRenderTargetView(m_renderTargetView.Get(), wrapColorD3D(color));
+		m_context->ClearDepthStencilView(m_depthStencilView.Get(), wrapClearFlag(clearFlags), depth, stencil);
 	}
 
 	void DeviceDX11::EnumerateAdapters(_Out_ std::list<IDXGIAdapter*>* adapterList)

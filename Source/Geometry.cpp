@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	14.11.2016
-///			Edited:		27.11.2016
+///			Edited:		17.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -78,7 +78,7 @@ namespace WOtech
 
 	void Geometry::setColor(Color color)
 	{
-		m_geometryBrush->SetColor(wrapColor(color));
+		m_geometryBrush->SetColor(wrapColorD2D(color));
 	}
 
 	ID2D1PathGeometry * Geometry::getGeometry()

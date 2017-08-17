@@ -90,9 +90,6 @@
     <ClCompile Include="Source\InputTouch.cpp">
       <Filter>Input\Devices</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DXWrapper.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Framecounter.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>

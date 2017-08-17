@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		12.04.2017
+///			Edited:		17.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -222,7 +222,7 @@ namespace WOtech
 		HRESULT hr;
 
 		// Set Color
-		m_fontBrush->SetColor(wrapColor(color));
+		m_fontBrush->SetColor(wrapColorD2D(color));
 
 		// Create text format
 		IDWriteTextFormat* temp = nullptr;
@@ -353,7 +353,7 @@ namespace WOtech
 		m_deviceContext->SetTransform(m_deviceDX11->get2DOrientation());
 
 		// Set Outline Color
-		m_outlineBrush->SetColor(wrapColor(circle.color));
+		m_outlineBrush->SetColor(wrapColorD2D(circle.color));
 
 		// Draw Circle
 		m_deviceContext->DrawEllipse(D2D1::Ellipse(wrapPoint(circle.position), circle.radius, circle.radius), m_outlineBrush.Get(), circle.tickness);
@@ -364,10 +364,10 @@ namespace WOtech
 		m_deviceContext->SetTransform(m_deviceDX11->get2DOrientation());
 
 		// Set Circle Color
-		m_circleBrush->SetColor(wrapColor(circleOutlined.color));
+		m_circleBrush->SetColor(wrapColorD2D(circleOutlined.color));
 
 		// Set Outline Color
-		m_outlineBrush->SetColor(wrapColor(circleOutlined.outlinecolor));
+		m_outlineBrush->SetColor(wrapColorD2D(circleOutlined.outlinecolor));
 
 		// Draw Circle
 		m_deviceContext->FillEllipse(D2D1::Ellipse(wrapPoint(circleOutlined.position), circleOutlined.radius, circleOutlined.radius), m_circleBrush.Get());
@@ -379,7 +379,7 @@ namespace WOtech
 		m_deviceContext->SetTransform(m_deviceDX11->get2DOrientation());
 
 		// Set Circle Color
-		m_circleBrush->SetColor(wrapColor(circleFilled.color));
+		m_circleBrush->SetColor(wrapColorD2D(circleFilled.color));
 
 		// Draw Circle
 		m_deviceContext->FillEllipse(D2D1::Ellipse(wrapPoint(circleFilled.position), circleFilled.radius, circleFilled.radius), m_circleBrush.Get());
@@ -390,7 +390,7 @@ namespace WOtech
 		setRotation(rectangle.area, rectangle.rotation);
 
 		// Set outline Color
-		m_outlineBrush->SetColor(wrapColor(rectangle.color));
+		m_outlineBrush->SetColor(wrapColorD2D(rectangle.color));
 
 		// Draw the Rectangle
 		m_deviceContext->DrawRectangle(D2D1::RectF(rectangle.area.X, rectangle.area.Y, rectangle.area.X + rectangle.area.Width, rectangle.area.Y + rectangle.area.Height), m_outlineBrush.Get(), rectangle.tickness);
@@ -401,10 +401,10 @@ namespace WOtech
 		setRotation(rectangleOutlined.area, rectangleOutlined.rotation);
 
 		// Set Rectangle Color
-		m_rectangleBrush->SetColor(wrapColor(rectangleOutlined.color));
+		m_rectangleBrush->SetColor(wrapColorD2D(rectangleOutlined.color));
 
 		// Set Outline Color
-		m_outlineBrush->SetColor(wrapColor(rectangleOutlined.outlinecolor));
+		m_outlineBrush->SetColor(wrapColorD2D(rectangleOutlined.outlinecolor));
 
 		// Draw the Rectangle
 		m_deviceContext->FillRectangle(D2D1::RectF(rectangleOutlined.area.X, rectangleOutlined.area.Y, rectangleOutlined.area.X + rectangleOutlined.area.Width, rectangleOutlined.area.Y + rectangleOutlined.area.Height), m_rectangleBrush.Get());
@@ -416,7 +416,7 @@ namespace WOtech
 		setRotation(rectangleFilled.area, rectangleFilled.rotation);
 
 		// Set Rectangle Color
-		m_rectangleBrush->SetColor(wrapColor(rectangleFilled.color));
+		m_rectangleBrush->SetColor(wrapColorD2D(rectangleFilled.color));
 
 		// Draw the Rectangle
 		m_deviceContext->FillRectangle(D2D1::RectF(rectangleFilled.area.X, rectangleFilled.area.Y, rectangleFilled.area.X + rectangleFilled.area.Width, rectangleFilled.area.Y + rectangleFilled.area.Height), m_rectangleBrush.Get());
