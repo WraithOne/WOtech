@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	10.05.2014
-///			Edited:		06.11.2016
+///			Edited:		17.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -112,19 +112,19 @@ namespace WOtech
 		XMStoreFloat4x4(&m_projectionMatrix, XMMatrixPerspectiveFovLH(m_fieldOfView, m_aspectRatio, m_nearPlane, m_farPlane));
 	}
 
-	float4x4 Camera::View()
+	DirectX::XMFLOAT4X4 Camera::ViewMatrix()
 	{
-		return wrapXMFloat4x4(m_viewMatrix);
+		return m_viewMatrix;
 	}
 
-	float4x4 Camera::Projection()
+	DirectX::XMFLOAT4X4 Camera::ProjectionMatrix()
 	{
-		return wrapXMFloat4x4(m_projectionMatrix);
+		return m_projectionMatrix;
 	}
 
-	float4x4 Camera::World()
+	DirectX::XMFLOAT4X4 Camera::InverseMatrix()
 	{
-		return wrapXMFloat4x4(m_inverseView);
+		return m_inverseView;
 	}
 
 	float3 Camera::Eye()

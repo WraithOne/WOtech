@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		10.08.2017
+///			Edited:		17.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DEFERREDRENDERER_H
@@ -20,6 +20,9 @@
 // INCLUDES //
 //////////////
 #include "IRenderer.h"
+#include "3DComponents.h"
+#include "DeviceDX11.h"
+#include "RenderCommand.h"
 
 namespace WOtech
 {
@@ -43,11 +46,10 @@ namespace WOtech
 		DeviceDX11^ m_device;
 
 		// Uniform buffer
-		Microsoft::WRL::ComPtr<ID3D11Buffer> m_worldCB;
+		Microsoft::WRL::ComPtr<ID3D11Buffer> m_modelCB;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_viewCB;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_pojectionCB;
-		Microsoft::WRL::ComPtr<ID3D11Buffer> m_modelCB;
-
+		
 		// ClearColor
 		Windows::UI::Color m_clearColor;
 	};

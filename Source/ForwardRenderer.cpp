@@ -42,10 +42,9 @@ namespace WOtech
 	{
 		RenderCommand command;
 		command.mesh = mesh;
-		command.uniforms.ModelMatrix = transform;
-		command.uniforms.ProjectionMatrix = camera->Projection();
-		command.uniforms.ViewMatrix = camera->View();
-		command.uniforms.WorldMatrix = camera->World();
+		command.uniforms.ModelMatrix = wrapFloat4x4(transform);
+		command.uniforms.ProjectionMatrix = camera->ProjectionMatrix();
+		command.uniforms.ViewMatrix = camera->ViewMatrix();
 
 		m_CommandQueue.push_back(command);
 	}
@@ -68,15 +67,9 @@ namespace WOtech
 			auto context = m_device->getContext();
 
 			// Submit Uniforms
-			context->UpdateSubresource(m_worldCB.Get(), 0, 0, &command.uniforms.WorldMatrix, 0, 0);
-			context->UpdateSubresource(m_viewCB.Get(), 0, 0, &command.uniforms.ViewMatrix, 0, 0);
-			context->UpdateSubresource(m_pojectionCB.Get(), 0, 0, &command.uniforms.ProjectionMatrix, 0, 0);
-			context->UpdateSubresource(m_modelCB.Get(), 0, 0, &command.uniforms.ModelMatrix, 0, 0);
-			context->VSSetConstantBuffers(0, 1, m_worldCB.GetAddressOf());
-			context->VSSetConstantBuffers(1, 1, m_viewCB.GetAddressOf());
-			context->VSSetConstantBuffers(2, 1, m_pojectionCB.GetAddressOf());
-			context->VSSetConstantBuffers(3, 1, m_modelCB.GetAddressOf());
-
+			context->UpdateSubresource1(m_constantBuffer.Get(), 0, NULL, &command.uniforms, 0, 0, 0);
+			context->VSSetConstantBuffers1(0, 1, m_constantBuffer.GetAddressOf(), nullptr, nullptr);
+			
 			// Submit Vertex and Index data and render the final mesh
 			command.mesh->Render(m_device);
 		}
@@ -92,23 +85,14 @@ namespace WOtech
 		D3D11_BUFFER_DESC constDesc;
 		ZeroMemory(&constDesc, sizeof(constDesc));
 		constDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		constDesc.ByteWidth = sizeof(DirectX::XMMATRIX);
+		constDesc.ByteWidth = sizeof(RendererUniforms); // todo: Shader specific Uniforms
 		constDesc.Usage = D3D11_USAGE_DEFAULT;
 		constDesc.CPUAccessFlags = 0;
 		constDesc.StructureByteStride = 0;
 		constDesc.MiscFlags = 0;
 
 		auto device = m_device->getDevice();
-		hr = device->CreateBuffer(&constDesc, 0, m_worldCB.ReleaseAndGetAddressOf());
-		ThrowIfFailed(hr);
-
-		hr = device->CreateBuffer(&constDesc, 0, m_viewCB.ReleaseAndGetAddressOf());
-		ThrowIfFailed(hr);
-
-		hr = device->CreateBuffer(&constDesc, 0, m_pojectionCB.ReleaseAndGetAddressOf());
-		ThrowIfFailed(hr);
-
-		hr = device->CreateBuffer(&constDesc, 0, m_modelCB.ReleaseAndGetAddressOf());
+		hr = device->CreateBuffer(&constDesc, nullptr, &m_constantBuffer);
 		ThrowIfFailed(hr);
 	}
 

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.02.2016
-///			Edited:		14.08.2017
+///			Edited:		17.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_3DCOMPONENTS_H
@@ -46,13 +46,14 @@ namespace WOtech
 		float32	Pitch();
 		float32	Yaw();
 
-		Windows::Foundation::Numerics::float4x4 View();
-		Windows::Foundation::Numerics::float4x4 Projection();
-		Windows::Foundation::Numerics::float4x4 World();
-
 		Windows::Foundation::Numerics::float3 Eye();
 		Windows::Foundation::Numerics::float3 LookAt();
 		Windows::Foundation::Numerics::float3 Up();
+
+	internal:
+		DirectX::XMFLOAT4X4 ViewMatrix();
+		DirectX::XMFLOAT4X4 ProjectionMatrix();
+		DirectX::XMFLOAT4X4 InverseMatrix();
 
 	private:
 		DirectX::XMFLOAT4X4 m_viewMatrix;
@@ -253,14 +254,6 @@ namespace WOtech
 		VertexBuffer^		m_vertexBuffer;
 		IndexBuffer^		m_IndexBuffer;
 		MaterialInstance^	m_MaterialInstance;
-	};
-
-	public value struct RendererUniforms
-	{
-		Windows::Foundation::Numerics::float4x4 ViewMatrix;
-		Windows::Foundation::Numerics::float4x4 ProjectionMatrix;
-		Windows::Foundation::Numerics::float4x4 WorldMatrix;
-		Windows::Foundation::Numerics::float4x4 ModelMatrix;
 	};
 }// WOtech
 #endif

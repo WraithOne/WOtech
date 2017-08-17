@@ -13,26 +13,20 @@
 ///			Edited:		10.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
-#ifndef WO_RENDERER_H
-#define WO_RENDERER_H
+#ifndef WO_IRENDERER_H
+#define WO_IRENDERER_H
 
 //////////////
 // INCLUDES //
 //////////////
 #include "pch.h"
-#include "DXWrapper.h"
-#include "3DComponents.h"
-#include "DeviceDX11.h"
 
 namespace WOtech
 {
-	struct RenderCommand
-	{
-		Mesh^ mesh;
-		RendererUniforms uniforms;
-	};
-
-	typedef std::vector<RenderCommand> CommandQueue;
+	// Forward decl.
+	ref class Mesh;
+	ref class Camera;
+	ref class DeviceDX11;
 
 	public interface class IRenderer
 	{

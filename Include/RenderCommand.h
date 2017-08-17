@@ -10,10 +10,11 @@
 ///			Description:
 ///
 ///			Created:	27.02.2016
-///			Edited:		06.04.2016
+///			Edited:		18.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
-#pragma once
+#ifndef WO_RENDERCOMMAND_H
+#define WO_RENDERCOMMAND_H
 //////////////
 // INCLUDES //
 //////////////
@@ -21,22 +22,21 @@
 
 namespace WOtech
 {
-	namespace Graphic
+	ref class Mesh;
+
+	struct RendererUniforms
 	{
-		ref class Mesh;
+		DirectX::XMFLOAT4X4 ModelMatrix;
+		DirectX::XMFLOAT4X4 ViewMatrix;
+		DirectX::XMFLOAT4X4 ProjectionMatrix;
+	};
 
-		struct RendererUniforms
-		{
-			DirectX::XMMATRIX ViewMatrix;
-			DirectX::XMMATRIX ProjectionMatrix;
-			DirectX::XMMATRIX WorldMatrix;
-			DirectX::XMMATRIX ModelMatrix;
-		};
+	struct RenderCommand
+	{
+		Mesh^ mesh;
+		RendererUniforms uniforms;
+	};
 
-		struct RenderCommand
-		{
-			Mesh^ mesh;
-			RendererUniforms uniforms;
-		};
-	}
+	typedef std::vector<RenderCommand> CommandQueue;
 }
+#endif
