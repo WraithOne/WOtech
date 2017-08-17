@@ -65,7 +65,8 @@ namespace WOtech
 			if (m_textures.at(i) != nullptr)
 				m_textures.at(i)->SubmitTexture(device, i);
 		}
-		context->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
+		if(m_textures.size() > 0)
+			context->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
 	}
 	void Material::unbindMaterial(DeviceDX11^ device)
 	{
