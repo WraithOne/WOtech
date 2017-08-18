@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	10.05.2014
-///			Edited:		17.08.2017
+///			Edited:		18.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -20,6 +20,7 @@
 #include "pch.h"
 #include <3DComponents.h>
 #include <DXWrapper.h>
+#include <Utilities.h>
 
 ///////////////////////////////
 // PRE-PROCESSING DIRECTIVES //
@@ -54,7 +55,11 @@ namespace WOtech
 		SetViewParams(eye, lookAt, up);
 
 		// Setup the projection matrix.
-		SetProjParams(XM_PI / 4.0f, 1.0f, 1.0f, 1000.0f);
+		// FOV 60
+		// AspectRatio 16:9
+		// NearPlane 0.01
+		// Farplane 1000
+		SetProjParams(60.0f, 1.7777f, 0.01f, 1000.0f);
 	}
 
 	void Camera::LookDirection(_In_ float3 lookDirection)
@@ -79,7 +84,7 @@ namespace WOtech
 		m_up = up;
 
 		// Calculate the view matrix.
-		XMMATRIX view = XMMatrixLookAtLH(
+		XMMATRIX view = XMMatrixLookAtRH(
 			XMLoadFloat3(&DirectX::XMFLOAT3(eye.x, eye.y, eye.z)),
 			XMLoadFloat3(&DirectX::XMFLOAT3(lookAt.x, lookAt.y, lookAt.z)),
 			XMLoadFloat3(&DirectX::XMFLOAT3(up.x, up.y, up.z))
@@ -105,11 +110,16 @@ namespace WOtech
 	void Camera::SetProjParams(_In_ float32 fieldOfView, _In_ float32 aspectRatio, _In_ float32 nearPlane, _In_ float32 farPlane)
 	{
 		// Set attributes for the projection matrix.
-		m_fieldOfView = fieldOfView;
+		m_fieldOfView = DegreetoRadian(fieldOfView);
 		m_aspectRatio = aspectRatio;
+		if (aspectRatio < 1.0f)
+		{
+			// Portrait Oriantation
+			m_fieldOfView *= 2.0f;// todo: add resolution/oriantation to arguments for proper scaling
+		}	
 		m_nearPlane = nearPlane;
 		m_farPlane = farPlane;
-		XMStoreFloat4x4(&m_projectionMatrix, XMMatrixPerspectiveFovLH(m_fieldOfView, m_aspectRatio, m_nearPlane, m_farPlane));
+		XMStoreFloat4x4(&m_projectionMatrix, XMMatrixPerspectiveFovRH(m_fieldOfView, m_aspectRatio, m_nearPlane, m_farPlane));
 	}
 
 	DirectX::XMFLOAT4X4 Camera::ViewMatrix()
