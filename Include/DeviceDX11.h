@@ -93,6 +93,28 @@ namespace WOtech
 		Windows::Foundation::Size getLogicalSize();
 		Windows::Foundation::Size getRenderTargetSize();
 
+		// Performance events
+		void PIXBeginEvent(_In_z_ Platform::String^ name)
+		{
+			if (m_userAnnotation)
+			{
+				m_userAnnotation->BeginEvent(name->Data());
+			}
+		}
+		void PIXEndEvent()
+		{
+			if (m_userAnnotation)
+			{
+				m_userAnnotation->EndEvent();
+			}
+		}
+		void PIXSetMarker(_In_z_ Platform::String^ name)
+		{
+			if (m_userAnnotation)
+			{
+				m_userAnnotation->SetMarker(name->Data());
+			}
+		}
 	internal:
 		void CreateDevices();
 		void CreateWindowSizeDependentResources();
@@ -124,51 +146,53 @@ namespace WOtech
 
 	private:
 		// Reference to Window
-		Platform::Agile<Windows::UI::Core::CoreWindow>	m_window;
+		Platform::Agile<Windows::UI::Core::CoreWindow>		m_window;
 
-		Microsoft::WRL::ComPtr<ID3D11Device4>			m_device;// todo: update to Version 5 when debug tools supports
-		Microsoft::WRL::ComPtr<IDXGIDevice4>			m_dxgiDevice;
-		Microsoft::WRL::ComPtr<ID3D11DeviceContext4>	m_context;
-		Microsoft::WRL::ComPtr<IDXGIFactory5>			m_factory;
+		Microsoft::WRL::ComPtr<ID3D11Device4>				m_device;// todo: update to Version 5 when debug tools supports
+		Microsoft::WRL::ComPtr<IDXGIDevice4>				m_dxgiDevice;
+		Microsoft::WRL::ComPtr<ID3D11DeviceContext4>		m_context;
+		Microsoft::WRL::ComPtr<IDXGIFactory5>				m_factory;
 
-		Microsoft::WRL::ComPtr<IDXGISwapChain4>			m_swapChain;
+		Microsoft::WRL::ComPtr<IDXGISwapChain4>				m_swapChain;
 
-		Microsoft::WRL::ComPtr<IDXGISurface2>			m_dxgiBackBuffer;
-		UINT											m_backBufferCount;
-		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>	m_renderTargetView;
+		Microsoft::WRL::ComPtr<IDXGISurface2>				m_dxgiBackBuffer;
+		UINT												m_backBufferCount;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>		m_renderTargetView;
 
-		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>	m_depthStencilView;
-		Microsoft::WRL::ComPtr<ID3D11Texture2D>			m_depthStencilBuffer;
-		Microsoft::WRL::ComPtr<ID3D11DepthStencilState>	m_depthStencilState;
-		Microsoft::WRL::ComPtr<ID3D11RasterizerState2>	m_rasterizerState;
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>		m_depthStencilView;
+		Microsoft::WRL::ComPtr<ID3D11Texture2D>				m_depthStencilBuffer;
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState>		m_depthStencilState;
+		Microsoft::WRL::ComPtr<ID3D11RasterizerState2>		m_rasterizerState;
 
-		D3D11_VIEWPORT									m_viewport;
-		D3D_FEATURE_LEVEL								m_featureLevel;
+		Microsoft::WRL::ComPtr<ID3DUserDefinedAnnotation>	m_userAnnotation;
 
-		D3D_DRIVER_TYPE									m_driverType;
-		DXGI_ADAPTER_DESC								m_currentAdapterDescription;
+		D3D11_VIEWPORT										m_viewport;
+		D3D_FEATURE_LEVEL									m_featureLevel;
 
-		Windows::Graphics::Display::DisplayOrientations	m_nativeOrientation;
-		Windows::Graphics::Display::DisplayOrientations	m_currentOrientation;
+		D3D_DRIVER_TYPE										m_driverType;
+		DXGI_ADAPTER_DESC									m_currentAdapterDescription;
+
+		Windows::Graphics::Display::DisplayOrientations		m_nativeOrientation;
+		Windows::Graphics::Display::DisplayOrientations		m_currentOrientation;
 
 		// Transforms used for display orientation.
-		DirectX::XMFLOAT4X4								m_orientationTransform3D;
-		D2D1::Matrix3x2F								m_orientationTransform2D;
+		DirectX::XMFLOAT4X4									m_orientationTransform3D;
+		D2D1::Matrix3x2F									m_orientationTransform2D;
 
-		float32											m_compositionScaleX;
-		float32											m_compositionScaleY;
-		Windows::Foundation::Size						m_logicalSize;
-		float32											m_dpi;
+		float32												m_compositionScaleX;
+		float32												m_compositionScaleY;
+		Windows::Foundation::Size							m_logicalSize;
+		float32												m_dpi;
 
-		Windows::Foundation::Size						m_d3dRenderTargetSize;
-		Windows::Foundation::Size						m_outputSize;
+		Windows::Foundation::Size							m_d3dRenderTargetSize;
+		Windows::Foundation::Size							m_outputSize;
 
-		DXGI_PRESENT_PARAMETERS							m_presentParameters;
-		uint32											m_sampleQuality;
-		uint32											m_sampleCount;
+		DXGI_PRESENT_PARAMETERS								m_presentParameters;
+		uint32												m_sampleQuality;
+		uint32												m_sampleCount;
 
-		Platform::Boolean								m_overlaySupportExists;
-		Platform::Boolean								m_initialCreationCompleted;
+		Platform::Boolean									m_overlaySupportExists;
+		Platform::Boolean									m_initialCreationCompleted;
 	};// class DeviceDX11
 }
 
