@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		17.08.2017
+///			Edited:		20.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_FORWARDRENDERER_H
@@ -42,12 +42,11 @@ namespace WOtech
 		virtual void Init(_In_ Windows::UI::Color clearColor);
 
 	private:
-		CommandQueue m_CommandQueue;
 		DeviceDX11^ m_device;
 
-		// Uniform buffer
-		Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantBuffer;
-
+		// Render command queue
+		CommandQueue m_CommandQueue;
+		
 		// ClearColor
 		Windows::UI::Color m_clearColor;
 	};

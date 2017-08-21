@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	27.02.2016
-///			Edited:		15.04.2017
+///			Edited:		20.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -24,21 +24,22 @@
 #include "VertexTypes.h"
 #include "DeviceDX11.h"
 #include "3DComponents.h"
+#include "Materials.h"
 
 #include "Source\Shader\Compiled\VS_Basic.inc"
 #include "Source\Shader\Compiled\PS_Basic.inc"
 
 namespace WOtech
 {
-	Material ^ DefaultFactory::CreateBasicMaterial(_In_ WOtech::DeviceDX11 ^ device)
+	BasicMaterial ^ DefaultFactory::CreateBasicMaterial(_In_ WOtech::DeviceDX11 ^ device)
 	{
 		WOtech::VertexShader^ vertexshader = ref new VertexShader(VS_Basic, sizeof(VS_Basic), nullptr, 0, 0,device);
 		WOtech::PixelShader^ pixelshader = ref new PixelShader(PS_Basic, sizeof(PS_Basic), device);
 
-		return ref new Material(vertexshader, pixelshader, device);
+		return ref new BasicMaterial(vertexshader, pixelshader, device);
 	}
 
-	Mesh^ DefaultFactory::CreateCube(_In_ float size, _In_ MaterialInstance^ material, _In_ DeviceDX11^ device)
+	Mesh^ DefaultFactory::CreateCube(_In_ float size, _In_ IMaterial^ material, _In_ DeviceDX11^ device)
 	{
 		auto data = ref new Platform::Array<VertexPositionColor^>(8);
 
@@ -99,7 +100,7 @@ namespace WOtech
 
 		return ref new Mesh(vB, iB, material);
 	}
-	Mesh^ DefaultFactory::CreateTriangle(_In_ float size, _In_ MaterialInstance^ material, _In_ DeviceDX11^ device)
+	Mesh^ DefaultFactory::CreateTriangle(_In_ float size, _In_ IMaterial^ material, _In_ DeviceDX11^ device)
 	{
 		auto data = ref new Platform::Array<VertexPositionColor^>(3);
 

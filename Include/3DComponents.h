@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.02.2016
-///			Edited:		17.08.2017
+///			Edited:		20.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_3DCOMPONENTS_H
@@ -208,52 +208,30 @@ namespace WOtech
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_indexBuffer;
 	};
 
-	public ref class Material sealed
+	public interface class IMaterial
 	{
 	public:
-		Material(WOtech::VertexShader^ Vshader, WOtech::PixelShader^ Pshader, DeviceDX11^ device);
-		void bindMaterial(DeviceDX11^ device);
-		void unbindMaterial(DeviceDX11^ device);
-
-		void addTexture(Texture^ texture, uint32 slot);
-
-	private:
-		VertexShader^ m_vertexShader;
-		PixelShader^ m_pixelShader;
-
-		uint32 m_numMatrials;
-		std::vector<Texture^> m_textures;
-		Microsoft::WRL::ComPtr<ID3D11SamplerState> m_samplerState;
-	};
-
-	public ref class MaterialInstance sealed
-	{
-	public:
-		MaterialInstance(Material^ material);
-
-		void bindMaterialInstance(DeviceDX11^ device);
-		void UnbindMaterialInstance(DeviceDX11^ device);
-
-	private:
-		Material^ m_material;
+		void bindMaterial(_In_ DeviceDX11^ device);
+		void unbindMaterial(_In_ DeviceDX11^ device);
 	};
 
 	public ref class Mesh sealed
 	{
 	public:
-		Mesh(VertexBuffer^ vertexBuffer, IndexBuffer^ indexBuffer, MaterialInstance^ materialInstance);
+		Mesh(_In_ VertexBuffer^ vertexBuffer, _In_ IndexBuffer^ indexBuffer, _In_ IMaterial^ material);
 
-		inline void SetGeometry(VertexBuffer^ vertex, IndexBuffer^ index) { m_vertexBuffer = vertex, m_IndexBuffer = index; }
-		inline void SetMaterial(MaterialInstance^ materialInstance) { m_MaterialInstance = materialInstance; }
+		void SetGeometry(_In_ VertexBuffer^ vertex, _In_ IndexBuffer^ index) { m_vertexBuffer = vertex, m_indexBuffer = index; }
+		void SetMaterial(_In_ IMaterial^ material) { m_material = material; }
 
-		void Render(DeviceDX11^ device);
+		void bindMaterial(_In_ DeviceDX11^ device);
+		void Render(_In_ DeviceDX11^ device);
 
-		inline MaterialInstance^ GetMaterialInstance() { return m_MaterialInstance; }
+		IMaterial^ GetMaterial() { return m_material; }
 
 	private:
 		VertexBuffer^		m_vertexBuffer;
-		IndexBuffer^		m_IndexBuffer;
-		MaterialInstance^	m_MaterialInstance;
+		IndexBuffer^		m_indexBuffer;
+		IMaterial^			m_material;
 	};
 }// WOtech
 #endif

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	21.02.2016
-///			Edited:		15.08.2017
+///			Edited:		21.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -62,14 +62,8 @@ namespace WOtech
 		{
 			// Submit Shaders, Textures
 			const RenderCommand& command = m_CommandQueue[i];
-			command.mesh->GetMaterialInstance()->bindMaterialInstance(m_device);
+			command.mesh->bindMaterial(m_device);
 
-			auto context = m_device->getContext();
-
-			// Submit Uniforms
-			context->UpdateSubresource1(m_constantBuffer.Get(), 0, NULL, &command.uniforms, 0, 0, 0);
-			context->VSSetConstantBuffers1(0, 1, m_constantBuffer.GetAddressOf(), nullptr, nullptr);
-			
 			// Submit Vertex and Index data and render the final mesh
 			command.mesh->Render(m_device);
 		}
@@ -80,20 +74,6 @@ namespace WOtech
 	void ForwardRenderer::Init(_In_ Color clearColor)
 	{
 		m_clearColor = clearColor;
-
-		HRESULT hr;
-		D3D11_BUFFER_DESC constDesc;
-		ZeroMemory(&constDesc, sizeof(constDesc));
-		constDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		constDesc.ByteWidth = sizeof(RendererUniforms); // todo: Shader specific Uniforms
-		constDesc.Usage = D3D11_USAGE_DEFAULT;
-		constDesc.CPUAccessFlags = 0;
-		constDesc.StructureByteStride = 0;
-		constDesc.MiscFlags = 0;
-
-		auto device = m_device->getDevice();
-		hr = device->CreateBuffer(&constDesc, nullptr, &m_constantBuffer);
-		ThrowIfFailed(hr);
 	}
 
 	DeviceDX11 ^ ForwardRenderer::getDeviceDX11()

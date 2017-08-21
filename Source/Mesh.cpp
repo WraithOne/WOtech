@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.02.2016
-///			Edited:		15.08.2017
+///			Edited:		21.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -23,22 +23,27 @@
 
 namespace WOtech
 {
-	Mesh::Mesh(VertexBuffer^ vertexBuffer, IndexBuffer^ indexBuffer, MaterialInstance^ materialInstance)
+	Mesh::Mesh(_In_ VertexBuffer^ vertexBuffer, _In_ IndexBuffer^ indexBuffer, _In_ IMaterial^ material)
 	{
 		m_vertexBuffer = vertexBuffer;
-		m_IndexBuffer = indexBuffer;
-		m_MaterialInstance = materialInstance;
+		m_indexBuffer = indexBuffer;
+		m_material = material;
 	}
 
-	void Mesh::Render(DeviceDX11^ device)
+	void WOtech::Mesh::bindMaterial(_In_ DeviceDX11 ^ device)
 	{
-		m_MaterialInstance->bindMaterialInstance(device);
+		m_material->bindMaterial(device);
+	}
+
+	void Mesh::Render(_In_ DeviceDX11^ device)
+	{
+		m_material->bindMaterial(device);
 
 		m_vertexBuffer->SubmitBuffer(device);
-		m_IndexBuffer->SubmitBuffer(device);
+		m_indexBuffer->SubmitBuffer(device);
 
 		auto context = device->getContext();
 
-		context->DrawIndexed(m_IndexBuffer->getCount(), 0, 0);
+		context->DrawIndexed(m_indexBuffer->getCount(), 0, 0);
 	}
 }// namespace WOtech

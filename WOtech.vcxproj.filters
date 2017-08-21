@@ -263,6 +263,9 @@
     <ClInclude Include="Include\DefaultFactory.h">
       <Filter>Graphic\3D\Default</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Materials.h">
+      <Filter>Graphic\3D\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Shader\Shared\Common.hlsli">

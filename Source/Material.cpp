@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	25.02.2016
-///			Edited:		15.08.2017
+///			Edited:		20.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -22,53 +22,113 @@
 // INCLUDES //
 //////////////
 #include "pch.h"
-#include "3DComponents.h"
+#include "Materials.h"
 #include "DeviceDX11.h"
 #include "Utilities.h"
+#include "DXWrapper.h"
+
+using namespace Windows::Foundation::Numerics;
+using namespace DirectX;
 
 namespace WOtech
 {
 	///////////////////////
-	// Material
+	// Struct DirectionalLight
 	///////////////////////
-	Material::Material(VertexShader^ Vshader, PixelShader^ Pshader, DeviceDX11^ device) : m_numMatrials(0U)
+	WOtech::DirectionalLight::DirectionalLight()
+	{
+		Direction =		g_XMOne;
+		DiffuseColor =	g_XMOne;
+		SpecularColor =	g_XMOne;
+	}
+
+	///////////////////////
+	// Struct MaterialMatrices
+	///////////////////////
+	MaterialMatrices::MaterialMatrices()
+	{
+		World =			XMMatrixIdentity();
+		View =			XMMatrixIdentity();
+		Projection =	XMMatrixIdentity();
+		worldView =		XMMatrixIdentity();
+	}
+
+	void MaterialMatrices::setConstants(_In_ XMMATRIX& worldViewProjectionConstant)
+	{
+		worldView = XMMatrixMultiply(World, View);
+
+		worldViewProjectionConstant = XMMatrixTranspose(XMMatrixMultiply(worldView, Projection));
+	}
+
+	///////////////////////
+	// Struct MaterialColor
+	///////////////////////
+	MaterialColor::MaterialColor()
+	{
+		Alpha =			1.0f;
+		DiffuseColor =	DirectX::g_XMOne;
+	}
+
+	void MaterialColor::setConstants(_In_ XMVECTOR& diffuseColorConstant)
+	{
+	}
+
+	///////////////////////
+	// Struct MaterialLights
+	///////////////////////
+	MaterialLights::MaterialLights()
+	{
+		EmissiveColor =		g_XMZero;
+		AmbientLightColor =	g_XMZero;
+
+		for (int i = 0; i < MaxDirectionalLights; i++)
+		{
+			LightEnabled[i] = 0;
+		}
+	}
+
+	void MaterialLights::setConstants(_In_ MaterialMatrices const & matrices, _In_ XMVECTOR & emissiveColor, _In_ XMMATRIX & worldConstant, _In_ XMVECTOR worldInverseTransposeConstant[3], _In_ XMVECTOR & eyePositionConstant, _In_ XMVECTOR & diffuseColorConstant, _In_ XMVECTOR & emissiveColorConstant, _In_ bool lightingEnabled)
+	{
+	}
+
+	///////////////////////
+	// BasicMaterial
+	///////////////////////
+	BasicMaterial::BasicMaterial(_In_ VertexShader^ Vshader, _In_ PixelShader^ Pshader, _In_ DeviceDX11^ device)
 	{
 		m_vertexShader = Vshader;
 		m_pixelShader = Pshader;
-		
-		size_t maxSize = 16;
-		m_textures.reserve(maxSize);// todo: reserve to MAX_HW_TEXTURES_SUPPORTET
-		m_textures.resize(maxSize);
 
-		D3D11_SAMPLER_DESC samplerDesc;
-		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
-		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+		HRESULT hr;
+		D3D11_BUFFER_DESC constDesc;
+		ZeroMemory(&constDesc, sizeof(constDesc));
+		constDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		constDesc.ByteWidth = sizeof(MaterialConstants);
+		constDesc.Usage = D3D11_USAGE_DEFAULT;
+		constDesc.CPUAccessFlags = 0;
+		constDesc.StructureByteStride = 0;
+		constDesc.MiscFlags = 0;
 
-		device->getDevice()->CreateSamplerState(&samplerDesc, m_samplerState.ReleaseAndGetAddressOf());
+		auto DXdevice = device->getDevice();
+		hr = DXdevice->CreateBuffer(&constDesc, nullptr, &m_constantBuffer);
+		ThrowIfFailed(hr);
 	}
 
-	void Material::bindMaterial(DeviceDX11^ device)
+	void BasicMaterial::bindMaterial(_In_ DeviceDX11^ device)
 	{
 		auto context = device->getContext();
 
+		// Submit Uniforms
+		setConstants(device);
+
+		// Set VertexShader
 		context->IASetInputLayout(m_vertexShader->getInputLayout());
 		context->VSSetShader(m_vertexShader->getShader(), nullptr, 0);
 
+		// Set PixelShader
 		context->PSSetShader(m_pixelShader->getShader(), nullptr, 0);
-		for (uint32 i = 0; i < m_textures.size(); i++)
-		{
-			if (m_textures.at(i) != nullptr)
-				m_textures.at(i)->SubmitTexture(device, i);
-		}
-		if(m_textures.size() > 0)
-			context->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
 	}
-	void Material::unbindMaterial(DeviceDX11^ device)
+	void BasicMaterial::unbindMaterial(_In_ DeviceDX11^ device)
 	{
 		auto context = device->getContext();
 
@@ -76,27 +136,39 @@ namespace WOtech
 		context->VSSetShader(nullptr, 0, 0);
 
 		context->PSSetShader(nullptr, 0, 0);
-		context->PSSetShaderResources(0, safe_cast<UINT>(m_textures.size()), nullptr);
-		context->PSSetSamplers(0, 1, nullptr);
 	}
-	void Material::addTexture(Texture^ texture, uint32 slot)
+
+	void BasicMaterial::setWorld(_In_ float4x4 world)
 	{
-		m_textures.at(slot) = texture;
+		m_matrices.World = DXWrapper::wrapXMMATRIX(world);
 	}
-	///////////////////////
-	// MaterialInstance
-	///////////////////////
-	MaterialInstance::MaterialInstance(Material^ material)
+	void BasicMaterial::setView(_In_ float4x4 view)
 	{
-		m_material = nullptr;
-		m_material = material;
+		m_matrices.View = DXWrapper::wrapXMMATRIX(view);
 	}
-	void MaterialInstance::bindMaterialInstance(DeviceDX11^ device)
+	void BasicMaterial::setProjection(_In_ float4x4 projection)
 	{
-		m_material->bindMaterial(device);
+		m_matrices.Projection = DXWrapper::wrapXMMATRIX(projection);
 	}
-	void MaterialInstance::UnbindMaterialInstance(DeviceDX11^ device)
+	void BasicMaterial::setMatrices(_In_ float4x4 world, _In_ float4x4 view, _In_ float4x4 projection)
 	{
-		m_material->unbindMaterial(device);
+		m_matrices.World = DXWrapper::wrapXMMATRIX(world);
+		m_matrices.View = DXWrapper::wrapXMMATRIX(view);
+		m_matrices.Projection = DXWrapper::wrapXMMATRIX(projection);
+	}
+
+	void WOtech::BasicMaterial::setConstants(_In_ DeviceDX11^ device)
+	{
+		m_matrices.setConstants(m_constants.worldViewProj);
+		auto context = device->getContext();
+
+		// Update Constant Buffer
+		D3D11_MAPPED_SUBRESOURCE mappedResource;
+
+		ThrowIfFailed(context->Map(m_constantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource));
+
+		mappedResource.pData = &m_constants;
+
+		context->Unmap(m_constantBuffer.Get(), 0);
 	}
 }
