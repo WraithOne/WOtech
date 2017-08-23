@@ -21,6 +21,7 @@
 //////////////
 #include "pch.h"
 #include "Utilities.h"
+#include "VertexTypes.h"
 
 namespace WOtech
 {
@@ -1317,7 +1318,7 @@ namespace WOtech
 		///
 		/// <returns>	A DirectX::XMFLOAT4X4. </returns>
 		////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline DirectX::XMFLOAT4X4 wrapFloat4x4(_In_ Windows::Foundation::Numerics::float4x4 matrix)
+		inline DirectX::XMFLOAT4X4 XM_CALLCONV wrapFloat4x4(_In_ Windows::Foundation::Numerics::float4x4 matrix)
 		{
 			return DirectX::XMFLOAT4X4(matrix.m11, matrix.m12, matrix.m13, matrix.m14,
 				matrix.m21, matrix.m22, matrix.m23, matrix.m24,
@@ -1334,7 +1335,7 @@ namespace WOtech
 		///
 		/// <returns>	A DirectX::XMMATRIX </returns>
 		////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline DirectX::XMMATRIX wrapXMMATRIX(_In_ Windows::Foundation::Numerics::float4x4 matrix)
+		inline DirectX::XMMATRIX XM_CALLCONV wrapXMMATRIX(_In_ Windows::Foundation::Numerics::float4x4 matrix)
 		{
 			return DirectX::XMMATRIX(matrix.m11, matrix.m12, matrix.m13, matrix.m14,
 				matrix.m21, matrix.m22, matrix.m23, matrix.m24,
@@ -1353,24 +1354,85 @@ namespace WOtech
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline Windows::Foundation::Numerics::float4x4 wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4 matrix)
 		{
-			Windows::Foundation::Numerics::float4x4 temp;
-			temp.m11 = matrix._11;
-			temp.m12 = matrix._12;
-			temp.m13 = matrix._13;
-			temp.m14 = matrix._14;
-			temp.m21 = matrix._21;
-			temp.m22 = matrix._22;
-			temp.m23 = matrix._23;
-			temp.m24 = matrix._24;
-			temp.m31 = matrix._31;
-			temp.m32 = matrix._32;
-			temp.m33 = matrix._33;
-			temp.m34 = matrix._34;
-			temp.m41 = matrix._41;
-			temp.m42 = matrix._42;
-			temp.m43 = matrix._43;
-			temp.m44 = matrix._44;
+			Windows::Foundation::Numerics::float4x4 temp = 
+			{
+				matrix._11, matrix._12, matrix._13, matrix._14,
+				matrix._21, matrix._22, matrix._23, matrix._24,
+				matrix._31, matrix._32, matrix._33, matrix._34,
+				matrix._41, matrix._42, matrix._43, matrix._44
+			};
+
 			return temp;
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>	DirectX::XMFLOAT4X4 </summary>
+		///
+		/// <remarks>	WraithOne, 17.04.2017. </remarks>
+		///
+		/// <param name="matrix">	A 4*4 floating point matrix. </param>
+		///
+		/// <returns>	A 4x4 matrix, used for 3D transforms. </returns>
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		inline DirectX::XMVECTOR XM_CALLCONV XMLoadFloat2(_In_ WOtech::FLOAT2 vector)
+		{
+			DirectX::XMFLOAT2 output = { vector.X, vector.Y };
+
+			return DirectX::XMLoadFloat2(&output);
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>	DirectX::XMFLOAT4X4 </summary>
+		///
+		/// <remarks>	WraithOne, 17.04.2017. </remarks>
+		///
+		/// <param name="matrix">	A 4*4 floating point matrix. </param>
+		///
+		/// <returns>	A 4x4 matrix, used for 3D transforms. </returns>
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		inline DirectX::XMVECTOR XM_CALLCONV XMLoadFloat3(_In_ WOtech::FLOAT3 vector)
+		{
+			DirectX::XMFLOAT3 output = { vector.X, vector.Y , vector.Z};
+
+			return DirectX::XMLoadFloat3(&output);
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>	DirectX::XMFLOAT4X4 </summary>
+		///
+		/// <remarks>	WraithOne, 17.04.2017. </remarks>
+		///
+		/// <param name="matrix">	A 4*4 floating point matrix. </param>
+		///
+		/// <returns>	A 4x4 matrix, used for 3D transforms. </returns>
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		inline DirectX::XMVECTOR XM_CALLCONV XMLoadFloat4(_In_ WOtech::FLOAT4 vector)
+		{
+			DirectX::XMFLOAT4 output = { vector.X, vector.Y , vector.Z , vector.W};
+
+			return DirectX::XMLoadFloat4(&output);
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>	DirectX::XMFLOAT4X4 </summary>
+		///
+		/// <remarks>	WraithOne, 17.04.2017. </remarks>
+		///
+		/// <param name="matrix">	A 4*4 floating point matrix. </param>
+		///
+		/// <returns>	A 4x4 matrix, used for 3D transforms. </returns>
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		inline DirectX::XMMATRIX XM_CALLCONV XMLoadFloat4x4(_In_ WOtech::FLOAT4x4 matrix)
+		{
+			DirectX::XMFLOAT4X4 output = 
+			{
+				matrix.M11, matrix.M12, matrix.M13, matrix.M14,
+				matrix.M21, matrix.M22, matrix.M23, matrix.M24,
+				matrix.M31, matrix.M32, matrix.M33, matrix.M34,
+				matrix.M41, matrix.M42, matrix.M43, matrix.M44
+			};
+
+			return DirectX::XMLoadFloat4x4(&output);
 		}
 	}
 }

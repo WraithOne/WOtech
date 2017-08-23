@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	25.02.2016
-///			Edited:		20.08.2017
+///			Edited:		22.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -162,13 +162,6 @@ namespace WOtech
 		m_matrices.setConstants(m_constants.worldViewProj);
 		auto context = device->getContext();
 
-		// Update Constant Buffer
-		D3D11_MAPPED_SUBRESOURCE mappedResource;
-
-		ThrowIfFailed(context->Map(m_constantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource));
-
-		mappedResource.pData = &m_constants;
-
-		context->Unmap(m_constantBuffer.Get(), 0);
+		context->UpdateSubresource1(m_constantBuffer.Get(), 0, NULL, &m_constants, 0, 0, 0);
 	}
 }

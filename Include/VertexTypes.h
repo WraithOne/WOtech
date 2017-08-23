@@ -24,211 +24,236 @@
 
 namespace WOtech
 {
-	public interface struct IVertexData
+	public value struct FLOAT2
 	{
-		UINT Sizeof();
+		float X;
+		float Y;
 	};
+
+	public value struct FLOAT3
+	{
+		float X;
+		float Y;
+		float Z;
+	};
+
+	public value struct FLOAT4
+	{
+		float X;
+		float Y;
+		float Z;
+		float W;
+	};
+
+	public value struct FLOAT4x4
+	{
+		float M11, M12, M13, M14;
+		float M21, M22, M23, M24;
+		float M31, M32, M33, M34;
+		float M41, M42, M43, M44;
+	};
+
 	public interface struct IVertexPosition
 	{
-		property Windows::Foundation::Numerics::float3 Position
+		property WOtech::FLOAT3 Position
 		{
-			Windows::Foundation::Numerics::float3 get();
-			void set(_In_ Windows::Foundation::Numerics::float3 position);
+			WOtech::FLOAT3 get();
+			void set(_In_ WOtech::FLOAT3 position);
 		}
 	};
 	public interface struct IVertexColor
 	{
-		property Windows::Foundation::Numerics::float4 Color
+		property WOtech::FLOAT4 Color
 		{
-			Windows::Foundation::Numerics::float4 get();
-			void set(_In_ Windows::Foundation::Numerics::float4 color);
+			WOtech::FLOAT4 get();
+			void set(_In_ WOtech::FLOAT4 color);
 		}
 	};
 	public interface struct IVertexTexture
 	{
-		property Windows::Foundation::Numerics::float2 TextureCoordinate
+		property WOtech::FLOAT2 TextureCoordinate
 		{
-			Windows::Foundation::Numerics::float2 get();
-			void set(_In_ Windows::Foundation::Numerics::float2 textureCoordinate);
+			WOtech::FLOAT2 get();
+			void set(_In_ WOtech::FLOAT2 textureCoordinate);
 		}
 	};
 	public interface struct IVertexNormal
 	{
-		property Windows::Foundation::Numerics::float3 Normal
+		property WOtech::FLOAT3 Normal
 		{
-			Windows::Foundation::Numerics::float3 get();
-			void set(_In_ Windows::Foundation::Numerics::float3 normal);
+			WOtech::FLOAT3 get();
+			void set(_In_ WOtech::FLOAT3 normal);
 		}
 	};
 
-	public ref struct VertexPositionColor sealed : public IVertexData, IVertexPosition, IVertexColor
+	public ref struct VertexPositionColor sealed : public IVertexPosition, IVertexColor
 	{
 	public:
-		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_Color)); }
-		virtual property Windows::Foundation::Numerics::float3 Position
+		static UINT Sizeof() { return (sizeof(WOtech::FLOAT3) + sizeof(WOtech::FLOAT4)); }
+		virtual property WOtech::FLOAT3 Position
 		{
-			Windows::Foundation::Numerics::float3 get() { return m_Position; }
-			void set(_In_ Windows::Foundation::Numerics::float3 position) { m_Position = position; }
+			WOtech::FLOAT3 get() { return m_Position; }
+			void set(_In_ WOtech::FLOAT3 position) { m_Position = position; }
 		}
-		virtual property Windows::Foundation::Numerics::float4 Color
+		virtual property WOtech::FLOAT4 Color
 		{
-			Windows::Foundation::Numerics::float4 get() { return m_Color; }
-			void set(_In_ Windows::Foundation::Numerics::float4 color) { m_Color = color; }
+			WOtech::FLOAT4 get() { return m_Color; }
+			void set(_In_ WOtech::FLOAT4 color) { m_Color = color; }
 		}
 
 	private:
-		Windows::Foundation::Numerics::float3 m_Position;
-		Windows::Foundation::Numerics::float4 m_Color;
+		WOtech::FLOAT3 m_Position;
+		WOtech::FLOAT4 m_Color;
 	};
 
-	public ref struct VertexPositionTexture sealed : public IVertexData, IVertexPosition, IVertexTexture
+	public ref struct VertexPositionTexture sealed : public IVertexPosition, IVertexTexture
 	{
 	public:
-		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_TextureCoordinate)); }
-		virtual property Windows::Foundation::Numerics::float3 Position
+		static UINT Sizeof() { return (sizeof(WOtech::FLOAT3) + sizeof(WOtech::FLOAT2)); }
+		virtual property WOtech::FLOAT3 Position
 		{
-			Windows::Foundation::Numerics::float3 get() { return m_Position; }
-			void set(_In_ Windows::Foundation::Numerics::float3 position) { m_Position = position; }
+			WOtech::FLOAT3 get() { return m_Position; }
+			void set(_In_ WOtech::FLOAT3 position) { m_Position = position; }
 		}
-		virtual property Windows::Foundation::Numerics::float2 TextureCoordinate
+		virtual property WOtech::FLOAT2 TextureCoordinate
 		{
-			Windows::Foundation::Numerics::float2 get() { return m_TextureCoordinate; }
-			void set(_In_ Windows::Foundation::Numerics::float2 textureCoordinate) { m_TextureCoordinate = textureCoordinate; }
+			WOtech::FLOAT2 get() { return m_TextureCoordinate; }
+			void set(_In_ WOtech::FLOAT2 textureCoordinate) { m_TextureCoordinate = textureCoordinate; }
 		}
 
 	private:
-		Windows::Foundation::Numerics::float3 m_Position;
-		Windows::Foundation::Numerics::float2 m_TextureCoordinate;
+		WOtech::FLOAT3 m_Position;
+		WOtech::FLOAT2 m_TextureCoordinate;
 	};
 
-	public ref struct VertexPositionNormal sealed : public IVertexData, IVertexPosition, IVertexNormal
+	public ref struct VertexPositionNormal sealed : public IVertexPosition, IVertexNormal
 	{
 	public:
-		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_Normal)); }
-		virtual property Windows::Foundation::Numerics::float3 Position
+		static UINT Sizeof() { return (sizeof(WOtech::FLOAT3) + sizeof(WOtech::FLOAT3)); }
+		virtual property WOtech::FLOAT3 Position
 		{
-			Windows::Foundation::Numerics::float3 get() { return m_Position; }
-			void set(_In_ Windows::Foundation::Numerics::float3 position) { m_Position = position; }
+			WOtech::FLOAT3 get() { return m_Position; }
+			void set(_In_ WOtech::FLOAT3 position) { m_Position = position; }
 		}
-		virtual property Windows::Foundation::Numerics::float3 Normal
+		virtual property WOtech::FLOAT3 Normal
 		{
-			Windows::Foundation::Numerics::float3 get() { return m_Normal; }
-			void set(_In_ Windows::Foundation::Numerics::float3 normal) { m_Normal = normal; }
+			WOtech::FLOAT3 get() { return m_Normal; }
+			void set(_In_ WOtech::FLOAT3 normal) { m_Normal = normal; }
 		}
 
 	private:
-		Windows::Foundation::Numerics::float3 m_Position;
-		Windows::Foundation::Numerics::float3 m_Normal;
+		WOtech::FLOAT3 m_Position;
+		WOtech::FLOAT3 m_Normal;
 	};
 
-	public ref struct VertexPositionNormalColor sealed : public IVertexData, IVertexPosition, IVertexNormal, IVertexColor
+	public ref struct VertexPositionNormalColor sealed : public IVertexPosition, IVertexNormal, IVertexColor
 	{
 	public:
-		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_Normal) + sizeof(m_Color)); }
-		virtual property Windows::Foundation::Numerics::float3 Position
+		static UINT Sizeof() { return (sizeof(WOtech::FLOAT3) + sizeof(WOtech::FLOAT3) + sizeof(WOtech::FLOAT4)); }
+		virtual property WOtech::FLOAT3 Position
 		{
-			Windows::Foundation::Numerics::float3 get() { return m_Position; }
-			void set(_In_ Windows::Foundation::Numerics::float3 position) { m_Position = position; }
+			WOtech::FLOAT3 get() { return m_Position; }
+			void set(_In_ WOtech::FLOAT3 position) { m_Position = position; }
 		}
-		virtual property Windows::Foundation::Numerics::float3 Normal
+		virtual property WOtech::FLOAT3 Normal
 		{
-			Windows::Foundation::Numerics::float3 get() { return m_Normal; }
-			void set(_In_ Windows::Foundation::Numerics::float3 normal) { m_Normal = normal; }
+			WOtech::FLOAT3 get() { return m_Normal; }
+			void set(_In_ WOtech::FLOAT3 normal) { m_Normal = normal; }
 		}
-		virtual property Windows::Foundation::Numerics::float4 Color
+		virtual property WOtech::FLOAT4 Color
 		{
-			Windows::Foundation::Numerics::float4 get() { return m_Color; }
-			void set(_In_ Windows::Foundation::Numerics::float4 color) { m_Color = color; }
+			WOtech::FLOAT4 get() { return m_Color; }
+			void set(_In_ WOtech::FLOAT4 color) { m_Color = color; }
 		}
 
 	private:
-		Windows::Foundation::Numerics::float3 m_Position;
-		Windows::Foundation::Numerics::float3 m_Normal;
-		Windows::Foundation::Numerics::float4 m_Color;
+		WOtech::FLOAT3 m_Position;
+		WOtech::FLOAT3 m_Normal;
+		WOtech::FLOAT4 m_Color;
 	};
 
-	public ref struct VertexPositionColorTexture sealed : public IVertexData, IVertexPosition, IVertexColor, IVertexTexture
+	public ref struct VertexPositionColorTexture sealed : public IVertexPosition, IVertexColor, IVertexTexture
 	{
 	public:
-		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_Color) + sizeof(m_TextureCoordinate)); }
-		virtual property Windows::Foundation::Numerics::float3 Position
+		static UINT Sizeof() { return (sizeof(WOtech::FLOAT3) + sizeof(WOtech::FLOAT3) + sizeof(WOtech::FLOAT2)); }
+		virtual property WOtech::FLOAT3 Position
 		{
-			Windows::Foundation::Numerics::float3 get() { return m_Position; }
-			void set(_In_ Windows::Foundation::Numerics::float3 position) { m_Position = position; }
+			WOtech::FLOAT3 get() { return m_Position; }
+			void set(_In_ WOtech::FLOAT3 position) { m_Position = position; }
 		}
-		virtual property Windows::Foundation::Numerics::float4 Color
+		virtual property WOtech::FLOAT4 Color
 		{
-			Windows::Foundation::Numerics::float4 get() { return m_Color; }
-			void set(_In_ Windows::Foundation::Numerics::float4 color) { m_Color = color; }
+			WOtech::FLOAT4 get() { return m_Color; }
+			void set(_In_ WOtech::FLOAT4 color) { m_Color = color; }
 		}
-		virtual property Windows::Foundation::Numerics::float2 TextureCoordinate
+		virtual property WOtech::FLOAT2 TextureCoordinate
 		{
-			Windows::Foundation::Numerics::float2 get() { return m_TextureCoordinate; }
-			void set(_In_ Windows::Foundation::Numerics::float2 textureCoordinate) { m_TextureCoordinate = textureCoordinate; }
+			WOtech::FLOAT2 get() { return m_TextureCoordinate; }
+			void set(_In_ WOtech::FLOAT2 textureCoordinate) { m_TextureCoordinate = textureCoordinate; }
 		}
 
 	private:
-		Windows::Foundation::Numerics::float3 m_Position;
-		Windows::Foundation::Numerics::float4 m_Color;
-		Windows::Foundation::Numerics::float2 m_TextureCoordinate;
+		WOtech::FLOAT3 m_Position;
+		WOtech::FLOAT4 m_Color;
+		WOtech::FLOAT2 m_TextureCoordinate;
 	};
 
-	public ref struct VertexPositionNormalTexture sealed : public IVertexData, IVertexPosition, IVertexNormal, IVertexTexture
+	public ref struct VertexPositionNormalTexture sealed : public IVertexPosition, IVertexNormal, IVertexTexture
 	{
 	public:
-		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_Normal) + sizeof(m_TextureCoordinate)); }
-		virtual property Windows::Foundation::Numerics::float3 Position
+		static UINT Sizeof() { return (sizeof(WOtech::FLOAT3) + sizeof(WOtech::FLOAT3) + sizeof(WOtech::FLOAT2)); }
+		virtual property WOtech::FLOAT3 Position
 		{
-			Windows::Foundation::Numerics::float3 get() { return m_Position; }
-			void set(_In_ Windows::Foundation::Numerics::float3 position) { m_Position = position; }
+			WOtech::FLOAT3 get() { return m_Position; }
+			void set(_In_ WOtech::FLOAT3 position) { m_Position = position; }
 		}
-		virtual property Windows::Foundation::Numerics::float3 Normal
+		virtual property WOtech::FLOAT3 Normal
 		{
-			Windows::Foundation::Numerics::float3 get() { return m_Normal; }
-			void set(_In_ Windows::Foundation::Numerics::float3 normal) { m_Normal = normal; }
+			WOtech::FLOAT3 get() { return m_Normal; }
+			void set(_In_ WOtech::FLOAT3 normal) { m_Normal = normal; }
 		}
-		virtual property Windows::Foundation::Numerics::float2 TextureCoordinate
+		virtual property WOtech::FLOAT2 TextureCoordinate
 		{
-			Windows::Foundation::Numerics::float2 get() { return m_TextureCoordinate; }
-			void set(_In_ Windows::Foundation::Numerics::float2 textureCoordinate) { m_TextureCoordinate = textureCoordinate; }
+			WOtech::FLOAT2 get() { return m_TextureCoordinate; }
+			void set(_In_ WOtech::FLOAT2 textureCoordinate) { m_TextureCoordinate = textureCoordinate; }
 		}
 
 	private:
-		Windows::Foundation::Numerics::float3 m_Position;
-		Windows::Foundation::Numerics::float3 m_Normal;
-		Windows::Foundation::Numerics::float2 m_TextureCoordinate;
+		WOtech::FLOAT3 m_Position;
+		WOtech::FLOAT3 m_Normal;
+		WOtech::FLOAT2 m_TextureCoordinate;
 	};
 
-	public ref struct VertexPositionNormalColorTexture sealed : public IVertexData, IVertexPosition, IVertexNormal, IVertexColor, IVertexTexture
+	public ref struct VertexPositionNormalColorTexture sealed : public IVertexPosition, IVertexNormal, IVertexColor, IVertexTexture
 	{
 	public:
-		virtual UINT Sizeof() { return (sizeof(m_Position) + sizeof(m_Normal) + sizeof(m_Color) + sizeof(m_TextureCoordinate)); }
-		virtual property Windows::Foundation::Numerics::float3 Position
+		static UINT Sizeof() { return (sizeof(WOtech::FLOAT3) + sizeof(WOtech::FLOAT3) + sizeof(WOtech::FLOAT4) + sizeof(WOtech::FLOAT2)); }
+		virtual property WOtech::FLOAT3 Position
 		{
-			Windows::Foundation::Numerics::float3 get() { return m_Position; }
-			void set(_In_ Windows::Foundation::Numerics::float3 position) { m_Position = position; }
+			WOtech::FLOAT3 get() { return m_Position; }
+			void set(_In_ WOtech::FLOAT3 position) { m_Position = position; }
 		}
-		virtual property Windows::Foundation::Numerics::float3 Normal
+		virtual property WOtech::FLOAT3 Normal
 		{
-			Windows::Foundation::Numerics::float3 get() { return m_Normal; }
-			void set(_In_ Windows::Foundation::Numerics::float3 normal) { m_Normal = normal; }
+			WOtech::FLOAT3 get() { return m_Normal; }
+			void set(_In_ WOtech::FLOAT3 normal) { m_Normal = normal; }
 		}
-		virtual property Windows::Foundation::Numerics::float4 Color
+		virtual property WOtech::FLOAT4 Color
 		{
-			Windows::Foundation::Numerics::float4 get() { return m_Color; }
-			void set(_In_ Windows::Foundation::Numerics::float4 color) { m_Color = color; }
+			WOtech::FLOAT4 get() { return m_Color; }
+			void set(_In_ WOtech::FLOAT4 color) { m_Color = color; }
 		}
-		virtual property Windows::Foundation::Numerics::float2 TextureCoordinate
+		virtual property WOtech::FLOAT2 TextureCoordinate
 		{
-			Windows::Foundation::Numerics::float2 get() { return m_TextureCoordinate; }
-			void set(_In_ Windows::Foundation::Numerics::float2 textureCoordinate) { m_TextureCoordinate = textureCoordinate; }
+			WOtech::FLOAT2 get() { return m_TextureCoordinate; }
+			void set(_In_ WOtech::FLOAT2 textureCoordinate) { m_TextureCoordinate = textureCoordinate; }
 		}
 
 	private:
-		Windows::Foundation::Numerics::float3 m_Position;
-		Windows::Foundation::Numerics::float3 m_Normal;
-		Windows::Foundation::Numerics::float4 m_Color;
-		Windows::Foundation::Numerics::float2 m_TextureCoordinate;
+		WOtech::FLOAT3 m_Position;
+		WOtech::FLOAT3 m_Normal;
+		WOtech::FLOAT4 m_Color;
+		WOtech::FLOAT2 m_TextureCoordinate;
 	};
 }
 #endif

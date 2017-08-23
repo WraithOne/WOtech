@@ -94,7 +94,7 @@ namespace WOtech
 		Windows::Foundation::Size getRenderTargetSize();
 
 		// Performance events
-		void PIXBeginEvent(_In_z_ Platform::String^ name)
+		void PIXBeginEvent(_In_ Platform::String^ name)
 		{
 			if (m_userAnnotation)
 			{
@@ -108,7 +108,7 @@ namespace WOtech
 				m_userAnnotation->EndEvent();
 			}
 		}
-		void PIXSetMarker(_In_z_ Platform::String^ name)
+		void PIXSetMarker(_In_ Platform::String^ name)
 		{
 			if (m_userAnnotation)
 			{

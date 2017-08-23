@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	20.08.2017
-///			Edited:		20.08.2017
+///			Edited:		22.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_MATERIALS_H
@@ -45,7 +45,7 @@ namespace WOtech
 		DirectX::XMMATRIX Projection;
 		DirectX::XMMATRIX worldView;
 
-		void setConstants(DirectX::XMMATRIX& worldViewProjectionConstant);
+		void setConstants(_In_ DirectX::XMMATRIX& worldViewProjectionConstant);
 	};
 
 	// Stores the Materials Color
@@ -56,7 +56,7 @@ namespace WOtech
 		DirectX::XMVECTOR DiffuseColor;
 		float Alpha;
 
-		void setConstants(DirectX::XMVECTOR& diffuseColorConstant);
+		void setConstants(_In_ DirectX::XMVECTOR& diffuseColorConstant);
 	};
 
 	// Stores the Ambient and Directional Lights for Material
@@ -73,7 +73,7 @@ namespace WOtech
 		bool LightEnabled[MaxDirectionalLights];
 		DirectionalLight DirectionalLights[MaxDirectionalLights];
 
-		void setConstants(_In_ MaterialMatrices const& matrices, _In_ DirectX::XMVECTOR& emissiveColor, _In_ DirectX::XMMATRIX& worldConstant, _In_ DirectX::XMVECTOR worldInverseTransposeConstant[3], _In_ DirectX::XMVECTOR& eyePositionConstant, _In_ DirectX::XMVECTOR& diffuseColorConstant, _In_ DirectX::XMVECTOR& emissiveColorConstant, bool lightingEnabled);
+		void setConstants(_In_ MaterialMatrices const& matrices, _In_ DirectX::XMVECTOR& emissiveColor, _In_ DirectX::XMMATRIX& worldConstant, _In_ DirectX::XMVECTOR worldInverseTransposeConstant[3], _In_ DirectX::XMVECTOR& eyePositionConstant, _In_ DirectX::XMVECTOR& diffuseColorConstant, _In_ DirectX::XMVECTOR& emissiveColorConstant, _In_ bool lightingEnabled);
 	};
 
 	// Constant buffer layout. Must match the shader!
@@ -113,12 +113,12 @@ namespace WOtech
 	public:
 		void SetLightingEnabled(_In_ bool value);
 		void SetPerPixelLighting(_In_ bool value);
-		void SetAmbientLightColor(_In_ Windows::Foundation::Numerics::float4 value);
+		void SetAmbientLightColor(_In_ WOtech::FLOAT4 value);
 
 		void SetLightEnabled(_In_ int whichLight, _In_ bool value);
-		void SetLightDirection(_In_ int whichLight, _In_ Windows::Foundation::Numerics::float4 value);
-		void SetLightDiffuseColor(_In_ int whichLight, _In_ Windows::Foundation::Numerics::float4 value);
-		void SetLightSpecularColor(_In_ int whichLight, _In_ Windows::Foundation::Numerics::float4 value);
+		void SetLightDirection(_In_ int whichLight, _In_ WOtech::FLOAT4 value);
+		void SetLightDiffuseColor(_In_ int whichLight, _In_ WOtech::FLOAT4 value);
+		void SetLightSpecularColor(_In_ int whichLight, _In_ WOtech::FLOAT4 value);
 
 		void EnableDefaultLighting();	
 	};

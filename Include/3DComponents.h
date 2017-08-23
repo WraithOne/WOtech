@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.02.2016
-///			Edited:		20.08.2017
+///			Edited:		22.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_3DCOMPONENTS_H
@@ -21,6 +21,7 @@
 //////////////
 #include "pch.h"
 #include "DXWrapper.h"
+#include "VertexTypes.h"
 
 namespace WOtech
 {
@@ -32,23 +33,23 @@ namespace WOtech
 	public:
 		Camera();
 
-		void SetViewParams(_In_ Windows::Foundation::Numerics::float3 eye,
-			_In_ Windows::Foundation::Numerics::float3 lookAt,
-			_In_ Windows::Foundation::Numerics::float3 up);
+		void SetViewParams(_In_ WOtech::FLOAT3 eye,
+			_In_ WOtech::FLOAT3 lookAt,
+			_In_ WOtech::FLOAT3 up);
 
 		void SetProjParams(_In_ float32 fieldOfView, _In_ float32 aspectRatio, _In_ float32 nearPlane, _In_ float32 farPlane);
 
-		void LookDirection(_In_ Windows::Foundation::Numerics::float3 lookDirection);
-		void Eye(_In_ Windows::Foundation::Numerics::float3 position);
+		void LookDirection(_In_ WOtech::FLOAT3 lookDirection);
+		void Eye(_In_ WOtech::FLOAT3 position);
 
 		float32	NearClipPlane();
 		float32	FarClipPlane();
 		float32	Pitch();
 		float32	Yaw();
 
-		Windows::Foundation::Numerics::float3 Eye();
-		Windows::Foundation::Numerics::float3 LookAt();
-		Windows::Foundation::Numerics::float3 Up();
+		WOtech::FLOAT3 Eye();
+		WOtech::FLOAT3 LookAt();
+		WOtech::FLOAT3 Up();
 
 	internal:
 		DirectX::XMFLOAT4X4 ViewMatrix();
@@ -61,9 +62,9 @@ namespace WOtech
 
 		DirectX::XMFLOAT4X4 m_inverseView;
 
-		Windows::Foundation::Numerics::float3 m_eye;
-		Windows::Foundation::Numerics::float3 m_lookAt;
-		Windows::Foundation::Numerics::float3 m_up;
+		WOtech::FLOAT3 m_eye;
+		WOtech::FLOAT3 m_lookAt;
+		WOtech::FLOAT3 m_up;
 		float32 m_cameraYawAngle;
 		float32 m_cameraPitchAngle;
 
