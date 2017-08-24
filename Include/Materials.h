@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	20.08.2017
-///			Edited:		22.08.2017
+///			Edited:		24.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_MATERIALS_H
@@ -101,10 +101,10 @@ namespace WOtech
 	public interface class IMaterialMatrices
 	{
 	public:
-		void setWorld(_In_ Windows::Foundation::Numerics::float4x4 world);
-		void setView(_In_ Windows::Foundation::Numerics::float4x4 view);
-		void setProjection(_In_ Windows::Foundation::Numerics::float4x4 projection);
-		void setMatrices(_In_ Windows::Foundation::Numerics::float4x4 world, _In_ Windows::Foundation::Numerics::float4x4 view, _In_ Windows::Foundation::Numerics::float4x4 projection);
+		void setWorld(_In_ WOtech::FLOAT4x4 world);
+		void setView(_In_ WOtech::FLOAT4x4 view);
+		void setProjection(_In_ WOtech::FLOAT4x4 projection);
+		void setMatrices(_In_ WOtech::FLOAT4x4 world, _In_ WOtech::FLOAT4x4 view, _In_ WOtech::FLOAT4x4 projection);
 	};
 
 	// Interface for Materials with Directional Lightning
@@ -131,10 +131,10 @@ namespace WOtech
 		virtual void bindMaterial(_In_ DeviceDX11^ device);
 		virtual void unbindMaterial(_In_ DeviceDX11^ device);
 
-		virtual void setWorld(_In_ Windows::Foundation::Numerics::float4x4 world);
-		virtual void setView(_In_ Windows::Foundation::Numerics::float4x4 view);
-		virtual void setProjection(_In_ Windows::Foundation::Numerics::float4x4 projection);
-		virtual void setMatrices(_In_ Windows::Foundation::Numerics::float4x4 world, _In_ Windows::Foundation::Numerics::float4x4 view, _In_ Windows::Foundation::Numerics::float4x4 projection);
+		virtual void setWorld(_In_ WOtech::FLOAT4x4 world);
+		virtual void setView(_In_ WOtech::FLOAT4x4 view);
+		virtual void setProjection(_In_ WOtech::FLOAT4x4 projection);
+		virtual void setMatrices(_In_ WOtech::FLOAT4x4 world, _In_ WOtech::FLOAT4x4 view, _In_ WOtech::FLOAT4x4 projection);
 
 	private:
 		void setConstants(_In_ DeviceDX11^ device);

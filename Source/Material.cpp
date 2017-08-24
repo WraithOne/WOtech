@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	25.02.2016
-///			Edited:		22.08.2017
+///			Edited:		24.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -138,23 +138,23 @@ namespace WOtech
 		context->PSSetShader(nullptr, 0, 0);
 	}
 
-	void BasicMaterial::setWorld(_In_ float4x4 world)
+	void BasicMaterial::setWorld(_In_ FLOAT4x4 world)
 	{
-		m_matrices.World = DXWrapper::wrapXMMATRIX(world);
+		m_matrices.World = DXWrapper::XMLoadFloat4x4(world);
 	}
-	void BasicMaterial::setView(_In_ float4x4 view)
+	void BasicMaterial::setView(_In_ FLOAT4x4 view)
 	{
-		m_matrices.View = DXWrapper::wrapXMMATRIX(view);
+		m_matrices.View = DXWrapper::XMLoadFloat4x4(view);
 	}
-	void BasicMaterial::setProjection(_In_ float4x4 projection)
+	void BasicMaterial::setProjection(_In_ FLOAT4x4 projection)
 	{
-		m_matrices.Projection = DXWrapper::wrapXMMATRIX(projection);
+		m_matrices.Projection = DXWrapper::XMLoadFloat4x4(projection);
 	}
-	void BasicMaterial::setMatrices(_In_ float4x4 world, _In_ float4x4 view, _In_ float4x4 projection)
+	void BasicMaterial::setMatrices(_In_ FLOAT4x4 world, _In_ FLOAT4x4 view, _In_ FLOAT4x4 projection)
 	{
-		m_matrices.World = DXWrapper::wrapXMMATRIX(world);
-		m_matrices.View = DXWrapper::wrapXMMATRIX(view);
-		m_matrices.Projection = DXWrapper::wrapXMMATRIX(projection);
+		m_matrices.World = DXWrapper::XMLoadFloat4x4(world);
+		m_matrices.View = DXWrapper::XMLoadFloat4x4(view);
+		m_matrices.Projection = DXWrapper::XMLoadFloat4x4(projection);
 	}
 
 	void WOtech::BasicMaterial::setConstants(_In_ DeviceDX11^ device)
