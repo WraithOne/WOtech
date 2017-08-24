@@ -41,11 +41,12 @@ namespace WOtech
 		MaterialMatrices();
 
 		DirectX::XMMATRIX World;
+		DirectX::XMMATRIX WorldInverse;
 		DirectX::XMMATRIX View;
 		DirectX::XMMATRIX Projection;
 		DirectX::XMMATRIX worldView;
 
-		void setConstants(_In_ DirectX::XMMATRIX& worldViewProjectionConstant);
+		void XM_CALLCONV setConstants(_In_ DirectX::XMMATRIX& worldViewProjectionConstant, _In_ DirectX::XMMATRIX& worldConstant, _In_ DirectX::XMMATRIX& worldInverseConstant);
 	};
 
 	// Stores the Materials Color
@@ -56,7 +57,7 @@ namespace WOtech
 		DirectX::XMVECTOR DiffuseColor;
 		float Alpha;
 
-		void setConstants(_In_ DirectX::XMVECTOR& diffuseColorConstant);
+		void XM_CALLCONV setConstants(_In_ DirectX::XMVECTOR& diffuseColorConstant);
 	};
 
 	// Stores the Ambient and Directional Lights for Material
@@ -73,7 +74,7 @@ namespace WOtech
 		bool LightEnabled[MaxDirectionalLights];
 		DirectionalLight DirectionalLights[MaxDirectionalLights];
 
-		void setConstants(_In_ MaterialMatrices const& matrices, _In_ DirectX::XMVECTOR& emissiveColor, _In_ DirectX::XMMATRIX& worldConstant, _In_ DirectX::XMVECTOR worldInverseTransposeConstant[3], _In_ DirectX::XMVECTOR& eyePositionConstant, _In_ DirectX::XMVECTOR& diffuseColorConstant, _In_ DirectX::XMVECTOR& emissiveColorConstant, _In_ bool lightingEnabled);
+		void XM_CALLCONV setConstants(_In_ MaterialMatrices const& matrices, _In_ DirectX::XMVECTOR& emissiveColor, _In_ DirectX::XMMATRIX& worldConstant, _In_ DirectX::XMVECTOR worldInverseTransposeConstant[3], _In_ DirectX::XMVECTOR& eyePositionConstant, _In_ DirectX::XMVECTOR& diffuseColorConstant, _In_ DirectX::XMVECTOR& emissiveColorConstant, _In_ bool lightingEnabled);
 	};
 
 	// Constant buffer layout. Must match the shader!
@@ -93,6 +94,7 @@ namespace WOtech
 		DirectX::XMVECTOR fogVector;
 
 		DirectX::XMMATRIX world;
+		DirectX::XMMATRIX worldInverse;
 		DirectX::XMVECTOR worldInverseTranspose[3];
 		DirectX::XMMATRIX worldViewProj;
 	};
@@ -102,9 +104,10 @@ namespace WOtech
 	{
 	public:
 		void setWorld(_In_ WOtech::FLOAT4x4 world);
+		void setWorldInverse(_In_ WOtech::FLOAT4x4 worldInverse);
 		void setView(_In_ WOtech::FLOAT4x4 view);
 		void setProjection(_In_ WOtech::FLOAT4x4 projection);
-		void setMatrices(_In_ WOtech::FLOAT4x4 world, _In_ WOtech::FLOAT4x4 view, _In_ WOtech::FLOAT4x4 projection);
+		void setMatrices(_In_ WOtech::FLOAT4x4 world, _In_ WOtech::FLOAT4x4 worldInverse, _In_ WOtech::FLOAT4x4 view, _In_ WOtech::FLOAT4x4 projection);
 	};
 
 	// Interface for Materials with Directional Lightning
@@ -132,9 +135,10 @@ namespace WOtech
 		virtual void unbindMaterial(_In_ DeviceDX11^ device);
 
 		virtual void setWorld(_In_ WOtech::FLOAT4x4 world);
+		virtual void setWorldInverse(_In_ WOtech::FLOAT4x4 worldInverse);
 		virtual void setView(_In_ WOtech::FLOAT4x4 view);
 		virtual void setProjection(_In_ WOtech::FLOAT4x4 projection);
-		virtual void setMatrices(_In_ WOtech::FLOAT4x4 world, _In_ WOtech::FLOAT4x4 view, _In_ WOtech::FLOAT4x4 projection);
+		virtual void setMatrices(_In_ WOtech::FLOAT4x4 world, _In_ WOtech::FLOAT4x4 worldInverse, _In_ WOtech::FLOAT4x4 view, _In_ WOtech::FLOAT4x4 projection);
 
 	private:
 		void setConstants(_In_ DeviceDX11^ device);

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		17.08.2017
+///			Edited:		24.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DEFERREDRENDERER_H
@@ -32,7 +32,7 @@ namespace WOtech
 		DeferredRenderer(_In_ DeviceDX11^ device);
 
 		virtual void Begin();
-		virtual void Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ Windows::Foundation::Numerics::float4x4 transform);
+		virtual void Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ WOtech::FLOAT4x4 transformation);
 		virtual void Submit();
 		virtual void End();
 		virtual void Present();

@@ -18,6 +18,7 @@
 // INCLUDES //
 //////////////
 #include "pch.h"
+#include "materials.h"
 #include "ForwardRenderer.h"
 #include "DeviceDX11.h"
 #include "Utilities.h"
@@ -38,13 +39,14 @@ namespace WOtech
 
 		m_device->Clear(m_clearColor);
 	}
-	void ForwardRenderer::Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ float4x4 transform)
+	void ForwardRenderer::Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ WOtech::FLOAT4x4 transformation)
 	{
 		RenderCommand command;
 		command.mesh = mesh;
-		command.uniforms.ModelMatrix = wrapFloat4x4(transform);
-		command.uniforms.ProjectionMatrix = camera->ProjectionMatrix();
-		command.uniforms.ViewMatrix = camera->ViewMatrix();
+		command.uniforms.WorldMatrix = transformation;
+		command.uniforms.WorldInverseMatrix = DXWrapper::wrapXMFloat4x4(camera->InverseMatrix());
+		command.uniforms.ProjectionMatrix = DXWrapper::wrapXMFloat4x4(camera->ProjectionMatrix());
+		command.uniforms.ViewMatrix = DXWrapper::wrapXMFloat4x4(camera->ViewMatrix());
 
 		m_CommandQueue.push_back(command);
 	}
@@ -62,6 +64,8 @@ namespace WOtech
 		{
 			// Submit Shaders, Textures
 			const RenderCommand& command = m_CommandQueue[i];
+			auto materialMatrices = dynamic_cast<WOtech::IMaterialMatrices^>(command.mesh->GetMaterial());
+			materialMatrices->setMatrices(command.uniforms.WorldMatrix, command.uniforms.WorldInverseMatrix, command.uniforms.ViewMatrix, command.uniforms.ProjectionMatrix);
 			command.mesh->bindMaterial(m_device);
 
 			// Submit Vertex and Index data and render the final mesh

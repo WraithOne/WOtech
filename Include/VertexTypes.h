@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	25.03.2017
-///			Edited:		14.08.2017
+///			Edited:		24.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_VERTEXTYPES_H
@@ -29,14 +29,12 @@ namespace WOtech
 		float X;
 		float Y;
 	};
-
 	public value struct FLOAT3
 	{
 		float X;
 		float Y;
 		float Z;
 	};
-
 	public value struct FLOAT4
 	{
 		float X;
@@ -44,7 +42,6 @@ namespace WOtech
 		float Z;
 		float W;
 	};
-
 	public value struct FLOAT4x4
 	{
 		float M11, M12, M13, M14;

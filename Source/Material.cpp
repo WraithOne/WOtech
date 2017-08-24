@@ -53,10 +53,11 @@ namespace WOtech
 		worldView =		XMMatrixIdentity();
 	}
 
-	void MaterialMatrices::setConstants(_In_ XMMATRIX& worldViewProjectionConstant)
+	void MaterialMatrices::setConstants(_In_ DirectX::XMMATRIX& worldViewProjectionConstant, _In_ DirectX::XMMATRIX& worldConstant, _In_ DirectX::XMMATRIX& worldInverseConstant)
 	{
 		worldView = XMMatrixMultiply(World, View);
-
+		worldConstant = World;
+		worldInverseConstant = WorldInverse;
 		worldViewProjectionConstant = XMMatrixTranspose(XMMatrixMultiply(worldView, Projection));
 	}
 
@@ -142,6 +143,10 @@ namespace WOtech
 	{
 		m_matrices.World = DXWrapper::XMLoadFloat4x4(world);
 	}
+	void BasicMaterial::setWorldInverse(WOtech::FLOAT4x4 worldInverse)
+	{
+		m_matrices.WorldInverse = DXWrapper::XMLoadFloat4x4(worldInverse);
+	}
 	void BasicMaterial::setView(_In_ FLOAT4x4 view)
 	{
 		m_matrices.View = DXWrapper::XMLoadFloat4x4(view);
@@ -150,16 +155,18 @@ namespace WOtech
 	{
 		m_matrices.Projection = DXWrapper::XMLoadFloat4x4(projection);
 	}
-	void BasicMaterial::setMatrices(_In_ FLOAT4x4 world, _In_ FLOAT4x4 view, _In_ FLOAT4x4 projection)
+
+	void BasicMaterial::setMatrices(_In_ WOtech::FLOAT4x4 world, _In_ WOtech::FLOAT4x4 worldInverse, _In_ WOtech::FLOAT4x4 view, _In_ WOtech::FLOAT4x4 projection)
 	{
 		m_matrices.World = DXWrapper::XMLoadFloat4x4(world);
+		m_matrices.WorldInverse = DXWrapper::XMLoadFloat4x4(worldInverse);
 		m_matrices.View = DXWrapper::XMLoadFloat4x4(view);
 		m_matrices.Projection = DXWrapper::XMLoadFloat4x4(projection);
 	}
 
 	void WOtech::BasicMaterial::setConstants(_In_ DeviceDX11^ device)
 	{
-		m_matrices.setConstants(m_constants.worldViewProj);
+		m_matrices.setConstants(m_constants.worldViewProj, m_constants.world, m_constants.worldInverse);
 		auto context = device->getContext();
 
 		context->UpdateSubresource1(m_constantBuffer.Get(), 0, NULL, &m_constants, 0, 0, 0);

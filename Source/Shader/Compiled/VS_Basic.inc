@@ -23,7 +23,7 @@
 // Target Reg Buffer  Start Reg # of Regs        Data Conversion
 // ---------- ------- --------- --------- ----------------------
 // c1         cb0             0         1  ( FLT, FLT, FLT, FLT)
-// c2         cb0            22         4  ( FLT, FLT, FLT, FLT)
+// c2         cb0            27         4  ( FLT, FLT, FLT, FLT)
 //
 //
 // Runtime generated constant mappings:
@@ -67,17 +67,17 @@
 
 // approximately 17 instruction slots used
 vs_4_0
-dcl_constantbuffer CB0[26], immediateIndexed
+dcl_constantbuffer CB0[31], immediateIndexed
 dcl_input v0.xyzw
 dcl_output o0.xyzw
 dcl_output_siv o1.xyzw, position
 dcl_temps 2
 nop 
 mov r0.xyzw, v0.xyzw
-dp4 r1.x, r0.xyzw, cb0[22].xyzw
-dp4 r1.y, r0.xyzw, cb0[23].xyzw
-dp4 r1.z, r0.xyzw, cb0[24].xyzw
-dp4 r1.w, r0.xyzw, cb0[25].xyzw
+dp4 r1.x, r0.xyzw, cb0[27].xyzw
+dp4 r1.y, r0.xyzw, cb0[28].xyzw
+dp4 r1.z, r0.xyzw, cb0[29].xyzw
+dp4 r1.w, r0.xyzw, cb0[30].xyzw
 mov r0.xyzw, cb0[0].xyzw
 nop 
 mov r1.xyzw, r1.xyzw
@@ -94,10 +94,10 @@ ret
 
 const BYTE VS_Basic[] =
 {
-     68,  88,  66,  67, 241, 150, 
-     42, 249, 190, 205, 216,  88, 
-    180,  80,  50, 104, 100, 192, 
-     30, 153,   1,   0,   0,   0, 
+     68,  88,  66,  67, 227,  56, 
+      7, 101,  77, 182,  81, 171, 
+    134, 234,  66, 116, 227,  16, 
+     58,  69,   1,   0,   0,   0, 
     172,   7,   0,   0,   4,   0, 
       0,   0,  48,   0,   0,   0, 
     124,   5,   0,   0,  36,   7, 
@@ -111,7 +111,7 @@ const BYTE VS_Basic[] =
       0,   0,  36,   0,   1,   0, 
      60,   0,   0,   0,   0,   0, 
       1,   0,   1,   0,   0,   0, 
-      0,   0,   0,   0,  22,   0, 
+      0,   0,   0,   0,  27,   0, 
       4,   0,   2,   0,   0,   0, 
       0,   0,   0,   0,   0,   0, 
       0,   2, 254, 255, 254, 255, 
@@ -332,7 +332,7 @@ const BYTE VS_Basic[] =
       0,   0,  64,   0,   1,   0, 
     104,   0,   0,   0,  89,   0, 
       0,   4,  70, 142,  32,   0, 
-      0,   0,   0,   0,  26,   0, 
+      0,   0,   0,   0,  31,   0, 
       0,   0,  95,   0,   0,   3, 
     242,  16,  16,   0,   0,   0, 
       0,   0, 101,   0,   0,   3, 
@@ -350,23 +350,23 @@ const BYTE VS_Basic[] =
       0,   0,  70,  14,  16,   0, 
       0,   0,   0,   0,  70, 142, 
      32,   0,   0,   0,   0,   0, 
-     22,   0,   0,   0,  17,   0, 
+     27,   0,   0,   0,  17,   0, 
       0,   8,  34,   0,  16,   0, 
       1,   0,   0,   0,  70,  14, 
      16,   0,   0,   0,   0,   0, 
      70, 142,  32,   0,   0,   0, 
-      0,   0,  23,   0,   0,   0, 
+      0,   0,  28,   0,   0,   0, 
      17,   0,   0,   8,  66,   0, 
      16,   0,   1,   0,   0,   0, 
      70,  14,  16,   0,   0,   0, 
       0,   0,  70, 142,  32,   0, 
-      0,   0,   0,   0,  24,   0, 
+      0,   0,   0,   0,  29,   0, 
       0,   0,  17,   0,   0,   8, 
     130,   0,  16,   0,   1,   0, 
       0,   0,  70,  14,  16,   0, 
       0,   0,   0,   0,  70, 142, 
      32,   0,   0,   0,   0,   0, 
-     25,   0,   0,   0,  54,   0, 
+     30,   0,   0,   0,  54,   0, 
       0,   6, 242,   0,  16,   0, 
       0,   0,   0,   0,  70, 142, 
      32,   0,   0,   0,   0,   0, 

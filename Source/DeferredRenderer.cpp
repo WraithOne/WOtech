@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	21.02.2016
-///			Edited:		15.08.2017
+///			Edited:		24.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -44,7 +44,7 @@ namespace WOtech
 
 		m_device->Clear(m_clearColor);
 	}
-	void DeferredRenderer::Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ float4x4 transform)
+	void DeferredRenderer::Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ WOtech::FLOAT4x4 transformation)
 	{
 	}
 	void DeferredRenderer::Submit()

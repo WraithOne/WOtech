@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	27.02.2016
-///			Edited:		18.08.2017
+///			Edited:		24.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_RENDERCOMMAND_H
@@ -26,9 +26,10 @@ namespace WOtech
 
 	struct RendererUniforms
 	{
-		DirectX::XMFLOAT4X4 ModelMatrix;
-		DirectX::XMFLOAT4X4 ViewMatrix;
-		DirectX::XMFLOAT4X4 ProjectionMatrix;
+		WOtech::FLOAT4x4 WorldMatrix;
+		WOtech::FLOAT4x4 WorldInverseMatrix;
+		WOtech::FLOAT4x4 ViewMatrix;
+		WOtech::FLOAT4x4 ProjectionMatrix;
 	};
 
 	struct RenderCommand

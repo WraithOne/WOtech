@@ -28,6 +28,10 @@ namespace WOtech
 		m_vertexBuffer = vertexBuffer;
 		m_indexBuffer = indexBuffer;
 		m_material = material;
+
+		m_position = { 0 };
+		m_scaling = { 0 };
+		m_rotation = { 0 };
 	}
 
 	void WOtech::Mesh::bindMaterial(_In_ DeviceDX11 ^ device)

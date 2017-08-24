@@ -221,8 +221,15 @@ namespace WOtech
 	public:
 		Mesh(_In_ VertexBuffer^ vertexBuffer, _In_ IndexBuffer^ indexBuffer, _In_ IMaterial^ material);
 
-		void SetGeometry(_In_ VertexBuffer^ vertex, _In_ IndexBuffer^ index) { m_vertexBuffer = vertex, m_indexBuffer = index; }
-		void SetMaterial(_In_ IMaterial^ material) { m_material = material; }
+		void setGeometry(_In_ VertexBuffer^ vertex, _In_ IndexBuffer^ index) { m_vertexBuffer = vertex, m_indexBuffer = index; }
+		void setMaterial(_In_ IMaterial^ material) { m_material = material; }
+		void setPosition(_In_  WOtech::FLOAT3 position) { m_position = position; }
+		void setScaling(_In_ WOtech::FLOAT3 scaling) { m_scaling = scaling; }
+		void setRotation(_In_ WOtech::FLOAT3 rotation) { m_rotation = rotation; }
+
+		WOtech::FLOAT3 getPosition() { return m_position; }
+		WOtech::FLOAT3 getScaling() { return m_scaling; }
+		WOtech::FLOAT3 getRotation() { return m_rotation; }
 
 		void bindMaterial(_In_ DeviceDX11^ device);
 		void Render(_In_ DeviceDX11^ device);
@@ -233,6 +240,9 @@ namespace WOtech
 		VertexBuffer^		m_vertexBuffer;
 		IndexBuffer^		m_indexBuffer;
 		IMaterial^			m_material;
+		WOtech::FLOAT3		m_position;
+		WOtech::FLOAT3		m_scaling;
+		WOtech::FLOAT3		m_rotation;
 	};
 }// WOtech
 #endif

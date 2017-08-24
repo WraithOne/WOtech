@@ -10,7 +10,7 @@
 ///			Description: Wrapper Enums/structs/funcitons for DirectX
 ///
 ///			Created:	06.11.2016
-///			Edited:		20.08.2017
+///			Edited:		2$.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DXWRAPPER_H
@@ -1352,14 +1352,36 @@ namespace WOtech
 		///
 		/// <returns>	A 4x4 matrix, used for 3D transforms. </returns>
 		////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline Windows::Foundation::Numerics::float4x4 wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4 matrix)
+		inline WOtech::FLOAT4x4 XM_CALLCONV wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4 matrix)
 		{
-			Windows::Foundation::Numerics::float4x4 temp = 
+			WOtech::FLOAT4x4 temp =
 			{
 				matrix._11, matrix._12, matrix._13, matrix._14,
 				matrix._21, matrix._22, matrix._23, matrix._24,
 				matrix._31, matrix._32, matrix._33, matrix._34,
 				matrix._41, matrix._42, matrix._43, matrix._44
+			};
+
+			return temp;
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>	DirectX::XMFLOAT4X4 </summary>
+		///
+		/// <remarks>	WraithOne, 17.04.2017. </remarks>
+		///
+		/// <param name="matrix">	A 4*4 floating point matrix. </param>
+		///
+		/// <returns>	A 4x4 matrix, used for 3D transforms. </returns>
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		inline DirectX::XMFLOAT4X4 XM_CALLCONV wrapWOFloat4x4(_In_ WOtech::FLOAT4x4 matrix)
+		{
+			DirectX::XMFLOAT4X4 temp =
+			{
+				matrix.M11, matrix.M12, matrix.M13, matrix.M14,
+				matrix.M21, matrix.M22, matrix.M23, matrix.M24,
+				matrix.M31, matrix.M32, matrix.M33, matrix.M34,
+				matrix.M41, matrix.M42, matrix.M43, matrix.M44
 			};
 
 			return temp;

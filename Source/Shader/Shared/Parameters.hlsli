@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	15.04.2017
-///			Edited:		15.04.2017
+///			Edited:		24.08.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -35,6 +35,7 @@ cbuffer Parameters : register(b0)
 	float4 FogVector                : packoffset(c14);
 
 	float4x4 World                  : packoffset(c15);
-	float3x3 WorldInverseTranspose  : packoffset(c19);
-	float4x4 WorldViewProj          : packoffset(c22);
+	float4x4 WorldInverse           : packoffset(c19);
+	float3x3 WorldInverseTranspose  : packoffset(c23);
+	float4x4 WorldViewProj          : packoffset(c27);
 };

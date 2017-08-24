@@ -20,6 +20,7 @@
 // INCLUDES //
 //////////////
 #include "pch.h"
+#include "VertexTypes.h"
 
 namespace WOtech
 {
@@ -32,7 +33,7 @@ namespace WOtech
 	{
 	public:
 		void Begin();
-		void Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ Windows::Foundation::Numerics::float4x4 transform);
+		void Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ WOtech::FLOAT4x4 transformation);
 		void Submit();
 		void End();
 		void Present();
