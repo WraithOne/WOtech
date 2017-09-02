@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		10.08.2017
+///			Edited:		02.09.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_IRENDERER_H
@@ -33,7 +33,7 @@ namespace WOtech
 	{
 	public:
 		void Begin();
-		void Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ WOtech::FLOAT4x4 transformation);
+		void Submit(_In_ Mesh^ mesh, _In_ Camera^ camera);
 		void Submit();
 		void End();
 		void Present();

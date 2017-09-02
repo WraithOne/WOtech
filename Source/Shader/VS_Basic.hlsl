@@ -23,12 +23,13 @@
 #include "Shared\Lighting.hlsli"
 
 // Vertex shader: no fog.
-VSOutputNoFog main(VSInput vin)
+VSOutputNoFog main(VSInputVc vin)
 {
 	VSOutputNoFog vout;
 
-	CommonVSOutput cout = ComputeCommonVSOutput(vin.Position);
-	SetCommonVSOutputParamsNoFog;
+	vout.PositionPS = mul(vin.Position, WorldViewProj);
+	vout.Diffuse = vin.Color;
+	
 
 	return vout;
 }

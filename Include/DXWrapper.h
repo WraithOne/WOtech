@@ -1327,23 +1327,6 @@ namespace WOtech
 		}
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts Windows::Foundation::Numerics::float4x4. </summary>
-		///
-		/// <remarks>	WraithOne, 20.08.2017. </remarks>
-		///
-		/// <param name="matrix">	A 4x4 matrix, used for 3D transforms. </param>
-		///
-		/// <returns>	A DirectX::XMMATRIX </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline DirectX::XMMATRIX XM_CALLCONV wrapXMMATRIX(_In_ Windows::Foundation::Numerics::float4x4 matrix)
-		{
-			return DirectX::XMMATRIX(matrix.m11, matrix.m12, matrix.m13, matrix.m14,
-				matrix.m21, matrix.m22, matrix.m23, matrix.m24,
-				matrix.m31, matrix.m32, matrix.m33, matrix.m34,
-				matrix.m41, matrix.m42, matrix.m43, matrix.m44);
-		}
-
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	DirectX::XMFLOAT4X4 </summary>
 		///
 		/// <remarks>	WraithOne, 17.04.2017. </remarks>
@@ -1455,6 +1438,22 @@ namespace WOtech
 			};
 
 			return DirectX::XMLoadFloat4x4(&output);
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>	Converts Windows::Foundation::Numerics::float4x4. </summary>
+		///
+		/// <remarks>	WraithOne, 20.08.2017. </remarks>
+		///
+		/// <param name="matrix">	A 4x4 matrix, used for 3D transforms. </param>
+		///
+		/// <returns>	A DirectX::XMMATRIX </returns>
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		inline WOtech::FLOAT4x4 XM_CALLCONV wrapXMMATRIX(_In_ DirectX::XMMATRIX matrix)
+		{
+			DirectX::XMFLOAT4X4 out;
+			DirectX::XMStoreFloat4x4(&out, matrix);
+			return wrapXMFloat4x4(out);
 		}
 	}
 }

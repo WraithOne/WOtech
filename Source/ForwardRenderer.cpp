@@ -39,11 +39,17 @@ namespace WOtech
 
 		m_device->Clear(m_clearColor);
 	}
-	void ForwardRenderer::Submit(_In_ Mesh^ mesh, _In_ Camera^ camera, _In_ WOtech::FLOAT4x4 transformation)
+	void ForwardRenderer::Submit(_In_ Mesh^ mesh, _In_ Camera^ camera)
 	{
 		RenderCommand command;
 		command.mesh = mesh;
-		command.uniforms.WorldMatrix = transformation;
+		command.uniforms.WorldMatrix = DXWrapper::wrapXMMATRIX(DirectX::XMMatrixTransformation(DirectX::g_XMZero,
+																DirectX::XMQuaternionIdentity(),
+																DXWrapper::XMLoadFloat3(mesh->getScaling()),
+																DirectX::g_XMZero,
+																DXWrapper::XMLoadFloat3(mesh->getRotation()),
+																DXWrapper::XMLoadFloat3(mesh->getPosition())));
+
 		command.uniforms.WorldInverseMatrix = DXWrapper::wrapXMFloat4x4(camera->InverseMatrix());
 		command.uniforms.ProjectionMatrix = DXWrapper::wrapXMFloat4x4(camera->ProjectionMatrix());
 		command.uniforms.ViewMatrix = DXWrapper::wrapXMFloat4x4(camera->ViewMatrix());
@@ -57,21 +63,24 @@ namespace WOtech
 	void ForwardRenderer::End()
 	{
 		// do sorting here
-	}
-	void ForwardRenderer::Present()
-	{
+
 		for (uint32 i = 0; i < m_CommandQueue.size(); i++)
 		{
 			// Submit Shaders, Textures
 			const RenderCommand& command = m_CommandQueue[i];
+
 			auto materialMatrices = dynamic_cast<WOtech::IMaterialMatrices^>(command.mesh->GetMaterial());
-			materialMatrices->setMatrices(command.uniforms.WorldMatrix, command.uniforms.WorldInverseMatrix, command.uniforms.ViewMatrix, command.uniforms.ProjectionMatrix);
+			if(materialMatrices)
+				materialMatrices->setMatrices(command.uniforms.WorldMatrix, command.uniforms.WorldInverseMatrix, command.uniforms.ViewMatrix, command.uniforms.ProjectionMatrix);
+
 			command.mesh->bindMaterial(m_device);
 
 			// Submit Vertex and Index data and render the final mesh
 			command.mesh->Render(m_device);
 		}
-
+	}
+	void ForwardRenderer::Present()
+	{
 		m_device->Present();
 	}
 
