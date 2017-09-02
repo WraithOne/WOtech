@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	25.02.2016
-///			Edited:		24.08.2017
+///			Edited:		02.09.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -37,9 +37,9 @@ namespace WOtech
 	///////////////////////
 	WOtech::DirectionalLight::DirectionalLight()
 	{
-		Direction =		g_XMOne;
-		DiffuseColor =	g_XMOne;
-		SpecularColor =	g_XMOne;
+		Direction = g_XMOne;
+		DiffuseColor = g_XMOne;
+		SpecularColor = g_XMOne;
 	}
 
 	///////////////////////
@@ -47,10 +47,10 @@ namespace WOtech
 	///////////////////////
 	MaterialMatrices::MaterialMatrices()
 	{
-		World =			XMMatrixIdentity();
-		View =			XMMatrixIdentity();
-		Projection =	XMMatrixIdentity();
-		worldView =		XMMatrixIdentity();
+		World = XMMatrixIdentity();
+		View = XMMatrixIdentity();
+		Projection = XMMatrixIdentity();
+		worldView = XMMatrixIdentity();
 	}
 
 	void MaterialMatrices::setConstants(_In_ DirectX::XMMATRIX& worldViewProjectionConstant, _In_ DirectX::XMMATRIX& worldConstant, _In_ DirectX::XMMATRIX& worldInverseConstant)
@@ -66,8 +66,8 @@ namespace WOtech
 	///////////////////////
 	MaterialColor::MaterialColor()
 	{
-		Alpha =			1.0f;
-		DiffuseColor =	DirectX::g_XMOne;
+		Alpha = 1.0f;
+		DiffuseColor = DirectX::g_XMOne;
 	}
 
 	void MaterialColor::setConstants(_In_ XMVECTOR& diffuseColorConstant)
@@ -79,8 +79,8 @@ namespace WOtech
 	///////////////////////
 	MaterialLights::MaterialLights()
 	{
-		EmissiveColor =		g_XMZero;
-		AmbientLightColor =	g_XMZero;
+		EmissiveColor = g_XMZero;
+		AmbientLightColor = g_XMZero;
 
 		for (int i = 0; i < MaxDirectionalLights; i++)
 		{

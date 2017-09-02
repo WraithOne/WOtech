@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	10.05.2014
-///			Edited:		22.08.2017
+///			Edited:		02.09.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -31,7 +31,6 @@
 using namespace DirectX;
 using namespace WOtech;
 
-
 namespace WOtech
 {
 	Camera::Camera()
@@ -39,7 +38,7 @@ namespace WOtech
 		// Setup the view matrix.
 		FLOAT3 eye;
 		eye.X = 0.0f;
-		eye.Y= 0.0f;
+		eye.Y = 0.0f;
 		eye.Z = 0.0f;
 
 		FLOAT3 lookAt;
@@ -116,7 +115,7 @@ namespace WOtech
 		{
 			// Portrait Oriantation
 			m_fieldOfView *= 2.0f;// todo: add resolution/oriantation to arguments for proper scaling
-		}	
+		}
 		m_nearPlane = nearPlane;
 		m_farPlane = farPlane;
 		XMStoreFloat4x4(&m_projectionMatrix, XMMatrixPerspectiveFovRH(m_fieldOfView, m_aspectRatio, m_nearPlane, m_farPlane));

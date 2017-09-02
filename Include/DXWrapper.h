@@ -1397,7 +1397,7 @@ namespace WOtech
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline DirectX::XMVECTOR XM_CALLCONV XMLoadFloat3(_In_ WOtech::FLOAT3 vector)
 		{
-			DirectX::XMFLOAT3 output = { vector.X, vector.Y , vector.Z};
+			DirectX::XMFLOAT3 output = { vector.X, vector.Y , vector.Z };
 
 			return DirectX::XMLoadFloat3(&output);
 		}
@@ -1413,7 +1413,7 @@ namespace WOtech
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline DirectX::XMVECTOR XM_CALLCONV XMLoadFloat4(_In_ WOtech::FLOAT4 vector)
 		{
-			DirectX::XMFLOAT4 output = { vector.X, vector.Y , vector.Z , vector.W};
+			DirectX::XMFLOAT4 output = { vector.X, vector.Y , vector.Z , vector.W };
 
 			return DirectX::XMLoadFloat4(&output);
 		}
@@ -1429,7 +1429,7 @@ namespace WOtech
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline DirectX::XMMATRIX XM_CALLCONV XMLoadFloat4x4(_In_ WOtech::FLOAT4x4 matrix)
 		{
-			DirectX::XMFLOAT4X4 output = 
+			DirectX::XMFLOAT4X4 output =
 			{
 				matrix.M11, matrix.M12, matrix.M13, matrix.M14,
 				matrix.M21, matrix.M22, matrix.M23, matrix.M24,

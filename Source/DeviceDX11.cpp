@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		17.08.2017
+///			Edited:		02.09.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -294,7 +294,7 @@ namespace WOtech
 		if (Target)
 		{
 			m_context->OMSetRenderTargets(1, &Target, m_depthStencilView.Get());
-		}		
+		}
 	}
 
 	void DeviceDX11::setDepthStencil(_In_ Platform::Boolean enable)
@@ -526,7 +526,7 @@ namespace WOtech
 	void DeviceDX11::CreateWindowSizeDependentResources()
 	{
 		HRESULT hr;
-		
+
 		// Clear the previous window size specific context.
 		ID3D11RenderTargetView* nullViews[] = { nullptr };
 		m_context->OMSetRenderTargets(_countof(nullViews), nullViews, nullptr);
@@ -584,7 +584,7 @@ namespace WOtech
 		else
 		{
 			// Otherwise, create a new one using the same adapter as the existing Direct3D device.
-			
+
 			// This sequence obtains the DXGI factory that was used to create the Direct3D device above.
 			ComPtr<IDXGIDevice4> dxgiDevice;
 			hr = m_device.As(&dxgiDevice);
@@ -619,7 +619,7 @@ namespace WOtech
 				&swapChainDesc,
 				nullptr,
 				dxgiSwapChain.GetAddressOf()
-				);
+			);
 			ThrowIfFailed(hr);
 
 			// Convert to IDXGISwapChain4

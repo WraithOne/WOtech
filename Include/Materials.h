@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	20.08.2017
-///			Edited:		24.08.2017
+///			Edited:		02.09.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_MATERIALS_H
@@ -123,7 +123,7 @@ namespace WOtech
 		void SetLightDiffuseColor(_In_ int whichLight, _In_ WOtech::FLOAT4 value);
 		void SetLightSpecularColor(_In_ int whichLight, _In_ WOtech::FLOAT4 value);
 
-		void EnableDefaultLighting();	
+		void EnableDefaultLighting();
 	};
 
 	public ref class BasicMaterial sealed : public IMaterial, IMaterialMatrices

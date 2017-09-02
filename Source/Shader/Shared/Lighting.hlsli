@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	15.04.2017
-///			Edited:		15.04.2017
+///			Edited:		02.09.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -19,7 +19,6 @@ struct ColorPair
 	float3 Diffuse;
 	float3 Specular;
 };
-
 
 ColorPair ComputeLights(float3 eyeVector, float3 worldNormal, uniform int numLights)
 {
@@ -54,7 +53,6 @@ ColorPair ComputeLights(float3 eyeVector, float3 worldNormal, uniform int numLig
 	return result;
 }
 
-
 CommonVSOutput ComputeCommonVSOutputWithLighting(float4 position, float3 normal, uniform int numLights)
 {
 	CommonVSOutput vout;
@@ -73,7 +71,6 @@ CommonVSOutput ComputeCommonVSOutputWithLighting(float4 position, float3 normal,
 	return vout;
 }
 
-
 struct CommonVSOutputPixelLighting
 {
 	float4 Pos_ps;
@@ -81,7 +78,6 @@ struct CommonVSOutputPixelLighting
 	float3 Normal_ws;
 	float  FogFactor;
 };
-
 
 CommonVSOutputPixelLighting ComputeCommonVSOutputPixelLighting(float4 position, float3 normal)
 {
@@ -95,12 +91,10 @@ CommonVSOutputPixelLighting ComputeCommonVSOutputPixelLighting(float4 position, 
 	return vout;
 }
 
-
 #define SetCommonVSOutputParamsPixelLighting \
 	vout.PositionPS = cout.Pos_ps; \
 	vout.PositionWS = float4(cout.Pos_ws, cout.FogFactor); \
 	vout.NormalWS = cout.Normal_ws;
-
 
 // Given a local normal, transform it into a tangent space given by surface normal and tangent
 float3 PeturbNormal(float3 localNormal, float3 surfaceNormalWS, float3 surfaceTangentWS)
@@ -108,7 +102,7 @@ float3 PeturbNormal(float3 localNormal, float3 surfaceNormalWS, float3 surfaceTa
 	float3 normal = normalize(surfaceNormalWS);
 	float3 tangent = normalize(surfaceTangentWS);
 	float3 binormal = cross(normal, tangent);     // reconstructed from normal & tangent
-	float3x3 tbn = { tangent, binormal, normal }; // world "frame" for local normal 
+	float3x3 tbn = { tangent, binormal, normal }; // world "frame" for local normal
 
 	return mul(localNormal, tbn);               // transform to local to world (tangent space)
 }

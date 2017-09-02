@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	15.04.2017
-///			Edited:		15.04.2017
+///			Edited:		02.09.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -109,8 +109,6 @@ struct VSInputNmTxWeights
 	float4 Weights  : BLENDWEIGHT0;
 };
 
-
-
 // Vertex shader output structures.
 
 struct VSOutput
@@ -193,8 +191,6 @@ struct VSOutputTxEnvMap
 	float3 EnvCoord   : TEXCOORD1;
 	float4 PositionPS : SV_Position;
 };
-
-
 
 // Pixel shader input structures.
 

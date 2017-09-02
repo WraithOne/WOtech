@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	15.04.2017
-///			Edited:		14.08.2017
+///			Edited:		02.09.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -29,7 +29,6 @@ VSOutputNoFog main(VSInputVc vin)
 
 	vout.PositionPS = mul(vin.Position, WorldViewProj);
 	vout.Diffuse = vin.Color;
-	
 
 	return vout;
 }

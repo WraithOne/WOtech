@@ -46,7 +46,7 @@ namespace WOtech
 
 		// Render command queue
 		CommandQueue m_CommandQueue;
-		
+
 		// ClearColor
 		Windows::UI::Color m_clearColor;
 	};

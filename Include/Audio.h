@@ -11,7 +11,7 @@
 ///			Header file for AudioEngine and AudioSource
 ///
 ///			Created:	01.05.2014
-///			Edited:		10.08.2017
+///			Edited:		02.09.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_AUDIO_H
@@ -76,7 +76,6 @@ namespace WOtech
 		void getBufferContext(_Out_ void* pCurrentBufferContext);
 	private:
 		void* m_pCurrentBufferContext;
-
 	};
 
 	//!

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	27.02.2016
-///			Edited:		20.08.2017
+///			Edited:		02.09.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -57,10 +57,10 @@ namespace WOtech
 		data[2]->Position = WOtech::FLOAT3{ -size / 2.0f, size / 2.0f, -size / 2.0f };
 		data[2]->Color = WOtech::FLOAT4{ 0.0f, 0.0f, 1.0f, 1.0f };
 
-		data[3]->Position = WOtech::FLOAT3{ -size / 2.0f, size / 2.0f, size / 2.0f};
+		data[3]->Position = WOtech::FLOAT3{ -size / 2.0f, size / 2.0f, size / 2.0f };
 		data[3]->Color = WOtech::FLOAT4{ 1.0f, 0.0f, 0.0f, 1.0f };
 
-		data[4]->Position = WOtech::FLOAT3{ size / 2.0f, -size / 2.0f, -size / 2.0f};
+		data[4]->Position = WOtech::FLOAT3{ size / 2.0f, -size / 2.0f, -size / 2.0f };
 		data[4]->Color = WOtech::FLOAT4{ 0.0f, 1.0f, 0.0f, 1.0f };
 
 		data[5]->Position = WOtech::FLOAT3{ size / 2.0f, -size / 2.0f, size / 2.0f };
@@ -111,15 +111,12 @@ namespace WOtech
 
 		data[0]->Position = WOtech::FLOAT3{ 0.5f, 0.5f, 0.5f };
 		data[0]->Color = WOtech::FLOAT4{ 1.0f, 0.0f, 0.0f, 1.0f };
-		
 
 		data[1]->Position = WOtech::FLOAT3{ 0.5f, -0.5f, 0.5f };
 		data[1]->Color = WOtech::FLOAT4{ 1.0f, 0.0f, 0.0f, 1.0f };
-		
 
 		data[2]->Position = WOtech::FLOAT3{ -0.5f, -0.5f, 0.5f };
 		data[2]->Color = WOtech::FLOAT4{ 1.0f, 0.0f, 0.0f, 1.0f };
-		
 
 		WORD indices[] =
 		{

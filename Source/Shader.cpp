@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		14.08.2017
+///			Edited:		02.09.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -255,7 +255,6 @@ namespace WOtech
 			hr = D3DReflect(m_vertexBlob->GetBufferPointer(), m_vertexBlob->GetBufferSize(), IID_ID3D11ShaderReflection, &pVertexShaderReflection);
 			ThrowIfFailed(hr);
 		}
-		
 
 		// Get shader info
 		D3D11_SHADER_DESC shaderDesc;

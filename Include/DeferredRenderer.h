@@ -49,7 +49,7 @@ namespace WOtech
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_modelCB;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_viewCB;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_pojectionCB;
-		
+
 		// ClearColor
 		Windows::UI::Color m_clearColor;
 	};
