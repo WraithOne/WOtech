@@ -1441,15 +1441,15 @@ namespace WOtech
 		}
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts Windows::Foundation::Numerics::float4x4. </summary>
+		/// <summary>	Converts DIrectX::XMMATRIX to WOtech::FLOAT4x4. </summary>
 		///
-		/// <remarks>	WraithOne, 20.08.2017. </remarks>
+		/// <remarks>	WraithOne, 02.09.2017. </remarks>
 		///
-		/// <param name="matrix">	A 4x4 matrix, used for 3D transforms. </param>
+		/// <param name="matrix">	DirectX::XMMATRIX. </param>
 		///
-		/// <returns>	A DirectX::XMMATRIX </returns>
+		/// <returns>	WOtech::FLOAT4x4 </returns>
 		////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline WOtech::FLOAT4x4 XM_CALLCONV wrapXMMATRIX(_In_ DirectX::XMMATRIX matrix)
+		inline WOtech::FLOAT4x4 wrapXMMATRIX(_In_ DirectX::XMMATRIX matrix)
 		{
 			DirectX::XMFLOAT4X4 out;
 			DirectX::XMStoreFloat4x4(&out, matrix);
