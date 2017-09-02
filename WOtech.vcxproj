@@ -127,7 +127,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <GenerateManifest>false</GenerateManifest>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\Include;$(ProjectDir)\ThirdParty</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\Include;$(ProjectDir)\ThirdParty;E:\WraithOne\Projects\WOtech\ThirdParty\Assimp</IncludePath>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -307,6 +307,12 @@
     <ClInclude Include="Include\VirtualController.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ThirdParty\FontFileLoader.h" />
+    <ClInclude Include="ThirdParty\ImGUI\imconfig.h" />
+    <ClInclude Include="ThirdParty\ImGUI\imgui.h" />
+    <ClInclude Include="ThirdParty\ImGUI\imgui_internal.h" />
+    <ClInclude Include="ThirdParty\ImGUI\stb_rect_pack.h" />
+    <ClInclude Include="ThirdParty\ImGUI\stb_textedit.h" />
+    <ClInclude Include="ThirdParty\ImGUI\stb_truetype.h" />
     <ClInclude Include="ThirdParty\MediaReader.h" />
     <ClInclude Include="ThirdParty\WICTextureLoader.h" />
   </ItemGroup>
@@ -354,6 +360,9 @@
     <ClCompile Include="Source\Texture.cpp" />
     <ClCompile Include="Source\VirtualController.cpp" />
     <ClCompile Include="ThirdParty\FontFileLoader.cpp" />
+    <ClCompile Include="ThirdParty\ImGUI\imgui.cpp" />
+    <ClCompile Include="ThirdParty\ImGUI\imgui_demo.cpp" />
+    <ClCompile Include="ThirdParty\ImGUI\imgui_draw.cpp" />
     <ClCompile Include="ThirdParty\MediaReader.cpp" />
     <ClCompile Include="ThirdParty\WICTextureLoader.cpp" />
   </ItemGroup>

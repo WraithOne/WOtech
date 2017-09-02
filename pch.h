@@ -69,3 +69,10 @@
 #pragma comment (lib, "dxguid.lib")
 #pragma comment (lib, "Dwrite.lib")
 #pragma comment (lib, "Windowscodecs.lib")
+
+/////////////
+// Macros  //
+/////////////
+#define IMGUI_DISABLE_WIN32_DEFAULT_CLIPBOARD_FUNCS
+#define _CRT_SECURE_NO_WARNINGS
+#define IMGUI_DISABLE_WIN32_DEFAULT_IME_FUNCS

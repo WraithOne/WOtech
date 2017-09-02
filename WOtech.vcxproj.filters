@@ -61,6 +61,12 @@
     <Filter Include="Graphic\3D\Default\Shader\Compiled">
       <UniqueIdentifier>{c3b27fe3-7c20-40e0-824a-8bbf4ca24999}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ThirdParty\ImGUI">
+      <UniqueIdentifier>{762e4be5-b164-42a2-9a76-dabc93afe977}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\AssImp">
+      <UniqueIdentifier>{4cba72dc-4e29-4f56-a6af-8b860a7f97e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ThirdParty\FontFileLoader.cpp">
@@ -175,6 +181,15 @@
       <Filter>Graphic\3D\Default</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="ThirdParty\ImGUI\imgui.cpp">
+      <Filter>ThirdParty\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\ImGUI\imgui_demo.cpp">
+      <Filter>ThirdParty\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\ImGUI\imgui_draw.cpp">
+      <Filter>ThirdParty\ImGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -265,6 +280,24 @@
     </ClInclude>
     <ClInclude Include="Include\Materials.h">
       <Filter>Graphic\3D\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGUI\imconfig.h">
+      <Filter>ThirdParty\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGUI\imgui.h">
+      <Filter>ThirdParty\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGUI\imgui_internal.h">
+      <Filter>ThirdParty\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGUI\stb_rect_pack.h">
+      <Filter>ThirdParty\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGUI\stb_textedit.h">
+      <Filter>ThirdParty\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGUI\stb_truetype.h">
+      <Filter>ThirdParty\ImGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
