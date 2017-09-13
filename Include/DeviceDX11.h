@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	31.03.2016
-///			Edited:		17.08.2017
+///			Edited:		19.09.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DEVICEDX11_H
@@ -131,6 +131,7 @@ namespace WOtech
 		IDXGIDevice4*				getDXGIDevice();
 		ID3D11DeviceContext4*		getContext();
 
+		ID3D11RenderTargetView*		getRenderTarget();
 		IDXGISurface2*				getSurface();
 
 		ID3D11DepthStencilState*	getDepthStencilState();

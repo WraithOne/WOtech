@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		02.09.2017
+///			Edited:		13.09.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -399,6 +399,11 @@ namespace WOtech
 	ID3D11DeviceContext4* DeviceDX11::getContext()
 	{
 		return m_context.Get();
+	}
+
+	ID3D11RenderTargetView * DeviceDX11::getRenderTarget()
+	{
+		return m_renderTargetView.Get();
 	}
 
 	IDXGISurface2* DeviceDX11::getSurface()
