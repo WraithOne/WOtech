@@ -525,8 +525,10 @@ namespace WOtech
 		hr = m_device.As(&m_dxgiDevice);
 		ThrowIfFailed(hr);
 
+#if defined(_DEBUG)
 		hr = m_context.As(&m_userAnnotation);
 		ThrowIfFailed(hr);
+#endif
 	}
 	void DeviceDX11::CreateWindowSizeDependentResources()
 	{
