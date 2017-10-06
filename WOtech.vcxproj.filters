@@ -299,6 +299,9 @@
     <ClInclude Include="ThirdParty\ImGUI\stb_truetype.h">
       <Filter>ThirdParty\ImGUI</Filter>
     </ClInclude>
+    <ClInclude Include="Include\AudioComponents.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Shader\Shared\Common.hlsli">

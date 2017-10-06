@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	20.09.2014
-///			Edited:		31.03.2017
+///			Edited:		04.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -23,8 +23,9 @@
 //////////////
 #include "pch.h"
 #include "Audio.h"
-#include "Utilities.h"
+#include "MediaReader.h"
 #include "SystemManager.h"
+#include <DXWrapper.h>
 
 using Windows::Devices::Enumeration::DeviceClass;
 using Windows::Devices::Enumeration::DeviceInformation;
@@ -64,7 +65,7 @@ namespace WOtech
 	void AudioEngine::Initialize()
 	{
 		//default Processor
-		XAUDIO2_PROCESSOR xaProcessor = XAUDIO2_DEFAULT_PROCESSOR;
+		AUDIO_PROCESSOR xaProcessor = AUDIO_PROCESSOR::DEFAULT_PROCESSOR;
 		CreateDeviceIndependentResources(xaProcessor);
 
 		// Default Device
@@ -73,17 +74,23 @@ namespace WOtech
 		CreateDevicedependentResources(deviceID);
 	}
 
-	void AudioEngine::CreateDeviceIndependentResources(_In_ UINT32 xaProcessor)
+	void AudioEngine::Initialize(_In_ AUDIO_PROCESSOR xaProcessor, _In_ Platform::String^ deviceID)
+	{
+		CreateDeviceIndependentResources(xaProcessor);
+		CreateDevicedependentResources(deviceID);
+	}
+
+	void AudioEngine::CreateDeviceIndependentResources(_In_ AUDIO_PROCESSOR xaProcessor)
 	{
 		HRESULT hr;
 		uint32 Flags = NULL;
 
 		// Create the effect engine
-		hr = XAudio2Create(&m_effectDevice, Flags, xaProcessor);
+		hr = XAudio2Create(&m_effectDevice, Flags, DXWrapper::wrapAUDIO_PROCESSOR(xaProcessor));
 		ThrowIfFailed(hr);
 
 		// Create the music engine
-		hr = XAudio2Create(&m_musicDevice, Flags, xaProcessor);
+		hr = XAudio2Create(&m_musicDevice, Flags, DXWrapper::wrapAUDIO_PROCESSOR(xaProcessor));
 		ThrowIfFailed(hr);
 
 #if defined(_DEBUG)
@@ -110,7 +117,7 @@ namespace WOtech
 			XAUDIO2_DEFAULT_CHANNELS,
 			XAUDIO2_DEFAULT_SAMPLERATE,
 			flags,
-			LPCWSTR(0),  // todo: get the real device ID
+			deviceID->Data(),
 			NULL,
 			_AUDIO_STREAM_CATEGORY::AudioCategory_GameEffects);
 		ThrowIfFailed(hr);
@@ -120,7 +127,7 @@ namespace WOtech
 			XAUDIO2_DEFAULT_CHANNELS,
 			XAUDIO2_DEFAULT_SAMPLERATE,
 			flags,
-			LPCWSTR(0),  // todo: get the real device ID
+			deviceID->Data(),
 			NULL,
 			_AUDIO_STREAM_CATEGORY::AudioCategory_GameMedia);
 		ThrowIfFailed(hr);
@@ -152,13 +159,13 @@ namespace WOtech
 		}
 		else
 		{
-			ThrowIfFailed(E_ABORT); // todo: hmmm
+			ThrowIfFailed(XAUDIO2_E_INVALID_CALL);
 		}
 	}
 
 	void AudioEngine::SetMasterVolume(_In_ float32 effectVolume, _In_ float32 musicVolume)
 	{
-		HRESULT hr = E_INVALIDARG;// TODO: Error for uninit device
+		HRESULT hr = XAUDIO2_E_INVALID_CALL;
 
 		if (m_effectMasterVoice)
 		{

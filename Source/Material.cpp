@@ -143,7 +143,7 @@ namespace WOtech
 	{
 		m_matrices.World = DXWrapper::XMLoadFloat4x4(world);
 	}
-	void BasicMaterial::setWorldInverse(WOtech::FLOAT4x4 worldInverse)
+	void BasicMaterial::setWorldInverse(_In_ WOtech::FLOAT4x4 worldInverse)
 	{
 		m_matrices.WorldInverse = DXWrapper::XMLoadFloat4x4(worldInverse);
 	}

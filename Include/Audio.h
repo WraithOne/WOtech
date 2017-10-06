@@ -11,7 +11,7 @@
 ///			Header file for AudioEngine and AudioSource
 ///
 ///			Created:	01.05.2014
-///			Edited:		02.09.2017
+///			Edited:		06.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_AUDIO_H
@@ -25,9 +25,8 @@
 // INCLUDES //
 //////////////
 #include "pch.h"
-
 #include "Utilities.h"
-#include "MediaReader.h"
+#include "AudioComponents.h"
 
 /////////////
 // LINKING //
@@ -36,79 +35,6 @@
 
 namespace WOtech
 {
-	//!
-	/*! Enumartion of available Audio typs. */
-	public enum class AUDIO_TYPE
-	{
-		Effect,	/*!< Use for Sounds.*/
-		Music	/*!< Use for Music.*/
-	};
-
-	//!
-	/*! Enumartion of the current Playback state. */
-	public enum class AUDIO_PLAYBACK_STATE
-	{
-		Stopped,	/*!< Playback stopped.*/
-		Playing,	/*!< Playback.*/
-		Paused		/*!< Playback paused.*/
-	};
-
-	//!
-	/*! Pointer to a buffer context provided in the XAUDIO2_BUFFER that is processed currently. */
-	public ref class BufferContext sealed
-	{
-	public:
-		//! Constructor.
-		/*!
-		*/
-		BufferContext();
-
-	internal:
-		//! setBufferContext.
-		/*!
-		\param Pointer to a buffer context provided in the XAUDIO2_BUFFER that is processed currently.
-		*/
-		void setBufferContext(_In_ void* pCurrentBufferContext);
-		//! getBufferContext.
-		/*!
-		\param Pointer to a buffer context provided in the XAUDIO2_BUFFER that is processed currently, or, if the voice is stopped currently, to the next buffer due to be processed. pCurrentBufferContext is NULL if there are no buffers in the queue.
-		*/
-		void getBufferContext(_Out_ void* pCurrentBufferContext);
-	private:
-		void* m_pCurrentBufferContext;
-	};
-
-	//!
-	/*! Current Voice state. */
-	public ref class VOICE_STATE sealed
-	{
-	public:
-		property UINT32 BuffersQueued;	/*!< Total Buffer´s qued.*/
-		property UINT64 SamplesPlayed;	/*!< Sample´s play since last start, incl. loops.*/
-
-	internal:
-		BufferContext pCurrentBufferContext;	/*!< Pointer to current Buffer, NULL if none.*/
-	};
-
-	//!
-	/*! Current Audiosource state. */
-	public ref class AUDIOSOURCE_STATE sealed
-	{
-	public:
-		property AUDIO_PLAYBACK_STATE PlaybackState;	/*!< current PlaybackState.*/
-
-	internal:
-		VOICE_STATE VoiceState;	/*!< current VoiceState.*/
-	};
-
-	//!
-	/*! Device details. */
-	public value struct DEVICE_DETAILS
-	{
-		Platform::String^ DeviceID;		/*!< Device ID.*/
-		Platform::String^ DisplayName;	/*!< Device name.*/
-	};
-
 	//! AudioEngine
 	/*! Manages all audio engine states, the audio processing thread, the voice graph, and so forth.  */
 	public ref class AudioEngine sealed
@@ -123,11 +49,18 @@ namespace WOtech
 		Initializes the AudioEngine with default options
 		*/
 		void Initialize();
+		//! Initialize.
+		/*!
+		Initializes the AudioEngine.
+		\param xaProcessor assign AudioEngine to specific CPU, default is XADUIO_DEFAULT_PROCESSOR.
+		\param deviceID assign AudioEngine to a hardware device, default is 0. It can obtained from GetDeviceDetails.
+		*/
+		void Initialize(_In_ AUDIO_PROCESSOR xaProcessor, _In_ Platform::String^ deviceID);
 		//! CreateDeviceIndependentResources.
 		/*!
-		\param xaProcessor assign AudioEngine to specific CPU, default is XADUIO_DEFAULT_PROCESSOR..
+		\param xaProcessor assign AudioEngine to specific CPU, default is XADUIO_DEFAULT_PROCESSOR.
 		*/
-		void CreateDeviceIndependentResources(_In_ UINT32 xaProcessor);
+		void CreateDeviceIndependentResources(_In_ AUDIO_PROCESSOR xaProcessor);
 		//! CreateDevicedependentResources.
 		/*!
 		\param deviceID assign AudioEngine to a hardware device, default is 0. It can obtained from GetDeviceDetails.

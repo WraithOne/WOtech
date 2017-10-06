@@ -10,7 +10,7 @@
 ///			Description: Wrapper Enums/structs/funcitons for DirectX
 ///
 ///			Created:	06.11.2016
-///			Edited:		2$.08.2017
+///			Edited:		06.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DXWRAPPER_H
@@ -22,6 +22,7 @@
 #include "pch.h"
 #include "Utilities.h"
 #include "VertexTypes.h"
+#include "AudioComponents.h"
 
 namespace WOtech
 {
@@ -1208,7 +1209,7 @@ namespace WOtech
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	A description of a single element for the input-assembler stage. </summary>
 		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
+		/// <remarks>	WraithOne, 08.10.2017. </remarks>
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		public value struct INPUT_ELEMENT_DESC
 		{
@@ -1221,7 +1222,7 @@ namespace WOtech
 			/// <summary>	An integer value that identifies the input-assembler (see input slot). Valid values are between 0 and 15.< / summary>
 			UINT							InputSlot;
 			/// <summary>	Optional. Offset (in bytes) between each element. Use D3D11_APPEND_ALIGNED_ELEMENT for convenience to define the current element directly after the previous one, including any packing if necessary.< / summary>
-			unsigned int					AlignedByteOffset;
+			UINT					AlignedByteOffset;
 			/// <summary>	Identifies the input data class for a single input slot.< / summary>
 			INPUT_CLASSIFICATION			InputSlotClass;
 			/// <summary>	The number of instances to draw using the same per-instance data before advancing in the buffer by one element. This value must be 0 for an element that contains per-vertex data (the slot class is set to D3D11_INPUT_PER_VERTEX_DATA).< / summary>
@@ -1454,6 +1455,126 @@ namespace WOtech
 			DirectX::XMFLOAT4X4 out;
 			DirectX::XMStoreFloat4x4(&out, matrix);
 			return wrapXMFloat4x4(out);
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>	Converts WOtech::AUDIO_PROCESSOR to XAUDIO2_PROCESSOR. </summary>
+		///
+		/// <remarks>	WraithOne, 06.10.2017. </remarks>
+		///
+		/// <param name="processor">	WOtech::AUDIO_PROCESSOR. </param>
+		///
+		/// <returns>	XAUDIO2_PROCESSOR </returns>
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		inline XAUDIO2_PROCESSOR wrapAUDIO_PROCESSOR(_In_ WOtech::AUDIO_PROCESSOR processor)
+		{
+			switch (processor)
+			{
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR1:
+				return Processor1;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR2:
+				return Processor2;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR3:
+				return Processor3;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR4:
+				return Processor4;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR5:
+				return Processor5;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR6:
+				return Processor6;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR7:
+				return Processor7;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR8:
+				return Processor8;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR9:
+				return Processor9;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR10:
+				return Processor10;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR11:
+				return Processor11;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR12:
+				return Processor12;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR13:
+				return Processor13;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR14:
+				return Processor14;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR15:
+				return Processor15;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR16:
+				return Processor16;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR17:
+				return Processor17;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR18:
+				return Processor18;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR19:
+				return Processor19;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR20:
+				return Processor20;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR21:
+				return Processor21;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR22:
+				return Processor22;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR23:
+				return Processor23;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR24:
+				return Processor24;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR25:
+				return Processor25;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR26:
+				return Processor26;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR27:
+				return Processor27;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR28:
+				return Processor28;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR29:
+				return Processor29;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR30:
+				return Processor30;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR31:
+				return Processor31;
+				break;
+			case WOtech::AUDIO_PROCESSOR::PROCESSOR32:
+				return Processor32;
+				break;
+			case WOtech::AUDIO_PROCESSOR::ANY_PROCESSOR:
+				return XAUDIO2_ANY_PROCESSOR;
+				break;
+			case WOtech::AUDIO_PROCESSOR::DEFAULT_PROCESSOR:
+				return XAUDIO2_DEFAULT_PROCESSOR;
+				break;
+			default:
+				return XAUDIO2_DEFAULT_PROCESSOR;
+				break;
+			}
 		}
 	}
 }

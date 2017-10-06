@@ -281,6 +281,7 @@
     <ClInclude Include="Include\2DComponents.h" />
     <ClInclude Include="Include\3DComponents.h" />
     <ClInclude Include="Include\Audio.h" />
+    <ClInclude Include="Include\AudioComponents.h" />
     <ClInclude Include="Include\ContentManager.h" />
     <ClInclude Include="Include\DefaultFactory.h" />
     <ClInclude Include="Include\DeferredRenderer.h" />

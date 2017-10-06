@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	10.10.2014
-///			Edited:		10.08.2017
+///			Edited:		04.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -19,6 +19,7 @@
 //////////////
 #include "pch.h"
 #include "Audio.h"
+#include "MediaReader.h"
 
 using namespace Platform;
 
@@ -217,8 +218,8 @@ namespace WOtech
 				m_playbackState = AUDIO_PLAYBACK_STATE::Stopped;
 
 		state->PlaybackState = m_playbackState;
-		state->VoiceState.BuffersQueued = temp_state.BuffersQueued;
-		state->VoiceState.SamplesPlayed = temp_state.SamplesPlayed;
-		state->VoiceState.pCurrentBufferContext.setBufferContext(temp_state.pCurrentBufferContext);
+		state->VoiceState->BuffersQueued = temp_state.BuffersQueued;
+		state->VoiceState->SamplesPlayed = temp_state.SamplesPlayed;
+		state->VoiceState->pCurrentBufferContext->setBufferContext(temp_state.pCurrentBufferContext);
 	}
 } //namespace WOtech

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.02.2016
-///			Edited:		21.08.2017
+///			Edited:		04.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -34,7 +34,7 @@ namespace WOtech
 		m_rotation = { 0 };
 	}
 
-	void WOtech::Mesh::bindMaterial(_In_ DeviceDX11 ^ device)
+	void WOtech::Mesh::bindMaterial(_In_ DeviceDX11^ device)
 	{
 		m_material->bindMaterial(device);
 	}
