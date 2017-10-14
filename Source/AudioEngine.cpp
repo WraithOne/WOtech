@@ -69,9 +69,20 @@ namespace WOtech
 		CreateDeviceIndependentResources(xaProcessor);
 
 		// Default Device
-		Platform::String^ deviceID = "0";
+		UINT devCount = 0;
+		
+		GetDeviceCount(m_effectDevice.Get(), &devCount);
 
-		CreateDevicedependentResources(deviceID);
+		auto devDetails = ref new Platform::Array<WOtech::DEVICE_DETAILS>(devCount);
+		unsigned int i = 0;
+		for (i = 0; i < devDetails->Length; i++)
+		{
+			GetDeviceDetails(m_effectDevice.Get(), i, &devDetails[i]);
+			if (devDetails[i].isDefault)
+				break;
+		}
+
+		CreateDevicedependentResources(devDetails[i].DeviceID);
 	}
 
 	void AudioEngine::Initialize(_In_ AUDIO_PROCESSOR xaProcessor, _In_ Platform::String^ deviceID)
@@ -231,6 +242,8 @@ namespace WOtech
 	{
 		UNREFERENCED_PARAMETER(device);
 
+		auto defaultDevice = Windows::Media::Devices::MediaDevice::GetDefaultAudioRenderId(Windows::Media::Devices::AudioDeviceRole::Default);
+
 #if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
 		// Windows Phone doesn't seem to have the same device enumeration APIs that
 		// Windows 8/RT has, or it doesn't have them at all.  In lieu of this,
@@ -257,9 +270,11 @@ namespace WOtech
 		}
 
 		DeviceInformation^ d = devices->GetAt(index);
+
 		details->DeviceID = d->Id;
 		details->DisplayName = d->Name;
-
+		details->isDefault = d->Id == defaultDevice;
+		details->isEnabled = d->IsEnabled;
 #endif
 	}
 }//namespace WOtech

@@ -11,7 +11,7 @@
 ///			Header file for Audio Components
 ///
 ///			Created:	06.10.2017
-///			Edited:		06.10.2017
+///			Edited:		14.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_AUDIOCOMPONENTS_H
@@ -140,6 +140,8 @@ namespace WOtech
 	{
 		Platform::String^ DeviceID;		/*!< Device ID.*/
 		Platform::String^ DisplayName;	/*!< Device name.*/
+		Platform::Boolean isDefault;	/*!< Is default Device.*/
+		Platform::Boolean isEnabled;	/*!< Is Enabled.*/
 	};
 }
 #endif
