@@ -1442,15 +1442,15 @@ namespace WOtech
 		}
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts DIrectX::XMMATRIX to WOtech::FLOAT4x4. </summary>
+		/// <summary>	Converts DirectX::XMMATRIX to WOtech::FLOAT4x4. </summary>
 		///
-		/// <remarks>	WraithOne, 02.09.2017. </remarks>
+		/// <remarks>	WraithOne, 14.10.2017. </remarks>
 		///
 		/// <param name="matrix">	DirectX::XMMATRIX. </param>
 		///
 		/// <returns>	WOtech::FLOAT4x4 </returns>
 		////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline WOtech::FLOAT4x4 wrapXMMATRIX(_In_ DirectX::XMMATRIX matrix)
+		inline WOtech::FLOAT4x4 wrapXMMATRIX(_In_ const DirectX::XMMATRIX& matrix)
 		{
 			DirectX::XMFLOAT4X4 out;
 			DirectX::XMStoreFloat4x4(&out, matrix);
