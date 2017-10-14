@@ -65,34 +65,41 @@ namespace WOtech
 		// todo: Content Manager
 	}
 
-	void AudioSource::LoadWave()
+	void AudioSource::CreateSourceVoice()
 	{
+		HRESULT hr;
+
 		if (m_audioEngine->GetEffectEngine() == nullptr || m_audioEngine->GetMusicEngine() == nullptr)
 		{
-			// Audio is not available so just return.
+			// Audio is not available.
 			ThrowIfFailed(XAUDIO2_E_INVALID_CALL);
 		}
-		HRESULT hr;
-		MediaReader^ mediaReader = ref new MediaReader;
-		m_soundData = mediaReader->LoadMedia(m_fileName);
-
-		WAVEFORMATEX *sourceFormat = { 0 };
-		sourceFormat = mediaReader->GetOutputWaveFormatEx();
 
 		if (m_audioType == AUDIO_TYPE::Effect)
 		{
 			// Create a source voice for this sound effect.
-			hr = m_audioEngine->GetEffectEngine()->CreateSourceVoice(&m_sourceVoice, sourceFormat, 0, XAUDIO2_DEFAULT_FREQ_RATIO, &m_voiceCallback, NULL, NULL);
+			hr = m_audioEngine->GetEffectEngine()->CreateSourceVoice(&m_sourceVoice, m_sourceFormat, 0, XAUDIO2_DEFAULT_FREQ_RATIO, &m_voiceCallback, NULL, NULL);
 			ThrowIfFailed(hr);
 		}
 		else
 		{
 			// Create a source voice for this music track.
-			hr = m_audioEngine->GetMusicEngine()->CreateSourceVoice(&m_sourceVoice, sourceFormat, 0, XAUDIO2_DEFAULT_FREQ_RATIO, &m_voiceCallback, NULL, NULL);
+			hr = m_audioEngine->GetMusicEngine()->CreateSourceVoice(&m_sourceVoice, m_sourceFormat, 0, XAUDIO2_DEFAULT_FREQ_RATIO, &m_voiceCallback, NULL, NULL);
 			ThrowIfFailed(hr);
 		}
 
 		m_audioAvailable = true;
+	}
+
+	void AudioSource::LoadWave()
+	{
+		MediaReader^ mediaReader = ref new MediaReader;
+		m_soundData = mediaReader->LoadMedia(m_fileName);
+
+		m_sourceFormat = new WAVEFORMATEX;
+		m_sourceFormat = mediaReader->GetOutputWaveFormatEx();
+
+		CreateSourceVoice();
 	}
 
 	void AudioSource::Play()

@@ -11,7 +11,7 @@
 ///			Header file for AudioEngine and AudioSource
 ///
 ///			Created:	01.05.2014
-///			Edited:		06.10.2017
+///			Edited:		14.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_AUDIO_H
@@ -197,6 +197,10 @@ namespace WOtech
 		/*!
 		*/
 		~AudioSource();
+		//! CreateSourceVoice
+		/*!
+		*/
+		void CreateSourceVoice();
 		//! VoiceCallback
 		/*!
 		*/
@@ -228,6 +232,7 @@ namespace WOtech
 		AUDIO_PLAYBACK_STATE								m_playbackState;
 
 		VoiceCallback										m_voiceCallback;
+		WAVEFORMATEX*										m_sourceFormat;
 		IXAudio2SourceVoice*								m_sourceVoice;
 		Platform::Array<byte>^								m_soundData;
 	}; // ref class AudioSource
