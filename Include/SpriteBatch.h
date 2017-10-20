@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		27.11.2016
+///			Edited:		16.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SPRITEBATCH_H
@@ -60,20 +60,34 @@ namespace WOtech
 		void DrawText(_In_ WOtech::Text^ text);
 		void DrawFont(_In_ WOtech::Font^ font, _In_ float32 fontSize, _In_ WOtech::DXWrapper::RECT layoutbox, _In_ WOtech::DXWrapper::FONT_STYLE style, _In_ Windows::UI::Color color, _In_ float32 rotation, _In_ Platform::String^ text);
 
+		void DrawBitmap(_In_ WOtech::Bitmap^ bitmap);
+		void DrawBitmap(_In_ WOtech::Bitmap^ bitmap, _In_ WOtech::DXWrapper::RECT srcRect, _In_ WOtech::DXWrapper::RECT destRect, _In_ float32 opacity, _In_ float32 rotation);
+
 		void DrawSprite(_In_ WOtech::Sprite^ sprite);
 		void DrawSprite(_In_ WOtech::Sprite^ sprite, _In_ WOtech::DXWrapper::RECT srcRect, _In_ WOtech::DXWrapper::RECT destRect, _In_ float32 opacity, _In_ float32 rotation, _In_ WOtech::SPRITE_FLIP_MODE flipmode);
+		
 		void DrawAnimatedSprite(_In_ WOtech::AnimatedSprite^ animatedsprite, _In_ Platform::String^ name);
 
 		void DrawGrid(_In_ WOtech::DXWrapper::RECT area, _In_ Windows::UI::Color color, _In_ float32 rotation);
+		
 		void DrawCircle(_In_ CIRCLE circle);
 		void DrawCircleOutlined(_In_ CIRCLE_OUTLINED circleOutlined);
 		void DrawCircleFilled(_In_ CIRCLE_FILLED circleFilled);
+
 		void DrawRectangle(_In_ RECTANGLE rectangle);
 		void DrawRectangleOutlined(_In_ RECTANGLE_OUTLINED rectangleOutlined);
 		void DrawRectangleFilled(_In_ RECTANGLE_FILLED rectangleFilled);
+
 		void DrawGeometry(_In_ Geometry^ geometry, _In_ FLOAT strokeWidth);
+
 		// Getter
+		WOtech::Image^ getRenderTarget();
 		Windows::Foundation::Size	getLogicalSize();
+
+		// Setter
+		void setRenderTarget(_In_ WOtech::Image^ rendertarget);
+		void setRendertarget(_In_ WOtech::Bitmap^ rendertarget);
+
 	internal:
 		void Initialize();
 		void ReleaseRendertarget();

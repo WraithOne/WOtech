@@ -105,7 +105,7 @@ namespace WOtech
 		m_Bitmap.Reset();
 	}
 
-	ID2D1Bitmap* Sprite::getBitmap()
+	ID2D1Bitmap1* Sprite::getBitmap()
 	{
 		return m_Bitmap.Get();
 	}

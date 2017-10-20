@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.04.2016
-///			Edited:		07.03.2017
+///			Edited:		20.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_2DCOMPONENTS_H
@@ -97,6 +97,37 @@ namespace WOtech
 		Windows::Foundation::Point	SourcePosition;
 	};
 
+	public ref class Image sealed
+	{
+	public:
+		Image();
+
+	internal:
+		Image(_In_ ID2D1Image* image);
+
+		void setImage(_In_ ID2D1Image* image);
+		ID2D1Image* getImage();
+
+	private:
+		Microsoft::WRL::ComPtr<ID2D1Image>	m_image;
+	};
+
+	public ref class Bitmap sealed
+	{
+	public:
+		Bitmap();
+		Bitmap(_In_ WOtech::SpriteBatch^ spriteBatch, _In_ UINT width, _In_ UINT height);
+		
+	internal:
+		Bitmap(_In_ ID2D1Bitmap1* bitmap);
+
+		void setBitmap(_In_ ID2D1Bitmap1* bitmap);
+		ID2D1Bitmap1* getBitmap();
+
+	private:
+		Microsoft::WRL::ComPtr<ID2D1Bitmap1>	m_bitmap;
+	};
+
 	public ref class Sprite sealed
 	{
 	public:
@@ -127,14 +158,14 @@ namespace WOtech
 		WOtech::DXWrapper::BITMAP_INTERPOLATION_MODE	getInterpolation();
 
 	internal:
-		ID2D1Bitmap*									getBitmap();
+		ID2D1Bitmap1*									getBitmap();
 
 	private:
 		~Sprite();
 
 	private:
 		Platform::String^								m_fileName;
-		Microsoft::WRL::ComPtr<ID2D1Bitmap>				m_Bitmap;
+		Microsoft::WRL::ComPtr<ID2D1Bitmap1>			m_Bitmap;
 
 		WOtech::DXWrapper::RECT							m_sourceRect;
 		Windows::Foundation::Point						m_position;

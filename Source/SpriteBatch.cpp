@@ -241,6 +241,15 @@ namespace WOtech
 		SafeRelease(&temp);
 	}
 
+	void SpriteBatch::DrawBitmap(WOtech::Bitmap ^ bitmap)
+	{
+		throw ref new Platform::NotImplementedException();
+	}
+	void SpriteBatch::DrawBitmap(WOtech::Bitmap ^ bitmap, WOtech::DXWrapper::RECT srcRect, WOtech::DXWrapper::RECT destRect, float32 opacity, float32 rotation)
+	{
+		throw ref new Platform::NotImplementedException();
+	}
+
 	void SpriteBatch::DrawSprite(_In_ Sprite^ sprite)
 	{
 		// Create a Rect to hold Position and Size of the Sprite
@@ -303,6 +312,7 @@ namespace WOtech
 		// Draw the Sprite
 		m_deviceContext->DrawBitmap(sprite->getBitmap(), wrapRect(destRect), opacity, wrapBitmapInterpolationMode(sprite->getInterpolation()), wrapRect(srcRect));
 	}
+	
 	void SpriteBatch::DrawAnimatedSprite(_In_ AnimatedSprite^ animatedsprite, _In_ String^ name)
 	{
 		// Create a Rect to hold Position and Size of the Sprite
@@ -384,6 +394,7 @@ namespace WOtech
 		// Draw Circle
 		m_deviceContext->FillEllipse(D2D1::Ellipse(wrapPoint(circleFilled.position), circleFilled.radius, circleFilled.radius), m_circleBrush.Get());
 	}
+	
 	void SpriteBatch::DrawRectangle(_In_ RECTANGLE rectangle)
 	{
 		// Set Rotation
@@ -432,14 +443,32 @@ namespace WOtech
 		return m_deviceContext.Get();
 	}
 
-	ID2D1Factory3 * SpriteBatch::getFactory()
+	ID2D1Factory3* SpriteBatch::getFactory()
 	{
 		return m_factory.Get();
 	}
 
+	WOtech::Image^ SpriteBatch::getRenderTarget()
+	{
+		ID2D1Image* rendertarget = nullptr;
+
+		m_deviceContext->GetTarget(&rendertarget);
+
+		return ref new WOtech::Image(rendertarget);
+	}
+	
 	Size SpriteBatch::getLogicalSize()
 	{
 		return m_deviceDX11->getLogicalSize();
+	}
+
+	void SpriteBatch::setRenderTarget(_In_ WOtech::Image^ rendertarget)
+	{
+		m_deviceContext->SetTarget(rendertarget->getImage());
+	}
+	void SpriteBatch::setRendertarget(WOtech::Bitmap^ rendertarget)
+	{
+		m_deviceContext->SetTarget(rendertarget->getBitmap());
 	}
 
 	void SpriteBatch::setRotation(_In_ WOtech::DXWrapper::RECT area, _In_ float32 rotation)

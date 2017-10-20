@@ -116,6 +116,10 @@ namespace WOtech
 	public ref class VOICE_STATE sealed
 	{
 	public:
+		VOICE_STATE()
+		{
+			pCurrentBufferContext = ref new BufferContext;
+		}
 		property UINT32 BuffersQueued;	/*!< Total Buffer´s qued.*/
 		property UINT64 SamplesPlayed;	/*!< Sample´s play since last start, incl. loops.*/
 
@@ -128,6 +132,10 @@ namespace WOtech
 	public ref class AUDIOSOURCE_STATE sealed
 	{
 	public:
+		AUDIOSOURCE_STATE()
+		{
+			VoiceState = ref new WOtech::VOICE_STATE;
+		}
 		property AUDIO_PLAYBACK_STATE PlaybackState;	/*!< current PlaybackState.*/
 
 	internal:

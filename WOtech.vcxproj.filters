@@ -190,6 +190,12 @@
     <ClCompile Include="ThirdParty\ImGUI\imgui_draw.cpp">
       <Filter>ThirdParty\ImGUI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Bitmap.cpp">
+      <Filter>Graphic\2D\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Image.cpp">
+      <Filter>Graphic\2D\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
