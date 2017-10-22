@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.04.2016
-///			Edited:		20.10.2017
+///			Edited:		22.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_2DCOMPONENTS_H
@@ -117,7 +117,10 @@ namespace WOtech
 	public:
 		Bitmap();
 		Bitmap(_In_ WOtech::SpriteBatch^ spriteBatch, _In_ UINT width, _In_ UINT height);
-		
+
+		Windows::Foundation::Size getSize();
+		WOtech::DXWrapper::RECT getSourceRECT();
+
 	internal:
 		Bitmap(_In_ ID2D1Bitmap1* bitmap);
 

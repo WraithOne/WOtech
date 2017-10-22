@@ -70,7 +70,7 @@ namespace WOtech
 
 		// Default Device
 		UINT devCount = 0;
-		
+
 		GetDeviceCount(m_effectDevice.Get(), &devCount);
 
 		auto devDetails = ref new Platform::Array<WOtech::DEVICE_DETAILS>(devCount);

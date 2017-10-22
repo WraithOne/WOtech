@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		17.08.2017
+///			Edited:		22.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -241,13 +241,18 @@ namespace WOtech
 		SafeRelease(&temp);
 	}
 
-	void SpriteBatch::DrawBitmap(WOtech::Bitmap ^ bitmap)
+	void SpriteBatch::DrawBitmap(WOtech::Bitmap^ bitmap)
 	{
-		throw ref new Platform::NotImplementedException();
+		m_deviceContext->DrawBitmap(bitmap->getBitmap());
 	}
-	void SpriteBatch::DrawBitmap(WOtech::Bitmap ^ bitmap, WOtech::DXWrapper::RECT srcRect, WOtech::DXWrapper::RECT destRect, float32 opacity, float32 rotation)
+	void SpriteBatch::DrawBitmap(WOtech::Bitmap^ bitmap, WOtech::DXWrapper::RECT srcRect, WOtech::DXWrapper::RECT destRect, float32 opacity, float32 rotation)
 	{
-		throw ref new Platform::NotImplementedException();
+		// Create a Rect to hold Position and Size of the Bitmap
+		auto rect = WOtech::DXWrapper::RECT{ destRect.X, destRect.Y, srcRect.Width, srcRect.Height };
+
+		// Set Rotation
+		setRotation(rect, rotation);
+		m_deviceContext->DrawBitmap(bitmap->getBitmap(), wrapRect(destRect), opacity, D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, wrapRect(srcRect));//wrapBitmapInterpolationMode(sprite->getInterpolation())
 	}
 
 	void SpriteBatch::DrawSprite(_In_ Sprite^ sprite)
@@ -312,7 +317,7 @@ namespace WOtech
 		// Draw the Sprite
 		m_deviceContext->DrawBitmap(sprite->getBitmap(), wrapRect(destRect), opacity, wrapBitmapInterpolationMode(sprite->getInterpolation()), wrapRect(srcRect));
 	}
-	
+
 	void SpriteBatch::DrawAnimatedSprite(_In_ AnimatedSprite^ animatedsprite, _In_ String^ name)
 	{
 		// Create a Rect to hold Position and Size of the Sprite
@@ -394,7 +399,7 @@ namespace WOtech
 		// Draw Circle
 		m_deviceContext->FillEllipse(D2D1::Ellipse(wrapPoint(circleFilled.position), circleFilled.radius, circleFilled.radius), m_circleBrush.Get());
 	}
-	
+
 	void SpriteBatch::DrawRectangle(_In_ RECTANGLE rectangle)
 	{
 		// Set Rotation
@@ -456,7 +461,7 @@ namespace WOtech
 
 		return ref new WOtech::Image(rendertarget);
 	}
-	
+
 	Size SpriteBatch::getLogicalSize()
 	{
 		return m_deviceDX11->getLogicalSize();

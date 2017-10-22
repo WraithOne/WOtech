@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		16.10.2017
+///			Edited:		22.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SPRITEBATCH_H
@@ -65,11 +65,11 @@ namespace WOtech
 
 		void DrawSprite(_In_ WOtech::Sprite^ sprite);
 		void DrawSprite(_In_ WOtech::Sprite^ sprite, _In_ WOtech::DXWrapper::RECT srcRect, _In_ WOtech::DXWrapper::RECT destRect, _In_ float32 opacity, _In_ float32 rotation, _In_ WOtech::SPRITE_FLIP_MODE flipmode);
-		
+
 		void DrawAnimatedSprite(_In_ WOtech::AnimatedSprite^ animatedsprite, _In_ Platform::String^ name);
 
 		void DrawGrid(_In_ WOtech::DXWrapper::RECT area, _In_ Windows::UI::Color color, _In_ float32 rotation);
-		
+
 		void DrawCircle(_In_ CIRCLE circle);
 		void DrawCircleOutlined(_In_ CIRCLE_OUTLINED circleOutlined);
 		void DrawCircleFilled(_In_ CIRCLE_FILLED circleFilled);
