@@ -297,6 +297,7 @@
     <ClInclude Include="Include\IRenderer.h" />
     <ClInclude Include="Include\Materials.h" />
     <ClInclude Include="Include\Network.h" />
+    <ClInclude Include="Include\Numerics.h" />
     <ClInclude Include="Include\RenderCommand.h" />
     <ClInclude Include="Include\SpriteBatch.h" />
     <ClInclude Include="Include\Storage.h" />

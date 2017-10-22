@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	13.09.2014
-///			Edited:		07.03.2017
+///			Edited:		22.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -22,6 +22,7 @@
 #include "SpriteBatch.h"
 #include "Utilities.h"
 #include "ContentManager.h"
+#include <DXWrapper.h>
 
 using namespace Platform;
 using namespace Windows::Foundation;
@@ -192,7 +193,7 @@ namespace WOtech
 		return temp;
 	}
 
-	WOtech::DXWrapper::RECT AnimatedSprite::getFrame(_In_ String^ name)
+	WOtech::RECT AnimatedSprite::getFrame(_In_ String^ name)
 	{
 		std::list<ANIMATION>::iterator iterator;
 
@@ -200,7 +201,7 @@ namespace WOtech
 		{
 			if (iterator->Name == name)
 			{
-				WOtech::DXWrapper::RECT temp;
+				WOtech::RECT temp;
 				WOtech::ANIMATION animation = *iterator;
 
 				float32 left = animation.SourcePosition.X + (animation.FrameSize.Width * animation.ActualFrame);
@@ -213,7 +214,7 @@ namespace WOtech
 				return temp;
 			}
 		}
-		return WOtech::DXWrapper::RECT{ 0.0f, 0.0f, 0.0f, 0.0f };
+		return WOtech::RECT{ 0.0f, 0.0f, 0.0f, 0.0f };
 	}
 	float32 AnimatedSprite::getOpacity()
 	{

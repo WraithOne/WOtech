@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	14.11.2016
-///			Edited:		17.08.2017
+///			Edited:		22.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -20,10 +20,12 @@
 #include "pch.h"
 #include "2DComponents.h"
 #include "SpriteBatch.h"
+#include <Utilities.h>
+#include <DXWrapper.h>
 
-using namespace WOtech::DXWrapper;
 using namespace Windows::Foundation;
 using namespace Windows::UI;
+using namespace WOtech::DXWrapper;
 
 namespace WOtech
 {
@@ -31,7 +33,7 @@ namespace WOtech
 	{
 		// todo: Content Manager
 	}
-	void WOtech::Geometry::Create(SpriteBatch ^ spritebatch)
+	void WOtech::Geometry::Create(SpriteBatch^ spritebatch)
 	{
 		HRESULT hr;
 		// Create GeometryPath

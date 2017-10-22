@@ -42,10 +42,10 @@ namespace WOtech
 		return Windows::Foundation::Size(size.width, size.height);
 	}
 
-	WOtech::DXWrapper::RECT Bitmap::getSourceRECT()
+	WOtech::RECT Bitmap::getSourceRECT()
 	{
 		auto size = m_bitmap->GetSize();
-		return WOtech::DXWrapper::RECT{ 0.0f, 0.0f, size.width, size.height };
+		return WOtech::RECT{ 0.0f, 0.0f, size.width, size.height };
 	}
 
 	Bitmap::Bitmap(_In_ ID2D1Bitmap1* bitmap)

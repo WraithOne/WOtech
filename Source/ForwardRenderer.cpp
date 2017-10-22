@@ -43,16 +43,16 @@ namespace WOtech
 	{
 		RenderCommand command;
 		command.mesh = mesh;
-		command.uniforms.WorldMatrix = DXWrapper::wrapXMMATRIX(DirectX::XMMatrixTransformation(DirectX::g_XMZero,
+		command.uniforms.WorldMatrix = wrapXMMATRIX(DirectX::XMMatrixTransformation(DirectX::g_XMZero,
 			DirectX::XMQuaternionIdentity(),
-			DXWrapper::XMLoadFloat3(mesh->getScaling()),
+			XMLoadFloat3(mesh->getScaling()),
 			DirectX::g_XMZero,
-			DXWrapper::XMLoadFloat3(mesh->getRotation()),
-			DXWrapper::XMLoadFloat3(mesh->getPosition())));
+			XMLoadFloat3(mesh->getRotation()),
+			XMLoadFloat3(mesh->getPosition())));
 
-		command.uniforms.WorldInverseMatrix = DXWrapper::wrapXMFloat4x4(camera->InverseMatrix());
-		command.uniforms.ProjectionMatrix = DXWrapper::wrapXMFloat4x4(camera->ProjectionMatrix());
-		command.uniforms.ViewMatrix = DXWrapper::wrapXMFloat4x4(camera->ViewMatrix());
+		command.uniforms.WorldInverseMatrix = wrapXMFloat4x4(camera->InverseMatrix());
+		command.uniforms.ProjectionMatrix = wrapXMFloat4x4(camera->ProjectionMatrix());
+		command.uniforms.ViewMatrix = wrapXMFloat4x4(camera->ViewMatrix());
 
 		m_CommandQueue.push_back(command);
 	}

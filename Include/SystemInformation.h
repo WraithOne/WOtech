@@ -31,7 +31,7 @@ namespace WOtech
 	public value class GraphicReport
 	{
 	public:
-		Platform::IBox<WOtech::DXWrapper::ADAPTER_DXGI>^ Adapters;
+		Platform::IBox<WOtech::ADAPTER_DXGI>^ Adapters;
 	};
 	public value struct AudioReport
 	{
@@ -51,7 +51,7 @@ namespace WOtech
 	public:
 		SystemInformation();
 		void GatherInformations();
-		Platform::Array<WOtech::DXWrapper::ADAPTER_DXGI>^ getGraphicInformations();
+		Platform::Array<WOtech::ADAPTER_DXGI>^ getGraphicInformations();
 
 	private:
 		~SystemInformation();

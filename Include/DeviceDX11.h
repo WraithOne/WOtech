@@ -67,7 +67,7 @@ namespace WOtech
 		void Create();
 
 		void Clear(_In_ Windows::UI::Color color);
-		void Clear(_In_ Windows::UI::Color color, _In_ WOtech::DXWrapper::CLEAR_FLAG clearFlags, _In_ float32 depth, _In_ uint8 stencil);
+		void Clear(_In_ Windows::UI::Color color, _In_ WOtech::CLEAR_FLAG clearFlags, _In_ float32 depth, _In_ uint8 stencil);
 
 		void Present();
 		void ValidateDevice();

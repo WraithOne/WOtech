@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	20.09.2014
-///			Edited:		04.10.2017
+///			Edited:		22.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -32,6 +32,7 @@ using Windows::Devices::Enumeration::DeviceInformation;
 using Windows::Devices::Enumeration::DeviceInformationCollection;
 using namespace Windows::Media;
 using namespace Windows::Foundation;
+using namespace WOtech::DXWrapper;
 
 namespace WOtech
 {
@@ -97,11 +98,11 @@ namespace WOtech
 		uint32 Flags = NULL;
 
 		// Create the effect engine
-		hr = XAudio2Create(&m_effectDevice, Flags, DXWrapper::wrapAUDIO_PROCESSOR(xaProcessor));
+		hr = XAudio2Create(&m_effectDevice, Flags, wrapAUDIO_PROCESSOR(xaProcessor));
 		ThrowIfFailed(hr);
 
 		// Create the music engine
-		hr = XAudio2Create(&m_musicDevice, Flags, DXWrapper::wrapAUDIO_PROCESSOR(xaProcessor));
+		hr = XAudio2Create(&m_musicDevice, Flags, wrapAUDIO_PROCESSOR(xaProcessor));
 		ThrowIfFailed(hr);
 
 #if defined(_DEBUG)

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.05.2014
-///			Edited:		29.01.2017
+///			Edited:		22.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_INPUT_H
@@ -24,6 +24,25 @@
 
 namespace WOtech
 {
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/// <summary>	Values that represent Mouses virtual keys. </summary>
+	///
+	/// <remarks>	WraithOne, 17.04.2017. </remarks>
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	public enum class VirtualKey_Mouse
+	{
+		/// <summary>	Left mouse button. </summary>
+		LeftButton,
+		/// <summary>	Right mouse button. </summary>
+		RightButton,
+		/// <summary>	Middle mouse button. </summary>
+		MiddleButton,
+		/// <summary>	X1 mouse button. </summary>
+		X1Button,
+		/// <summary>	X2 mouse button. </summary>
+		X2Button
+	};
+
 	public value struct Touch_Capabilities
 	{
 		Platform::Boolean isPresent;
@@ -35,8 +54,8 @@ namespace WOtech
 		Windows::Devices::Input::PointerDeviceType DeviceType;
 		Platform::Boolean isIntegrated;
 		uint32 MaximumContacts;
-		WOtech::DXWrapper::RECT PhysicalRect;
-		WOtech::DXWrapper::RECT ScreenRect;
+		WOtech::RECT PhysicalRect;
+		WOtech::RECT ScreenRect;
 	};
 	public value struct Mouse_Capabilities
 	{

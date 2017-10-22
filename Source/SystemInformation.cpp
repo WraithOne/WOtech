@@ -28,10 +28,10 @@ namespace WOtech
 	void SystemInformation::GatherInformations()
 	{
 	}
-	Platform::Array<WOtech::DXWrapper::ADAPTER_DXGI>^ SystemInformation::getGraphicInformations()
+	Platform::Array<WOtech::ADAPTER_DXGI>^ SystemInformation::getGraphicInformations()
 	{
-		Platform::Array<WOtech::DXWrapper::ADAPTER_DXGI>^ temp_array;
-		//WOtech::DXWrapper::ADAPTER_DXGI temp;
+		Platform::Array<WOtech::ADAPTER_DXGI>^ temp_array;
+		//WOtech::ADAPTER_DXGI temp;
 		return temp_array;
 		// TODO: insert return statement here
 	}

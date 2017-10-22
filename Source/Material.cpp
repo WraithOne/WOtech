@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	25.02.2016
-///			Edited:		02.09.2017
+///			Edited:		22.10.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -29,6 +29,7 @@
 
 using namespace Windows::Foundation::Numerics;
 using namespace DirectX;
+using namespace WOtech::DXWrapper;
 
 namespace WOtech
 {
@@ -141,27 +142,27 @@ namespace WOtech
 
 	void BasicMaterial::setWorld(_In_ FLOAT4x4 world)
 	{
-		m_matrices.World = DXWrapper::XMLoadFloat4x4(world);
+		m_matrices.World = XMLoadFloat4x4(world);
 	}
 	void BasicMaterial::setWorldInverse(_In_ WOtech::FLOAT4x4 worldInverse)
 	{
-		m_matrices.WorldInverse = DXWrapper::XMLoadFloat4x4(worldInverse);
+		m_matrices.WorldInverse = XMLoadFloat4x4(worldInverse);
 	}
 	void BasicMaterial::setView(_In_ FLOAT4x4 view)
 	{
-		m_matrices.View = DXWrapper::XMLoadFloat4x4(view);
+		m_matrices.View = XMLoadFloat4x4(view);
 	}
 	void BasicMaterial::setProjection(_In_ FLOAT4x4 projection)
 	{
-		m_matrices.Projection = DXWrapper::XMLoadFloat4x4(projection);
+		m_matrices.Projection = XMLoadFloat4x4(projection);
 	}
 
 	void BasicMaterial::setMatrices(_In_ WOtech::FLOAT4x4 world, _In_ WOtech::FLOAT4x4 worldInverse, _In_ WOtech::FLOAT4x4 view, _In_ WOtech::FLOAT4x4 projection)
 	{
-		m_matrices.World = DXWrapper::XMLoadFloat4x4(world);
-		m_matrices.WorldInverse = DXWrapper::XMLoadFloat4x4(worldInverse);
-		m_matrices.View = DXWrapper::XMLoadFloat4x4(view);
-		m_matrices.Projection = DXWrapper::XMLoadFloat4x4(projection);
+		m_matrices.World = XMLoadFloat4x4(world);
+		m_matrices.WorldInverse = XMLoadFloat4x4(worldInverse);
+		m_matrices.View = XMLoadFloat4x4(view);
+		m_matrices.Projection = XMLoadFloat4x4(projection);
 	}
 
 	void WOtech::BasicMaterial::setConstants(_In_ DeviceDX11^ device)

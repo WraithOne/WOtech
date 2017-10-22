@@ -58,17 +58,17 @@ namespace WOtech
 		void EndDraw();
 
 		void DrawText(_In_ WOtech::Text^ text);
-		void DrawFont(_In_ WOtech::Font^ font, _In_ float32 fontSize, _In_ WOtech::DXWrapper::RECT layoutbox, _In_ WOtech::DXWrapper::FONT_STYLE style, _In_ Windows::UI::Color color, _In_ float32 rotation, _In_ Platform::String^ text);
+		void DrawFont(_In_ WOtech::Font^ font, _In_ float32 fontSize, _In_ WOtech::RECT layoutbox, _In_ WOtech::FONT_STYLE style, _In_ Windows::UI::Color color, _In_ float32 rotation, _In_ Platform::String^ text);
 
 		void DrawBitmap(_In_ WOtech::Bitmap^ bitmap);
-		void DrawBitmap(_In_ WOtech::Bitmap^ bitmap, _In_ WOtech::DXWrapper::RECT srcRect, _In_ WOtech::DXWrapper::RECT destRect, _In_ float32 opacity, _In_ float32 rotation);
+		void DrawBitmap(_In_ WOtech::Bitmap^ bitmap, _In_ WOtech::RECT srcRect, _In_ WOtech::RECT destRect, _In_ float32 opacity, _In_ float32 rotation);
 
 		void DrawSprite(_In_ WOtech::Sprite^ sprite);
-		void DrawSprite(_In_ WOtech::Sprite^ sprite, _In_ WOtech::DXWrapper::RECT srcRect, _In_ WOtech::DXWrapper::RECT destRect, _In_ float32 opacity, _In_ float32 rotation, _In_ WOtech::SPRITE_FLIP_MODE flipmode);
+		void DrawSprite(_In_ WOtech::Sprite^ sprite, _In_ WOtech::RECT srcRect, _In_ WOtech::RECT destRect, _In_ float32 opacity, _In_ float32 rotation, _In_ WOtech::SPRITE_FLIP_MODE flipmode);
 
 		void DrawAnimatedSprite(_In_ WOtech::AnimatedSprite^ animatedsprite, _In_ Platform::String^ name);
 
-		void DrawGrid(_In_ WOtech::DXWrapper::RECT area, _In_ Windows::UI::Color color, _In_ float32 rotation);
+		void DrawGrid(_In_ WOtech::RECT area, _In_ Windows::UI::Color color, _In_ float32 rotation);
 
 		void DrawCircle(_In_ CIRCLE circle);
 		void DrawCircleOutlined(_In_ CIRCLE_OUTLINED circleOutlined);
@@ -97,7 +97,7 @@ namespace WOtech
 	private:
 		~SpriteBatch();
 		void CreateGrid();
-		void setRotation(_In_ WOtech::DXWrapper::RECT area, _In_ float32 rotation);
+		void setRotation(_In_ WOtech::RECT area, _In_ float32 rotation);
 
 		void SortBatch();
 		void DrawBatch();

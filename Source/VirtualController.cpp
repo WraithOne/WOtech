@@ -110,9 +110,9 @@ namespace WOtech
 		}
 	}
 
-	void VirtualController::bindMousetoButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::DXWrapper::RECT area)
+	void VirtualController::bindMousetoButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::RECT area)
 	{
-		std::map<Virtual_Controller_Buttons, DXWrapper::RECT>::iterator it;
+		std::map<Virtual_Controller_Buttons, RECT>::iterator it;
 		it = m_mouseButtonbinding.find(target);
 
 		if (it != m_mouseButtonbinding.end())
@@ -124,9 +124,9 @@ namespace WOtech
 			m_mouseButtonbinding.emplace(target, area);
 		}
 	}
-	void VirtualController::bindMouseKeytoButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::DXWrapper::VirtualKey_Mouse key)
+	void VirtualController::bindMouseKeytoButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::VirtualKey_Mouse key)
 	{
-		std::map<Virtual_Controller_Buttons, WOtech::DXWrapper::VirtualKey_Mouse>::iterator it;
+		std::map<Virtual_Controller_Buttons, WOtech::VirtualKey_Mouse>::iterator it;
 		it = m_mouseKeybinding.find(target);
 
 		if (it != m_mouseKeybinding.end())
@@ -147,9 +147,9 @@ namespace WOtech
 		m_mousebinding = target;
 	}
 
-	void VirtualController::bindTouchtoButton(_In_ Virtual_Controller_Buttons target, _In_ DXWrapper::RECT area)
+	void VirtualController::bindTouchtoButton(_In_ Virtual_Controller_Buttons target, _In_ RECT area)
 	{
-		std::map<Virtual_Controller_Buttons, DXWrapper::RECT>::iterator it;
+		std::map<Virtual_Controller_Buttons, RECT>::iterator it;
 		it = m_touchButtonbinding.find(target);
 
 		if (it != m_touchButtonbinding.end())
@@ -161,9 +161,9 @@ namespace WOtech
 			m_touchButtonbinding.emplace(target, area);
 		}
 	}
-	void VirtualController::bindTouchtoTrigger(_In_ Virtual_Controller_Triggers target, _In_ WOtech::DXWrapper::RECT area)
+	void VirtualController::bindTouchtoTrigger(_In_ Virtual_Controller_Triggers target, _In_ WOtech::RECT area)
 	{
-		std::map<Virtual_Controller_Triggers, DXWrapper::RECT>::iterator it;
+		std::map<Virtual_Controller_Triggers, RECT>::iterator it;
 		it = m_touchTriggerbinding.find(target);
 
 		if (it != m_touchTriggerbinding.end())
@@ -194,7 +194,7 @@ namespace WOtech
 		}
 	}
 
-	inline Platform::Boolean PointerIntersect(_In_ Touch_State& state, _In_ DXWrapper::RECT& area)
+	inline Platform::Boolean PointerIntersect(_In_ Touch_State& state, _In_ RECT& area)
 	{
 		WOtech::Pointer_Position position = state.position;
 
@@ -208,7 +208,7 @@ namespace WOtech
 			return false;
 		}
 	}
-	inline Touch_State TouchIntersect(_In_ Platform::Array<Touch_State>^ state, _In_ DXWrapper::RECT& area)
+	inline Touch_State TouchIntersect(_In_ Platform::Array<Touch_State>^ state, _In_ RECT& area)
 	{
 		Touch_State temp;
 
@@ -439,7 +439,7 @@ namespace WOtech
 		Platform::Array<Touch_State>^ touchstate = m_inputManager->getTouchState();
 
 		// Button states
-		for (std::map<Virtual_Controller_Buttons, DXWrapper::RECT>::iterator it = m_touchButtonbinding.begin(); it != m_touchButtonbinding.end(); ++it)
+		for (std::map<Virtual_Controller_Buttons, RECT>::iterator it = m_touchButtonbinding.begin(); it != m_touchButtonbinding.end(); ++it)
 		{
 			// Buttons A-Y
 			if (it->first == Virtual_Controller_Buttons::A)
@@ -480,7 +480,7 @@ namespace WOtech
 				m_state.DPad_Right = isIntersecting(TouchIntersect(touchstate, it->second));
 		}
 		// Trigger states
-		for (std::map<Virtual_Controller_Triggers, DXWrapper::RECT>::iterator it_t = m_touchTriggerbinding.begin(); it_t != m_touchTriggerbinding.end(); ++it_t)
+		for (std::map<Virtual_Controller_Triggers, RECT>::iterator it_t = m_touchTriggerbinding.begin(); it_t != m_touchTriggerbinding.end(); ++it_t)
 		{
 			Touch_State state;
 			if (it_t->first == Virtual_Controller_Triggers::Left)
@@ -541,7 +541,7 @@ namespace WOtech
 		{
 			// TODO: Circle insteed of RECT
 			virtual_Stick_touch stick = it_s->second;
-			WOtech::DXWrapper::RECT rect{ stick.center.X - stick.radius, stick.center.Y - stick.radius, stick.center.X + stick.radius, stick.center.Y + stick.radius };
+			WOtech::RECT rect{ stick.center.X - stick.radius, stick.center.Y - stick.radius, stick.center.X + stick.radius, stick.center.Y + stick.radius };
 
 			Touch_State state;
 			if (it_s->first == Virtual_Controller_Sticks::Left)

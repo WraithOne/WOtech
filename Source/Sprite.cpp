@@ -21,8 +21,8 @@
 #include "2DComponents.h"
 #include "SpriteBatch.h"
 #include "Utilities.h"
-#include "DXWrapper.h"
 #include "ContentManager.h"
+#include "DXWrapper.h"
 
 using namespace Platform;
 using namespace Windows::Foundation;
@@ -115,13 +115,13 @@ namespace WOtech
 		WOtech::ContentManager::Instance->RemoveSprite(this);
 	}
 
-	WOtech::DXWrapper::RECT Sprite::getSourceRect()
+	WOtech::RECT Sprite::getSourceRect()
 	{
 		return m_sourceRect;
 	}
-	WOtech::DXWrapper::RECT Sprite::getDestinationRect()
+	WOtech::RECT Sprite::getDestinationRect()
 	{
-		return WOtech::DXWrapper::RECT{ m_position.X, m_position.Y, m_position.X + m_size.Width, m_position.Y + m_size.Height };
+		return WOtech::RECT{ m_position.X, m_position.Y, m_position.X + m_size.Width, m_position.Y + m_size.Height };
 	}
 	Point Sprite::getPosition()
 	{
@@ -158,7 +158,7 @@ namespace WOtech
 	}
 	void Sprite::setSourceRect(_In_ float32 x, _In_ float32 y, _In_ float32 height, _In_ float32 width)
 	{
-		m_sourceRect = WOtech::DXWrapper::RECT{ x, y, width, height };
+		m_sourceRect = WOtech::RECT{ x, y, width, height };
 	}
 	void Sprite::setOpacity(_In_ float32 opacity)
 	{

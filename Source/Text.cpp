@@ -21,6 +21,7 @@
 #include "2DComponents.h"
 #include "SpriteBatch.h"
 #include "Utilities.h"
+#include <DXWrapper.h>
 
 using namespace Platform;
 using namespace Windows::Foundation;
