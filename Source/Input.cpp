@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	02.05.2014
-///			Edited:		29.03.2017
+///			Edited:		01.11.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -27,7 +27,6 @@ using namespace Windows::Foundation;
 using namespace Windows::Devices::Input;
 using namespace Windows::Gaming::Input;
 using namespace Windows::Foundation::Collections;
-using namespace Windows::Phone::UI::Input;
 using namespace Windows::UI::Input;
 using namespace Platform;
 
@@ -64,8 +63,10 @@ namespace WOtech
 	void InputManager::Initialize()
 	{
 		m_isInitialized = false;
-		m_hwbbConfirmed = false;
-		m_hwbbPressed = false;
+
+		// opt in to receive key events
+		m_window->KeyDown += ref new TypedEventHandler<CoreWindow^, KeyEventArgs^>(this, &InputManager::OnKeyDown);
+		m_window->KeyUp += ref new TypedEventHandler<CoreWindow^, KeyEventArgs^>(this, &InputManager::OnKeyUp);
 
 		// opt in to receive touch/mouse events
 		m_window->PointerPressed += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &InputManager::OnPointerPressed);
@@ -75,9 +76,6 @@ namespace WOtech
 		m_window->PointerExited += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &InputManager::OnPointerExited);
 		m_window->PointerWheelChanged += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &InputManager::OnPointerWheelChanged);
 
-		// opt in to receive key events
-		m_window->KeyDown += ref new TypedEventHandler<CoreWindow^, KeyEventArgs^>(this, &InputManager::OnKeyDown);
-		m_window->KeyUp += ref new TypedEventHandler<CoreWindow^, KeyEventArgs^>(this, &InputManager::OnKeyUp);
 		// There is a separate handler for mouse only relative mouse movement events.
 		MouseDevice::GetForCurrentView()->MouseMoved += ref new TypedEventHandler<MouseDevice^, MouseEventArgs^>(this, &InputManager::OnMouseMoved);
 
@@ -101,53 +99,11 @@ namespace WOtech
 		m_mouseCapabilities = ref new Windows::Devices::Input::MouseCapabilities();
 	}
 
-	void InputManager::SystemoverlaySupress(_In_ Platform::Boolean confirm)
-	{
-		if (confirm)
-		{
-			Windows::UI::ViewManagement::ApplicationView::GetForCurrentView()->TryEnterFullScreenMode();//>SuppressSystemOverlays = true;
-			if (Windows::Foundation::Metadata::ApiInformation::IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-#pragma warning(push)
-#pragma warning (disable : 4014)
-			{
-				Windows::UI::ViewManagement::StatusBar::GetForCurrentView()->HideAsync();
-			}
-#pragma warning (pop)
-		}
-		else
-		{
-			Windows::UI::ViewManagement::ApplicationView::GetForCurrentView()->ExitFullScreenMode();//>SuppressSystemOverlays = false;
-			if (Windows::Foundation::Metadata::ApiInformation::IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-#pragma warning(push)
-#pragma warning (disable : 4014)
-			{
-				Windows::UI::ViewManagement::StatusBar::GetForCurrentView()->ShowAsync();
-			}
-#pragma warning (pop)
-		}
-	}
-	Platform::Boolean InputManager::SystemoverlaySupressed()
-	{
-		Platform::Boolean isSupressed = false;
-		// isSupressed = Windows::UI::ViewManagement::ApplicationView::GetForCurrentView()->SuppressSystemOverlays TODO::hmmmm
-		return isSupressed;
-	}
-
 	/// Events
-	void InputManager::OnHardwareBackButtonPressed(_In_ Object^ Sender, _In_ BackPressedEventArgs^ Args)
+	void InputManager::ReadingChanged(_In_ Windows::Devices::Sensors::OrientationSensor ^ Sender, _In_ Windows::Devices::Sensors::OrientationSensorReadingChangedEventArgs ^ Args)
 	{
 		UNREFERENCED_PARAMETER(Sender);
 
-		if (m_hwbbConfirmed)
-			Args->Handled = true;
-		else
-			Args->Handled = false;
-
-		m_hwbbPressed = true;
-	}
-
-	void InputManager::ReadingChanged(_In_ Windows::Devices::Sensors::OrientationSensor ^ Sender, _In_ Windows::Devices::Sensors::OrientationSensorReadingChangedEventArgs ^ Args)
-	{
 		m_orientationSensorReading = Args->Reading;
 	}
 
@@ -672,6 +628,7 @@ namespace WOtech
 	void InputManager::OnKeyDown(_In_ CoreWindow^ Sender, _In_ KeyEventArgs^ Args)
 	{
 		UNREFERENCED_PARAMETER(Sender);
+
 		Windows::System::VirtualKey Key;
 		Key = Args->VirtualKey;
 
@@ -680,6 +637,7 @@ namespace WOtech
 	void InputManager::OnKeyUp(_In_ CoreWindow^ Sender, _In_ KeyEventArgs^ Args)
 	{
 		UNREFERENCED_PARAMETER(Sender);
+
 		Windows::System::VirtualKey Key;
 		Key = Args->VirtualKey;
 
@@ -704,6 +662,7 @@ namespace WOtech
 	void InputManager::OnPointerPressed(_In_ CoreWindow^ Sender, _In_ PointerEventArgs^ Args)
 	{
 		UNREFERENCED_PARAMETER(Sender);
+
 		Windows::UI::Input::PointerPoint^ pointer = Args->CurrentPoint;
 
 		UpdatePointerDevices(pointer);
@@ -711,6 +670,7 @@ namespace WOtech
 	void InputManager::OnPointerMoved(_In_ CoreWindow^ Sender, _In_ PointerEventArgs^ Args)
 	{
 		UNREFERENCED_PARAMETER(Sender);
+
 		Windows::UI::Input::PointerPoint^ pointer = Args->CurrentPoint;
 
 		if (pointer->IsInContact)
@@ -721,6 +681,7 @@ namespace WOtech
 	void InputManager::OnPointerReleased(_In_ CoreWindow^ Sender, _In_ PointerEventArgs^ Args)
 	{
 		UNREFERENCED_PARAMETER(Sender);
+
 		Windows::UI::Input::PointerPoint^ pointer = Args->CurrentPoint;
 
 		RemovePointerDevice(pointer);
@@ -728,6 +689,7 @@ namespace WOtech
 	void InputManager::OnPointerEntered(_In_ Windows::UI::Core::CoreWindow ^ Sender, _In_ Windows::UI::Core::PointerEventArgs ^ Args)
 	{
 		UNREFERENCED_PARAMETER(Sender);
+
 		Windows::UI::Input::PointerPoint^ pointer = Args->CurrentPoint;
 
 		if (pointer->IsInContact)
@@ -738,6 +700,7 @@ namespace WOtech
 	void InputManager::OnPointerExited(_In_ CoreWindow ^ Sender, _In_ PointerEventArgs ^ Args) //-V524
 	{
 		UNREFERENCED_PARAMETER(Sender);
+
 		Windows::UI::Input::PointerPoint^ pointer = Args->CurrentPoint;
 
 		RemovePointerDevice(pointer);
@@ -745,6 +708,7 @@ namespace WOtech
 	void InputManager::OnPointerWheelChanged(_In_ CoreWindow^ Sender, _In_ PointerEventArgs^ Args) //-V524
 	{
 		UNREFERENCED_PARAMETER(Sender);
+
 		Windows::UI::Input::PointerPoint^ pointer = Args->CurrentPoint;
 
 		if (pointer->IsInContact)

@@ -126,9 +126,6 @@
     <ClCompile Include="Source\InputGamepad.cpp">
       <Filter>Input\Devices</Filter>
     </ClCompile>
-    <ClCompile Include="Source\InputHardwarebackbutton.cpp">
-      <Filter>Input\Devices</Filter>
-    </ClCompile>
     <ClCompile Include="Source\InputKeyboard.cpp">
       <Filter>Input\Devices</Filter>
     </ClCompile>

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.05.2014
-///			Edited:		22.10.2017
+///			Edited:		01.11.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_INPUT_H
@@ -24,22 +24,12 @@
 
 namespace WOtech
 {
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Values that represent Mouses virtual keys. </summary>
-	///
-	/// <remarks>	WraithOne, 17.04.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public enum class VirtualKey_Mouse
 	{
-		/// <summary>	Left mouse button. </summary>
 		LeftButton,
-		/// <summary>	Right mouse button. </summary>
 		RightButton,
-		/// <summary>	Middle mouse button. </summary>
 		MiddleButton,
-		/// <summary>	X1 mouse button. </summary>
 		X1Button,
-		/// <summary>	X2 mouse button. </summary>
 		X2Button
 	};
 
@@ -335,16 +325,6 @@ namespace WOtech
 		void SuspendInput();
 		void ResumeInput();
 
-		// Hardwarebackbutton
-		Platform::Boolean HardwarebackbuttonConnceted();
-		void HardwarebackbuttonUse(_In_ Platform::Boolean Comfirm);
-		Platform::Boolean HardwarebackbuttonInUse();
-		Platform::Boolean HardwarebackbuttonPressed();
-
-		// SytemOverlay
-		void SystemoverlaySupress(_In_ Platform::Boolean Confirm);
-		Platform::Boolean SystemoverlaySupressed();
-
 		// Keyboard
 		Platform::Boolean KeyboardConnected();
 		Keyboard_State getKeyboardState();
@@ -378,6 +358,7 @@ namespace WOtech
 
 	private:
 		~InputManager();
+
 		void Initialize();
 		void ScanDeviceCapabilities();
 		void ScanGamePad();
@@ -397,9 +378,6 @@ namespace WOtech
 		// Keyboard
 		void OnKeyDown(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::KeyEventArgs^ Args);
 		void OnKeyUp(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::KeyEventArgs^ Args);
-
-		// Hardware back button is only present on some device families such as Phone.
-		void OnHardwareBackButtonPressed(_In_ Platform::Object^ Sender, _In_ Windows::Phone::UI::Input::BackPressedEventArgs^ Args);
 
 		// Orientation Sensor
 		void ReadingChanged(_In_ Windows::Devices::Sensors::OrientationSensor^ Sender, _In_ Windows::Devices::Sensors::OrientationSensorReadingChangedEventArgs^ Args);
@@ -430,10 +408,6 @@ namespace WOtech
 		Windows::Foundation::EventRegistrationToken				m_orientationToken;
 		Windows::Devices::Sensors::OrientationSensorReading^	m_orientationSensorReading;
 		Platform::Boolean										m_orientationActive;
-
-		// HardwarebackButton
-		Platform::Boolean										m_hwbbPressed;
-		Platform::Boolean										m_hwbbConfirmed;
 
 		// Gamepad
 		static const uint32	MAX_PLAYER_COUNT = 8;
