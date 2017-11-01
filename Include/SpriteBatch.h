@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		22.10.2017
+///			Edited:		01.11.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SPRITEBATCH_H
@@ -91,8 +91,8 @@ namespace WOtech
 	internal:
 		void Initialize();
 		void ReleaseRendertarget();
-		ID2D1DeviceContext2*		GetDeviceContext();
-		ID2D1Factory3*				getFactory();
+		ID2D1DeviceContext6*		GetDeviceContext();
+		ID2D1Factory7*				getFactory();
 
 	private:
 		~SpriteBatch();
@@ -107,18 +107,18 @@ namespace WOtech
 	private:
 		WOtech::DeviceDX11^								m_deviceDX11;
 
-		Microsoft::WRL::ComPtr<ID2D1Factory3>			m_factory;
-		Microsoft::WRL::ComPtr<ID2D1Device2>			m_device;
-		Microsoft::WRL::ComPtr<ID2D1DeviceContext2>		m_deviceContext;
+		Microsoft::WRL::ComPtr<ID2D1Factory7>			m_factory;
+		Microsoft::WRL::ComPtr<ID2D1Device6>			m_device;
+		Microsoft::WRL::ComPtr<ID2D1DeviceContext6>		m_deviceContext;
 		Microsoft::WRL::ComPtr<ID2D1Bitmap1>			m_targetBitmap;
 
-		Microsoft::WRL::ComPtr<IDWriteFactory>			m_Wfactory;
+		Microsoft::WRL::ComPtr<IDWriteFactory6>			m_Wfactory;
 
 		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>	m_fontBrush;
 		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>	m_circleBrush;
 		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>	m_rectangleBrush;
 		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>	m_outlineBrush;
-		Microsoft::WRL::ComPtr<ID2D1BitmapBrush>		m_gridBrush;
+		Microsoft::WRL::ComPtr<ID2D1BitmapBrush1>		m_gridBrush;
 
 		SpriteSortMode									m_sortMode;
 	};// class SpriteBatch

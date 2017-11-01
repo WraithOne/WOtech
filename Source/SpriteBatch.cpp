@@ -201,7 +201,7 @@ namespace WOtech
 				if (SUCCEEDED(hr))
 				{
 					// Create the bitmap brush.
-					hr = m_deviceContext->CreateBitmapBrush(pGridBitmap.Get(), D2D1::BitmapBrushProperties(D2D1_EXTEND_MODE_WRAP, D2D1_EXTEND_MODE_WRAP), &m_gridBrush);
+					hr = m_deviceContext->CreateBitmapBrush(pGridBitmap.Get(), &m_gridBrush);
 					ThrowIfFailed(hr);
 				}
 			}
@@ -443,12 +443,12 @@ namespace WOtech
 		m_deviceContext->DrawGeometry(geometry->getGeometry(), geometry->getBrush(), strokeWidth);
 	}
 
-	ID2D1DeviceContext2* SpriteBatch::GetDeviceContext()
+	ID2D1DeviceContext6* SpriteBatch::GetDeviceContext()
 	{
 		return m_deviceContext.Get();
 	}
 
-	ID2D1Factory3* SpriteBatch::getFactory()
+	ID2D1Factory7* SpriteBatch::getFactory()
 	{
 		return m_factory.Get();
 	}
