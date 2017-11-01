@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	31.03.2016
-///			Edited:		19.09.2017
+///			Edited:		01.11.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DEVICEDX11_H
@@ -127,15 +127,15 @@ namespace WOtech
 		void EnumerateDisplayModes(_In_ IDXGIOutput* output, _Out_ std::list<DXGI_MODE_DESC*>* displayModeList);
 
 		IDXGIFactory5*				getFactory();
-		ID3D11Device4*				getDevice();
+		ID3D11Device5*				getDevice();
 		IDXGIDevice4*				getDXGIDevice();
 		ID3D11DeviceContext4*		getContext();
 
-		ID3D11RenderTargetView*		getRenderTarget();
+		ID3D11RenderTargetView1*	getRenderTarget();
 		IDXGISurface2*				getSurface();
 
 		ID3D11DepthStencilState*	getDepthStencilState();
-		ID3D11RasterizerState1*		getRasterizerState();
+		ID3D11RasterizerState2*		getRasterizerState();
 		D3D11_VIEWPORT				getViewPort();
 
 		D2D1::Matrix3x2F			get2DOrientation();
@@ -149,7 +149,7 @@ namespace WOtech
 		// Reference to Window
 		Platform::Agile<Windows::UI::Core::CoreWindow>		m_window;
 
-		Microsoft::WRL::ComPtr<ID3D11Device4>				m_device;// todo: update to Version 5 when debug tools supports
+		Microsoft::WRL::ComPtr<ID3D11Device5>				m_device;// todo: update to Version 5 when debug tools supports
 		Microsoft::WRL::ComPtr<IDXGIDevice4>				m_dxgiDevice;
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext4>		m_context;
 		Microsoft::WRL::ComPtr<IDXGIFactory5>				m_factory;
@@ -158,10 +158,10 @@ namespace WOtech
 
 		Microsoft::WRL::ComPtr<IDXGISurface2>				m_dxgiBackBuffer;
 		UINT												m_backBufferCount;
-		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>		m_renderTargetView;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView1>		m_renderTargetView;
 
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>		m_depthStencilView;
-		Microsoft::WRL::ComPtr<ID3D11Texture2D>				m_depthStencilBuffer;
+		Microsoft::WRL::ComPtr<ID3D11Texture2D1>			m_depthStencilBuffer;
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilState>		m_depthStencilState;
 		Microsoft::WRL::ComPtr<ID3D11RasterizerState2>		m_rasterizerState;
 

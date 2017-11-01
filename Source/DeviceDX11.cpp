@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		13.09.2017
+///			Edited:		01.11.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -388,7 +388,7 @@ namespace WOtech
 	{
 		return m_factory.Get();
 	}
-	ID3D11Device4* DeviceDX11::getDevice()
+	ID3D11Device5* DeviceDX11::getDevice()
 	{
 		return m_device.Get();
 	}
@@ -401,7 +401,7 @@ namespace WOtech
 		return m_context.Get();
 	}
 
-	ID3D11RenderTargetView * DeviceDX11::getRenderTarget()
+	ID3D11RenderTargetView1* DeviceDX11::getRenderTarget()
 	{
 		return m_renderTargetView.Get();
 	}
@@ -415,7 +415,7 @@ namespace WOtech
 	{
 		return m_depthStencilState.Get();
 	}
-	ID3D11RasterizerState1* DeviceDX11::getRasterizerState()
+	ID3D11RasterizerState2* DeviceDX11::getRasterizerState()
 	{
 		return m_rasterizerState.Get();
 	}
@@ -686,22 +686,23 @@ namespace WOtech
 		hr = m_swapChain->GetBuffer(0, IID_PPV_ARGS(backBuffer.GetAddressOf()));
 		ThrowIfFailed(hr);
 
-		CD3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc(D3D11_RTV_DIMENSION_TEXTURE2D, DXGI_FORMAT_B8G8R8A8_UNORM);
-		hr = m_device->CreateRenderTargetView(backBuffer.Get(), &renderTargetViewDesc, m_renderTargetView.ReleaseAndGetAddressOf());
+		CD3D11_RENDER_TARGET_VIEW_DESC1 renderTargetViewDesc(D3D11_RTV_DIMENSION_TEXTURE2D, DXGI_FORMAT_B8G8R8A8_UNORM);
+		hr = m_device->CreateRenderTargetView1(backBuffer.Get(), &renderTargetViewDesc, m_renderTargetView.ReleaseAndGetAddressOf());
 		ThrowIfFailed(hr);
 
 		// Create a depth stencil view for use with 3D rendering if needed.
-		CD3D11_TEXTURE2D_DESC depthStencilDesc(DXGI_FORMAT_D24_UNORM_S8_UINT, static_cast<uint32>(m_d3dRenderTargetSize.Width), static_cast<uint32>(m_d3dRenderTargetSize.Height), 1, 1, D3D11_BIND_DEPTH_STENCIL);
+		CD3D11_TEXTURE2D_DESC1 depthStencilDesc(DXGI_FORMAT_D24_UNORM_S8_UINT, static_cast<uint32>(m_d3dRenderTargetSize.Width), static_cast<uint32>(m_d3dRenderTargetSize.Height), 1, 1, D3D11_BIND_DEPTH_STENCIL);
 
-		hr = m_device->CreateTexture2D(&depthStencilDesc, nullptr, &m_depthStencilBuffer);
+		hr = m_device->CreateTexture2D1(&depthStencilDesc, nullptr, &m_depthStencilBuffer);
 		ThrowIfFailed(hr);
 
 		CD3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc(D3D11_DSV_DIMENSION_TEXTURE2D);
 		hr = m_device->CreateDepthStencilView(m_depthStencilBuffer.Get(), &depthStencilViewDesc, &m_depthStencilView);
 		ThrowIfFailed(hr);
 
-		// Set REnder Target View and depth Stencil View
-		m_context->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_depthStencilView.Get());
+		// Set Render Target View and depth Stencil View
+		ID3D11RenderTargetView *const targets[1] = { m_renderTargetView.Get() };
+		m_context->OMSetRenderTargets(ARRAYSIZE(targets), targets, m_depthStencilView.Get());
 
 		// Set RasterizerState
 		setWireframe(false);
