@@ -324,6 +324,7 @@
     <ClCompile Include="Source\AnimatedSprite.cpp" />
     <ClCompile Include="Source\AudioEngine.cpp" />
     <ClCompile Include="Source\AudioSource.cpp" />
+    <ClCompile Include="Source\Batch2D.cpp" />
     <ClCompile Include="Source\Bitmap.cpp" />
     <ClCompile Include="Source\Buffer.cpp" />
     <ClCompile Include="Source\Camera.cpp" />

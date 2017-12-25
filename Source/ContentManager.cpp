@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.11.2016
-///			Edited:		07.03.2017
+///			Edited:		25.12.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -19,10 +19,10 @@
 //////////////
 #include "pch.h"
 #include "ContentManager.h"
-#include "DeviceDX11.h"
-#include "SpriteBatch.h"
 #include "2DComponents.h"
 #include "3DComponents.h"
+#include "DeviceDX11.h"
+#include "SpriteBatch.h"
 #include "Audio.h"
 
 using namespace WOtech;
@@ -31,6 +31,8 @@ namespace WOtech
 {
 	ContentManager::ContentManager()
 	{
+		m_imageList.clear();
+		m_bitmapList.clear();
 		m_spriteList.clear();
 		m_animatedspriteList.clear();
 		m_geometryList.clear();
@@ -43,13 +45,14 @@ namespace WOtech
 		m_vertexbufferList.clear();
 		m_indexbufferList.clear();
 		m_materialList.clear();
-		m_materialinstanceList.clear();
 		m_meshList.clear();
 
 		m_audiosourceList.clear();
 	}
 	ContentManager::~ContentManager()
 	{
+		m_imageList.clear();
+		m_bitmapList.clear();
 		m_spriteList.clear();
 		m_animatedspriteList.clear();
 		m_geometryList.clear();
@@ -62,7 +65,6 @@ namespace WOtech
 		m_vertexbufferList.clear();
 		m_indexbufferList.clear();
 		m_materialList.clear();
-		m_materialinstanceList.clear();
 		m_meshList.clear();
 
 		m_audiosourceList.clear();
@@ -70,6 +72,15 @@ namespace WOtech
 
 	///////////////////////////////////////////////////////////////////////////////////
 	// ADD
+	void ContentManager::AddImage(_In_ WOtech::Image^ image)
+	{
+		m_imageList.push_back(image);
+	}
+
+	void ContentManager::AddBitmap(_In_ WOtech::Bitmap^ bitmap)
+	{
+		m_bitmapList.push_back(bitmap);
+	}
 	void ContentManager::AddSprite(_In_ WOtech::Sprite^ sprite)
 	{
 		m_spriteList.push_back(sprite);
@@ -78,7 +89,7 @@ namespace WOtech
 	{
 		m_animatedspriteList.push_back(animatedSprite);
 	}
-	void ContentManager::AddGeometry(_In_ WOtech::Geomtry^ geometry)
+	void ContentManager::AddGeometry(_In_ WOtech::Geometry^ geometry)
 	{
 		m_geometryList.push_back(geometry);
 	}
@@ -111,13 +122,9 @@ namespace WOtech
 	{
 		m_indexbufferList.push_back(indexBuffer);
 	}
-	void ContentManager::AddMaterial(_In_ WOtech::Material^ material)
+	void ContentManager::AddMaterial(_In_ WOtech::IMaterial^ material)
 	{
 		m_materialList.push_back(material);
-	}
-	void ContentManager::AddMaterialInstance(_In_ WOtech::MaterialInstance^ materialInstance)
-	{
-		m_materialinstanceList.push_back(materialInstance);
 	}
 	void ContentManager::AddMesh(_In_ WOtech::Mesh^ mesh)
 	{
@@ -132,6 +139,18 @@ namespace WOtech
 	///////////////////////////////////////////////////////////////////////////////////
 	// REMOVE
 
+	void ContentManager::RemoveImage(_In_ WOtech::Image^ image)
+	{
+		std::vector<Image^>::iterator it;
+		it = std::find(m_imageList.begin(), m_imageList.end(), image);
+		m_imageList.erase(it);
+	}
+	void ContentManager::RemoveBitmap(_In_ WOtech::Bitmap^ bitmap)
+	{
+		std::vector<Bitmap^>::iterator it;
+		it = std::find(m_bitmapList.begin(), m_bitmapList.end(), bitmap);
+		m_bitmapList.erase(it);
+	}
 	void ContentManager::RemoveSprite(_In_ WOtech::Sprite^ sprite)
 	{
 		std::vector<Sprite^>::iterator it;
@@ -144,9 +163,9 @@ namespace WOtech
 		it = std::find(m_animatedspriteList.begin(), m_animatedspriteList.end(), animatedSprite);
 		m_animatedspriteList.erase(it);
 	}
-	void ContentManager::RemoveGeometry(_In_ WOtech::Geomtry^ geometry)
+	void ContentManager::RemoveGeometry(_In_ WOtech::Geometry^ geometry)
 	{
-		std::vector<Geomtry^>::iterator it;
+		std::vector<Geometry^>::iterator it;
 		it = std::find(m_geometryList.begin(), m_geometryList.end(), geometry);
 		m_geometryList.erase(it);
 	}
@@ -193,17 +212,11 @@ namespace WOtech
 		it = std::find(m_indexbufferList.begin(), m_indexbufferList.end(), indexBuffer);
 		m_indexbufferList.erase(it);
 	}
-	void ContentManager::RemoveMaterial(_In_ WOtech::Material^ material)
+	void ContentManager::RemoveMaterial(_In_ WOtech::IMaterial^ material)
 	{
-		std::vector<Material^>::iterator it;
+		std::vector<IMaterial^>::iterator it;
 		it = std::find(m_materialList.begin(), m_materialList.end(), material);
 		m_materialList.erase(it);
-	}
-	void ContentManager::RemoveMaterialInstance(_In_ WOtech::MaterialInstance^ materialInstance)
-	{
-		std::vector<MaterialInstance^>::iterator it;
-		it = std::find(m_materialinstanceList.begin(), m_materialinstanceList.end(), materialInstance);
-		m_materialinstanceList.erase(it);
 	}
 	void ContentManager::RemoveMesh(_In_ WOtech::Mesh^ mesh)
 	{
@@ -243,12 +256,16 @@ namespace WOtech
 			j;
 		for (auto k : m_materialList)
 			k;
-		for (auto l : m_materialinstanceList)
-			l;
+		//for (auto l : )
+		//	l;
 		for (auto m : m_meshList)
 			m;
-		for (auto m : m_audiosourceList)
-			m;
+		for (auto n : m_audiosourceList)
+			n;
+		for (auto o : m_imageList)
+			o->Reset();
+		for (auto p : m_bitmapList)
+			p->Reset();
 	}
 	void ContentManager::OnResume(_In_ WOtech::SpriteBatch^ spriteBatch)
 	{
@@ -274,11 +291,109 @@ namespace WOtech
 			j;
 		for (auto k : m_materialList)
 			k;
-		for (auto l : m_materialinstanceList)
-			l;
+		//for (auto l : )
+		//	l;
 		for (auto m : m_meshList)
 			m;
-		for (auto m : m_audiosourceList)
-			m->LoadWave();
+		for (auto n : m_audiosourceList)
+			n->LoadWave();
+		for (auto o : m_imageList)
+			o;
+		for (auto p : m_bitmapList)
+			p;
+	}
+	void ContentManager::OnWindowSizeChanged(_In_ Windows::Foundation::Size windowSize)
+	{
+		for (auto a : m_spriteList)
+			a->UnLoad();
+		for (auto b : m_animatedspriteList)
+			b->UnLoad();
+		for (auto c : m_geometryList)
+			c;
+		for (auto d : m_fontList)
+			d->UnLoad();
+		for (auto e : m_textList)
+			e;
+		for (auto f : m_vertexshaderList)
+			f;
+		for (auto g : m_pixelshaderList)
+			g;
+		for (auto h : m_textureList)
+			h;
+		for (auto i : m_vertexbufferList)
+			i;
+		for (auto j : m_indexbufferList)
+			j;
+		for (auto k : m_materialList)
+			k;
+		//for (auto l : )
+		//	l;
+		for (auto m : m_meshList)
+			m;
+		for (auto n : m_audiosourceList)
+			n;
+		for (auto o : m_imageList)
+			o->Reset();
+		for (auto p : m_bitmapList)
+			p->Reset();
+	}
+	void ContentManager::OnDpiChanged(_In_ float32 dpi)
+	{
+		for (auto a : m_spriteList)
+			a->UnLoad();
+		for (auto b : m_animatedspriteList)
+			b->UnLoad();
+		for (auto c : m_geometryList)
+			c;
+		for (auto d : m_fontList)
+			d->UnLoad();
+		for (auto e : m_textList)
+			e;
+		for (auto f : m_vertexshaderList)
+			f;
+		for (auto g : m_pixelshaderList)
+			g;
+		for (auto h : m_textureList)
+			h;
+		for (auto i : m_vertexbufferList)
+			i;
+		for (auto j : m_indexbufferList)
+			j;
+		for (auto k : m_materialList)
+			k;
+		//for (auto l : )
+		//	l;
+		for (auto m : m_meshList)
+			m;
+		for (auto n : m_audiosourceList)
+			n;
+		for (auto o : m_imageList)
+			o->Reset();
+		for (auto p : m_bitmapList)
+			p->Reset();
+	}
+	void ContentManager::OnOrientationChanged(_In_ Windows::Graphics::Display::DisplayOrientations currentOrientation)
+	{
+		for (auto i : m_imageList)
+			i->Reset();
+
+		for (auto j : m_bitmapList)
+			j->Reset();
+	}
+	void ContentManager::OnDisplayContentsInvalidated()
+	{
+		for (auto i : m_imageList)
+			i->Reset();
+
+		for (auto j : m_bitmapList)
+			j->Reset();
+	}
+	void ContentManager::StereoEnabledChanged(_In_ Platform::Boolean stereoEnabled)
+	{
+		for (auto i : m_imageList)
+			i->Reset();
+
+		for (auto j : m_bitmapList)
+			j->Reset();
 	}
 }

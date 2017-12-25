@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	25.02.2016
-///			Edited:		22.10.2017
+///			Edited:		22.12.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -170,6 +170,10 @@ namespace WOtech
 		m_matrices.setConstants(m_constants.worldViewProj, m_constants.world, m_constants.worldInverse);
 		auto context = device->getContext();
 
+		// Update Constantbuffer
 		context->UpdateSubresource1(m_constantBuffer.Get(), 0, NULL, &m_constants, 0, 0, 0);
+
+		// set Constantbuffer
+		context->CSSetConstantBuffers1(0, 1, m_constantBuffer.GetAddressOf(), nullptr, nullptr);
 	}
 }

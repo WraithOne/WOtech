@@ -193,6 +193,9 @@
     <ClCompile Include="Source\Image.cpp">
       <Filter>Graphic\2D\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Batch2D.cpp">
+      <Filter>Graphic\2D\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

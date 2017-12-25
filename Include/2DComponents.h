@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.04.2016
-///			Edited:		22.10.2017
+///			Edited:		01.11.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_2DCOMPONENTS_H
@@ -219,12 +219,16 @@ namespace WOtech
 	{
 	public:
 		Image();
+		void Reset();
 
 	internal:
 		Image(_In_ ID2D1Image* image);
 
 		void setImage(_In_ ID2D1Image* image);
 		ID2D1Image* getImage();
+
+	private:
+		~Image();
 
 	private:
 		Microsoft::WRL::ComPtr<ID2D1Image>	m_image;
@@ -236,6 +240,8 @@ namespace WOtech
 		Bitmap();
 		Bitmap(_In_ WOtech::SpriteBatch^ spriteBatch, _In_ UINT width, _In_ UINT height);
 
+		void Reset();
+
 		Windows::Foundation::Size getSize();
 		WOtech::RECT getSourceRECT();
 
@@ -244,6 +250,8 @@ namespace WOtech
 
 		void setBitmap(_In_ ID2D1Bitmap1* bitmap);
 		ID2D1Bitmap1* getBitmap();
+	private:
+		~Bitmap();
 
 	private:
 		Microsoft::WRL::ComPtr<ID2D1Bitmap1>	m_bitmap;
@@ -466,6 +474,23 @@ namespace WOtech
 		Microsoft::WRL::ComPtr<ID2D1PathGeometry>		m_geometryPath;
 		Microsoft::WRL::ComPtr<ID2D1GeometrySink>		m_geometrySink;
 		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>	m_geometryBrush;
+	};
+
+	public interface class Batch2D
+	{
+		float getDepth();
+	};
+
+	public ref class Batch2D_Text sealed : public Batch2D
+	{
+	public:
+		Batch2D_Text(_In_ float depth, _In_ WOtech::Text^ text);
+		float virtual getDepth();
+		WOtech::Text^ getText();
+
+	private:
+		float m_depth;
+		WOtech::Text^	m_text;
 	};
 }
 #endif

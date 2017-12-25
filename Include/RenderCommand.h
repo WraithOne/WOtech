@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	27.02.2016
-///			Edited:		24.08.2017
+///			Edited:		22.12.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_RENDERCOMMAND_H
@@ -24,7 +24,7 @@ namespace WOtech
 {
 	ref class Mesh;
 
-	struct RendererUniforms
+	public value struct RendererUniforms
 	{
 		WOtech::FLOAT4x4 WorldMatrix;
 		WOtech::FLOAT4x4 WorldInverseMatrix;
