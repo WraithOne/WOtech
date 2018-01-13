@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	18.03.2015
-///			Edited:		15.08.2017
+///			Edited:		13.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -55,122 +55,162 @@ namespace WOtech
 
 	void SystemManager::AddDeviceDX11(_In_ WOtech::DeviceDX11^ renderer)
 	{
-		m_deviceDX11List.push_back(renderer);
+		if(m_enabled)
+			m_deviceDX11List.push_back(renderer);
 	}
 	void SystemManager::AddSpriteBatch(_In_ WOtech::SpriteBatch^ spritebatch)
 	{
-		m_spriteBatchList.push_back(spritebatch);
+		if (m_enabled)
+			m_spriteBatchList.push_back(spritebatch);
 	}
 	void SystemManager::AddAudioEngine(_In_ WOtech::AudioEngine^ audioEngine)
 	{
-		m_audioEngineList.push_back(audioEngine);
+		if (m_enabled)
+			m_audioEngineList.push_back(audioEngine);
 	}
 	void SystemManager::AddInputManager(_In_ WOtech::InputManager^ inputManager)
 	{
-		m_inputManagerList.push_back(inputManager);
+		if (m_enabled)
+			m_inputManagerList.push_back(inputManager);
 	}
+
 	void SystemManager::RemoveDeviceDX11(_In_ WOtech::DeviceDX11 ^ devicedx11)
 	{
-		std::vector<DeviceDX11^>::iterator it;
-		it = std::find(m_deviceDX11List.begin(), m_deviceDX11List.end(), devicedx11);
-		m_deviceDX11List.erase(it);
+		if (m_enabled)
+		{
+			std::vector<DeviceDX11^>::iterator it;
+			it = std::find(m_deviceDX11List.begin(), m_deviceDX11List.end(), devicedx11);
+			m_deviceDX11List.erase(it);
+		}
 	}
 	void SystemManager::RemoveSpriteBatch(_In_ WOtech::SpriteBatch^ spritebatch)
 	{
-		std::vector<SpriteBatch^>::iterator it;
-		it = std::find(m_spriteBatchList.begin(), m_spriteBatchList.end(), spritebatch);
-		m_spriteBatchList.erase(it);
+		if (m_enabled)
+		{
+			std::vector<SpriteBatch^>::iterator it;
+			it = std::find(m_spriteBatchList.begin(), m_spriteBatchList.end(), spritebatch);
+			m_spriteBatchList.erase(it);
+		}
 	}
 	void SystemManager::RemoveAudioEngine(_In_ WOtech::AudioEngine^ audioEngine)
 	{
-		std::vector<AudioEngine^>::iterator it;
-		it = std::find(m_audioEngineList.begin(), m_audioEngineList.end(), audioEngine);
-		m_audioEngineList.erase(it);
+		if (m_enabled)
+		{
+			std::vector<AudioEngine^>::iterator it;
+			it = std::find(m_audioEngineList.begin(), m_audioEngineList.end(), audioEngine);
+			m_audioEngineList.erase(it);
+		}
 	}
 	void SystemManager::RemoveInputManager(_In_ WOtech::InputManager^ inputManager)
 	{
-		std::vector<InputManager^>::iterator it;
-		it = std::find(m_inputManagerList.begin(), m_inputManagerList.end(), inputManager);
-		m_inputManagerList.erase(it);
+		if (m_enabled)
+		{
+			std::vector<InputManager^>::iterator it;
+			it = std::find(m_inputManagerList.begin(), m_inputManagerList.end(), inputManager);
+			m_inputManagerList.erase(it);
+		}	
 	}
+
 	void SystemManager::OnSuspending()
 	{
-		for (auto i : m_deviceDX11List)
-			i->Trim();
-		for (auto j : m_audioEngineList)
-			j->SuspendAudio();
-		for (auto k : m_audioEngineList)
-			k->SuspendAudio();
-		for (auto l : m_inputManagerList)
-			l->SuspendInput();
+		if (m_enabled)
+		{
+			for (auto i : m_deviceDX11List)
+				i->Trim();
+			for (auto j : m_audioEngineList)
+				j->SuspendAudio();
+			for (auto k : m_audioEngineList)
+				k->SuspendAudio();
+			for (auto l : m_inputManagerList)
+				l->SuspendInput();
+		}	
 	}
 	void SystemManager::OnResume()
 	{
-		for (auto i : m_audioEngineList)
-			i->ResumeAudio();
-		for (auto j : m_inputManagerList)
-			j->ResumeInput();
+		if (m_enabled)
+		{
+			for (auto i : m_audioEngineList)
+				i->ResumeAudio();
+			for (auto j : m_inputManagerList)
+				j->ResumeInput();
+		}	
 	}
 	void SystemManager::OnWindowSizeChanged(_In_ Size windowSize)
 	{
-		for (auto i : m_spriteBatchList)
-			i->ReleaseRendertarget();
-
-		for (auto j : m_deviceDX11List)
+		if (m_enabled)
 		{
-			j->setLogicalSize(windowSize);
-		}
+			for (auto i : m_spriteBatchList)
+				i->ReleaseRendertarget();
 
-		for (auto k : m_spriteBatchList)
-		{
-			k->Initialize();
-		}
+			for (auto j : m_deviceDX11List)
+			{
+				j->setLogicalSize(windowSize);
+			}
+
+			for (auto k : m_spriteBatchList)
+			{
+				k->Initialize();
+			}
+		}	
 	}
 	void SystemManager::OnDpiChanged(_In_ float32 dpi)
 	{
-		for (auto i : m_spriteBatchList)
-			i->ReleaseRendertarget();
+		if (m_enabled)
+		{
+			for (auto i : m_spriteBatchList)
+				i->ReleaseRendertarget();
 
-		for (auto j : m_deviceDX11List)
-		{
-			j->setDpi(dpi);
-		}
-		for (auto k : m_spriteBatchList)
-		{
-			k->Initialize();
-		}
+			for (auto j : m_deviceDX11List)
+			{
+				j->setDpi(dpi);
+			}
+			for (auto k : m_spriteBatchList)
+			{
+				k->Initialize();
+			}
+		}	
 	}
 	void SystemManager::OnOrientationChanged(_In_ Windows::Graphics::Display::DisplayOrientations currentOrientation)
 	{
-		for (auto i : m_spriteBatchList)
-			i->ReleaseRendertarget();
-
-		for (auto j : m_deviceDX11List)
+		if (m_enabled)
 		{
-			j->setCurrentOrientation(currentOrientation);
-		}
+			for (auto i : m_spriteBatchList)
+				i->ReleaseRendertarget();
 
-		for (auto k : m_spriteBatchList)
-		{
-			k->Initialize();
+			for (auto j : m_deviceDX11List)
+			{
+				j->setCurrentOrientation(currentOrientation);
+			}
+
+			for (auto k : m_spriteBatchList)
+			{
+				k->Initialize();
+			}
 		}
 	}
 	void SystemManager::OnDisplayContentsInvalidated()
 	{
-		for (auto i : m_spriteBatchList)
-			i->ReleaseRendertarget();
-
-		for (auto j : m_deviceDX11List)
+		if (m_enabled)
 		{
-			j->ValidateDevice();
-		}
+			for (auto i : m_spriteBatchList)
+				i->ReleaseRendertarget();
 
-		for (auto k : m_spriteBatchList)
-		{
-			k->Initialize();
+			for (auto j : m_deviceDX11List)
+			{
+				j->ValidateDevice();
+			}
+
+			for (auto k : m_spriteBatchList)
+			{
+				k->Initialize();
+			}
 		}
 	}
 	void SystemManager::StereoEnabledChanged(_In_ Platform::Boolean stereoEnabled)
 	{
+		if (m_enabled)
+		{
+
+		}
 	}
 }

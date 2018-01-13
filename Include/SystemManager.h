@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	18.03.2015
-///			Edited:		15.08.2017
+///			Edited:		13.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SYSTEMMANAGER_H
@@ -54,13 +54,10 @@ namespace WOtech
 		void RemoveInputManager(_In_ WOtech::InputManager^ inputManager);
 
 	public:
-		static property SystemManager^ Instance
+		property Platform::Boolean Enable
 		{
-			SystemManager^ get()
-			{
-				static SystemManager^ instance = ref new SystemManager();
-				return instance;
-			}
+			Platform::Boolean get() { return m_enabled; };
+			void set(_In_ Platform::Boolean enable) { m_enabled = enable; }
 		}
 
 		void OnSuspending();
@@ -71,7 +68,18 @@ namespace WOtech
 		void OnDisplayContentsInvalidated();
 		void StereoEnabledChanged(_In_ Platform::Boolean stereoEnabled);
 
+		static property SystemManager^ Instance
+		{
+			SystemManager^ get()
+			{
+				static SystemManager^ instance = ref new SystemManager();
+				return instance;
+			}
+		}
+
 	private:
+		Platform::Boolean						m_enabled;
+
 		std::vector<WOtech::DeviceDX11^>		m_deviceDX11List;
 		std::vector<WOtech::SpriteBatch^>		m_spriteBatchList;
 		std::vector<WOtech::AudioEngine^>		m_audioEngineList;

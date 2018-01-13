@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.11.2016
-///			Edited:		06.12.2017
+///			Edited:		13.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_CONTENTMANAGER_H
@@ -55,7 +55,7 @@ namespace WOtech
 		ContentManager();
 		~ContentManager();
 
-	public:
+	internal:
 		void AddImage(_In_ WOtech::Image^ image);
 		void AddBitmap(_In_ WOtech::Bitmap^ bitmap);
 		void AddSprite(_In_ WOtech::Sprite^ sprite);
@@ -92,6 +92,13 @@ namespace WOtech
 
 		void RemoveAudioSource(_In_ WOtech::AudioSource^ audioSource);
 
+	public:
+		property Platform::Boolean Enable
+		{
+			Platform::Boolean get() { return m_enabled; };
+			void set(_In_ Platform::Boolean enable) { m_enabled = enable; }
+		}
+
 		void OnSuspending();
 		void OnResume(_In_ WOtech::SpriteBatch^ spriteBatch);
 		void OnWindowSizeChanged(_In_ Windows::Foundation::Size windowSize);
@@ -110,6 +117,8 @@ namespace WOtech
 		}
 
 	private:
+		Platform::Boolean						m_enabled;
+
 		std::vector<WOtech::Image^>				m_imageList;
 		std::vector<WOtech::Bitmap^>			m_bitmapList;
 		std::vector<WOtech::Sprite^>			m_spriteList;
