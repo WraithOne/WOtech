@@ -178,15 +178,6 @@
       <Filter>Graphic\3D\Default</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="ThirdParty\ImGUI\imgui.cpp">
-      <Filter>ThirdParty\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\ImGUI\imgui_demo.cpp">
-      <Filter>ThirdParty\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\ImGUI\imgui_draw.cpp">
-      <Filter>ThirdParty\ImGUI</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Bitmap.cpp">
       <Filter>Graphic\2D\Components</Filter>
     </ClCompile>
@@ -286,24 +277,6 @@
     </ClInclude>
     <ClInclude Include="Include\Materials.h">
       <Filter>Graphic\3D\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\ImGUI\imconfig.h">
-      <Filter>ThirdParty\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\ImGUI\imgui.h">
-      <Filter>ThirdParty\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\ImGUI\imgui_internal.h">
-      <Filter>ThirdParty\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\ImGUI\stb_rect_pack.h">
-      <Filter>ThirdParty\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\ImGUI\stb_textedit.h">
-      <Filter>ThirdParty\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\ImGUI\stb_truetype.h">
-      <Filter>ThirdParty\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="Include\AudioComponents.h">
       <Filter>Audio</Filter>
