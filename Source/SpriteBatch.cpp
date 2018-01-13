@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		22.10.2017
+///			Edited:		13.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -65,18 +65,18 @@ namespace WOtech
 		// Create the Factory
 		if (m_factory == nullptr)
 		{
-			hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, __uuidof(ID2D1Factory3), &options, &m_factory);// D2D1_FACTORY_TYPE_SINGLE_THREADED
+			hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, __uuidof(ID2D1Factory7), &options, &m_factory);// D2D1_FACTORY_TYPE_SINGLE_THREADED
 			ThrowIfFailed(hr);
 		}
 
 		// Create the DirectWriter Factory
 		if (m_Wfactory == nullptr)
 		{
-			hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), &m_Wfactory);
+			hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory6), &m_Wfactory);
 			ThrowIfFailed(hr);
 		}
 
-		// Create the D2D Divice
+		// Create the D2D Device
 		if (m_device == nullptr)
 		{
 			hr = m_factory->CreateDevice(m_deviceDX11->getDXGIDevice(), m_device.ReleaseAndGetAddressOf());
