@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	12.05.2014
-///			Edited:		15.08.2017
+///			Edited:		13.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #pragma once
@@ -113,9 +113,11 @@ namespace WOtech
 	}
 
 	// Ceck if value is between min and max
-	inline float32 InRange(_In_ float32 value, _In_ float32 min, _In_ float32 max)
+	template <typename T>
+	inline T InRange(_In_ T value, _In_ T min, _In_ T max)
 	{
-		float32 output = 0.0f;
+		T output = 0.0f;
+
 		if (value < min)
 			output = min;
 		else if (value > max)
@@ -123,7 +125,7 @@ namespace WOtech
 		else
 			output = value;
 
-		return value;
+		return output;
 	}
 
 #if defined(_DEBUG)

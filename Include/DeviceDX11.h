@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	31.03.2016
-///			Edited:		01.11.2017
+///			Edited:		07.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DEVICEDX11_H
@@ -55,7 +55,7 @@ namespace ScreenRotation
 		0.0f, 0.0f, 1.0f, 0.0f,
 		0.0f, 0.0f, 0.0f, 1.0f
 	);
-};
+};// namespace ScreenRotation
 
 namespace WOtech
 {
@@ -74,57 +74,40 @@ namespace WOtech
 		void HandleDeviceLost();
 		void Trim();
 
-		// SETTERS
 		void setLogicalSize(_In_ Windows::Foundation::Size logicalSize);
 		void setCurrentOrientation(_In_ Windows::Graphics::Display::DisplayOrientations currentOrientation);
 		void setDpi(_In_ float32 dpi);
 		void setCompositionScale(_In_ float32 compositionScaleX, _In_ float32 compositionScaleY);
 
+		void setSampling(_In_ uint32 count, _In_ uint32 quality);
 		void setDepthStencil(_In_ Platform::Boolean enable);
 		void setWireframe(_In_ Platform::Boolean enable);
 		void setViewPort(_In_ float32 topleftx, _In_ float32 toplefty, _In_ float32 width, _In_ float32 height, _In_ float32 mindept, _In_ float32 maxdept, _In_ Platform::Boolean useActualOriantation);
+		void setStereoSwapChain(_In_ Platform::Boolean enable);
 
-		// GETTERS
-		uint32 getSampleCount();
-		uint32 getSampleQuality();
+		uint32						getSampleCount();
+		uint32						getSampleQuality();
 
-		float32	getDPI();
+		float32						getDPI();
 
-		Windows::Foundation::Size getLogicalSize();
-		Windows::Foundation::Size getRenderTargetSize();
+		Windows::Foundation::Size	getLogicalSize();
+		Windows::Foundation::Size	getRenderTargetSize();
 
-		// Performance events
-		void PIXBeginEvent(_In_ Platform::String^ name)
-		{
-			if (m_userAnnotation)
-			{
-				m_userAnnotation->BeginEvent(name->Data());
-			}
-		}
-		void PIXEndEvent()
-		{
-			if (m_userAnnotation)
-			{
-				m_userAnnotation->EndEvent();
-			}
-		}
-		void PIXSetMarker(_In_ Platform::String^ name)
-		{
-			if (m_userAnnotation)
-			{
-				m_userAnnotation->SetMarker(name->Data());
-			}
-		}
+		Platform::Boolean			isStereoSwapChain();
+
+		void PIXBeginEvent(_In_ Platform::String^ name);
+		void PIXEndEvent();
+		void PIXSetMarker(_In_ Platform::String^ name);
+
 	internal:
-		void CreateDevices();
-		void CreateWindowSizeDependentResources();
+		void EnumerateAdapters(_Out_ std::list<IDXGIAdapter4*>* adapterList);
+		void EnumerateOutputs(_In_ IDXGIAdapter4* adapter, _Out_ std::list<IDXGIOutput6*>* outputList);
+		void EnumerateDisplayModes(_In_ IDXGIOutput6* output, _Out_ std::list<DXGI_MODE_DESC1*>* displayModeList);
 
 		void setWindow(_In_ Windows::UI::Core::CoreWindow^ window);
 		void setRenderTarget(_In_ ID3D11RenderTargetView* target);
 
-		void EnumerateAdapters(_Out_ std::list<IDXGIAdapter*>* adapterList);
-		void EnumerateOutputs(_In_ IDXGIAdapter* adapter, _Out_ std::list<IDXGIOutput*>* outputList);
-		void EnumerateDisplayModes(_In_ IDXGIOutput* output, _Out_ std::list<DXGI_MODE_DESC*>* displayModeList);
+		void setPresentationParams(_In_ DXGI_PRESENT_PARAMETERS params);
 
 		IDXGIFactory5*				getFactory();
 		ID3D11Device5*				getDevice();
@@ -141,21 +124,28 @@ namespace WOtech
 		D2D1::Matrix3x2F			get2DOrientation();
 		DirectX::XMFLOAT4X4			get3DOrientation();
 
-		DXGI_MODE_ROTATION			ComputeDisplayRotation();
+		DXGI_PRESENT_PARAMETERS		getPresentationParams();
 	private:
+		void CreateDevices();
+		void CreateWindowSizeDependentResources();
+
+		void RecreateSwapChain();
+
+		DXGI_MODE_ROTATION			ComputeDisplayRotation();
+
 		~DeviceDX11();
 
 	private:
-		// Reference to Window
 		Platform::Agile<Windows::UI::Core::CoreWindow>		m_window;
 
-		Microsoft::WRL::ComPtr<ID3D11Device5>				m_device;// todo: update to Version 5 when debug tools supports
+		Microsoft::WRL::ComPtr<ID3D11Device5>				m_device;
 		Microsoft::WRL::ComPtr<IDXGIDevice4>				m_dxgiDevice;
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext4>		m_context;
 		Microsoft::WRL::ComPtr<IDXGIFactory5>				m_factory;
 
+		Platform::Boolean									m_recreateSwapChain;
 		Microsoft::WRL::ComPtr<IDXGISwapChain4>				m_swapChain;
-
+		DXGI_FORMAT											m_swapChainFormat;
 		Microsoft::WRL::ComPtr<IDXGISurface2>				m_dxgiBackBuffer;
 		UINT												m_backBufferCount;
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView1>		m_renderTargetView;
@@ -176,7 +166,6 @@ namespace WOtech
 		Windows::Graphics::Display::DisplayOrientations		m_nativeOrientation;
 		Windows::Graphics::Display::DisplayOrientations		m_currentOrientation;
 
-		// Transforms used for display orientation.
 		DirectX::XMFLOAT4X4									m_orientationTransform3D;
 		D2D1::Matrix3x2F									m_orientationTransform2D;
 
@@ -192,9 +181,7 @@ namespace WOtech
 		uint32												m_sampleQuality;
 		uint32												m_sampleCount;
 
-		Platform::Boolean									m_overlaySupportExists;
-		Platform::Boolean									m_initialCreationCompleted;
+		Platform::Boolean									m_stereo;
 	};// class DeviceDX11
-}
-
+}// namespace WOtech
 #endif

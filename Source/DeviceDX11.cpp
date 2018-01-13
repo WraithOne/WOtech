@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		01.11.2017
+///			Edited:		13.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -21,7 +21,6 @@
 #include "DeviceDX11.h"
 #include "Utilities.h"
 #include "SystemManager.h"
-#include <windows.ui.xaml.media.dxinterop.h>
 
 using namespace D2D1;
 using namespace DirectX;
@@ -38,28 +37,30 @@ namespace WOtech
 {
 	DeviceDX11::DeviceDX11() : m_d3dRenderTargetSize(), m_outputSize()
 	{
+		m_recreateSwapChain = true;
+
+		m_swapChainFormat = DXGI_FORMAT_B8G8R8A8_UNORM; // This is the most common swap chain format.
+		m_backBufferCount = 2;
+
 		m_viewport = { 0 };
-		m_featureLevel = D3D_FEATURE_LEVEL_9_1;
+		m_featureLevel = D3D_FEATURE_LEVEL_11_0;
 
 		m_nativeOrientation = DisplayOrientations::None;
 		m_currentOrientation = DisplayOrientations::None;
-		m_dpi = -1.0f;
-		m_compositionScaleX = 1.0;
+
+		m_compositionScaleX = 1.0f;
 		m_compositionScaleY = 1.0f;
 
-		m_overlaySupportExists = false;
-		m_initialCreationCompleted = false;
+		m_dpi = -1.0f;
 
-		m_backBufferCount = 2;
 		m_presentParameters = { 0 };
+		m_sampleCount = 1;
+		m_sampleQuality = 0;
+
+		m_stereo = false;
 
 		// add to SystemManager
 		SystemManager::Instance->AddDeviceDX11(this);
-	}
-
-	DeviceDX11::~DeviceDX11()
-	{
-		SystemManager::Instance->RemoveDeviceDX11(this);
 	}
 
 	void DeviceDX11::Create()
@@ -68,8 +69,23 @@ namespace WOtech
 		CreateDevices();
 
 		// set current window to device resources
-		Windows::UI::Core::CoreWindow^ window = Windows::UI::Core::CoreWindow::GetForCurrentThread();
+		CoreWindow^ window = CoreWindow::GetForCurrentThread();
 		setWindow(window);
+	}
+
+	void DeviceDX11::Clear(_In_ Color color)
+	{
+		Clear(color, CLEAR_FLAG::CLEAR_DEPTH, 1.0f, 0);
+	}
+	void DeviceDX11::Clear(_In_ Color color, _In_ CLEAR_FLAG clearFlags, _In_ float32 depth, _In_ uint8 stencil)
+	{
+		m_context->RSSetViewports(1, &m_viewport);
+
+		ID3D11RenderTargetView *const targets[1] = { m_renderTargetView.Get() };// todo: make it backbuffer count
+		m_context->OMSetRenderTargets(1, targets, m_depthStencilView.Get());
+
+		m_context->ClearRenderTargetView(m_renderTargetView.Get(), wrapColorD3D(color));
+		m_context->ClearDepthStencilView(m_depthStencilView.Get(), wrapClearFlag(clearFlags), depth, stencil);
 	}
 
 	void DeviceDX11::Present()
@@ -96,85 +112,6 @@ namespace WOtech
 			ThrowIfFailed(hr);
 		}
 	}
-	void DeviceDX11::Clear(_In_ Color color)
-	{
-		Clear(color, CLEAR_FLAG::CLEAR_DEPTH, 1.0f, 0);
-	}
-	void DeviceDX11::Clear(_In_ Color color, _In_ CLEAR_FLAG clearFlags, _In_ float32 depth, _In_ uint8 stencil)
-	{
-		m_context->RSSetViewports(1, &m_viewport);
-
-		ID3D11RenderTargetView *const targets[2] = { m_renderTargetView.Get() };// todo: make it backbuffer count
-		m_context->OMSetRenderTargets(1, targets, m_depthStencilView.Get());
-
-		m_context->ClearRenderTargetView(m_renderTargetView.Get(), wrapColorD3D(color));
-		m_context->ClearDepthStencilView(m_depthStencilView.Get(), wrapClearFlag(clearFlags), depth, stencil);
-	}
-
-	void DeviceDX11::EnumerateAdapters(_Out_ std::list<IDXGIAdapter*>* adapterList)
-	{
-		ComPtr<IDXGIAdapter> pAdapter;
-		HRESULT hr = E_FAIL;
-
-		uint32 flags = 0;
-#ifdef _DEBUG
-		flags = DXGI_CREATE_FACTORY_DEBUG;
-#endif
-
-		// Create a DXGIFactory object.
-		if (m_factory == NULL)
-		{
-			hr = CreateDXGIFactory2(flags, __uuidof(IDXGIFactory2), &m_factory);
-			ThrowIfFailed(hr);
-		}
-
-		std::list<IDXGIAdapter*> temp;
-
-		for (UINT i = 0; (hr = m_factory->EnumAdapters(i, &pAdapter)) != DXGI_ERROR_NOT_FOUND; ++i)
-		{
-			ThrowIfFailed(hr);
-			temp.push_back(pAdapter.Get());
-		}
-		adapterList = &temp;
-	}
-	void DeviceDX11::EnumerateOutputs(_In_ IDXGIAdapter* adapter, _Out_ std::list<IDXGIOutput*>* outputList)
-	{
-		uint32 i = 0;
-		ComPtr<IDXGIOutput> pOutput;
-		std::list<IDXGIOutput*> temp;
-
-		while (adapter->EnumOutputs(i, &pOutput) != DXGI_ERROR_NOT_FOUND)
-		{
-			temp.push_back(pOutput.Get());
-			++i;
-		}
-		outputList = &temp;
-	}
-	void DeviceDX11::EnumerateDisplayModes(_In_ IDXGIOutput* output, _Out_ std::list<DXGI_MODE_DESC*>* displayModeList)
-	{
-		HRESULT hr;
-
-		uint32 numModes = 0;
-		DXGI_FORMAT format = DXGI_FORMAT_B8G8R8A8_UNORM;
-		uint32 flags = DXGI_ENUM_MODES_INTERLACED;
-
-		// Get the number of elements
-		hr = output->GetDisplayModeList(format, flags, &numModes, NULL);
-		ThrowIfFailed(hr);
-		DXGI_MODE_DESC* displayModes = new DXGI_MODE_DESC[numModes];
-
-		hr = output->GetDisplayModeList(format, flags, &numModes, displayModes);
-		ThrowIfFailed(hr);
-
-		for (uint32 i = 0; i <= numModes; i++)
-		{
-			DXGI_MODE_DESC* temp = NULL;
-
-			temp = &displayModes[i];
-			displayModeList->push_back(temp);
-		}
-	}
-
 	void DeviceDX11::ValidateDevice()
 	{
 		HRESULT hr;
@@ -237,20 +174,6 @@ namespace WOtech
 		m_dxgiDevice->Trim();
 	}
 
-	// SETTERS
-	void DeviceDX11::setWindow(_In_ Windows::UI::Core::CoreWindow^ window)
-	{
-		m_window = window;
-
-		DisplayInformation^ currentDisplayInformation = DisplayInformation::GetForCurrentView();
-
-		m_logicalSize = Windows::Foundation::Size(m_window->Bounds.Width, m_window->Bounds.Height);
-		m_nativeOrientation = currentDisplayInformation->NativeOrientation;
-		m_currentOrientation = currentDisplayInformation->CurrentOrientation;
-		m_dpi = currentDisplayInformation->LogicalDpi;
-
-		CreateWindowSizeDependentResources();
-	}
 	void DeviceDX11::setLogicalSize(_In_ Windows::Foundation::Size logicalSize)
 	{
 		if (m_logicalSize != logicalSize)
@@ -289,12 +212,16 @@ namespace WOtech
 		}
 	}
 
-	void DeviceDX11::setRenderTarget(_In_ ID3D11RenderTargetView* Target)
+	void DeviceDX11::setSampling(_In_ uint32 count, _In_ uint32 quality)
 	{
-		if (Target)
-		{
-			m_context->OMSetRenderTargets(1, &Target, m_depthStencilView.Get());
-		}
+		uint32 maxquality = 0U;
+
+		m_sampleCount = InRange(count, 1U, 4U);//  Direct3D 11 video cards are guaranteed to support up to 4, minimum is 1
+
+		ThrowIfFailed(m_device->CheckMultisampleQualityLevels(m_swapChainFormat, m_sampleCount, &maxquality));
+		m_sampleQuality = InRange(quality, 0U, maxquality);
+
+		RecreateSwapChain();
 	}
 
 	void DeviceDX11::setDepthStencil(_In_ Platform::Boolean enable)
@@ -349,11 +276,13 @@ namespace WOtech
 	}
 	void DeviceDX11::setViewPort(_In_ float32 topleftx, _In_ float32 toplefty, _In_ float32 width, _In_ float32 height, _In_ float32 mindept, _In_ float32 maxdept, _In_ Platform::Boolean useActualOriantation)
 	{
+		float32 boundsMAX = static_cast<float32>(D3D11_VIEWPORT_BOUNDS_MAX);
+		float32 boundsMIN = static_cast<float32>(D3D11_VIEWPORT_BOUNDS_MIN);
 		// Range Check
-		float32 temptopleftx = WOtech::InRange(topleftx, D3D11_VIEWPORT_BOUNDS_MIN, D3D11_VIEWPORT_BOUNDS_MAX);
-		float32 temptoplefty = WOtech::InRange(toplefty, D3D11_VIEWPORT_BOUNDS_MIN, D3D11_VIEWPORT_BOUNDS_MAX);
-		float32 tempwidth = WOtech::InRange(width, D3D11_VIEWPORT_BOUNDS_MIN, D3D11_VIEWPORT_BOUNDS_MAX);
-		float32 tempheight = WOtech::InRange(height, D3D11_VIEWPORT_BOUNDS_MIN, D3D11_VIEWPORT_BOUNDS_MAX);
+		float32 temptopleftx = WOtech::InRange(topleftx, boundsMIN, boundsMAX);
+		float32 temptoplefty = WOtech::InRange(toplefty, boundsMIN, boundsMAX);
+		float32 tempwidth = WOtech::InRange(width, boundsMIN, boundsMAX);
+		float32 tempheight = WOtech::InRange(height, boundsMIN, boundsMAX);
 		float32 tempmindepth = WOtech::InRange(topleftx, 0.0f, 1.0f);
 		float32 tempmaxdepth = WOtech::InRange(topleftx, 0.0f, 1.0f);
 
@@ -383,68 +312,11 @@ namespace WOtech
 		m_context->RSSetViewports(1, &viewPort);
 	}
 
-	// GETTERS
-	IDXGIFactory5* DeviceDX11::getFactory()
+	void DeviceDX11::setStereoSwapChain(_In_ Platform::Boolean enable)
 	{
-		return m_factory.Get();
-	}
-	ID3D11Device5* DeviceDX11::getDevice()
-	{
-		return m_device.Get();
-	}
-	IDXGIDevice4* DeviceDX11::getDXGIDevice()
-	{
-		return m_dxgiDevice.Get();
-	}
-	ID3D11DeviceContext4* DeviceDX11::getContext()
-	{
-		return m_context.Get();
-	}
+		m_stereo = enable;
 
-	ID3D11RenderTargetView1* DeviceDX11::getRenderTarget()
-	{
-		return m_renderTargetView.Get();
-	}
-
-	IDXGISurface2* DeviceDX11::getSurface()
-	{
-		return m_dxgiBackBuffer.Get();
-	}
-
-	ID3D11DepthStencilState* DeviceDX11::getDepthStencilState()
-	{
-		return m_depthStencilState.Get();
-	}
-	ID3D11RasterizerState2* DeviceDX11::getRasterizerState()
-	{
-		return m_rasterizerState.Get();
-	}
-	D3D11_VIEWPORT DeviceDX11::getViewPort()
-	{
-		return m_viewport;
-	}
-
-	// GETTERS
-	float32 DeviceDX11::getDPI()
-	{
-		return m_dpi;
-	}
-	Windows::Foundation::Size DeviceDX11::getLogicalSize()
-	{
-		return m_logicalSize;
-	}
-	Windows::Foundation::Size DeviceDX11::getRenderTargetSize()
-	{
-		return m_d3dRenderTargetSize;
-	}
-
-	D2D1::Matrix3x2F DeviceDX11::get2DOrientation()
-	{
-		return m_orientationTransform2D;
-	}
-	DirectX::XMFLOAT4X4 DeviceDX11::get3DOrientation()
-	{
-		return m_orientationTransform3D;
+		RecreateSwapChain();
 	}
 
 	uint32 DeviceDX11::getSampleCount()
@@ -456,7 +328,195 @@ namespace WOtech
 		return m_sampleQuality;
 	}
 
-	// Private
+	float32 DeviceDX11::getDPI()
+	{
+		return m_dpi;
+	}
+
+	Windows::Foundation::Size DeviceDX11::getLogicalSize()
+	{
+		return m_logicalSize;
+	}
+	Windows::Foundation::Size DeviceDX11::getRenderTargetSize()
+	{
+		return m_d3dRenderTargetSize;
+	}
+
+	Platform::Boolean DeviceDX11::isStereoSwapChain()
+	{
+		return m_stereo;
+	}
+
+	void DeviceDX11::PIXBeginEvent(_In_ Platform::String ^ name)
+	{
+		if (m_userAnnotation)
+		{
+			m_userAnnotation->BeginEvent(name->Data());
+		}
+	}
+	void DeviceDX11::PIXEndEvent()
+	{
+		if (m_userAnnotation)
+		{
+			m_userAnnotation->EndEvent();
+		}
+	}
+	void DeviceDX11::PIXSetMarker(_In_ Platform::String ^ name)
+	{
+		if (m_userAnnotation)
+		{
+			m_userAnnotation->SetMarker(name->Data());
+		}
+	}
+
+	void DeviceDX11::EnumerateAdapters(_Out_ std::list<IDXGIAdapter4*>* adapterList)
+	{
+		ComPtr<IDXGIAdapter1> pAdapter;
+		HRESULT hr = E_FAIL;
+
+		uint32 flags = 0;
+#ifdef _DEBUG
+		flags = DXGI_CREATE_FACTORY_DEBUG;
+#endif
+
+		// Create a DXGIFactory object.
+		if (m_factory == NULL)
+		{
+			hr = CreateDXGIFactory2(flags, __uuidof(IDXGIFactory5), &m_factory);
+			ThrowIfFailed(hr);
+		}
+
+		std::list<IDXGIAdapter4*> tempList;
+
+		for (UINT i = 0; (hr = m_factory->EnumAdapters1(i, &pAdapter)) != DXGI_ERROR_NOT_FOUND; ++i)
+		{
+			ThrowIfFailed(hr);
+			ComPtr<IDXGIAdapter4> temp;
+			pAdapter.As(&temp);
+
+			tempList.push_back(temp.Get());
+		}
+		adapterList = &tempList;
+	}
+	void DeviceDX11::EnumerateOutputs(_In_ IDXGIAdapter4* adapter, _Out_ std::list<IDXGIOutput6*>* outputList)
+	{
+		uint32 i = 0;
+		ComPtr<IDXGIOutput> pOutput;
+		ComPtr<IDXGIOutput6> temp;
+		std::list<IDXGIOutput6*> tempList;
+
+		while (adapter->EnumOutputs(i, &pOutput) != DXGI_ERROR_NOT_FOUND)
+		{
+			pOutput.As(&temp);
+			tempList.push_back(temp.Get());
+			++i;
+		}
+		outputList = &tempList;
+	}
+	void DeviceDX11::EnumerateDisplayModes(_In_ IDXGIOutput6* output, _Out_ std::list<DXGI_MODE_DESC1*>* displayModeList)
+	{
+		HRESULT hr;
+
+		uint32 numModes = 0;
+		DXGI_FORMAT format = DXGI_FORMAT_B8G8R8A8_UNORM;
+		uint32 flags = DXGI_ENUM_MODES_INTERLACED;
+
+		// Get the number of elements
+		hr = output->GetDisplayModeList1(format, flags, &numModes, NULL);
+		ThrowIfFailed(hr);
+		DXGI_MODE_DESC1* displayModes = new DXGI_MODE_DESC1[numModes];
+
+		hr = output->GetDisplayModeList1(format, flags, &numModes, displayModes);
+		ThrowIfFailed(hr);
+
+		for (uint32 i = 0; i <= numModes; i++)
+		{
+			DXGI_MODE_DESC1* temp = NULL;
+
+			temp = &displayModes[i];
+			displayModeList->push_back(temp);
+		}
+	}
+
+	void DeviceDX11::setWindow(_In_ Windows::UI::Core::CoreWindow^ window)
+	{
+		m_window = window;
+
+		DisplayInformation^ currentDisplayInformation = DisplayInformation::GetForCurrentView();
+
+		m_logicalSize = Windows::Foundation::Size(m_window->Bounds.Width, m_window->Bounds.Height);
+		m_nativeOrientation = currentDisplayInformation->NativeOrientation;
+		m_currentOrientation = currentDisplayInformation->CurrentOrientation;
+		m_dpi = currentDisplayInformation->LogicalDpi;
+
+		CreateWindowSizeDependentResources();
+	}
+	void DeviceDX11::setRenderTarget(_In_ ID3D11RenderTargetView* Target)
+	{
+		if (Target)
+		{
+			m_context->OMSetRenderTargets(1, &Target, m_depthStencilView.Get());
+		}
+	}
+
+	void DeviceDX11::setPresentationParams(_In_ DXGI_PRESENT_PARAMETERS params)
+	{
+		m_presentParameters = params;
+	}
+
+	IDXGIFactory5*				DeviceDX11::getFactory()
+	{
+		return m_factory.Get();
+	}
+	ID3D11Device5*				DeviceDX11::getDevice()
+	{
+		return m_device.Get();
+	}
+	IDXGIDevice4*				DeviceDX11::getDXGIDevice()
+	{
+		return m_dxgiDevice.Get();
+	}
+	ID3D11DeviceContext4*		DeviceDX11::getContext()
+	{
+		return m_context.Get();
+	}
+
+	ID3D11RenderTargetView1*	DeviceDX11::getRenderTarget()
+	{
+		return m_renderTargetView.Get();
+	}
+	IDXGISurface2*				DeviceDX11::getSurface()
+	{
+		return m_dxgiBackBuffer.Get();
+	}
+
+	ID3D11DepthStencilState*	DeviceDX11::getDepthStencilState()
+	{
+		return m_depthStencilState.Get();
+	}
+	ID3D11RasterizerState2*		DeviceDX11::getRasterizerState()
+	{
+		return m_rasterizerState.Get();
+	}
+	D3D11_VIEWPORT				DeviceDX11::getViewPort()
+	{
+		return m_viewport;
+	}
+
+	D2D1::Matrix3x2F			DeviceDX11::get2DOrientation()
+	{
+		return m_orientationTransform2D;
+	}
+	DirectX::XMFLOAT4X4			DeviceDX11::get3DOrientation()
+	{
+		return m_orientationTransform3D;
+	}
+
+	DXGI_PRESENT_PARAMETERS DeviceDX11::getPresentationParams()
+	{
+		return m_presentParameters;
+	}
+
 	void DeviceDX11::CreateDevices()
 	{
 		uint32 creationFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
@@ -546,6 +606,9 @@ namespace WOtech
 		m_context->Flush();
 		m_context->ClearState();
 
+		if (m_recreateSwapChain)
+			m_swapChain.Reset();
+
 		// Calculate the necessary render target size in pixels (for CoreWindow).
 		m_outputSize.Width = ConvertDipsToPixels(m_logicalSize.Width, m_dpi);
 		m_outputSize.Height = ConvertDipsToPixels(m_logicalSize.Height, m_dpi);
@@ -592,6 +655,9 @@ namespace WOtech
 		{
 			// Otherwise, create a new one using the same adapter as the existing Direct3D device.
 
+			// SwapChain doesn´t need to recreated anymore
+			m_recreateSwapChain = false;
+
 			// This sequence obtains the DXGI factory that was used to create the Direct3D device above.
 			ComPtr<IDXGIDevice4> dxgiDevice;
 			hr = m_device.As(&dxgiDevice);
@@ -608,13 +674,13 @@ namespace WOtech
 			DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {};
 			swapChainDesc.Width = static_cast<uint32>(m_d3dRenderTargetSize.Width); // Match the size of the window.
 			swapChainDesc.Height = static_cast<uint32>(m_d3dRenderTargetSize.Height);
-			swapChainDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM; // This is the most common swap chain format.
-			swapChainDesc.Stereo = false;
-			swapChainDesc.SampleDesc.Count = 1; // Don't use multi-sampling.
-			swapChainDesc.SampleDesc.Quality = 0;
+			swapChainDesc.Format = m_swapChainFormat;
+			swapChainDesc.Stereo = m_stereo;
+			swapChainDesc.SampleDesc.Count = m_sampleCount; // Don't use multi-sampling.
+			swapChainDesc.SampleDesc.Quality = m_sampleQuality;
 			swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 			swapChainDesc.BufferCount = m_backBufferCount;
-			swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; // All Windows Store apps must use this SwapEffect. default: DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL
+			swapChainDesc.SwapEffect = m_stereo ? DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL : DXGI_SWAP_EFFECT_FLIP_DISCARD; // All Windows Store apps must use this SwapEffect. default: DXGI_SWAP_EFFECT_FLIP_DISCARD Stereo: DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL 
 			swapChainDesc.Flags = 0;
 			swapChainDesc.AlphaMode = DXGI_ALPHA_MODE_IGNORE; // When using XAML interop, this value cannot be DXGI_ALPHA_MODE_PREMULTIPLIED.
 			swapChainDesc.Scaling = DXGI_SCALING_ASPECT_RATIO_STRETCH;
@@ -716,6 +782,14 @@ namespace WOtech
 		hr = m_swapChain->GetBuffer(0, IID_PPV_ARGS(&m_dxgiBackBuffer));
 		ThrowIfFailed(hr);
 	}
+
+	void DeviceDX11::RecreateSwapChain()
+	{
+		m_recreateSwapChain = true;
+
+		CreateWindowSizeDependentResources();
+	}
+
 	DXGI_MODE_ROTATION DeviceDX11::ComputeDisplayRotation()
 	{
 		DXGI_MODE_ROTATION rotation = DXGI_MODE_ROTATION_UNSPECIFIED;
@@ -767,5 +841,10 @@ namespace WOtech
 			break;
 		}
 		return rotation;
+	}
+
+	DeviceDX11::~DeviceDX11()
+	{
+		SystemManager::Instance->RemoveDeviceDX11(this);
 	}
 }// namespace WOtech
