@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		01.11.2017
+///			Edited:		16.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SPRITEBATCH_H
@@ -91,8 +91,8 @@ namespace WOtech
 	internal:
 		void Initialize();
 		void ReleaseRendertarget();
-		ID2D1DeviceContext6*		GetDeviceContext();
-		ID2D1Factory7*				getFactory();
+		ID2D1DeviceContext5*		GetDeviceContext();
+		ID2D1Factory6*				getFactory();
 
 	private:
 		~SpriteBatch();
@@ -107,12 +107,12 @@ namespace WOtech
 	private:
 		WOtech::DeviceDX11^								m_deviceDX11;
 
-		Microsoft::WRL::ComPtr<ID2D1Factory7>			m_factory;
-		Microsoft::WRL::ComPtr<ID2D1Device6>			m_device;
-		Microsoft::WRL::ComPtr<ID2D1DeviceContext6>		m_deviceContext;
+		Microsoft::WRL::ComPtr<ID2D1Factory6>			m_factory;
+		Microsoft::WRL::ComPtr<ID2D1Device5>			m_device;
+		Microsoft::WRL::ComPtr<ID2D1DeviceContext5>		m_deviceContext;
 		Microsoft::WRL::ComPtr<ID2D1Bitmap1>			m_targetBitmap;
 
-		Microsoft::WRL::ComPtr<IDWriteFactory6>			m_Wfactory;
+		Microsoft::WRL::ComPtr<IDWriteFactory5>			m_Wfactory;
 
 		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>	m_fontBrush;
 		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>	m_circleBrush;

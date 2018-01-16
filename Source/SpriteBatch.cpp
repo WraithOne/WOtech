@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		13.01.2018
+///			Edited:		16.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -65,14 +65,14 @@ namespace WOtech
 		// Create the Factory
 		if (m_factory == nullptr)
 		{
-			hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, __uuidof(ID2D1Factory7), &options, &m_factory);// D2D1_FACTORY_TYPE_SINGLE_THREADED
+			hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, __uuidof(ID2D1Factory6), &options, &m_factory);// D2D1_FACTORY_TYPE_SINGLE_THREADED
 			ThrowIfFailed(hr);
 		}
 
 		// Create the DirectWriter Factory
 		if (m_Wfactory == nullptr)
 		{
-			hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory6), &m_Wfactory);
+			hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory5), &m_Wfactory);
 			ThrowIfFailed(hr);
 		}
 
@@ -443,12 +443,12 @@ namespace WOtech
 		m_deviceContext->DrawGeometry(geometry->getGeometry(), geometry->getBrush(), strokeWidth);
 	}
 
-	ID2D1DeviceContext6* SpriteBatch::GetDeviceContext()
+	ID2D1DeviceContext5* SpriteBatch::GetDeviceContext()
 	{
 		return m_deviceContext.Get();
 	}
 
-	ID2D1Factory7* SpriteBatch::getFactory()
+	ID2D1Factory6* SpriteBatch::getFactory()
 	{
 		return m_factory.Get();
 	}
