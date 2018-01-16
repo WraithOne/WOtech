@@ -5,21 +5,24 @@
 ///			https://github.com/WraithOne/WOtech
 ///			by https://twitter.com/WraithOne
 ///
-///			File: GameFramework.h
+///			File: Application.cpp
 ///
 ///			Description:
 ///
-///			Created:	01.04.2016
-///			Edited:		11.04.2016
+///			Created:	14.01.2018
+///			Edited:		14.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
-#pragma once
 
 //////////////
 // INCLUDES //
 //////////////
 #include "pch.h"
-#include "IGameObject.h"
-#include "GameTimer.h"
-#include "GameScene.h"
-#include "Framecounter.h"
+#include "Include\Application.h"
+
+using namespace WOtech;
+
+namespace WOtech
+{
+
+}

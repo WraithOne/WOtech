@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	12.05.2014
-///			Edited:		06.11.2016
+///			Edited:		14.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -35,21 +35,27 @@ namespace WOtech
 		Reset();
 	}
 
-	float32 GameTimer::PlayingTime()
+	GameTime GameTimer::GetTime()
 	{
+		GameTime output;
+
 		if (m_active)
 		{
 			// The distance m_currentTime - m_baseTime includes paused time,
 			// which we do not want to count.  To correct this, we can subtract
 			// the paused time from m_currentTime:
-			return static_cast<float32>(((m_currentTime.QuadPart - m_pausedTime.QuadPart) - m_baseTime.QuadPart)*m_secondsPerCount);
+			output.PlayingTime = static_cast<float32>(((m_currentTime.QuadPart - m_pausedTime.QuadPart) - m_baseTime.QuadPart)*m_secondsPerCount);
 		}
 		else
 		{
 			// The clock is currently not running so don't count the time since
 			// the clock was stopped
-			return static_cast<float32>(((m_stopTime.QuadPart - m_pausedTime.QuadPart) - m_baseTime.QuadPart)*m_secondsPerCount);
+			output.PlayingTime = static_cast<float32>(((m_stopTime.QuadPart - m_pausedTime.QuadPart) - m_baseTime.QuadPart)*m_secondsPerCount);
 		}
+
+		output.DeltaTime = m_deltaTime;
+
+		return output;
 	}
 
 	void GameTimer::PlayingTime(_In_ float32 time)
@@ -58,11 +64,6 @@ namespace WOtech
 		// Offset the baseTime by this 'time'.
 
 		m_baseTime.QuadPart = m_stopTime.QuadPart - static_cast<__int64>(time / m_secondsPerCount);
-	}
-
-	float32 GameTimer::DeltaTime()
-	{
-		return m_deltaTime;
 	}
 
 	void GameTimer::Reset()
@@ -80,7 +81,6 @@ namespace WOtech
 		m_pausedTime.QuadPart = 0;
 		m_active = false;
 	}
-
 	void GameTimer::Start()
 	{
 		LARGE_INTEGER startTime;
@@ -99,7 +99,6 @@ namespace WOtech
 			m_active = true;
 		}
 	}
-
 	void GameTimer::Stop()
 	{
 		if (m_active)
@@ -109,7 +108,6 @@ namespace WOtech
 			m_active = false;
 		}
 	}
-
 	void GameTimer::Update()
 	{
 		if (!m_active)
@@ -133,5 +131,10 @@ namespace WOtech
 		{
 			m_deltaTime = 0.0;
 		}
+	}
+
+	Platform::Boolean GameTimer::Active()
+	{ 
+		return m_active;
 	}
 }//namespace WOtech

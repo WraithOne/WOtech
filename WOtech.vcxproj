@@ -274,6 +274,7 @@
   <ItemGroup>
     <ClInclude Include="Include\2DComponents.h" />
     <ClInclude Include="Include\3DComponents.h" />
+    <ClInclude Include="Include\Application.h" />
     <ClInclude Include="Include\Audio.h" />
     <ClInclude Include="Include\AudioComponents.h" />
     <ClInclude Include="Include\ContentManager.h" />
@@ -283,7 +284,7 @@
     <ClInclude Include="Include\DXWrapper.h" />
     <ClInclude Include="Include\ForwardRenderer.h" />
     <ClInclude Include="Include\Framecounter.h" />
-    <ClInclude Include="Include\Gameframework.h" />
+    <ClInclude Include="Include\Game.h" />
     <ClInclude Include="Include\GameScene.h" />
     <ClInclude Include="Include\GameTimer.h" />
     <ClInclude Include="Include\IGameObject.h" />
@@ -301,6 +302,7 @@
     <ClInclude Include="Include\Utilities.h" />
     <ClInclude Include="Include\VertexTypes.h" />
     <ClInclude Include="Include\VirtualController.h" />
+    <ClInclude Include="Include\Window.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ThirdParty\FontFileLoader.h" />
     <ClInclude Include="ThirdParty\MediaReader.h" />
@@ -316,6 +318,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\AnimatedSprite.cpp" />
+    <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioEngine.cpp" />
     <ClCompile Include="Source\AudioSource.cpp" />
     <ClCompile Include="Source\Batch2D.cpp" />
@@ -329,6 +332,7 @@
     <ClCompile Include="Source\Font.cpp" />
     <ClCompile Include="Source\ForwardRenderer.cpp" />
     <ClCompile Include="Source\Framecounter.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameScene.cpp" />
     <ClCompile Include="Source\GameTimer.cpp" />
     <ClCompile Include="Source\Geometry.cpp" />
@@ -351,6 +355,7 @@
     <ClCompile Include="Source\Text.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
     <ClCompile Include="Source\VirtualController.cpp" />
+    <ClCompile Include="Source\Window.cpp" />
     <ClCompile Include="ThirdParty\FontFileLoader.cpp" />
     <ClCompile Include="ThirdParty\MediaReader.cpp" />
     <ClCompile Include="ThirdParty\WICTextureLoader.cpp" />

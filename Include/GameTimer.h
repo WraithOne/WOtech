@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	12.05.2014
-///			Edited:		01.02.2017
+///			Edited:		14.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_GAMETIMER_H
@@ -23,20 +23,27 @@
 
 namespace WOtech
 {
+	public value struct GameTime
+	{
+		float32 DeltaTime; // Return the Delta time between the last two updates
+		float32 PlayingTime; // Return the Elapsed time the Game has been active in seconds since Reset
+	};
+
 	public ref class GameTimer sealed
 	{
 	public:
 		GameTimer();
+			
+		GameTime GetTime();
 
-		float32 PlayingTime();				// Return the Elapsed time the Game has been active in seconds since Reset
 		void PlayingTime(_In_ float32 time);	// Set the Elapsed playing time -- used for restarting in the middle of a game
-		float32 DeltaTime();					// Return the Delta time between the last two updates
-
+						
 		void Reset();
 		void Start();
 		void Stop();
 		void Update();
-		Platform::Boolean Active() { return m_active; };
+
+		Platform::Boolean Active();
 
 	private:
 		float32			m_secondsPerCount;	// 1.0 / Frequency

@@ -187,6 +187,15 @@
     <ClCompile Include="Source\Batch2D.cpp">
       <Filter>Graphic\2D\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Window.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Application.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game.cpp">
+      <Filter>GameFramework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -223,9 +232,6 @@
     </ClInclude>
     <ClInclude Include="Include\SystemManager.h">
       <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Gameframework.h">
-      <Filter>GameFramework</Filter>
     </ClInclude>
     <ClInclude Include="Include\GameScene.h">
       <Filter>GameFramework</Filter>
@@ -283,6 +289,15 @@
     </ClInclude>
     <ClInclude Include="Include\Numerics.h">
       <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Window.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Application.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Game.h">
+      <Filter>GameFramework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
