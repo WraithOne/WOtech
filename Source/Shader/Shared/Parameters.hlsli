@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	15.04.2017
-///			Edited:		02.09.2017
+///			Edited:		17.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -22,7 +22,7 @@ cbuffer Parameters : register(b0)
 	float4 DiffuseColor             : packoffset(c0);
 	float3 EmissiveColor            : packoffset(c1);
 	float3 SpecularColor            : packoffset(c2);
-	float  SpecularPower : packoffset(c2.w);
+	float  SpecularPower			: packoffset(c2.w);
 
 	float3 LightDirection[3]        : packoffset(c3);
 	float3 LightDiffuseColor[3]     : packoffset(c6);

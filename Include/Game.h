@@ -29,8 +29,13 @@ namespace WOtech
 	public:
 		virtual void Initalize();
 		virtual void Load();
+		virtual void UnLoad();
 		virtual void Update(GameTime gametime);
 		virtual void Draw(GameTime gametime);
+
+		virtual void OnWindowChanged();
+		virtual void OnSuspending();
+		virtual void OnResuming();
 	};
 }
 #endif

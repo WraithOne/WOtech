@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	25.02.2016
-///			Edited:		22.12.2017
+///			Edited:		17.01.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -98,6 +98,7 @@ namespace WOtech
 	///////////////////////
 	BasicMaterial::BasicMaterial(_In_ VertexShader^ Vshader, _In_ PixelShader^ Pshader, _In_ DeviceDX11^ device)
 	{
+		m_constants = { 0 };
 		m_vertexShader = Vshader;
 		m_pixelShader = Pshader;
 

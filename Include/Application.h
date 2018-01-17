@@ -21,7 +21,7 @@
 //////////////
 #include "pch.h"
 #include "Game.h"
-
+/*
 namespace WOtech
 {
 	/////////////////////////////////////////////////////////////////////////
@@ -96,4 +96,6 @@ namespace WOtech
 	private:
 	};
 } // namespace WOtech
+
+*/
 #endif
