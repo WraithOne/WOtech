@@ -111,6 +111,20 @@ namespace WOtech
 
 		return radian;
 	}
+	// Converts Vector to Degree
+	inline float32 VectortoDegree(_In_ float32 x, _In_ float32 y)
+	{
+		float32 result = RadiantoDegree(VectortoRadian(y, x));
+
+		return result;
+	}
+	// Converts Vector to Degree
+	inline float32 VectortoRadian(_In_ float32 x, _In_ float32 y)
+	{
+		float32 result = atan2(y, x);
+
+		return result;
+	}
 
 	// Ceck if value is between min and max
 	template <typename T>
