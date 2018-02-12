@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	12.05.2014
-///			Edited:		13.01.2018
+///			Edited:		12.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #pragma once
@@ -116,7 +116,7 @@ namespace WOtech
 	template <typename T>
 	inline T InRange(_In_ T value, _In_ T min, _In_ T max)
 	{
-		T output = 0.0f;
+		T output;
 
 		if (value < min)
 			output = min;
