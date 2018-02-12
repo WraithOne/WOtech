@@ -104,7 +104,7 @@ namespace WOtech
 
 	void TextBlock::setRotationinVector(_In_ float32 x, _In_ float32 y)
 	{
-		// todo:!!!!!
+		m_rotation = VectortoDegree(x, y);
 	}
 
 	void TextBlock::setColor(_In_ float32 r, _In_ float32 g, _In_ float32 b, _In_ float32 a)
