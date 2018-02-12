@@ -819,9 +819,9 @@ namespace WOtech
 		{
 			const UINT size = inputelementdesc->Length;
 
-			D3D11_INPUT_ELEMENT_DESC* InputElementDESC = new D3D11_INPUT_ELEMENT_DESC;
+			D3D11_INPUT_ELEMENT_DESC* InputElementDESC = new D3D11_INPUT_ELEMENT_DESC[size];
 
-			for (unsigned int i = 0; i <= size; i++)
+			for (unsigned int i = 0; i < size; i++)
 			{
 				InputElementDESC[i].AlignedByteOffset = static_cast<UINT>(inputelementdesc[i].AlignedByteOffset);// DATA type!!!! buffer OVERFLOW
 				InputElementDESC[i].Format = wrapDXGIFormat(inputelementdesc[i].Format);
