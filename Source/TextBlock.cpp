@@ -5,12 +5,12 @@
 ///			https://github.com/WraithOne/WOtech
 ///			by https://twitter.com/WraithOne
 ///
-///			File: Text.cpp
+///			File: TextBlock.cpp
 ///
 ///			Description:
 ///
 ///			Created:	05.09.2014
-///			Edited:		17.08.2017
+///			Edited:		12.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -30,7 +30,7 @@ using namespace WOtech::DXWrapper;
 
 namespace WOtech
 {
-	void Text::CreateText(_In_ Font^ font, _In_ SpriteBatch^ spriteBatch)
+	void TextBlock::CreateText(_In_ Font^ font, _In_ SpriteBatch^ spriteBatch)
 	{
 		m_font = font;
 
@@ -45,7 +45,7 @@ namespace WOtech
 
 		// todo: Content Manager
 	}
-	void Text::CreateText(_In_ Font^ font, _In_ SpriteBatch^ spriteBatch, _In_ float32 size, _In_ String^ text, _In_ FONT_STYLE style, _In_ Color color, _In_ Point position, _In_ Size layoutsize)
+	void TextBlock::CreateText(_In_ Font^ font, _In_ SpriteBatch^ spriteBatch, _In_ float32 size, _In_ String^ text, _In_ FONT_STYLE style, _In_ Color color, _In_ Point position, _In_ Size layoutsize)
 	{
 		m_font = font;
 
@@ -62,7 +62,7 @@ namespace WOtech
 		makeText();
 	}
 
-	void Text::setSize(_In_ float32 size)
+	void TextBlock::setSize(_In_ float32 size)
 	{
 		if (size != m_size)
 		{
@@ -72,7 +72,7 @@ namespace WOtech
 		}
 	}
 
-	void Text::setText(_In_ String^ text)
+	void TextBlock::setText(_In_ String^ text)
 	{
 		if (text != m_text)
 		{
@@ -82,39 +82,39 @@ namespace WOtech
 		}
 	}
 
-	void Text::setPosition(_In_ float32 x, _In_ float32 y)
+	void TextBlock::setPosition(_In_ float32 x, _In_ float32 y)
 	{
 		m_position.X = x;
 		m_position.Y = y;
 	}
-	void Text::setPosition(_In_ Point position)
+	void TextBlock::setPosition(_In_ Point position)
 	{
 		m_position = position;
 	}
 
-	void Text::setRotation(_In_ float32 degree)
+	void TextBlock::setRotation(_In_ float32 degree)
 	{
 		m_rotation = degree;
 	}
 
-	void Text::setRotationinRadian(_In_ float32 radian)
+	void TextBlock::setRotationinRadian(_In_ float32 radian)
 	{
 		m_rotation = RadiantoDegree(radian);
 	}
 
-	void Text::setRotationinVector(_In_ float32 x, _In_ float32 y)
+	void TextBlock::setRotationinVector(_In_ float32 x, _In_ float32 y)
 	{
 		// todo:!!!!!
 	}
 
-	void Text::setColor(_In_ float32 r, _In_ float32 g, _In_ float32 b, _In_ float32 a)
+	void TextBlock::setColor(_In_ float32 r, _In_ float32 g, _In_ float32 b, _In_ float32 a)
 	{
 		if (m_brush)
 		{
 			m_brush->SetColor(D2D1::ColorF(r, g, b));
 		}
 	}
-	void Text::setColor(_In_ Color color)
+	void TextBlock::setColor(_In_ Color color)
 	{
 		if (m_brush)
 		{
@@ -122,7 +122,7 @@ namespace WOtech
 		}
 	}
 
-	void Text::setStyle(_In_ FONT_STYLE style)
+	void TextBlock::setStyle(_In_ FONT_STYLE style)
 	{
 		if (style != m_style)
 		{
@@ -132,7 +132,7 @@ namespace WOtech
 		}
 	}
 
-	void Text::setLayoutBox(_In_ float32 w, _In_ float32 h)
+	void TextBlock::setLayoutBox(_In_ float32 w, _In_ float32 h)
 	{
 		if (w != m_layoutbox.Width && h != m_layoutbox.Height)
 		{
@@ -142,7 +142,7 @@ namespace WOtech
 			makeText();
 		}
 	}
-	void Text::setLayoutBox(_In_ Size layoutboxsize)
+	void TextBlock::setLayoutBox(_In_ Size layoutboxsize)
 	{
 		if (layoutboxsize.Width != m_layoutbox.Width && layoutboxsize.Height != m_layoutbox.Height)
 		{
@@ -152,12 +152,12 @@ namespace WOtech
 		}
 	}
 
-	Text::~Text()
+	TextBlock::~TextBlock()
 	{
 		// todo: Content Manager
 	}
 
-	void Text::makeText()
+	void TextBlock::makeText()
 	{
 		HRESULT hr;
 
@@ -180,7 +180,7 @@ namespace WOtech
 		ThrowIfFailed(hr);
 	} //todo: memory leak? ->growing memory by calling it often
 
-	void Text::makeBrush(_In_ SpriteBatch^ spriteBatch)
+	void TextBlock::makeBrush(_In_ SpriteBatch^ spriteBatch)
 	{
 		HRESULT hr;
 
@@ -193,23 +193,23 @@ namespace WOtech
 		ThrowIfFailed(hr);
 	}
 
-	IDWriteTextLayout* Text::getLayout()
+	IDWriteTextLayout* TextBlock::getLayout()
 	{
 		return m_layout.Get();
 	}
-	ID2D1SolidColorBrush* Text::getBrush()
+	ID2D1SolidColorBrush* TextBlock::getBrush()
 	{
 		return m_brush.Get();
 	};
-	Point Text::getPosition()
+	Point TextBlock::getPosition()
 	{
 		return m_position;
 	};
-	float32 Text::getRotation()
+	float32 TextBlock::getRotation()
 	{
 		return m_rotation;
 	}
-	Size Text::getlayoutbox()
+	Size TextBlock::getlayoutbox()
 	{
 		return m_layoutbox;
 	}

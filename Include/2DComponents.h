@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.04.2016
-///			Edited:		01.11.2017
+///			Edited:		12.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_2DCOMPONENTS_H
@@ -379,7 +379,7 @@ namespace WOtech
 		Microsoft::WRL::ComPtr<IDWriteFontCollection>	m_collection;
 	};//class Font
 
-	public ref class Text sealed
+	public ref class TextBlock sealed
 	{
 	public:
 		void CreateText(_In_ WOtech::Font^ font, _In_  WOtech::SpriteBatch^ spriteBatch);
@@ -423,7 +423,7 @@ namespace WOtech
 		ID2D1SolidColorBrush*		getBrush();
 
 	private:
-		~Text();
+		~TextBlock();
 		void makeText();
 		void makeBrush(_In_ SpriteBatch^ spriteBatch);
 
@@ -484,13 +484,13 @@ namespace WOtech
 	public ref class Batch2D_Text sealed : public Batch2D
 	{
 	public:
-		Batch2D_Text(_In_ float depth, _In_ WOtech::Text^ text);
+		Batch2D_Text(_In_ float depth, _In_ WOtech::TextBlock^ text);
 		float virtual getDepth();
-		WOtech::Text^ getText();
+		WOtech::TextBlock^ getText();
 
 	private:
 		float m_depth;
-		WOtech::Text^	m_text;
+		WOtech::TextBlock^	m_text;
 	};
 }
 #endif

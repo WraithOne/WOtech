@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		16.01.2018
+///			Edited:		12.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SPRITEBATCH_H
@@ -25,9 +25,6 @@
 ///////////////////////////////
 // PRE-PROCESSING DIRECTIVES //
 ///////////////////////////////
-#ifdef DrawText
-#undef DrawText
-#endif
 
 namespace WOtech
 {
@@ -57,8 +54,8 @@ namespace WOtech
 
 		void EndDraw();
 
-		void DrawText(_In_ WOtech::Text^ text);
-		void DrawFont(_In_ WOtech::Font^ font, _In_ float32 fontSize, _In_ WOtech::RECT layoutbox, _In_ WOtech::FONT_STYLE style, _In_ Windows::UI::Color color, _In_ float32 rotation, _In_ Platform::String^ text);
+		void DrawTextBlock(_In_ WOtech::TextBlock^ text);
+		void DrawString(_In_ WOtech::Font^ font, _In_ float32 fontSize, _In_ WOtech::RECT layoutbox, _In_ WOtech::FONT_STYLE style, _In_ Windows::UI::Color color, _In_ float32 rotation, _In_ Platform::String^ text);
 
 		void DrawBitmap(_In_ WOtech::Bitmap^ bitmap);
 		void DrawBitmap(_In_ WOtech::Bitmap^ bitmap, _In_ WOtech::RECT srcRect, _In_ WOtech::RECT destRect, _In_ float32 opacity, _In_ float32 rotation);
@@ -81,7 +78,7 @@ namespace WOtech
 		void DrawGeometry(_In_ Geometry^ geometry, _In_ FLOAT strokeWidth);
 
 		// Getter
-		WOtech::Image^ getRenderTarget();
+		WOtech::Image^				getRenderTarget();
 		Windows::Foundation::Size	getLogicalSize();
 
 		// Setter

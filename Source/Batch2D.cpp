@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.11.2017
-///			Edited:		01.11.2017
+///			Edited:		12.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -22,7 +22,7 @@
 
 namespace WOtech
 {
-	Batch2D_Text::Batch2D_Text(_In_ float depth, _In_ WOtech::Text^ text)
+	Batch2D_Text::Batch2D_Text(_In_ float depth, _In_ WOtech::TextBlock^ text)
 	{
 		m_depth = depth;
 		m_text = text;
@@ -31,7 +31,7 @@ namespace WOtech
 	{
 		return m_depth;
 	}
-	WOtech::Text^ Batch2D_Text::getText()
+	WOtech::TextBlock^ Batch2D_Text::getText()
 	{
 		return m_text;
 	}

@@ -147,9 +147,6 @@
     <ClCompile Include="Source\Sprite.cpp">
       <Filter>Graphic\2D\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Text.cpp">
-      <Filter>Graphic\2D\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Buffer.cpp">
       <Filter>Graphic\3D\Components</Filter>
     </ClCompile>
@@ -195,6 +192,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game.cpp">
       <Filter>GameFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TextBlock.cpp">
+      <Filter>Graphic\2D\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

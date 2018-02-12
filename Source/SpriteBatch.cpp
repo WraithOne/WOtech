@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		16.01.2018
+///			Edited:		12.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -208,7 +208,7 @@ namespace WOtech
 		}
 	}
 
-	void SpriteBatch::DrawText(_In_ Text^ text)
+	void SpriteBatch::DrawTextBlock(_In_ TextBlock^ text)
 	{
 		if (text)
 		{
@@ -217,7 +217,7 @@ namespace WOtech
 			m_deviceContext->DrawTextLayout(D2D1::Point2F(text->getPosition().X, text->getPosition().Y), text->getLayout(), text->getBrush());
 		}
 	}
-	void SpriteBatch::DrawFont(_In_ Font^ font, _In_ float32 fontSize, _In_ WOtech::RECT layoutbox, _In_ FONT_STYLE style, _In_ Color color, _In_ float32 rotation, _In_ String^ text)
+	void SpriteBatch::DrawString(_In_ Font^ font, _In_ float32 fontSize, _In_ WOtech::RECT layoutbox, _In_ FONT_STYLE style, _In_ Color color, _In_ float32 rotation, _In_ String^ text)
 	{
 		HRESULT hr;
 
