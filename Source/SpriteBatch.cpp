@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		12.02.2018
+///			Edited:		17.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -37,6 +37,7 @@ namespace WOtech
 	SpriteBatch::SpriteBatch(_In_ DeviceDX11^ renderer)
 	{
 		m_deviceDX11 = renderer;
+		m_beginDraw = false;
 
 		Initialize();
 
@@ -143,16 +144,28 @@ namespace WOtech
 
 	void SpriteBatch::BeginDraw()
 	{
-		m_sortMode = SpriteSortMode::Immediate;
-		m_deviceContext->BeginDraw();
+		BeginDraw(SpriteSortMode::Immediate);
 	}
 	void SpriteBatch::BeginDraw(_In_ SpriteSortMode sortmode)
 	{
+		if (m_beginDraw)
+		{
+			throw Platform::Exception::CreateException(E_FAIL, "BeginDraw was called before EndDraw");
+		}
 		m_sortMode = sortmode;
+		m_beginDraw = true;
+
 		m_deviceContext->BeginDraw();
 	}
 	void SpriteBatch::EndDraw()
 	{
+		if (!m_beginDraw)
+		{
+			throw Platform::Exception::CreateException(E_FAIL, "EndDraw was called before BeginDraw");
+		}
+
+		m_beginDraw = false;
+
 		if (m_sortMode != SpriteSortMode::Immediate)
 		{
 			SortBatch();

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		12.02.2018
+///			Edited:		17.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SPRITEBATCH_H
@@ -118,6 +118,7 @@ namespace WOtech
 		Microsoft::WRL::ComPtr<ID2D1BitmapBrush1>		m_gridBrush;
 
 		SpriteSortMode									m_sortMode;
+		Platform::Boolean								m_beginDraw;
 	};// class SpriteBatch
 }
 #endif
