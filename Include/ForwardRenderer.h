@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		02.09.2017
+///			Edited:		18.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_FORWARDRENDERER_H
@@ -42,13 +42,15 @@ namespace WOtech
 		virtual void Init(_In_ Windows::UI::Color clearColor);
 
 	private:
-		DeviceDX11^ m_device;
+		DeviceDX11^			m_device;
+
+		Platform::Boolean	m_beginRender;
 
 		// Render command queue
-		CommandQueue m_CommandQueue;
+		CommandQueue		m_CommandQueue;
 
 		// ClearColor
-		Windows::UI::Color m_clearColor;
+		Windows::UI::Color	m_clearColor;
 	};
 }
 #endif

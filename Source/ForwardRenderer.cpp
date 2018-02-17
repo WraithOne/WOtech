@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	21.02.2016
-///			Edited:		02.09.2017
+///			Edited:		18.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -32,9 +32,15 @@ namespace WOtech
 	ForwardRenderer::ForwardRenderer(_In_ DeviceDX11^ device)
 	{
 		m_device = device;
+		m_beginRender = false;
 	}
 	void ForwardRenderer::Begin()
 	{
+		if (m_beginRender)
+		{
+			throw Platform::Exception::CreateException(E_FAIL, "Begin was called before EndD");
+		}
+
 		m_CommandQueue.clear();
 
 		m_device->Clear(m_clearColor);
@@ -62,6 +68,11 @@ namespace WOtech
 	}
 	void ForwardRenderer::End()
 	{
+		if (!m_beginRender)
+		{
+			throw Platform::Exception::CreateException(E_FAIL, "End was called before Begin");
+		}
+
 		// do sorting here
 
 		for (uint32 i = 0; i < m_CommandQueue.size(); i++)
