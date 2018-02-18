@@ -24,7 +24,7 @@
 
 namespace WOtech
 {
-	public interface class Game 
+	public interface class IGame 
 	{
 	public:
 		virtual void Initalize();

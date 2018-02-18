@@ -476,12 +476,12 @@ namespace WOtech
 		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>	m_geometryBrush;
 	};
 
-	public interface class Batch2D
+	public interface class IBatch2D
 	{
 		float getDepth();
 	};
 
-	public ref class Batch2D_Text sealed : public Batch2D
+	public ref class Batch2D_Text sealed : public IBatch2D
 	{
 	public:
 		Batch2D_Text(_In_ float depth, _In_ WOtech::TextBlock^ text);
