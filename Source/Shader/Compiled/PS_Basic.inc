@@ -17,7 +17,7 @@
 // SV_Target                0   xyzw        0   TARGET   float   xyzw
 //
 ps_5_0
-dcl_globalFlags refactoringAllowed
+dcl_globalFlags refactoringAllowed | skipOptimization
 dcl_input_ps linear v0.xyzw
 dcl_output o0.xyzw
 mov o0.xyzw, v0.xyzw
@@ -27,10 +27,10 @@ ret
 
 const BYTE PS_Basic[] =
 {
-     68,  88,  66,  67, 191,   0, 
-    207, 220,  94,  55, 150, 204, 
-     87, 241,  33, 186,  28, 139, 
-    123, 228,   1,   0,   0,   0, 
+     68,  88,  66,  67,  63, 126, 
+    186, 143, 161, 106, 239, 228, 
+     32,  33,  41, 172, 247,  94, 
+    102,  34,   1,   0,   0,   0, 
     212,   0,   0,   0,   3,   0, 
       0,   0,  44,   0,   0,   0, 
      92,   0,   0,   0, 144,   0, 
@@ -53,7 +53,7 @@ const BYTE PS_Basic[] =
     103, 101, 116,   0, 171, 171, 
      83,  72,  69,  88,  60,   0, 
       0,   0,  80,   0,   0,   0, 
-     15,   0,   0,   0, 106,   8, 
+     15,   0,   0,   0, 106, 136, 
       0,   1,  98,  16,   0,   3, 
     242,  16,  16,   0,   0,   0, 
       0,   0, 101,   0,   0,   3, 

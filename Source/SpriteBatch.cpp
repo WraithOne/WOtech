@@ -480,11 +480,18 @@ namespace WOtech
 		return m_deviceDX11->getLogicalSize();
 	}
 
+	WOtech::RECT SpriteBatch::getRenderRect()
+	{
+		auto size = m_deviceContext->GetSize();
+		
+		return { 0.0f, 0.0f, size.width, size.height };
+	}
+
 	void SpriteBatch::setRenderTarget(_In_ Image^ rendertarget)
 	{
 		m_deviceContext->SetTarget(rendertarget->getImage());
 	}
-	void SpriteBatch::setRendertarget(_In_ Bitmap^ rendertarget)
+	void SpriteBatch::setRenderTarget(_In_ Bitmap^ rendertarget)
 	{
 		m_deviceContext->SetTarget(rendertarget->getBitmap());
 	}

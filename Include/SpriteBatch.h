@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		17.02.2018
+///			Edited:		18.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SPRITEBATCH_H
@@ -80,19 +80,24 @@ namespace WOtech
 		// Getter
 		WOtech::Image^				getRenderTarget();
 		Windows::Foundation::Size	getLogicalSize();
+		WOtech::RECT				getRenderRect();
 
 		// Setter
+		[Windows::Foundation::Metadata::DefaultOverloadAttribute]
 		void setRenderTarget(_In_ WOtech::Image^ rendertarget);
-		void setRendertarget(_In_ WOtech::Bitmap^ rendertarget);
+		void setRenderTarget(_In_ WOtech::Bitmap^ rendertarget);
+
+		void ReleaseRendertarget();
 
 	internal:
 		void Initialize();
-		void ReleaseRendertarget();
+
 		ID2D1DeviceContext5*		GetDeviceContext();
 		ID2D1Factory6*				getFactory();
 
 	private:
 		~SpriteBatch();
+
 		void CreateGrid();
 		void setRotation(_In_ WOtech::RECT area, _In_ float32 rotation);
 
