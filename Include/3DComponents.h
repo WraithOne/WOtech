@@ -401,11 +401,9 @@ namespace WOtech
 		VertexShader(_In_ Platform::String^ compiledVertexShaderObject, _In_ const Platform::Array<WOtech::INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device);
 		VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint, _In_ int unUsed, _In_ WOtech::DeviceDX11^ device);
 		VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint, _In_ const Platform::Array<WOtech::INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ int unUsed, _In_ WOtech::DeviceDX11^ device);
+		VertexShader(_In_ Platform::IntPtr pShaderBytecode, _In_ Platform::SizeT BytecodeLength, _In_opt_ const Platform::Array<WOtech::INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ int unUsed, _In_ int unUsed2, _In_ WOtech::DeviceDX11^ device);
 
 		void Load(_In_ WOtech::DeviceDX11^ device);
-
-	internal:
-		VertexShader(_In_ void const* pShaderBytecode, _In_ Platform::SizeT BytecodeLength, _In_opt_ const Platform::Array<WOtech::INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ int unUsed, _In_ int unUsed2, _In_ WOtech::DeviceDX11^ device);
 
 	internal:
 		//Getter
@@ -429,7 +427,7 @@ namespace WOtech
 		Platform::String^												m_CVSO;
 
 		Platform::Boolean												m_useShaderByteCode;
-		const void*															m_shaderByteCode;
+		const void*														m_shaderByteCode;
 		SIZE_T															m_byteCodeLength;
 
 		Platform::Boolean												m_useInputElementDesc;
@@ -442,11 +440,9 @@ namespace WOtech
 
 	public ref class PixelShader sealed
 	{
-	internal:
-		PixelShader(_In_ void const* ShaderBytecode, _In_ Platform::SizeT BytecodeLength, _In_ WOtech::DeviceDX11^ device);
-
 	public:
 		PixelShader(_In_ Platform::String^ CSOFilename, _In_ WOtech::DeviceDX11^ device);
+		PixelShader(_In_ Platform::IntPtr ShaderBytecode, _In_ Platform::SizeT BytecodeLength, _In_ WOtech::DeviceDX11^ device);
 
 		void Load(_In_ WOtech::DeviceDX11^ device);
 
@@ -492,6 +488,8 @@ namespace WOtech
 	public ref class VertexBuffer sealed
 	{
 	public:
+		VertexBuffer(_In_ Platform::IntPtr data, _In_  UINT32 size, _In_  UINT32 stride, _In_ UINT32 offset, _In_  DeviceDX11^ device);
+
 		void SubmitBuffer(_In_ DeviceDX11^ device);
 
 		void setOffset(_In_ UINT32 offset);
@@ -500,11 +498,8 @@ namespace WOtech
 		UINT32 getStride();
 		UINT32 getOffset();
 
-	internal:
-		VertexBuffer(_In_ void* data, _In_  UINT32 size, _In_  UINT32 stride, _In_ UINT32 offset, _In_  DeviceDX11^ device);
-
 	private:
-		void CreateBuffer(_In_ void* data, _In_  UINT32 size, _In_  DeviceDX11^ device);
+		void CreateBuffer(_In_ Platform::IntPtr data, _In_  UINT32 size, _In_  DeviceDX11^ device);
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexBuffer;

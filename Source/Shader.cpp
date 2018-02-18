@@ -102,13 +102,13 @@ namespace WOtech
 
 		Load(device);
 	}
-	VertexShader::VertexShader(_In_ void const* ShaderBytecode, _In_ SizeT BytecodeLength, _In_opt_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ int unUsed, _In_ int unUsed2, _In_ WOtech::DeviceDX11^ device)
+	VertexShader::VertexShader(_In_ Platform::IntPtr ShaderBytecode, _In_ SizeT BytecodeLength, _In_opt_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ int unUsed, _In_ int unUsed2, _In_ WOtech::DeviceDX11^ device)
 	{
 		UNREFERENCED_PARAMETER(unUsed); // todo: WinRT madness
 		UNREFERENCED_PARAMETER(unUsed2); // todo: WinRT madness
 
 		m_useShaderByteCode = true;
-		m_shaderByteCode = ShaderBytecode;
+		m_shaderByteCode = (void*)ShaderBytecode; // todo: safecheck
 		m_byteCodeLength = BytecodeLength;
 
 		m_useInputElementDesc = true;
@@ -341,9 +341,9 @@ namespace WOtech
 
 		Load(device);
 	}
-	PixelShader::PixelShader(_In_ void const* ShaderBytecode, _In_ SizeT BytecodeLength, _In_ WOtech::DeviceDX11^ device)
+	PixelShader::PixelShader(_In_ Platform::IntPtr ShaderBytecode, _In_ SizeT BytecodeLength, _In_ WOtech::DeviceDX11^ device)
 	{
-		m_shaderByteCode = ShaderBytecode;
+		m_shaderByteCode = (void*)ShaderBytecode;
 		m_BytecodeLength = BytecodeLength;
 		m_useBytecode = true;
 

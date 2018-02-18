@@ -33,7 +33,7 @@ namespace WOtech
 	///////////////////////////////////////////////////////////////////
 	/// Vertex Buffer
 	///////////////////////////////////////////////////////////////////
-	VertexBuffer::VertexBuffer(_In_ void* data, _In_ UINT32 size, _In_  UINT32 stride, _In_ UINT32 offset, _In_ DeviceDX11^ device)
+	VertexBuffer::VertexBuffer(_In_ Platform::IntPtr data, _In_ UINT32 size, _In_  UINT32 stride, _In_ UINT32 offset, _In_ DeviceDX11^ device)
 	{
 		CreateBuffer(data, size, device);
 		m_stride = stride;
@@ -67,7 +67,7 @@ namespace WOtech
 		return m_offset;
 	}
 
-	void VertexBuffer::CreateBuffer(_In_ void* data, _In_  UINT32 size, _In_  DeviceDX11^ device)
+	void VertexBuffer::CreateBuffer(_In_ Platform::IntPtr data, _In_  UINT32 size, _In_  DeviceDX11^ device)
 	{
 		HRESULT hr;
 
@@ -81,7 +81,7 @@ namespace WOtech
 
 		D3D11_SUBRESOURCE_DATA resourceData;
 		ZeroMemory(&resourceData, sizeof(resourceData));
-		resourceData.pSysMem = data;
+		resourceData.pSysMem = (void*)data; // todo: safecheck
 		resourceData.SysMemPitch = 0;
 		resourceData.SysMemSlicePitch = 0;
 

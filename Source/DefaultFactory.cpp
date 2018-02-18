@@ -33,8 +33,8 @@ namespace WOtech
 {
 	BasicMaterial ^ DefaultFactory::CreateBasicMaterial(_In_ WOtech::DeviceDX11 ^ device)
 	{
-		WOtech::VertexShader^ vertexshader = ref new VertexShader(VS_Basic, sizeof(VS_Basic), nullptr, 0, 0, device);
-		WOtech::PixelShader^ pixelshader = ref new PixelShader(PS_Basic, sizeof(PS_Basic), device);
+		WOtech::VertexShader^ vertexshader = ref new VertexShader((void*)VS_Basic, sizeof(VS_Basic), nullptr, 0, 0, device);//todo: safecheck
+		WOtech::PixelShader^ pixelshader = ref new PixelShader((void*)PS_Basic, sizeof(PS_Basic), device);//todo: safecheck
 
 		return ref new BasicMaterial(vertexshader, pixelshader, device);
 	}

@@ -30,12 +30,12 @@ namespace WOtech
 		m_pCurrentBufferContext = nullptr;
 	}
 
-	void BufferContext::setBufferContext(_In_ void* pCurrentBufferContext)
+	void BufferContext::setBufferContext(_In_ Platform::IntPtr pCurrentBufferContext)
 	{
-		m_pCurrentBufferContext = pCurrentBufferContext;
+		m_pCurrentBufferContext = (void*)pCurrentBufferContext; // todo: safecheck
 	}
 
-	void BufferContext::getBufferContext(_Out_ void* pCurrentBufferContext)
+	void BufferContext::getBufferContext(_Out_ Platform::IntPtr pCurrentBufferContext)
 	{
 		pCurrentBufferContext = m_pCurrentBufferContext;
 	}

@@ -96,17 +96,16 @@ namespace WOtech
 		*/
 		BufferContext();
 
-	internal:
 		//! setBufferContext.
 		/*!
 		\param Pointer to a buffer context provided in the XAUDIO2_BUFFER that is processed currently.
 		*/
-		void setBufferContext(_In_ void* pCurrentBufferContext);
+		void setBufferContext(_In_ Platform::IntPtr pCurrentBufferContext);
 		//! getBufferContext.
 		/*!
 		\param Pointer to a buffer context provided in the XAUDIO2_BUFFER that is processed currently, or, if the voice is stopped currently, to the next buffer due to be processed. pCurrentBufferContext is NULL if there are no buffers in the queue.
 		*/
-		void getBufferContext(_Out_ void* pCurrentBufferContext);
+		void getBufferContext(_Out_ Platform::IntPtr pCurrentBufferContext);
 	private:
 		void* m_pCurrentBufferContext;
 	};
