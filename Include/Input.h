@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.05.2014
-///			Edited:		01.11.2017
+///			Edited:		18.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_INPUT_H
@@ -35,25 +35,25 @@ namespace WOtech
 
 	public value struct Touch_Capabilities
 	{
-		Platform::Boolean isPresent;
-		uint32 MinimumContacts;
+		Platform::Boolean	isPresent;
+		uint32				MinimumContacts;
 	};
 	public value struct Pen_Capabilities
 	{
-		Platform::Boolean isPresent;
-		Windows::Devices::Input::PointerDeviceType DeviceType;
-		Platform::Boolean isIntegrated;
-		uint32 MaximumContacts;
-		WOtech::RECT PhysicalRect;
-		WOtech::RECT ScreenRect;
+		Platform::Boolean							isPresent;
+		Windows::Devices::Input::PointerDeviceType	DeviceType;
+		Platform::Boolean							isIntegrated;
+		uint32										MaximumContacts;
+		WOtech::RECT								PhysicalRect;
+		WOtech::RECT								ScreenRect;
 	};
 	public value struct Mouse_Capabilities
 	{
-		Platform::Boolean isPresent;
-		Platform::Boolean isVerticalWheelPresent;
-		Platform::Boolean isHorizontalWheelPresent;
-		Platform::Boolean SwapButtons;
-		uint32 NumberofButtons;
+		Platform::Boolean	isPresent;
+		Platform::Boolean	isVerticalWheelPresent;
+		Platform::Boolean	isHorizontalWheelPresent;
+		Platform::Boolean	SwapButtons;
+		uint32				NumberofButtons;
 	};
 	public value struct Keyboard_Capabilities
 	{
@@ -229,8 +229,8 @@ namespace WOtech
 
 	public value struct Touch_State
 	{
-		UINT pointerID;
-		Pointer_Position position;
+		UINT				PointerID;
+		Pointer_Position	Position;
 	};
 
 	public value struct Mouse_Position
@@ -248,19 +248,19 @@ namespace WOtech
 	};
 	public value struct Mouse_State
 	{
-		UINT pointerID;
-		Mouse_Position position;
-		Mouse_Buttons buttons;
-		int wheeldelta;
+		UINT			PointerID;
+		Mouse_Position	Position;
+		Mouse_Buttons	Buttons;
+		int				WheelDelta;
 	};
 
 	public value struct Pen_State
 	{
-		UINT pointerID;
-		Pointer_Position position;
-		Platform::Boolean BarrelButton;
-		Platform::Boolean isErazer;
-		float pressure;
+		UINT				PointerID;
+		Pointer_Position	Position;
+		Platform::Boolean	BarrelButton;
+		Platform::Boolean	isErazer;
+		float				Pressure;
 	};
 
 	public enum class Gamepad_Index
@@ -308,13 +308,14 @@ namespace WOtech
 	};
 	public value struct Gamepad_State
 	{
-		Platform::Boolean Connected;
-		Platform::Boolean isWireless;
-		UINT64 TimeStamp;
-		Gamepad_Buttons Buttons;
-		Gamepad_DPad DPad;
-		Gamepad_Tumbstick_State tumbsticks;
-		Gamepad_Trigger_State triggers;
+		Platform::Boolean		Connected;
+		Platform::Boolean		isWireless;
+		UINT					ChargePercentage;
+		UINT64					TimeStamp;
+		Gamepad_Buttons			Buttons;
+		Gamepad_DPad			DPad;
+		Gamepad_Tumbstick_State	Tumbsticks;
+		Gamepad_Trigger_State	Triggers;
 	};
 
 	public ref class InputManager sealed

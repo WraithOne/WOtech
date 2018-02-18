@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	04.01.2017
-///			Edited:		29.03.2017
+///			Edited:		18.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -196,7 +196,7 @@ namespace WOtech
 
 	inline Platform::Boolean PointerIntersect(_In_ Touch_State& state, _In_ RECT& area)
 	{
-		WOtech::Pointer_Position position = state.position;
+		WOtech::Pointer_Position position = state.Position;
 
 		if (((position.X >= area.X) && (position.X <= area.Width)) &&
 			((position.Y >= area.Y) && (position.Y <= area.Height)))
@@ -214,7 +214,7 @@ namespace WOtech
 
 		for (unsigned int i = 0; i != state->Length; i++)
 		{
-			if (state->get(i).pointerID != 0U)
+			if (state->get(i).PointerID != 0U)
 			{
 				if (PointerIntersect(state->get(i), area))
 					return state->get(i);
@@ -225,7 +225,7 @@ namespace WOtech
 	}
 	inline Platform::Boolean isIntersecting(Touch_State& state)
 	{
-		if (state.pointerID != 0U)
+		if (state.PointerID != 0U)
 			return true;
 		else
 			return false;
@@ -303,14 +303,14 @@ namespace WOtech
 		m_state.DPad_Right = state.DPad.Right;
 
 		// Trigger states
-		m_state.Trigger_Left = state.triggers.Left;
-		m_state.Trigger_Right = state.triggers.Right;
+		m_state.Trigger_Left = state.Triggers.Left;
+		m_state.Trigger_Right = state.Triggers.Right;
 
 		// Tumbstick states
-		m_state.Tumbstick_LeftX = state.tumbsticks.LeftX;
-		m_state.Tumbstick_LeftY = state.tumbsticks.LeftY;
-		m_state.Tumbstick_RightX = state.tumbsticks.RightX;
-		m_state.Tumbstick_RightY = state.tumbsticks.RightY;
+		m_state.Tumbstick_LeftX = state.Tumbsticks.LeftX;
+		m_state.Tumbstick_LeftY = state.Tumbsticks.LeftY;
+		m_state.Tumbstick_RightX = state.Tumbsticks.RightX;
+		m_state.Tumbstick_RightY = state.Tumbsticks.RightY;
 	}
 	void VirtualController::UpdateKeyboard()
 	{
@@ -486,16 +486,16 @@ namespace WOtech
 			if (it_t->first == Virtual_Controller_Triggers::Left)
 			{
 				state = TouchIntersect(touchstate, it_t->second);
-				if (state.pointerID != 0U)
+				if (state.PointerID != 0U)
 				{
 					if (m_currentTriggerLeftID == 0U)
 					{
-						m_currentTriggerLeftID = state.pointerID;
+						m_currentTriggerLeftID = state.PointerID;
 					}
-					if (m_currentTriggerLeftID == state.pointerID)
+					if (m_currentTriggerLeftID == state.PointerID)
 					{
 						// betwen 0.0 and 1.0
-						m_state.Trigger_Left = state.position.Y / (it_t->second.Height - it_t->second.Y);
+						m_state.Trigger_Left = state.Position.Y / (it_t->second.Height - it_t->second.Y);
 						if (m_state.Trigger_Left > 1.0)
 							m_state.Trigger_Left = 1.0;
 
@@ -512,16 +512,16 @@ namespace WOtech
 			else
 			{
 				state = TouchIntersect(touchstate, it_t->second);
-				if (state.pointerID != 0U)
+				if (state.PointerID != 0U)
 				{
 					if (m_currentTriggerRightID == 0U)
 					{
-						m_currentTriggerRightID = state.pointerID;
+						m_currentTriggerRightID = state.PointerID;
 					}
-					if (m_currentTriggerRightID == state.pointerID)
+					if (m_currentTriggerRightID == state.PointerID)
 					{
 						// betwen 0.0 and 1.0
-						m_state.Trigger_Right = (it_t->second.Height - it_t->second.Y) / state.position.Y;
+						m_state.Trigger_Right = (it_t->second.Height - it_t->second.Y) / state.Position.Y;
 						if (m_state.Trigger_Right > 1.0)
 							m_state.Trigger_Right = 1.0;
 
@@ -547,20 +547,20 @@ namespace WOtech
 			if (it_s->first == Virtual_Controller_Sticks::Left)
 			{
 				state = TouchIntersect(touchstate, rect);
-				if (state.pointerID != 0U)
+				if (state.PointerID != 0U)
 				{
 					if (m_currentStickLeftID == 0U)
 					{
-						m_currentStickLeftID = state.pointerID;
+						m_currentStickLeftID = state.PointerID;
 					}
-					if (m_currentStickLeftID == state.pointerID)
+					if (m_currentStickLeftID == state.PointerID)
 					{
 						// betwen -1.0 and 1.0
-						m_state.Tumbstick_LeftX = (rect.Width - rect.X) / state.position.X;
-						if (state.position.X < (rect.X + ((rect.Width - rect.X) / 2)))
+						m_state.Tumbstick_LeftX = (rect.Width - rect.X) / state.Position.X;
+						if (state.Position.X < (rect.X + ((rect.Width - rect.X) / 2)))
 							m_state.Tumbstick_LeftX *= -1;
-						m_state.Tumbstick_LeftY = (rect.Height - rect.Y) / state.position.Y;
-						if (state.position.Y > (rect.Y + ((rect.Height - rect.Y) / 2)))
+						m_state.Tumbstick_LeftY = (rect.Height - rect.Y) / state.Position.Y;
+						if (state.Position.Y > (rect.Y + ((rect.Height - rect.Y) / 2)))
 							m_state.Tumbstick_LeftY *= -1;
 					}
 				}
@@ -574,20 +574,20 @@ namespace WOtech
 			else
 			{
 				state = TouchIntersect(touchstate, rect);
-				if (state.pointerID != 0U)
+				if (state.PointerID != 0U)
 				{
 					if (m_currentStickLeftID == 0U)
 					{
-						m_currentStickLeftID = state.pointerID;
+						m_currentStickLeftID = state.PointerID;
 					}
-					if (m_currentStickLeftID == state.pointerID)
+					if (m_currentStickLeftID == state.PointerID)
 					{
 						// betwen -1.0 and 1.0
-						m_state.Tumbstick_RightX = (rect.Width - rect.X) / state.position.X;
-						if (state.position.X < (rect.X + ((rect.Width - rect.X) / 2)))
+						m_state.Tumbstick_RightX = (rect.Width - rect.X) / state.Position.X;
+						if (state.Position.X < (rect.X + ((rect.Width - rect.X) / 2)))
 							m_state.Tumbstick_RightX *= -1;
-						m_state.Tumbstick_RightY = (rect.Height - rect.Y) / state.position.Y;
-						if (state.position.Y > (rect.Y + ((rect.Height - rect.Y) / 2)))
+						m_state.Tumbstick_RightY = (rect.Height - rect.Y) / state.Position.Y;
+						if (state.Position.Y > (rect.Y + ((rect.Height - rect.Y) / 2)))
 							m_state.Tumbstick_RightY *= -1;
 					}
 				}

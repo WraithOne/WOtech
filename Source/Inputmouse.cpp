@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	28.08.2015
-///			Edited:		12.03.2017
+///			Edited:		18.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -43,14 +43,14 @@ namespace WOtech
 
 			if (pointer->PointerDevice->PointerDeviceType == PointerDeviceType::Mouse)
 			{
-				temp.pointerID = pointer->PointerId;
-				temp.position = m_mouseDelta;
-				temp.buttons.LeftButton = pointer->Properties->IsLeftButtonPressed;
-				temp.buttons.RightButton = pointer->Properties->IsRightButtonPressed;
-				temp.buttons.MiddleButton = pointer->Properties->IsMiddleButtonPressed;
-				temp.buttons.X1Button = pointer->Properties->IsXButton1Pressed;
-				temp.buttons.X2Button = pointer->Properties->IsXButton2Pressed;
-				temp.wheeldelta = pointer->Properties->MouseWheelDelta;
+				temp.PointerID = pointer->PointerId;
+				temp.Position = m_mouseDelta;
+				temp.Buttons.LeftButton = pointer->Properties->IsLeftButtonPressed;
+				temp.Buttons.RightButton = pointer->Properties->IsRightButtonPressed;
+				temp.Buttons.MiddleButton = pointer->Properties->IsMiddleButtonPressed;
+				temp.Buttons.X1Button = pointer->Properties->IsXButton1Pressed;
+				temp.Buttons.X2Button = pointer->Properties->IsXButton2Pressed;
+				temp.WheelDelta = pointer->Properties->MouseWheelDelta;
 			}
 		}
 		return temp;

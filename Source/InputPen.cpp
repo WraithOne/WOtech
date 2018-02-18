@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.05.2014
-///			Edited:		15.01.2017
+///			Edited:		18.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -46,12 +46,12 @@ namespace WOtech
 
 			if (pointer->PointerDevice->PointerDeviceType == PointerDeviceType::Pen)
 			{
-				temp[nr].pointerID = pointer->PointerId;
+				temp[nr].PointerID = pointer->PointerId;
 				temp[nr].BarrelButton = pointer->Properties->IsBarrelButtonPressed;
 				temp[nr].isErazer = pointer->Properties->IsEraser;
-				temp[nr].position.X = pointer->Position.X;
-				temp[nr].position.Y = pointer->Position.Y;
-				temp[nr].pressure = pointer->Properties->Pressure;
+				temp[nr].Position.X = pointer->Position.X;
+				temp[nr].Position.Y = pointer->Position.Y;
+				temp[nr].Pressure = pointer->Properties->Pressure;
 			}
 		}
 		return temp;

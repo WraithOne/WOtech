@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.05.2014
-///			Edited:		12.03.2017
+///			Edited:		18.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -56,13 +56,15 @@ namespace WOtech
 	{
 		if (m_gamePad[(unsigned int)PlayerIndex])
 		{
-			GamepadReading reading;
-			reading = m_gamePad[(unsigned int)PlayerIndex]->GetCurrentReading();
-
+			auto reading = m_gamePad[(unsigned int)PlayerIndex]->GetCurrentReading();
+			auto BatterieState = m_gamePad[(unsigned int)PlayerIndex]->TryGetBatteryReport();
+			//auto maxcharge = BatterieState->FullChargeCapacityInMilliwattHours; 
+			auto currentcharge = BatterieState->RemainingCapacityInMilliwattHours;
 			Gamepad_State state;
 
 			state.Connected = true;
 			state.isWireless = m_gamePad[(unsigned int)PlayerIndex]->IsWireless;
+			state.ChargePercentage = currentcharge->Value / 10; // todo: compute the correct percentage
 
 			state.TimeStamp = reading.Timestamp;
 			state.Buttons.A = (reading.Buttons & GamepadButtons::A) == GamepadButtons::A;
@@ -81,13 +83,13 @@ namespace WOtech
 			state.DPad.Left = (reading.Buttons & GamepadButtons::DPadLeft) == GamepadButtons::DPadLeft;
 			state.DPad.Right = (reading.Buttons & GamepadButtons::DPadRight) == GamepadButtons::DPadRight;
 
-			state.tumbsticks.LeftX = reading.LeftThumbstickX;
-			state.tumbsticks.LeftY = reading.LeftThumbstickY;
-			state.tumbsticks.RightX = reading.RightThumbstickX;
-			state.tumbsticks.RightY = reading.RightThumbstickY;
+			state.Tumbsticks.LeftX = reading.LeftThumbstickX;
+			state.Tumbsticks.LeftY = reading.LeftThumbstickY;
+			state.Tumbsticks.RightX = reading.RightThumbstickX;
+			state.Tumbsticks.RightY = reading.RightThumbstickY;
 
-			state.triggers.Left = reading.LeftTrigger;
-			state.triggers.Right = reading.RightTrigger;
+			state.Triggers.Left = reading.LeftTrigger;
+			state.Triggers.Right = reading.RightTrigger;
 
 			return state;
 		}
