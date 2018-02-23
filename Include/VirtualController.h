@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	04.01.2017
-///			Edited:		15.08.2017
+///			Edited:		23.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_VIRTUALCONTROLLER_H
@@ -62,32 +62,33 @@ namespace WOtech
 
 	public value struct Virtual_Controller_State
 	{
-		Platform::Boolean isConnected;
-		Platform::Boolean isWireless;
+		Platform::Boolean	isConnected;
+		Platform::Boolean	isWireless;
+		UINT				ChargePercentage;
 
-		Platform::Boolean Button_A;
-		Platform::Boolean Button_B;
-		Platform::Boolean Button_X;
-		Platform::Boolean Button_Y;
-		Platform::Boolean Button_LeftStick;
-		Platform::Boolean Button_RightStick;
-		Platform::Boolean Button_LeftShoulder;
-		Platform::Boolean Button_RightShoulder;
-		Platform::Boolean Button_View;
-		Platform::Boolean Button_Menu;
+		Platform::Boolean	Button_A;
+		Platform::Boolean	Button_B;
+		Platform::Boolean	Button_X;
+		Platform::Boolean	Button_Y;
+		Platform::Boolean	Button_LeftStick;
+		Platform::Boolean	Button_RightStick;
+		Platform::Boolean	Button_LeftShoulder;
+		Platform::Boolean	Button_RightShoulder;
+		Platform::Boolean	Button_View;
+		Platform::Boolean	Button_Menu;
 
-		Platform::Boolean DPad_Up;
-		Platform::Boolean DPad_Down;
-		Platform::Boolean DPad_Left;
-		Platform::Boolean DPad_Right;
+		Platform::Boolean	DPad_Up;
+		Platform::Boolean	DPad_Down;
+		Platform::Boolean	DPad_Left;
+		Platform::Boolean	DPad_Right;
 
-		float64 Trigger_Left;
-		float64 Trigger_Right;
+		float64				Trigger_Left;
+		float64				Trigger_Right;
 
-		float64 Tumbstick_LeftX;
-		float64 Tumbstick_LeftY;
-		float64 Tumbstick_RightX;
-		float64 Tumbstick_RightY;
+		float64				Tumbstick_LeftX;
+		float64				Tumbstick_LeftY;
+		float64				Tumbstick_RightX;
+		float64				Tumbstick_RightY;
 	};
 
 	public ref class VirtualController sealed

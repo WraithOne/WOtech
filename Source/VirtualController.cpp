@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	04.01.2017
-///			Edited:		18.02.2018
+///			Edited:		23.02.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -278,6 +278,9 @@ namespace WOtech
 		m_state.isConnected = state.Connected;
 		m_state.isWireless = state.isWireless;
 
+		// Batterie Percentage
+		m_state.ChargePercentage = state.ChargePercentage;;
+
 		// Buttons A-Y
 		m_state.Button_A = state.Buttons.A;
 		m_state.Button_B = state.Buttons.B;
@@ -316,6 +319,8 @@ namespace WOtech
 	{
 		m_state.isConnected = true;
 		m_state.isWireless = false;
+		m_state.ChargePercentage = 100U;
+
 		WOtech::Keyboard_State keyState = m_inputManager->getKeyboardState();
 
 		// Buttons
@@ -432,11 +437,18 @@ namespace WOtech
 	}
 	void VirtualController::UpdateMouse()
 	{
-		return; // TODO
+		m_state.isConnected = true;
+		m_state.isWireless = false;
+		m_state.ChargePercentage = 100U;
+		// TODO: add things
 	}
 	void VirtualController::UpdateTouch()
 	{
 		Platform::Array<Touch_State>^ touchstate = m_inputManager->getTouchState();
+
+		m_state.isConnected = true;
+		m_state.isWireless = false;
+		m_state.ChargePercentage = 100U;
 
 		// Button states
 		for (std::map<Virtual_Controller_Buttons, RECT>::iterator it = m_touchButtonbinding.begin(); it != m_touchButtonbinding.end(); ++it)
@@ -602,6 +614,9 @@ namespace WOtech
 	}
 	void VirtualController::UpdatePen()
 	{
-		return; // TODO
+		m_state.isConnected = true;
+		m_state.isWireless = false;
+		m_state.ChargePercentage = 100U;
+		// TODO: add things
 	}
 }
