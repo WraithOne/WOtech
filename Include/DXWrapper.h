@@ -41,7 +41,7 @@ namespace WOtech
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D2D1_COLOR_F wrapColorD2D(_In_ Windows::UI::Color color)
 		{
-			return D2D1::ColorF(static_cast<float>(color.R), static_cast<float>(color.G), static_cast<float>(color.B), static_cast<float>(color.A));
+			return D2D1::ColorF(static_cast<float>(color.R) / 256.0f, static_cast<float>(color.G) / 256.0f, static_cast<float>(color.B) / 256.0f, static_cast<float>(color.A) / 256.0f);
 		}
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
