@@ -196,6 +196,9 @@
     <ClCompile Include="Source\TextBlock.cpp">
       <Filter>Graphic\2D\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Systemhelper.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -298,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="Include\Game.h">
       <Filter>GameFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systemhelper.h">
+      <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
