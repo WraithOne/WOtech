@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	14.01.2018
-///			Edited:		30.04.2018
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -90,6 +90,7 @@ namespace WOtech
 		m_spriteBatch = ref new WOtech::SpriteBatch(m_device);
 
 		m_audioEngine = ref new WOtech::AudioEngine();
+		m_audioEngine->Initialize();
 
 		m_inputManager = ref new WOtech::InputManager();
 		m_virtualController = ref new WOtech::VirtualController(m_inputManager);
