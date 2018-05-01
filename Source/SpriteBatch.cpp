@@ -337,7 +337,7 @@ namespace WOtech
 		auto rect = WOtech::RECT{ animatedsprite->getPosition().X, animatedsprite->getPosition().Y, animatedsprite->getFrameSize(name).Width, animatedsprite->getFrameSize(name).Height };
 
 		// Create the Destination Rect
-		D2D1_RECT_F destRect = D2D1::RectF(animatedsprite->getPosition().X, animatedsprite->getPosition().Y, animatedsprite->getPosition().X + animatedsprite->getFrameSize(name).Width, animatedsprite->getPosition().Y + animatedsprite->getFrameSize(name).Height);
+		D2D1_RECT_F destRect = D2D1::RectF(animatedsprite->getPosition().X, animatedsprite->getPosition().Y, (animatedsprite->getPosition().X + animatedsprite->getFrameSize(name).Width) * animatedsprite->getScale(), (animatedsprite->getPosition().Y + animatedsprite->getFrameSize(name).Height) *  animatedsprite->getScale());
 
 		//Flipmode
 		D2D1_RECT_F temp;
@@ -348,7 +348,7 @@ namespace WOtech
 			temp = wrapRect(source);
 			break;
 		case WOtech::SPRITE_FLIP_MODE::Horizontal:
-			temp = D2D1::RectF(source.Width, source.Y, source.X + 15.0f, source.Height);
+			temp = D2D1::RectF(source.Width, source.Y, source.X, source.Height);
 			break;
 		case WOtech::SPRITE_FLIP_MODE::Vertical:
 			temp = D2D1::RectF(source.X, source.Height, source.Width, source.Y);

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	13.09.2014
-///			Edited:		22.10.2017
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -38,7 +38,7 @@ namespace WOtech
 	{
 		m_fileName = filename;
 		m_position = Point(0.0f, 0.0f);
-		m_size = Size(10.0f, 10.0f);
+		m_scale = 1.0f;
 		m_rotation = 0.0f;
 		m_opacity = 1.0f;
 		m_interpolation = BITMAP_INTERPOLATION_MODE::BITMAP_INTERPOLATION_MODE_LINEAR;
@@ -139,8 +139,10 @@ namespace WOtech
 					iterator->Lastime = elapsed;
 
 					if (iterator->ActualFrame > iterator->Framecount)
+					{
 						iterator->ActualFrame = 0;
-					iterator->Lastime = 0.0f;
+						iterator->Lastime = 0.0f;
+					}		
 				}
 			}
 		}
@@ -171,9 +173,9 @@ namespace WOtech
 	{
 		return m_position;
 	}
-	Size AnimatedSprite::getSize()
+	float32 AnimatedSprite::getScale()
 	{
-		return m_size;
+		return m_scale;
 	}
 	Size AnimatedSprite::getFrameSize(_In_ String^ name)
 	{
@@ -205,7 +207,7 @@ namespace WOtech
 				WOtech::ANIMATION animation = *iterator;
 
 				float32 left = animation.SourcePosition.X + (animation.FrameSize.Width * animation.ActualFrame);
-				float32 top = animation.SourcePosition.Y + animation.FrameSize.Height;
+				float32 top = animation.SourcePosition.Y;
 				temp.X = left;
 				temp.Y = top;
 				temp.Width = left + animation.FrameSize.Width;
@@ -237,9 +239,9 @@ namespace WOtech
 	{
 		m_position = { x,y };
 	}
-	void AnimatedSprite::setSize(_In_ float32 width, _In_ float32 height)
+	void AnimatedSprite::setScale(_In_ float32 scale)
 	{
-		m_size = Size(width, height);
+		m_scale = scale;
 	}
 	void AnimatedSprite::setOpacity(_In_ float32 opacity)
 	{

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	18.03.2015
-///			Edited:		30.04.2018
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SYSTEMMANAGER_H
@@ -55,6 +55,7 @@ namespace WOtech
 
 		// GET
 		WOtech::DeviceDX11^ GetDeviceDX11();
+		WOtech::SpriteBatch^ GetSpriteBatch();
 
 	public:
 		property Platform::Boolean Enable

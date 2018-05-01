@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	18.03.2015
-///			Edited:		30.04.2018
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -117,6 +117,14 @@ namespace WOtech
 			throw ref new Platform::NotImplementedException();
 		
 		return m_deviceDX11List.at(0);
+	}
+
+	WOtech::SpriteBatch ^ SystemManager::GetSpriteBatch()
+	{
+		if(m_spriteBatchList.empty())
+			throw ref new Platform::NotImplementedException();
+
+		return m_spriteBatchList.at(0);
 	}
 
 	void SystemManager::OnSuspending()

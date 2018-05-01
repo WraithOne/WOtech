@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.04.2018
-///			Edited:		30.04.2018
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -42,6 +42,17 @@ namespace WOtech
 	DeviceDX11 ^ Systemhelper::GetDeviceDX11()
 	{
 		return WOtech::SystemManager::Instance->GetDeviceDX11();
+	}
+	SpriteBatch ^ Systemhelper::CreateSpriteBatch(DeviceDX11 ^ device)
+	{
+		auto spritebatch = ref new WOtech::SpriteBatch(device);
+		spritebatch->Initialize();
+
+		return spritebatch;
+	}
+	SpriteBatch ^ Systemhelper::GetSpriteBatch()
+	{
+		return WOtech::SystemManager::Instance->GetSpriteBatch();
 	}
 	void Systemhelper::RunGame(_In_ IGame^ Game)
 	{

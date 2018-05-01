@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.04.2016
-///			Edited:		12.02.2018
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_2DCOMPONENTS_H
@@ -319,7 +319,7 @@ namespace WOtech
 
 		//Setter
 		void setPosition(_In_ float32 x, _In_ float32 y);
-		void setSize(_In_ float32 width, _In_ float32 height);
+		void setScale(_In_ float32 scale);
 		void setOpacity(_In_ float32 opacity);
 		void setRotation(_In_ float32 degree);
 		void setRotationinRadian(_In_ float32 radian);
@@ -328,7 +328,7 @@ namespace WOtech
 
 		//Getter
 		Windows::Foundation::Point	getPosition();
-		Windows::Foundation::Size	getSize();
+		float32						getScale();
 		Windows::Foundation::Size	getFrameSize(_In_ Platform::String^ name);
 		WOtech::RECT				getFrame(_In_ Platform::String^ name);
 		float32						getOpacity();
@@ -349,7 +349,7 @@ namespace WOtech
 		std::list<ANIMATION>				m_animationList;
 
 		Windows::Foundation::Point			m_position;
-		Windows::Foundation::Size			m_size;
+		float32								m_scale;
 		float32								m_rotation;
 		SPRITE_FLIP_MODE					m_flipMode;
 		float32								m_opacity;
