@@ -5,16 +5,16 @@
 ///			https://github.com/WraithOne/WOtech
 ///			by https://twitter.com/WraithOne
 ///
-///			File: ContentManager.h
+///			File: IGAME.h
 ///
 ///			Description:
 ///
 ///			Created:	14.01.2018
-///			Edited:		14.01.2018
+///			Edited:		27.04.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
-#ifndef WO_GAME_H
-#define WO_GAME_H
+#ifndef WO_IGAME_H
+#define WO_IGAME_H
 
 //////////////
 // INCLUDES //

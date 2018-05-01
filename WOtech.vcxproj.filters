@@ -190,9 +190,6 @@
     <ClCompile Include="Source\Application.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game.cpp">
-      <Filter>GameFramework</Filter>
-    </ClCompile>
     <ClCompile Include="Source\TextBlock.cpp">
       <Filter>Graphic\2D\Components</Filter>
     </ClCompile>
@@ -299,11 +296,11 @@
     <ClInclude Include="Include\Application.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Game.h">
-      <Filter>GameFramework</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Systemhelper.h">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\IGame.h">
+      <Filter>GameFramework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

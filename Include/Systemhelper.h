@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.04.2018
-///			Edited:		24.04.2018
+///			Edited:		30.04.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SYSTEMHELPER_H
@@ -20,11 +20,10 @@
 // INCLUDES //
 //////////////
 #include "pch.h"
-#include "Application.h"
-#include "Window.h"
 #include "Audio.h"
 #include "DeviceDX11.h"
 #include "Input.h"
+#include "IGame.h"
 
 namespace WOtech
 {
@@ -36,6 +35,9 @@ namespace WOtech
 
 	public:
 		static DeviceDX11^ CreateDeviceDX11();
+		static DeviceDX11^ GetDeviceDX11();
+
+		static void RunGame(_In_ IGame^ Game);
 	};
 }
 #endif

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	18.03.2015
-///			Edited:		13.01.2018
+///			Edited:		30.04.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -37,7 +37,7 @@ using namespace Windows::Graphics::Display;
 
 namespace WOtech
 {
-	SystemManager::SystemManager()
+	SystemManager::SystemManager() : m_enabled(true)
 	{
 		m_inputManagerList.clear();
 		m_audioEngineList.clear();
@@ -109,6 +109,14 @@ namespace WOtech
 			it = std::find(m_inputManagerList.begin(), m_inputManagerList.end(), inputManager);
 			m_inputManagerList.erase(it);
 		}	
+	}
+
+	WOtech::DeviceDX11 ^ SystemManager::GetDeviceDX11()
+	{
+		if(m_deviceDX11List.empty())
+			throw ref new Platform::NotImplementedException();
+		
+		return m_deviceDX11List.at(0);
 	}
 
 	void SystemManager::OnSuspending()

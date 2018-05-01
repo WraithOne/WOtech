@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.04.2018
-///			Edited:		24.04.2018
+///			Edited:		30.04.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -19,6 +19,9 @@
 //////////////
 #include "pch.h"
 #include "..\Include\Systemhelper.h"
+#include "Include\SystemManager.h"
+#include "Include\Application.h"
+
 namespace WOtech
 {
 	Systemhelper::Systemhelper()
@@ -35,5 +38,16 @@ namespace WOtech
 		device->Create();
 
 		return device;
+	}
+	DeviceDX11 ^ Systemhelper::GetDeviceDX11()
+	{
+		return WOtech::SystemManager::Instance->GetDeviceDX11();
+	}
+	void Systemhelper::RunGame(_In_ IGame^ Game)
+	{
+		auto viewsource = ref new ViewSource();
+		viewsource->addGame(Game);
+
+		Windows::ApplicationModel::Core::CoreApplication::Run(viewsource);
 	}
 }

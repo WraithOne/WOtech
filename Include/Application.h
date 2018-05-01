@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	14.01.2018
-///			Edited:		14.01.2018
+///			Edited:		30.04.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_APPLICATION_H
@@ -20,23 +20,25 @@
 // INCLUDES //
 //////////////
 #include "pch.h"
-#include "Game.h"
-/*
+
+#include "IGame.h"
+
 namespace WOtech
 {
 	/////////////////////////////////////////////////////////////////////////
 	// Forward declarations
 	ref class DeviceDX11;
 	ref class SpriteBatch;
+	interface class IRenderer;
 	ref class AudioEngine;
 	ref class InputManager;
-	interface class IRenderer;
+	ref class VirtualController;
 
 	ref class FrameworkView sealed : public Windows::ApplicationModel::Core::IFrameworkView
 	{
 	public:
 		FrameworkView();
-
+		void addGame(IGame^ game);
 	
 		// IFrameworkView Methods
 		virtual void Initialize(Windows::ApplicationModel::Core::CoreApplicationView^ applicationView);
@@ -64,38 +66,35 @@ namespace WOtech
 		void OnStereoEnabledChanged(Windows::Graphics::Display::DisplayInformation^ sender, Platform::Object^ args);
 
 	private:
-		bool					WindowClosed;    // change to true when it's time to close the window
-		bool					WindowVisible;
+		bool					m_windowClosed;    // change to true when it's time to close the window
+		bool					m_windowVisible;
 
 		// Game Instance
-		WOtech::Game^			m_game;
+		WOtech::IGame^				m_game;
 
 		// WOtech devices
-		WOtech::DeviceDX11^		m_device;
-		WOtech::IRenderer^		m_renderer;
-		WOtech::SpriteBatch^	m_spriteBatch;
-		WOtech::AudioEngine^	m_audioEngine;
-		WOtech::InputManager^	m_inputManager;
+		WOtech::DeviceDX11^			m_device;
+		WOtech::IRenderer^			m_renderer;
+		WOtech::SpriteBatch^		m_spriteBatch;
+
+		WOtech::AudioEngine^		m_audioEngine;
+
+		WOtech::InputManager^		m_inputManager;
+		WOtech::VirtualController^	m_virtualController;
+
+		WOtech::GameTimer^			m_gametimer;
 	};
 
 	ref class ViewSource : Windows::ApplicationModel::Core::IFrameworkViewSource
 	{
 	public:
-		virtual Windows::ApplicationModel::Core::IFrameworkView^ CreateView()
-		{
-			return ref new FrameworkView();
-		}
-	};
+		virtual Windows::ApplicationModel::Core::IFrameworkView^ CreateView();
 
-	public ref class Application sealed
-	{
-	public:
-		Application();
-		void Run(Game^ game);
+		void addGame(IGame^ game);
 
 	private:
+		IGame^ m_game;
 	};
 } // namespace WOtech
 
-*/
 #endif
