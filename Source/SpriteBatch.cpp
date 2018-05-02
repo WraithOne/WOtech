@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		17.02.2018
+///			Edited:		02.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -134,7 +134,7 @@ namespace WOtech
 		ThrowIfFailed(hr);
 
 		// Create Gridbrush
-		CreateGrid();
+		CreateGrid(Windows::UI::Colors::White);
 	}
 	void SpriteBatch::ReleaseRendertarget()
 	{
@@ -183,7 +183,7 @@ namespace WOtech
 		SystemManager::Instance->RemoveSpriteBatch(this);
 	}
 
-	void SpriteBatch::CreateGrid()
+	void SpriteBatch::CreateGrid(_In_ Windows::UI::Color color)
 	{
 		HRESULT hr;
 
@@ -196,7 +196,7 @@ namespace WOtech
 		{
 			// Draw a pattern.
 			ComPtr<ID2D1SolidColorBrush> pGridBrush;
-			hr = pCompatibleRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF(0.93f, 0.94f, 0.96f, 1.0f)), &pGridBrush);
+			hr = pCompatibleRenderTarget->CreateSolidColorBrush(wrapColorD2D(color), &pGridBrush);//D2D1::ColorF(D2D1::ColorF(0.93f, 0.94f, 0.96f, 1.0f))
 			ThrowIfFailed(hr);
 
 			if (SUCCEEDED(hr))
@@ -219,6 +219,8 @@ namespace WOtech
 				}
 			}
 		}
+
+		m_gridColor = color;
 	}
 
 	void SpriteBatch::DrawTextBlock(_In_ TextBlock^ text)
@@ -369,8 +371,12 @@ namespace WOtech
 
 	void SpriteBatch::DrawGrid(_In_ RECT area, _In_ Color color, _In_ float32 rotation)
 	{
-		UNREFERENCED_PARAMETER(color);// todo
-		UNREFERENCED_PARAMETER(rotation); // todo
+		// Recolor grid
+		if (m_gridColor.ToString() != color.ToString())// Todo : haxx
+			CreateGrid(color);
+
+		// Set Rotation
+		setRotation({area.X, area.Y, area.X + area.Width, area.Y + area.Height}, rotation);
 
 		// Draw Grid
 		m_deviceContext->FillRectangle(D2D1::RectF(area.X, area.Y, area.X + area.Width, area.Y + area.Height), m_gridBrush.Get());

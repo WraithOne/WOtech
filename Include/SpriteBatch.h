@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		18.02.2018
+///			Edited:		02.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SPRITEBATCH_H
@@ -98,7 +98,7 @@ namespace WOtech
 	private:
 		~SpriteBatch();
 
-		void CreateGrid();
+		void CreateGrid(_In_ Windows::UI::Color color);
 		void setRotation(_In_ WOtech::RECT area, _In_ float32 rotation);
 
 		void SortBatch();
@@ -121,6 +121,7 @@ namespace WOtech
 		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>	m_rectangleBrush;
 		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>	m_outlineBrush;
 		Microsoft::WRL::ComPtr<ID2D1BitmapBrush1>		m_gridBrush;
+		Windows::UI::Color								m_gridColor;
 
 		SpriteSortMode									m_sortMode;
 		Platform::Boolean								m_beginDraw;
