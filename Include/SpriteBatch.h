@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		02.05.2018
+///			Edited:		07.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SPRITEBATCH_H
@@ -48,6 +48,8 @@ namespace WOtech
 		@param Pointer to a valid DeviceDX11
 		*/
 		SpriteBatch(_In_ WOtech::DeviceDX11^ device);
+
+		void Initialize();
 
 		void BeginDraw();
 		void BeginDraw(_In_ SpriteSortMode sortmode);
@@ -89,9 +91,9 @@ namespace WOtech
 
 		void ReleaseRendertarget();
 
-	internal:
-		void Initialize();
+		WOtech::Bitmap^ LoadBitmap(_In_ Platform::String^ fileName);
 
+	internal:
 		ID2D1DeviceContext5*		GetDeviceContext();
 		ID2D1Factory6*				getFactory();
 
@@ -99,7 +101,9 @@ namespace WOtech
 		~SpriteBatch();
 
 		void CreateGrid(_In_ Windows::UI::Color color);
+
 		void setRotation(_In_ WOtech::RECT area, _In_ float32 rotation);
+		void setTransformation(_In_ SPRITE_FLIP_MODE flipMode);
 
 		void SortBatch();
 		void DrawBatch();
@@ -114,7 +118,8 @@ namespace WOtech
 		Microsoft::WRL::ComPtr<ID2D1DeviceContext5>		m_deviceContext;
 		Microsoft::WRL::ComPtr<ID2D1Bitmap1>			m_targetBitmap;
 
-		Microsoft::WRL::ComPtr<IDWriteFactory5>			m_Wfactory;
+		Microsoft::WRL::ComPtr<IWICImagingFactory>		m_wicFactory;
+		Microsoft::WRL::ComPtr<IDWriteFactory5>			m_dwFactory;
 
 		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>	m_fontBrush;
 		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>	m_circleBrush;
@@ -122,6 +127,8 @@ namespace WOtech
 		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>	m_outlineBrush;
 		Microsoft::WRL::ComPtr<ID2D1BitmapBrush1>		m_gridBrush;
 		Windows::UI::Color								m_gridColor;
+
+		Windows::Storage::StorageFolder^				m_installedLocation;
 
 		SpriteSortMode									m_sortMode;
 		Platform::Boolean								m_beginDraw;

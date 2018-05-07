@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		02.05.2018
+///			Edited:		07.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -26,6 +26,8 @@
 using namespace Platform;
 using namespace Windows::Foundation;
 using namespace Windows::UI;
+using namespace Windows::Storage;
+using namespace Windows::ApplicationModel;
 using namespace Microsoft::WRL;
 using namespace WOtech::DXWrapper;
 
@@ -38,8 +40,6 @@ namespace WOtech
 	{
 		m_deviceDX11 = renderer;
 		m_beginDraw = false;
-
-		Initialize();
 
 		// add to SystemManager
 		SystemManager::Instance->AddSpriteBatch(this);
@@ -71,12 +71,19 @@ namespace WOtech
 		}
 
 		// Create the DirectWriter Factory
-		if (m_Wfactory == nullptr)
+		if (m_dwFactory == nullptr)
 		{
-			hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory5), &m_Wfactory);
+			hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory5), &m_dwFactory);
 			ThrowIfFailed(hr);
 		}
 
+		// Create an instance of WICFactory
+		if (m_wicFactory == nullptr)
+		{
+			hr = CoCreateInstance(CLSID_WICImagingFactory1, NULL, CLSCTX_INPROC_SERVER, IID_IWICImagingFactory, (LPVOID*)(&m_wicFactory));
+			ThrowIfFailed(hr);
+		}
+		
 		// Create the D2D Device
 		if (m_device == nullptr)
 		{
@@ -135,11 +142,52 @@ namespace WOtech
 
 		// Create Gridbrush
 		CreateGrid(Windows::UI::Colors::White);
+
+		m_installedLocation = Package::Current->InstalledLocation;
 	}
 	void SpriteBatch::ReleaseRendertarget()
 	{
 		m_deviceContext->SetTarget(nullptr);
 		m_targetBitmap = nullptr;
+	}
+
+	WOtech::Bitmap^ SpriteBatch::LoadBitmap(_In_ Platform::String^ fileName)
+	{
+		HRESULT hr;
+
+		ComPtr<ID2D1Bitmap1> output;
+		ComPtr<IWICBitmapDecoder> pDecoder;
+		ComPtr<IWICBitmapFrameDecode> pSource;
+		ComPtr<IWICFormatConverter> pConverter;
+		
+		// Create Path/Filename String
+		String^ path;
+		String^ pathfilename;
+
+		path = String::Concat(m_installedLocation->Path, "\\");
+		pathfilename = String::Concat(path, fileName);
+		LPCWSTR Filename = pathfilename->Data();
+
+		hr = m_wicFactory->CreateDecoderFromFilename(Filename, NULL, GENERIC_READ, WICDecodeMetadataCacheOnLoad, &pDecoder);
+		ThrowIfFailed(hr);
+
+		// Create the initial frame.
+		hr = pDecoder->GetFrame(0, &pSource);
+		ThrowIfFailed(hr);
+
+		// Convert the image format to 32bppPBGRA
+		// (DXGI_FORMAT_B8G8R8A8_UNORM + D2D1_ALPHA_MODE_PREMULTIPLIED).
+		hr = m_wicFactory->CreateFormatConverter(&pConverter);
+		ThrowIfFailed(hr);
+
+		hr = pConverter->Initialize(pSource.Get(), GUID_WICPixelFormat32bppPBGRA, WICBitmapDitherTypeNone, NULL, 0.f, WICBitmapPaletteTypeMedianCut);
+		ThrowIfFailed(hr);
+
+		// Create a Direct2D bitmap from the WIC bitmap.
+		hr = m_deviceContext->CreateBitmapFromWicBitmap(pConverter.Get(), NULL, output.ReleaseAndGetAddressOf());
+		ThrowIfFailed(hr);
+
+		return ref new WOtech::Bitmap(output.Get());
 	}
 
 	void SpriteBatch::BeginDraw()
@@ -241,7 +289,7 @@ namespace WOtech
 
 		// Create text format
 		IDWriteTextFormat* temp = nullptr;
-		hr = m_Wfactory->CreateTextFormat(font->getFontname()->Data(), font->getColletion(), DWRITE_FONT_WEIGHT_NORMAL, wraptFontStyle(style), DWRITE_FONT_STRETCH_NORMAL, fontSize, L"", &temp);
+		hr = m_dwFactory->CreateTextFormat(font->getFontname()->Data(), font->getColletion(), DWRITE_FONT_WEIGHT_NORMAL, wraptFontStyle(style), DWRITE_FONT_STRETCH_NORMAL, fontSize, L"", &temp);
 		ThrowIfFailed(hr);
 
 		// Create the Destination Rect
@@ -279,25 +327,10 @@ namespace WOtech
 		setRotation(rect, sprite->getRotation());
 
 		auto spriteREct = sprite->getDestinationRect();
-		D2D1_RECT_F destRect;
-		//Flipmode
-		switch (sprite->getFlipMode())
-		{
-		case WOtech::SPRITE_FLIP_MODE::None:
-			destRect = wrapRect(sprite->getDestinationRect());
-			break;
-		case WOtech::SPRITE_FLIP_MODE::Horizontal:
-			destRect = D2D1::RectF(spriteREct.X + (spriteREct.Width - spriteREct.X), spriteREct.Y, spriteREct.X, spriteREct.Height);
-			break;
-		case WOtech::SPRITE_FLIP_MODE::Vertical:
-			destRect = D2D1::RectF(spriteREct.X, spriteREct.Height, spriteREct.Width, spriteREct.Y);
-			break;
-		case WOtech::SPRITE_FLIP_MODE::Both:
-			destRect = wrapRect(sprite->getDestinationRect());
-			break;
-		default:
-			break;
-		}
+		
+		// Set Transform
+		setTransformation(sprite->getFlipMode());
+
 		// Draw the Sprite
 		m_deviceContext->DrawBitmap(sprite->getBitmap(), wrapRect(sprite->getDestinationRect()), sprite->getOpacity(), wrapBitmapInterpolationMode(sprite->getInterpolation()), wrapRect(sprite->getSourceRect()));
 	}
@@ -308,26 +341,8 @@ namespace WOtech
 		// Set Rotation
 		setRotation(rect, rotation);
 
-		//Flipmode
-		D2D1_RECT_F temp;
-
-		switch (flipmode)
-		{
-		case WOtech::SPRITE_FLIP_MODE::None:
-			temp = wrapRect(destRect);
-			break;
-		case WOtech::SPRITE_FLIP_MODE::Horizontal:
-			temp = D2D1::RectF(destRect.X + destRect.Width, destRect.Y, destRect.X, destRect.Height);
-			break;
-		case WOtech::SPRITE_FLIP_MODE::Vertical:
-			temp = D2D1::RectF(destRect.X, destRect.Y + destRect.Height, destRect.X + destRect.Width, destRect.Y);
-			break;
-		case WOtech::SPRITE_FLIP_MODE::Both:
-			temp = D2D1::RectF(destRect.X + destRect.Width, destRect.Y + destRect.Height, destRect.X, destRect.Y);
-			break;
-		default:
-			break;
-		}
+		// Set Transform
+		setTransformation(flipmode);
 
 		// Draw the Sprite
 		m_deviceContext->DrawBitmap(sprite->getBitmap(), wrapRect(destRect), opacity, wrapBitmapInterpolationMode(sprite->getInterpolation()), wrapRect(srcRect));
@@ -338,35 +353,14 @@ namespace WOtech
 		// Create a Rect to hold Position and Size of the Sprite
 		auto rect = WOtech::RECT{ animatedsprite->getPosition().X, animatedsprite->getPosition().Y, animatedsprite->getFrameSize(name).Width, animatedsprite->getFrameSize(name).Height };
 
-		// Create the Destination Rect
-		D2D1_RECT_F destRect = D2D1::RectF(animatedsprite->getPosition().X, animatedsprite->getPosition().Y, (animatedsprite->getPosition().X + animatedsprite->getFrameSize(name).Width) * animatedsprite->getScale(), (animatedsprite->getPosition().Y + animatedsprite->getFrameSize(name).Height) *  animatedsprite->getScale());
-
-		//Flipmode
-		D2D1_RECT_F temp;
-		auto source = animatedsprite->getFrame(name);
-		switch (animatedsprite->getFlipMode())
-		{
-		case WOtech::SPRITE_FLIP_MODE::None:
-			temp = wrapRect(source);
-			break;
-		case WOtech::SPRITE_FLIP_MODE::Horizontal:
-			temp = D2D1::RectF(source.Width, source.Y, source.X, source.Height);
-			break;
-		case WOtech::SPRITE_FLIP_MODE::Vertical:
-			temp = D2D1::RectF(source.X, source.Height, source.Width, source.Y);
-			break;
-		case WOtech::SPRITE_FLIP_MODE::Both:
-			temp = D2D1::RectF(source.Width, source.Height, source.X, source.Y);
-			break;
-		default:
-			break;
-		}
-
 		// Set Rotation
 		setRotation(rect, animatedsprite->getRotation());
 
+		// Create the Destination Rect
+		D2D1_RECT_F destRect = D2D1::RectF(animatedsprite->getPosition().X, animatedsprite->getPosition().Y, (animatedsprite->getPosition().X + animatedsprite->getFrameSize(name).Width) * animatedsprite->getScale(), (animatedsprite->getPosition().Y + animatedsprite->getFrameSize(name).Height) *  animatedsprite->getScale());
+
 		// Draw the AnimatedSprite
-		m_deviceContext->DrawBitmap(animatedsprite->getBitmap(), destRect, animatedsprite->getOpacity(), wrapBitmapInterpolationMode(animatedsprite->getInterpolation()), temp);//wrapRect(animatedsprite->getFrame(name))
+		m_deviceContext->DrawBitmap(animatedsprite->getBitmap(), destRect, animatedsprite->getOpacity(), wrapBitmapInterpolationMode(animatedsprite->getInterpolation()), wrapRect(animatedsprite->getFrame(name)));
 	}
 
 	void SpriteBatch::DrawGrid(_In_ RECT area, _In_ Color color, _In_ float32 rotation)
@@ -514,6 +508,31 @@ namespace WOtech
 
 		m_deviceContext->SetTransform(rotationMatrix * m_deviceDX11->get2DOrientation());
 	}
+	void SpriteBatch::setTransformation(SPRITE_FLIP_MODE flipMode)
+	{
+		D2D1_MATRIX_3X2_F transformMatrix = D2D1::IdentityMatrix();
+
+		switch (flipMode)
+		{
+		case WOtech::SPRITE_FLIP_MODE::None:
+			
+			break;
+		case WOtech::SPRITE_FLIP_MODE::Horizontal:
+			
+			break;
+		case WOtech::SPRITE_FLIP_MODE::Vertical:
+			
+			break;
+		case WOtech::SPRITE_FLIP_MODE::Both:
+			
+			break;
+		default:
+			break;
+		}
+
+		m_deviceContext->SetTransform(transformMatrix * m_deviceDX11->get2DOrientation());
+	}
+
 	void SpriteBatch::SortBatch()
 	{
 		switch (m_sortMode)
@@ -540,7 +559,7 @@ namespace WOtech
 	}
 	void SpriteBatch::Release()
 	{
-		m_Wfactory.Reset();
+		m_dwFactory.Reset();
 		m_factory.Reset();
 		m_deviceContext.Reset();
 		m_device.Reset();

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	14.01.2018
-///			Edited:		01.05.2018
+///			Edited:		07.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -87,7 +87,9 @@ namespace WOtech
 		m_device->Create();
 
 		m_renderer = ref new WOtech::ForwardRenderer(m_device);
+
 		m_spriteBatch = ref new WOtech::SpriteBatch(m_device);
+		m_spriteBatch->Initialize();
 
 		m_audioEngine = ref new WOtech::AudioEngine();
 		m_audioEngine->Initialize();

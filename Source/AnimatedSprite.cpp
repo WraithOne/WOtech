@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	13.09.2014
-///			Edited:		01.05.2018
+///			Edited:		07.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -27,8 +27,6 @@
 using namespace Platform;
 using namespace Windows::Foundation;
 using namespace Windows::UI;
-using namespace Windows::Storage;
-using namespace Windows::ApplicationModel;
 using namespace Microsoft::WRL;
 using namespace WOtech::DXWrapper;
 
@@ -36,6 +34,7 @@ namespace WOtech
 {
 	AnimatedSprite::AnimatedSprite(_In_ Platform::String^ filename)
 	{
+		m_fromFile = true;
 		m_fileName = filename;
 		m_position = Point(0.0f, 0.0f);
 		m_scale = 1.0f;
@@ -47,56 +46,32 @@ namespace WOtech
 		WOtech::ContentManager::Instance->AddAnimatedSprite(this);
 	}
 
+	AnimatedSprite::AnimatedSprite(WOtech::Bitmap^ bitmap)
+	{
+		m_fromFile = true;
+		m_fileName = "Error not loaded from File";
+		m_position = Point(0.0f, 0.0f);
+		m_scale = 1.0f;
+		m_rotation = 0.0f;
+		m_opacity = 1.0f;
+		m_interpolation = BITMAP_INTERPOLATION_MODE::BITMAP_INTERPOLATION_MODE_LINEAR;
+		m_flipMode = SPRITE_FLIP_MODE::None;
+
+		m_bitmap = bitmap->getBitmap();
+
+		WOtech::ContentManager::Instance->AddAnimatedSprite(this);
+	}
+
 	void AnimatedSprite::Load(_In_ SpriteBatch^ spriteBatch)
 	{
-		HRESULT hr;
-
-		ComPtr<IWICBitmapDecoder> pDecoder;
-		ComPtr<IWICBitmapFrameDecode> pSource;
-		ComPtr<IWICStream> pStream;
-		ComPtr<IWICFormatConverter> pConverter;
-		ComPtr<IWICBitmapScaler> pScaler;
-		ComPtr<IWICImagingFactory> pWICFactory;
-
-		m_Bitmap = nullptr;
-
-		//hr = CoInitialize(NULL);
-
-		// Create an instance of WICFactory
-		hr = CoCreateInstance(CLSID_WICImagingFactory1, NULL, CLSCTX_INPROC_SERVER, IID_IWICImagingFactory, (LPVOID*)(&pWICFactory));
-		ThrowIfFailed(hr);
-
-		// Create Path/fulename String
-		String^ path;
-		String^ pathfilename;
-
-		StorageFolder^ m_installedLocation = Package::Current->InstalledLocation;
-		path = String::Concat(m_installedLocation->Path, "\\");
-		pathfilename = String::Concat(path, m_fileName);
-		LPCWSTR Filename = pathfilename->Data();
-
-		hr = pWICFactory->CreateDecoderFromFilename(Filename, NULL, GENERIC_READ, WICDecodeMetadataCacheOnLoad, &pDecoder);
-		ThrowIfFailed(hr);
-
-		// Create the initial frame.
-		hr = pDecoder->GetFrame(0, &pSource);
-		ThrowIfFailed(hr);
-
-		// Convert the image format to 32bppPBGRA
-		// (DXGI_FORMAT_B8G8R8A8_UNORM + D2D1_ALPHA_MODE_PREMULTIPLIED).
-		hr = pWICFactory->CreateFormatConverter(&pConverter);
-		ThrowIfFailed(hr);
-
-		hr = pConverter->Initialize(pSource.Get(), GUID_WICPixelFormat32bppPBGRA, WICBitmapDitherTypeNone, NULL, 0.f, WICBitmapPaletteTypeMedianCut);
-		ThrowIfFailed(hr);
-
-		// Create a Direct2D bitmap from the WIC bitmap.
-		hr = spriteBatch->GetDeviceContext()->CreateBitmapFromWicBitmap(pConverter.Get(), NULL, &m_Bitmap);
-		ThrowIfFailed(hr);
+		if (m_fromFile)
+		{
+			m_bitmap = (spriteBatch->LoadBitmap(m_fileName))->getBitmap();
+		}
 	}
 	void AnimatedSprite::UnLoad()
 	{
-		m_Bitmap.Reset();
+		m_bitmap.Reset();
 	}
 	Platform::Boolean AnimatedSprite::AddAnimation(_In_ String^ name, _In_ uint32 framecount, _In_ float32 frametime, _In_ Size framesize, _In_ Point sourceposition)
 	{
@@ -163,7 +138,7 @@ namespace WOtech
 
 	ID2D1Bitmap* AnimatedSprite::getBitmap()
 	{
-		return m_Bitmap.Get();
+		return m_bitmap.Get();
 	}
 	AnimatedSprite::~AnimatedSprite()
 	{

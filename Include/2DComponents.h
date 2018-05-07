@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.04.2016
-///			Edited:		01.05.2018
+///			Edited:		07.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_2DCOMPONENTS_H
@@ -239,6 +239,7 @@ namespace WOtech
 	public:
 		Bitmap();
 		Bitmap(_In_ WOtech::SpriteBatch^ spriteBatch, _In_ UINT width, _In_ UINT height);
+		Bitmap(_In_ WOtech::SpriteBatch^ spriteBatch, _In_ Platform::String^ fileName);
 
 		void Reset();
 
@@ -294,7 +295,7 @@ namespace WOtech
 
 	private:
 		Platform::String^						m_fileName;
-		Microsoft::WRL::ComPtr<ID2D1Bitmap1>	m_Bitmap;
+		Microsoft::WRL::ComPtr<ID2D1Bitmap1>	m_bitmap;
 
 		WOtech::RECT							m_sourceRect;
 		Windows::Foundation::Point				m_position;
@@ -308,7 +309,9 @@ namespace WOtech
 	public ref class AnimatedSprite sealed
 	{
 	public:
+		[Windows::Foundation::Metadata::DefaultOverloadAttribute]
 		AnimatedSprite(_In_ Platform::String^ filename);
+		AnimatedSprite(_In_ WOtech::Bitmap^ bitmap);
 
 		void Load(_In_ SpriteBatch^ spriteBatch);
 		void UnLoad();
@@ -343,8 +346,10 @@ namespace WOtech
 		~AnimatedSprite();
 
 	private:
+		Platform::Boolean					m_fromFile;
 		Platform::String^					m_fileName;
-		Microsoft::WRL::ComPtr<ID2D1Bitmap>	m_Bitmap;
+
+		Microsoft::WRL::ComPtr<ID2D1Bitmap>	m_bitmap;
 
 		std::list<ANIMATION>				m_animationList;
 
@@ -428,7 +433,7 @@ namespace WOtech
 		void makeBrush(_In_ SpriteBatch^ spriteBatch);
 
 	private:
-		Microsoft::WRL::ComPtr<IDWriteFactory>			m_Wfactory;
+		Microsoft::WRL::ComPtr<IDWriteFactory>			m_wFactory;
 
 		Microsoft::WRL::ComPtr<IDWriteTextFormat>		m_format;
 		Microsoft::WRL::ComPtr<IDWriteTextLayout>		m_layout;

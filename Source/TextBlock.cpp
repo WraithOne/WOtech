@@ -167,16 +167,16 @@ namespace WOtech
 		m_layout = nullptr;
 		m_format = nullptr;
 
-		if (m_Wfactory == NULL)
+		if (m_wFactory == NULL)
 		{
-			hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), &m_Wfactory);
+			hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), &m_wFactory);
 			ThrowIfFailed(hr);
 		}
 
-		hr = m_Wfactory->CreateTextFormat(m_font->getFontname()->Data(), m_font->getColletion(), DWRITE_FONT_WEIGHT_NORMAL, wraptFontStyle(m_style), DWRITE_FONT_STRETCH_NORMAL, m_size, L"", &m_format);
+		hr = m_wFactory->CreateTextFormat(m_font->getFontname()->Data(), m_font->getColletion(), DWRITE_FONT_WEIGHT_NORMAL, wraptFontStyle(m_style), DWRITE_FONT_STRETCH_NORMAL, m_size, L"", &m_format);
 		ThrowIfFailed(hr);
 
-		hr = m_Wfactory->CreateTextLayout(m_text->Data(), static_cast<uint32>(m_text->Length()), m_format.Get(), m_layoutbox.Width, m_layoutbox.Height, &m_layout);
+		hr = m_wFactory->CreateTextLayout(m_text->Data(), static_cast<uint32>(m_text->Length()), m_format.Get(), m_layoutbox.Width, m_layoutbox.Height, &m_layout);
 		ThrowIfFailed(hr);
 	} //todo: memory leak? ->growing memory by calling it often
 

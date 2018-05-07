@@ -51,63 +51,21 @@ namespace WOtech
 	}
 	void Sprite::Load(_In_ SpriteBatch^ spriteBatch)
 	{
-		ComPtr<IWICBitmapDecoder> pDecoder;
-		ComPtr<IWICBitmapFrameDecode> pSource;
-		ComPtr<IWICStream> pStream;
-		ComPtr<IWICFormatConverter> pConverter;
-		ComPtr<IWICBitmapScaler> pScaler;
-		ComPtr<IWICImagingFactory> pWICFactory;
-
-		// Create path/filename string
-		String^ path;
-		String^ pathfilename;
-		StorageFolder^ m_installedLocation = Package::Current->InstalledLocation;
-		path = Platform::String::Concat(m_installedLocation->Path, "\\");
-		pathfilename = Platform::String::Concat(path, m_fileName);
-
-		HRESULT hr;
-
-		// Create new instance of WICFactory
-		hr = CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pWICFactory));
-		ThrowIfFailed(hr);
-
-		// Create Decoder
-		LPCWSTR Filename = pathfilename->Data();
-		hr = pWICFactory->CreateDecoderFromFilename(Filename, NULL, GENERIC_READ, WICDecodeMetadataCacheOnLoad, &pDecoder);
-		ThrowIfFailed(hr);
-
-		// Create the initial frame.
-		hr = pDecoder->GetFrame(0, &pSource);
-		ThrowIfFailed(hr);
-
-		// Convert the image format to 32bppPBGRA
-		// (DXGI_FORMAT_B8G8R8A8_UNORM + D2D1_ALPHA_MODE_PREMULTIPLIED).
-		hr = pWICFactory->CreateFormatConverter(&pConverter);
-		ThrowIfFailed(hr);
-
-		hr = pConverter->Initialize(pSource.Get(), GUID_WICPixelFormat32bppPBGRA, WICBitmapDitherTypeNone, NULL, 0.f, WICBitmapPaletteTypeMedianCut);
-		ThrowIfFailed(hr);
-
-		// Clear the Bitmap befor use
-		m_Bitmap = nullptr;
-
-		// Create a Direct2D bitmap from the WIC bitmap.
-		hr = spriteBatch->GetDeviceContext()->CreateBitmapFromWicBitmap(pConverter.Get(), NULL, &m_Bitmap);
-		ThrowIfFailed(hr);
+		m_bitmap = (spriteBatch->LoadBitmap(m_fileName))->getBitmap();
 
 		// Set width/height of the source rect
-		m_size.Width = m_sourceRect.Width = m_Bitmap->GetSize().width;
-		m_size.Height = m_sourceRect.Height = m_Bitmap->GetSize().height;
+		m_size.Width = m_sourceRect.Width = m_bitmap->GetSize().width;
+		m_size.Height = m_sourceRect.Height = m_bitmap->GetSize().height;
 	}
 
 	void Sprite::UnLoad()
 	{
-		m_Bitmap.Reset();
+		m_bitmap.Reset();
 	}
 
 	ID2D1Bitmap1* Sprite::getBitmap()
 	{
-		return m_Bitmap.Get();
+		return m_bitmap.Get();
 	}
 
 	Sprite::~Sprite()
