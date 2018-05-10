@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	09.01.2016
-///			Edited:		06.11.2016
+///			Edited:		10.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_STORAGE_H
@@ -23,12 +23,11 @@
 
 namespace WOtech
 {
-	public ref class Storage_WINRT sealed
+	ref class RoamingDataHandler sealed
 	{
-	internal:
-		Storage_WINRT();
-
 	public:
+		RoamingDataHandler();
+
 		void DataChangeHandler(_In_ Windows::Storage::ApplicationData^ appData, _In_ Platform::Object^ o);
 
 		property Windows::Storage::ApplicationDataContainer^ RoamingSettings
@@ -51,37 +50,57 @@ namespace WOtech
 		Platform::Boolean m_roamingChanged;
 	};
 
-	public ref class DA_Storage sealed
+	public ref class Storage sealed
 	{
 	internal:
-		DA_Storage();
+		Storage();
 
 	public:
 		// Write
 		void WriteLocalSetting(_In_ Platform::String^ containerName, _In_ Platform::String^ settingName, _In_ Platform::Object^ setting);
-		void WriteLocalData(_In_ Platform::String^ fileName);
-
 		void WriteRoamingSetting(_In_ Platform::String^ containerName, _In_ Platform::String^ settingName, _In_ Platform::Object^ setting);
-		void WriteRoamingData(_In_ Platform::String^ fileName);
+
+		void WriteLocalFile(_In_ Platform::String^ fileName, _In_ Platform::String^ text);
+		void WriteLocalFile(_In_ Platform::String^ fileName, _In_ BYTE* buffer);
+		void WriteLocalFile(_In_ Platform::String^ fileName, _In_ Windows::Storage::Streams::IBuffer^ buffer);
+
+		void WriteRoamingFile(_In_ Platform::String^ fileName, _In_ Platform::String^ text);
+		void WriteRoamingFile(_In_ Platform::String^ fileName, _In_ BYTE* buffer);
+		void WriteRoamingFile(_In_ Platform::String^ fileName, _In_ Windows::Storage::Streams::IBuffer^ buffer);
+
+		void WriteTemporaryFile(_In_ Platform::String^ fileName, _In_ Platform::String^ text);
+		void WriteTemporaryFile(_In_ Platform::String^ fileName, _In_ BYTE* buffer);
+		void WriteTemporaryFile(_In_ Platform::String^ fileName, _In_ Windows::Storage::Streams::IBuffer^ buffer);
 
 		// Read
 		Platform::Boolean ReadLocalSetting(_In_ Platform::String^ containerName, _In_ Platform::String^ settingName, _Out_ Platform::Object^ setting);
-		Platform::Boolean ReadLocalData(_In_ Platform::String^ fileName);
-
 		Platform::Boolean ReadRoamingSetting(_In_ Platform::String^ containerName, _In_ Platform::String^ settingName, _Out_ Platform::Object^ setting);
-		Platform::Boolean ReadRoamingData(_In_ Platform::String^ fileName);
+
+		Platform::Boolean ReadLocalFile(_In_ Platform::String^ fileName, _Out_ Platform::String^ text);
+		Platform::Boolean ReadLocalFile(_In_ Platform::String^ fileName, _Out_ BYTE* buffer);
+		Platform::Boolean ReadLocalFile(_In_ Platform::String^ fileName, _Out_ Windows::Storage::Streams::IBuffer^ buffer);
+		
+		Platform::Boolean ReadRoamingFile(_In_ Platform::String^ fileName, _Out_ Platform::String^ text);
+		Platform::Boolean ReadRoamingFile(_In_ Platform::String^ fileName, _Out_ BYTE* buffer);
+		Platform::Boolean ReadRoamingFile(_In_ Platform::String^ fileName, _Out_ Windows::Storage::Streams::IBuffer^ buffer);
+
+		Platform::Boolean ReadTemporaryFile(_In_ Platform::String^ fileName, _Out_ Platform::String^ text);
+		Platform::Boolean ReadTemporaryFile(_In_ Platform::String^ fileName, _Out_ BYTE* buffer);
+		Platform::Boolean ReadTemporaryFile(_In_ Platform::String^ fileName, _Out_ Windows::Storage::Streams::IBuffer^ buffer);
 
 		Platform::Boolean RoaminghasChanged();
 
 	private:
-		Storage_WINRT^ m_WINRT;
+		RoamingDataHandler^							m_roamingHandler;
 
 		Windows::Storage::ApplicationDataContainer^ m_localSettings;
 		Windows::Storage::StorageFolder^			m_localFolder;
 		Windows::Storage::ApplicationDataContainer^ m_roamingSettings;
 		Windows::Storage::StorageFolder^			m_roamingFolder;
 
-		Platform::Boolean m_roamingChanged;
+		Windows::Storage::StorageFolder^			m_temporaryFolder;
+
+		Platform::Boolean							m_roamingChanged;
 	};
 }
 
