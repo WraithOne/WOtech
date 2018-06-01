@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.02.2016
-///			Edited:		17.08.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -25,8 +25,6 @@
 #include "3DComponents.h"
 #include "DeviceDX11.h"
 #include "Utilities.h"
-
-using namespace WOtech::DXWrapper;
 
 namespace WOtech
 {

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	20.09.2014
-///			Edited:		22.10.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -26,13 +26,6 @@
 #include "MediaReader.h"
 #include "SystemManager.h"
 #include <DXWrapper.h>
-
-using Windows::Devices::Enumeration::DeviceClass;
-using Windows::Devices::Enumeration::DeviceInformation;
-using Windows::Devices::Enumeration::DeviceInformationCollection;
-using namespace Windows::Media;
-using namespace Windows::Foundation;
-using namespace WOtech::DXWrapper;
 
 namespace WOtech
 {
@@ -66,7 +59,7 @@ namespace WOtech
 	void AudioEngine::Initialize()
 	{
 		//default Processor
-		AUDIO_PROCESSOR xaProcessor = AUDIO_PROCESSOR::DEFAULT_PROCESSOR;
+		WOtech::AUDIO_PROCESSOR xaProcessor = WOtech::AUDIO_PROCESSOR::DEFAULT_PROCESSOR;
 		CreateDeviceIndependentResources(xaProcessor);
 
 		// Default Device
@@ -86,23 +79,23 @@ namespace WOtech
 		CreateDevicedependentResources(devDetails[i].DeviceID);
 	}
 
-	void AudioEngine::Initialize(_In_ AUDIO_PROCESSOR xaProcessor, _In_ Platform::String^ deviceID)
+	void AudioEngine::Initialize(_In_ WOtech::AUDIO_PROCESSOR xaProcessor, _In_ Platform::String^ deviceID)
 	{
 		CreateDeviceIndependentResources(xaProcessor);
 		CreateDevicedependentResources(deviceID);
 	}
 
-	void AudioEngine::CreateDeviceIndependentResources(_In_ AUDIO_PROCESSOR xaProcessor)
+	void AudioEngine::CreateDeviceIndependentResources(_In_ WOtech::AUDIO_PROCESSOR xaProcessor)
 	{
 		HRESULT hr;
 		uint32 Flags = NULL;
 
 		// Create the effect engine
-		hr = XAudio2Create(&m_effectDevice, Flags, wrapAUDIO_PROCESSOR(xaProcessor));
+		hr = XAudio2Create(&m_effectDevice, Flags, WOtech::DXWrapper::wrapAUDIO_PROCESSOR(xaProcessor));
 		ThrowIfFailed(hr);
 
 		// Create the music engine
-		hr = XAudio2Create(&m_musicDevice, Flags, wrapAUDIO_PROCESSOR(xaProcessor));
+		hr = XAudio2Create(&m_musicDevice, Flags, WOtech::DXWrapper::wrapAUDIO_PROCESSOR(xaProcessor));
 		ThrowIfFailed(hr);
 
 #if defined(_DEBUG)
@@ -231,10 +224,10 @@ namespace WOtech
 #else
 		// TODO, WinRT: make xaudio2 device enumeration only happen once, and in the background
 
-		auto operation = DeviceInformation::FindAllAsync(DeviceClass::AudioRender);
+		auto operation = Windows::Devices::Enumeration::DeviceInformation::FindAllAsync(Windows::Devices::Enumeration::DeviceClass::AudioRender);
 		while (operation->Status != Windows::Foundation::AsyncStatus::Completed);
 
-		DeviceInformationCollection^ devices = operation->GetResults();
+		Windows::Devices::Enumeration::DeviceInformationCollection^ devices = operation->GetResults();
 		*devCount = devices->Size;
 #endif
 	}
@@ -261,16 +254,16 @@ namespace WOtech
 		}
 		return S_OK;
 #else
-		auto operation = DeviceInformation::FindAllAsync(DeviceClass::AudioRender);
+		auto operation = Windows::Devices::Enumeration::DeviceInformation::FindAllAsync(Windows::Devices::Enumeration::DeviceClass::AudioRender);
 		while (operation->Status != Windows::Foundation::AsyncStatus::Completed);
 
-		DeviceInformationCollection^ devices = operation->GetResults();
+		Windows::Devices::Enumeration::DeviceInformationCollection^ devices = operation->GetResults();
 		if (index >= devices->Size)
 		{
-			ThrowIfFailed(XAUDIO2_E_INVALID_CALL);
+			WOtech::ThrowIfFailed(XAUDIO2_E_INVALID_CALL);
 		}
 
-		DeviceInformation^ d = devices->GetAt(index);
+		Windows::Devices::Enumeration::DeviceInformation^ d = devices->GetAt(index);
 
 		details->DeviceID = d->Id;
 		details->DisplayName = d->Name;

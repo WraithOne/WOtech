@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	14.01.2018
-///			Edited:		30.04.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_APPLICATION_H
@@ -19,8 +19,6 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-
 #include "IGame.h"
 
 namespace WOtech
@@ -66,8 +64,8 @@ namespace WOtech
 		void OnStereoEnabledChanged(Windows::Graphics::Display::DisplayInformation^ sender, Platform::Object^ args);
 
 	private:
-		bool					m_windowClosed;    // change to true when it's time to close the window
-		bool					m_windowVisible;
+		bool						m_windowClosed;
+		bool						m_windowVisible;
 
 		// Game Instance
 		WOtech::IGame^				m_game;

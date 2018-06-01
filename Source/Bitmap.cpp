@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	20.10.2017
-///			Edited:		07.05.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -22,11 +22,6 @@
 #include <ContentManager.h>
 #include <2DComponents.h>
 #include <SpriteBatch.h>
-
-using namespace Microsoft::WRL;
-using namespace Windows::Storage;
-using namespace Windows::ApplicationModel;
-using namespace Platform;
 
 namespace WOtech
 {
@@ -66,10 +61,10 @@ namespace WOtech
 		return Windows::Foundation::Size(size.width, size.height);
 	}
 
-	WOtech::RECT Bitmap::getSourceRECT()
+	Windows::Foundation::Rect Bitmap::getSourceRECT()
 	{
 		auto size = m_bitmap->GetSize();
-		return WOtech::RECT{ 0.0f, 0.0f, size.width, size.height };
+		return Windows::Foundation::Rect{ 0.0f, 0.0f, size.width, size.height };
 	}
 
 	Bitmap::Bitmap(_In_ ID2D1Bitmap1* bitmap)

@@ -38,11 +38,13 @@
 
 #include <windows.h>
 #include <windows.foundation.numerics.h>
+#include <WindowsNumerics.h>
 #include <wrl.h>
 #include <wrl/client.h>
 #include <concrt.h>
 #include <collection.h>
 #include <ppltasks.h>
+#include <stdio.h>
 #include <wincodec.h>
 
 // DirectX
@@ -53,6 +55,8 @@
 #include <d2d1effects_2.h>
 #include <d2d1_3helper.h>
 #include <dwrite_3.h>
+
+#include <d3dcompiler.h>
 
 #include <DirectXColors.h>
 #include <DirectXMath.h>

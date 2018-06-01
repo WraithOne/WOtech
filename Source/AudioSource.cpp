@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	10.10.2014
-///			Edited:		04.10.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -20,8 +20,6 @@
 #include "pch.h"
 #include "Audio.h"
 #include "MediaReader.h"
-
-using namespace Platform;
 
 namespace WOtech
 {
@@ -40,7 +38,7 @@ namespace WOtech
 		pCurrentBufferContext = m_pCurrentBufferContext;
 	}
 
-	AudioSource::AudioSource(_In_ String^ fileName, _In_ AudioEngine^ audioEngine, _In_ AUDIO_TYPE audioType)
+	AudioSource::AudioSource(_In_ Platform::String^ fileName, _In_ WOtech::AudioEngine^ audioEngine, _In_ WOtech::AUDIO_TYPE audioType)
 	{
 		m_fileName = fileName;
 		m_audioEngine = audioEngine;
@@ -48,7 +46,7 @@ namespace WOtech
 
 		m_audioAvailable = false;
 		m_sourceVoice = nullptr;
-		m_playbackState = AUDIO_PLAYBACK_STATE::Stopped;
+		m_playbackState = WOtech::AUDIO_PLAYBACK_STATE::Stopped;
 
 		// todo: Content Manager
 	}
@@ -56,8 +54,8 @@ namespace WOtech
 	AudioSource::~AudioSource()
 	{
 		// Interrupt sound effect if it is currently playing.
-		ThrowIfFailed(m_sourceVoice->Stop());
-		ThrowIfFailed(m_sourceVoice->FlushSourceBuffers());
+		WOtech::ThrowIfFailed(m_sourceVoice->Stop());
+		WOtech::ThrowIfFailed(m_sourceVoice->FlushSourceBuffers());
 
 		m_sourceVoice->DestroyVoice();
 
@@ -72,20 +70,20 @@ namespace WOtech
 		if (m_audioEngine->GetEffectEngine() == nullptr || m_audioEngine->GetMusicEngine() == nullptr)
 		{
 			// Audio is not available.
-			ThrowIfFailed(XAUDIO2_E_INVALID_CALL);
+			WOtech::ThrowIfFailed(XAUDIO2_E_INVALID_CALL);
 		}
 
-		if (m_audioType == AUDIO_TYPE::Effect)
+		if (m_audioType == WOtech::AUDIO_TYPE::Effect)
 		{
 			// Create a source voice for this sound effect.
 			hr = m_audioEngine->GetEffectEngine()->CreateSourceVoice(&m_sourceVoice, m_sourceFormat, 0, XAUDIO2_DEFAULT_FREQ_RATIO, &m_voiceCallback, NULL, NULL);
-			ThrowIfFailed(hr);
+			WOtech::ThrowIfFailed(hr);
 		}
 		else
 		{
 			// Create a source voice for this music track.
 			hr = m_audioEngine->GetMusicEngine()->CreateSourceVoice(&m_sourceVoice, m_sourceFormat, 0, XAUDIO2_DEFAULT_FREQ_RATIO, &m_voiceCallback, NULL, NULL);
-			ThrowIfFailed(hr);
+			WOtech::ThrowIfFailed(hr);
 		}
 
 		m_audioAvailable = true;
@@ -106,7 +104,7 @@ namespace WOtech
 	{
 		HRESULT hr;
 
-		if ((m_audioAvailable == false) || (m_playbackState == AUDIO_PLAYBACK_STATE::Playing) || (m_playbackState == AUDIO_PLAYBACK_STATE::Paused))
+		if ((m_audioAvailable == false) || (m_playbackState == WOtech::AUDIO_PLAYBACK_STATE::Playing) || (m_playbackState == WOtech::AUDIO_PLAYBACK_STATE::Paused))
 		{
 			// Audio is not available so just return.
 			return;
@@ -120,10 +118,10 @@ namespace WOtech
 		{
 			// Interrupt sound effect if it is currently playing.
 			hr = m_sourceVoice->Stop();
-			ThrowIfFailed(hr);
+			WOtech::ThrowIfFailed(hr);
 			// Flush all buffers
 			hr = m_sourceVoice->FlushSourceBuffers();
-			ThrowIfFailed(hr);
+			WOtech::ThrowIfFailed(hr);
 
 			// Queue the memory buffer for playback and start the voice.
 			buffer.AudioBytes = m_soundData->Length;
@@ -132,21 +130,21 @@ namespace WOtech
 
 			// Submit Buffer to the Device
 			hr = m_sourceVoice->SubmitSourceBuffer(&buffer);
-			ThrowIfFailed(hr);
+			WOtech::ThrowIfFailed(hr);
 
 			// Start consuming the Buffer
 			hr = m_sourceVoice->Start();
-			ThrowIfFailed(hr);
+			WOtech::ThrowIfFailed(hr);
 
-			m_playbackState = AUDIO_PLAYBACK_STATE::Playing;
+			m_playbackState = WOtech::AUDIO_PLAYBACK_STATE::Playing;
 		}
 		else
-			ThrowIfFailed(XAUDIO2_E_INVALID_CALL);
+			WOtech::ThrowIfFailed(XAUDIO2_E_INVALID_CALL);
 	}
 
 	void AudioSource::Pause()
 	{
-		if ((m_audioAvailable == false) || (m_playbackState != AUDIO_PLAYBACK_STATE::Playing))
+		if ((m_audioAvailable == false) || (m_playbackState != WOtech::AUDIO_PLAYBACK_STATE::Playing))
 		{
 			// Audio is not available so just return.
 			return;
@@ -155,13 +153,13 @@ namespace WOtech
 
 		// Stop all buffers
 		hr = m_sourceVoice->Stop();
-		m_playbackState = AUDIO_PLAYBACK_STATE::Paused;
-		ThrowIfFailed(hr);
+		m_playbackState = WOtech::AUDIO_PLAYBACK_STATE::Paused;
+		WOtech::ThrowIfFailed(hr);
 	}
 
 	void AudioSource::Resume()
 	{
-		if ((m_audioAvailable == false) || (m_playbackState != AUDIO_PLAYBACK_STATE::Paused))
+		if ((m_audioAvailable == false) || (m_playbackState != WOtech::AUDIO_PLAYBACK_STATE::Paused))
 		{
 			// Audio is not available so just return.
 			return;
@@ -170,9 +168,9 @@ namespace WOtech
 		HRESULT hr;
 
 		hr = m_sourceVoice->Start();
-		ThrowIfFailed(hr);
+		WOtech::ThrowIfFailed(hr);
 
-		m_playbackState = AUDIO_PLAYBACK_STATE::Playing;
+		m_playbackState = WOtech::AUDIO_PLAYBACK_STATE::Playing;
 	}
 
 	void AudioSource::Stop()
@@ -187,13 +185,13 @@ namespace WOtech
 		// Stop all buffers
 		hr = m_sourceVoice->Stop();
 		if (FAILED(hr))
-			ThrowIfFailed(hr);
+			WOtech::ThrowIfFailed(hr);
 
 		// Flush
 		hr = m_sourceVoice->FlushSourceBuffers();
-		ThrowIfFailed(hr);
+		WOtech::ThrowIfFailed(hr);
 
-		m_playbackState = AUDIO_PLAYBACK_STATE::Stopped;
+		m_playbackState = WOtech::AUDIO_PLAYBACK_STATE::Stopped;
 	}
 
 	void AudioSource::setVolume(_In_ float32 volume)
@@ -209,20 +207,20 @@ namespace WOtech
 		m_sourceVoice->GetVolume(volume);
 	}
 
-	void AudioSource::getPlaybackState(_Out_ AUDIO_PLAYBACK_STATE* playbackState)
+	void AudioSource::getPlaybackState(_Out_ WOtech::AUDIO_PLAYBACK_STATE* playbackState)
 	{
 		playbackState = &m_playbackState;
 	}
 
-	void AudioSource::getState(_Out_ AUDIOSOURCE_STATE^ state)
+	void AudioSource::getState(_Out_ WOtech::AUDIOSOURCE_STATE^ state)
 	{
 		XAUDIO2_VOICE_STATE temp_state;
 
 		m_sourceVoice->GetState(&temp_state);
 
 		if (m_voiceCallback.finished)
-			if (m_playbackState != AUDIO_PLAYBACK_STATE::Stopped)
-				m_playbackState = AUDIO_PLAYBACK_STATE::Stopped;
+			if (m_playbackState != WOtech::AUDIO_PLAYBACK_STATE::Stopped)
+				m_playbackState = WOtech::AUDIO_PLAYBACK_STATE::Stopped;
 
 		state->PlaybackState = m_playbackState;
 		state->VoiceState->BuffersQueued = temp_state.BuffersQueued;

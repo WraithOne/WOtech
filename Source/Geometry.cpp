@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	14.11.2016
-///			Edited:		22.10.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -23,17 +23,13 @@
 #include <Utilities.h>
 #include <DXWrapper.h>
 
-using namespace Windows::Foundation;
-using namespace Windows::UI;
-using namespace WOtech::DXWrapper;
-
 namespace WOtech
 {
 	Geometry::Geometry()
 	{
 		// todo: Content Manager
 	}
-	void WOtech::Geometry::Create(SpriteBatch^ spritebatch)
+	void WOtech::Geometry::Create(_In_ WOtech::SpriteBatch^ spritebatch)
 	{
 		HRESULT hr;
 		// Create GeometryPath
@@ -50,25 +46,25 @@ namespace WOtech
 		hr = m_geometryPath->Open(m_geometrySink.ReleaseAndGetAddressOf());
 	}
 
-	void Geometry::StartFigure(Point startposition, FIGURE_BEGIN begin)
+	void Geometry::StartFigure(_In_ Windows::Foundation::Point startposition, _In_ WOtech::FIGURE_BEGIN begin)
 	{
-		m_geometrySink->BeginFigure(wrapPoint(startposition), wrapFigureBegin(begin));
+		m_geometrySink->BeginFigure(WOtech::DXWrapper::wrapPoint(startposition), WOtech::DXWrapper::wrapFigureBegin(begin));
 	}
-	void Geometry::addArc(ARC_SEGMENT arcsegment)
+	void Geometry::addArc(_In_ WOtech::ARC_SEGMENT arcsegment)
 	{
-		m_geometrySink->AddArc(wrapArcSegment(arcsegment));
+		m_geometrySink->AddArc(WOtech::DXWrapper::wrapArcSegment(arcsegment));
 	}
-	void Geometry::addBezier(BEZIER_SEGMENT beziersegment)
+	void Geometry::addBezier(_In_ WOtech::BEZIER_SEGMENT beziersegment)
 	{
-		m_geometrySink->AddBezier(wrapBezierSegment(beziersegment));
+		m_geometrySink->AddBezier(WOtech::DXWrapper::wrapBezierSegment(beziersegment));
 	}
-	void Geometry::addLine(Point lineend)
+	void Geometry::addLine(_In_ Windows::Foundation::Point lineend)
 	{
-		m_geometrySink->AddLine(wrapPoint(lineend));
+		m_geometrySink->AddLine(WOtech::DXWrapper::wrapPoint(lineend));
 	}
-	void Geometry::EndFigure(FIGURE_END figureend)
+	void Geometry::EndFigure(_In_ WOtech::FIGURE_END figureend)
 	{
-		m_geometrySink->EndFigure(wrapFigureEnd(figureend));
+		m_geometrySink->EndFigure(WOtech::DXWrapper::wrapFigureEnd(figureend));
 	}
 
 	void Geometry::CloseGeometry()
@@ -78,16 +74,16 @@ namespace WOtech
 		ThrowIfFailed(hr);
 	}
 
-	void Geometry::setColor(Color color)
+	void Geometry::setColor(_In_ Windows::UI::Color color)
 	{
-		m_geometryBrush->SetColor(wrapColorD2D(color));
+		m_geometryBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(color));
 	}
 
-	ID2D1PathGeometry * Geometry::getGeometry()
+	ID2D1PathGeometry* Geometry::getGeometry()
 	{
 		return m_geometryPath.Get();
 	}
-	ID2D1SolidColorBrush * Geometry::getBrush()
+	ID2D1SolidColorBrush* Geometry::getBrush()
 	{
 		return m_geometryBrush.Get();
 	}

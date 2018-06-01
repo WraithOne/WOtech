@@ -12,8 +12,6 @@
 // synchronously from the package installed folder and returns sound data as a
 // byte array.
 
-#include "pch.h"
-
 #include <mmreg.h>
 #include <mfidl.h>
 #include <mfapi.h>

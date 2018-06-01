@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		07.03.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -22,15 +22,6 @@
 #include "SpriteBatch.h"
 #include "Utilities.h"
 #include "ContentManager.h"
-#include "DXWrapper.h"
-
-using namespace Platform;
-using namespace Windows::Foundation;
-using namespace Windows::UI;
-using namespace Windows::Storage;
-using namespace Windows::ApplicationModel;
-using namespace Microsoft::WRL;
-using namespace WOtech::DXWrapper;
 
 namespace WOtech
 {
@@ -44,12 +35,12 @@ namespace WOtech
 		m_sourceRect = { 0.0f, 0.0f, 0.0f, 0.0f };
 		m_rotation = 0.0f;
 		m_opacity = 1.0f;
-		m_interpolation = BITMAP_INTERPOLATION_MODE::BITMAP_INTERPOLATION_MODE_LINEAR;
-		m_flipMode = SPRITE_FLIP_MODE::None;
+		m_interpolation = WOtech::BITMAP_INTERPOLATION_MODE::BITMAP_INTERPOLATION_MODE_LINEAR;
+		m_flipMode = WOtech::SPRITE_FLIP_MODE::None;
 
 		WOtech::ContentManager::Instance->AddSprite(this);
 	}
-	void Sprite::Load(_In_ SpriteBatch^ spriteBatch)
+	void Sprite::Load(_In_ WOtech::SpriteBatch^ spriteBatch)
 	{
 		m_bitmap = (spriteBatch->LoadBitmap(m_fileName))->getBitmap();
 
@@ -73,19 +64,19 @@ namespace WOtech
 		WOtech::ContentManager::Instance->RemoveSprite(this);
 	}
 
-	WOtech::RECT Sprite::getSourceRect()
+	Windows::Foundation::Rect Sprite::getSourceRect()
 	{
 		return m_sourceRect;
 	}
-	WOtech::RECT Sprite::getDestinationRect()
+	Windows::Foundation::Rect Sprite::getDestinationRect()
 	{
-		return WOtech::RECT{ m_position.X, m_position.Y, m_position.X + m_size.Width, m_position.Y + m_size.Height };
+		return Windows::Foundation::Rect{ m_position.X, m_position.Y, m_position.X + m_size.Width, m_position.Y + m_size.Height };
 	}
-	Point Sprite::getPosition()
+	Windows::Foundation::Point Sprite::getPosition()
 	{
 		return m_position;
 	}
-	Size Sprite::getSize()
+	Windows::Foundation::Size Sprite::getSize()
 	{
 		return m_size;
 	}
@@ -108,15 +99,15 @@ namespace WOtech
 
 	void Sprite::setPosition(_In_ float32 x, _In_ float32 y)
 	{
-		m_position = Point(x, y);
+		m_position = Windows::Foundation::Point(x, y);
 	}
 	void Sprite::setSize(_In_ float32 width, _In_ float32 height)
 	{
-		m_size = Size(width, height);
+		m_size = Windows::Foundation::Size(width, height);
 	}
 	void Sprite::setSourceRect(_In_ float32 x, _In_ float32 y, _In_ float32 height, _In_ float32 width)
 	{
-		m_sourceRect = WOtech::RECT{ x, y, width, height };
+		m_sourceRect = Windows::Foundation::Rect{ x, y, width, height };
 	}
 	void Sprite::setOpacity(_In_ float32 opacity)
 	{
@@ -131,12 +122,12 @@ namespace WOtech
 		m_rotation = RadiantoDegree(radian);
 	}
 
-	void Sprite::setFlipMode(_In_ SPRITE_FLIP_MODE flipmode)
+	void Sprite::setFlipMode(_In_ WOtech::SPRITE_FLIP_MODE flipmode)
 	{
 		m_flipMode = flipmode;
 	}
 
-	void Sprite::setInterpolation(_In_ BITMAP_INTERPOLATION_MODE interpolation)
+	void Sprite::setInterpolation(_In_ WOtech::BITMAP_INTERPOLATION_MODE interpolation)
 	{
 		m_interpolation = interpolation;
 	}

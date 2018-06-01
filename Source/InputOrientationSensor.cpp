@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	26.08.2016
-///			Edited:		29.01.2017
+///			Edited:		01.06.2017
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -20,17 +20,11 @@
 #include "pch.h"
 #include "Input.h"
 
-using namespace Windows::UI::Core;
-using namespace Windows::System;
-using namespace Windows::Devices::Sensors;
-using namespace Windows::Foundation;
-using namespace Platform;
-
 namespace WOtech
 {
-	Boolean InputManager::OrientationSensorConnected()
+	Platform::Boolean InputManager::OrientationSensorConnected()
 	{
-		OrientationSensor^ sensor = OrientationSensor::GetDefault();
+		Windows::Devices::Sensors::OrientationSensor^ sensor = Windows::Devices::Sensors::OrientationSensor::GetDefault();
 		if (sensor != nullptr)
 		{
 			return true;
@@ -40,19 +34,19 @@ namespace WOtech
 			return false;
 		}
 	}
-	void InputManager::ActivateOrientationSensor(_In_ SensorReadingType Type, _In_ SensorOptimizationGoal Goal, _In_ uint32 Interval)
+	void InputManager::ActivateOrientationSensor(_In_ Windows::Devices::Sensors::SensorReadingType Type, _In_ Windows::Devices::Sensors::SensorOptimizationGoal Goal, _In_ uint32 Interval)
 	{
-		m_orientationSensor = OrientationSensor::GetDefault(Type, Goal);
+		m_orientationSensor = Windows::Devices::Sensors::OrientationSensor::GetDefault(Type, Goal);
 
 		if (m_orientationSensor != nullptr)
 		{
 			m_orientationSensor->ReportInterval = (std::max)(m_orientationSensor->MinimumReportInterval, Interval);
-			m_orientationToken = m_orientationSensor->ReadingChanged += ref new TypedEventHandler<OrientationSensor^, OrientationSensorReadingChangedEventArgs^>(this, &InputManager::ReadingChanged);
+			m_orientationToken = m_orientationSensor->ReadingChanged += ref new Windows::Foundation::TypedEventHandler<Windows::Devices::Sensors::OrientationSensor^, Windows::Devices::Sensors::OrientationSensorReadingChangedEventArgs^>(this, &InputManager::ReadingChanged);
 			m_orientationActive = true;
 		}
 		else
 		{
-			throw ref new NotImplementedException;// TODO Exeption
+			throw ref new Platform::NotImplementedException;// TODO Exeption
 		}
 	}
 	void InputManager::DeactivateOrientationSensor()
@@ -61,15 +55,15 @@ namespace WOtech
 		m_orientationSensor->ReadingChanged -= m_orientationToken;
 		m_orientationActive = false;
 	}
-	Boolean InputManager::OrientationSensorActive()
+	Platform::Boolean InputManager::OrientationSensorActive()
 	{
 		return m_orientationActive;
 	}
-	void InputManager::OrientationSensorQuaternion(_Out_ SensorQuaternion^ Quaternion)
+	void InputManager::OrientationSensorQuaternion(_Out_ Windows::Devices::Sensors::SensorQuaternion^ Quaternion)
 	{
 		Quaternion = m_orientationSensorReading->Quaternion;
 	}
-	void InputManager::OrientationSensorMatrix(_Out_ SensorRotationMatrix^ Matrix)
+	void InputManager::OrientationSensorMatrix(_Out_ Windows::Devices::Sensors::SensorRotationMatrix^ Matrix)
 	{
 		Matrix = m_orientationSensorReading->RotationMatrix;
 	}

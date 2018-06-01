@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	14.01.2018
-///			Edited:		14.01.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -20,7 +20,6 @@
 #include "pch.h"
 #include "Include\Window.h"
 
-using namespace WOtech;
 
 namespace WOtech
 {

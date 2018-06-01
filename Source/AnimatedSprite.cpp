@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	13.09.2014
-///			Edited:		07.05.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -24,19 +24,13 @@
 #include "ContentManager.h"
 #include <DXWrapper.h>
 
-using namespace Platform;
-using namespace Windows::Foundation;
-using namespace Windows::UI;
-using namespace Microsoft::WRL;
-using namespace WOtech::DXWrapper;
-
 namespace WOtech
 {
 	AnimatedSprite::AnimatedSprite(_In_ Platform::String^ filename)
 	{
 		m_fromFile = true;
 		m_fileName = filename;
-		m_position = Point(0.0f, 0.0f);
+		m_position = Windows::Foundation::Point(0.0f, 0.0f);
 		m_scale = 1.0f;
 		m_rotation = 0.0f;
 		m_opacity = 1.0f;
@@ -46,11 +40,11 @@ namespace WOtech
 		WOtech::ContentManager::Instance->AddAnimatedSprite(this);
 	}
 
-	AnimatedSprite::AnimatedSprite(WOtech::Bitmap^ bitmap)
+	AnimatedSprite::AnimatedSprite(_In_ WOtech::Bitmap^ bitmap)
 	{
 		m_fromFile = true;
 		m_fileName = "Error not loaded from File";
-		m_position = Point(0.0f, 0.0f);
+		m_position = Windows::Foundation::Point(0.0f, 0.0f);
 		m_scale = 1.0f;
 		m_rotation = 0.0f;
 		m_opacity = 1.0f;
@@ -62,7 +56,7 @@ namespace WOtech
 		WOtech::ContentManager::Instance->AddAnimatedSprite(this);
 	}
 
-	void AnimatedSprite::Load(_In_ SpriteBatch^ spriteBatch)
+	void AnimatedSprite::Load(_In_ WOtech::SpriteBatch^ spriteBatch)
 	{
 		if (m_fromFile)
 		{
@@ -73,7 +67,7 @@ namespace WOtech
 	{
 		m_bitmap.Reset();
 	}
-	Platform::Boolean AnimatedSprite::AddAnimation(_In_ String^ name, _In_ uint32 framecount, _In_ float32 frametime, _In_ Size framesize, _In_ Point sourceposition)
+	Platform::Boolean AnimatedSprite::AddAnimation(_In_ Platform::String^ name, _In_ uint32 framecount, _In_ float32 frametime, _In_ Windows::Foundation::Size framesize, _In_ Windows::Foundation::Point sourceposition)
 	{
 		std::list<ANIMATION>::iterator iterator;
 
@@ -99,7 +93,7 @@ namespace WOtech
 
 		return true;
 	}
-	void AnimatedSprite::Update(_In_ String^ name, _In_ float32 elapsed)
+	void AnimatedSprite::Update(_In_ Platform::String^ name, _In_ float32 elapsed)
 	{
 		std::list<ANIMATION>::iterator iterator;
 
@@ -122,7 +116,7 @@ namespace WOtech
 			}
 		}
 	}
-	void AnimatedSprite::Restart(_In_ String^ name)
+	void AnimatedSprite::Restart(_In_ Platform::String^ name)
 	{
 		std::list<ANIMATION>::iterator iterator;
 
@@ -144,7 +138,7 @@ namespace WOtech
 	{
 		WOtech::ContentManager::Instance->RemoveAnimatedSprite(this);
 	}
-	Point AnimatedSprite::getPosition()
+	Windows::Foundation::Point AnimatedSprite::getPosition()
 	{
 		return m_position;
 	}
@@ -152,7 +146,7 @@ namespace WOtech
 	{
 		return m_scale;
 	}
-	Size AnimatedSprite::getFrameSize(_In_ String^ name)
+	Windows::Foundation::Size AnimatedSprite::getFrameSize(_In_ Platform::String^ name)
 	{
 		std::list<ANIMATION>::iterator iterator;
 
@@ -163,14 +157,14 @@ namespace WOtech
 				return iterator->FrameSize;
 			}
 		}
-		Size temp;
+		Windows::Foundation::Size temp;
 		temp.Width = 0.0f;
 		temp.Height = 0.0f;
 
 		return temp;
 	}
 
-	WOtech::RECT AnimatedSprite::getFrame(_In_ String^ name)
+	Windows::Foundation::Rect AnimatedSprite::getFrame(_In_ Platform::String^ name)
 	{
 		std::list<ANIMATION>::iterator iterator;
 
@@ -178,7 +172,7 @@ namespace WOtech
 		{
 			if (iterator->Name == name)
 			{
-				WOtech::RECT temp;
+				Windows::Foundation::Rect temp;
 				WOtech::ANIMATION animation = *iterator;
 
 				float32 left = animation.SourcePosition.X + (animation.FrameSize.Width * animation.ActualFrame);
@@ -191,7 +185,7 @@ namespace WOtech
 				return temp;
 			}
 		}
-		return WOtech::RECT{ 0.0f, 0.0f, 0.0f, 0.0f };
+		return Windows::Foundation::Rect{ 0.0f, 0.0f, 0.0f, 0.0f };
 	}
 	float32 AnimatedSprite::getOpacity()
 	{

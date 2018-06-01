@@ -21,22 +21,13 @@
 #include "Input.h"
 #include "SystemManager.h"
 
-using namespace Windows::UI::Core;
-using namespace Windows::System;
-using namespace Windows::Foundation;
-using namespace Windows::Devices::Input;
-using namespace Windows::Gaming::Input;
-using namespace Windows::Foundation::Collections;
-using namespace Windows::UI::Input;
-using namespace Platform;
-
 namespace WOtech
 {
 	InputManager::InputManager()
 	{
 		SystemManager::Instance->AddInputManager(this);
 
-		m_window = CoreWindow::GetForCurrentThread();
+		m_window = Windows::UI::Core::CoreWindow::GetForCurrentThread();
 
 		Initialize();
 	}
@@ -51,7 +42,7 @@ namespace WOtech
 
 	void InputManager::ResumeInput()
 	{
-		m_window = CoreWindow::GetForCurrentThread();
+		m_window = Windows::UI::Core::CoreWindow::GetForCurrentThread();
 		ScanGamePad();
 	}
 
@@ -65,23 +56,23 @@ namespace WOtech
 		m_isInitialized = false;
 
 		// opt in to receive key events
-		m_window->KeyDown += ref new TypedEventHandler<CoreWindow^, KeyEventArgs^>(this, &InputManager::OnKeyDown);
-		m_window->KeyUp += ref new TypedEventHandler<CoreWindow^, KeyEventArgs^>(this, &InputManager::OnKeyUp);
+		m_window->KeyDown += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::KeyEventArgs^>(this, &InputManager::OnKeyDown);
+		m_window->KeyUp += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::KeyEventArgs^>(this, &InputManager::OnKeyUp);
 
 		// opt in to receive touch/mouse events
-		m_window->PointerPressed += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &InputManager::OnPointerPressed);
-		m_window->PointerMoved += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &InputManager::OnPointerMoved);
-		m_window->PointerReleased += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &InputManager::OnPointerReleased);
-		m_window->PointerEntered += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &InputManager::OnPointerEntered);
-		m_window->PointerExited += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &InputManager::OnPointerExited);
-		m_window->PointerWheelChanged += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &InputManager::OnPointerWheelChanged);
+		m_window->PointerPressed += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerPressed);
+		m_window->PointerMoved += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerMoved);
+		m_window->PointerReleased += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerReleased);
+		m_window->PointerEntered += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerEntered);
+		m_window->PointerExited += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerExited);
+		m_window->PointerWheelChanged += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerWheelChanged);
 
 		// There is a separate handler for mouse only relative mouse movement events.
-		MouseDevice::GetForCurrentView()->MouseMoved += ref new TypedEventHandler<MouseDevice^, MouseEventArgs^>(this, &InputManager::OnMouseMoved);
+		Windows::Devices::Input::MouseDevice::GetForCurrentView()->MouseMoved += ref new Windows::Foundation::TypedEventHandler<Windows::Devices::Input::MouseDevice^, Windows::Devices::Input::MouseEventArgs^>(this, &InputManager::OnMouseMoved);
 
 		// Detect game pad connection and disconnection events.
-		Gamepad::GamepadAdded += ref new EventHandler<Gamepad^>(this, &InputManager::OnGamepadAdded);
-		Gamepad::GamepadRemoved += ref new EventHandler<Gamepad^>(this, &InputManager::OnGamepadRemoved);
+		Windows::Gaming::Input::Gamepad::GamepadAdded += ref new Windows::Foundation::EventHandler<Windows::Gaming::Input::Gamepad^>(this, &InputManager::OnGamepadAdded);
+		Windows::Gaming::Input::Gamepad::GamepadRemoved += ref new Windows::Foundation::EventHandler<Windows::Gaming::Input::Gamepad^>(this, &InputManager::OnGamepadRemoved);
 
 		// Scan for Capabilities
 		ScanDeviceCapabilities();
@@ -107,7 +98,7 @@ namespace WOtech
 		m_orientationSensorReading = Args->Reading;
 	}
 
-	inline void HandleKeys(_Inout_ WOtech::Keyboard_State* keystate, _In_ Windows::System::VirtualKey key, _In_ Boolean down)
+	inline void HandleKeys(_Inout_ WOtech::Keyboard_State* keystate, _In_ Windows::System::VirtualKey key, _In_ Platform::Boolean down)
 	{
 		switch (key)
 		{
@@ -625,7 +616,7 @@ namespace WOtech
 		}
 	}
 
-	void InputManager::OnKeyDown(_In_ CoreWindow^ Sender, _In_ KeyEventArgs^ Args)
+	void InputManager::OnKeyDown(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::KeyEventArgs^ Args)
 	{
 		UNREFERENCED_PARAMETER(Sender);
 
@@ -634,7 +625,7 @@ namespace WOtech
 
 		HandleKeys(&m_keyboardState, Key, true);
 	}
-	void InputManager::OnKeyUp(_In_ CoreWindow^ Sender, _In_ KeyEventArgs^ Args)
+	void InputManager::OnKeyUp(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::KeyEventArgs^ Args)
 	{
 		UNREFERENCED_PARAMETER(Sender);
 
@@ -644,14 +635,14 @@ namespace WOtech
 		HandleKeys(&m_keyboardState, Key, false);
 	}
 
-	void InputManager::OnGamepadAdded(_In_ Object ^ Sender, _In_ Gamepad ^ Gamepad)
+	void InputManager::OnGamepadAdded(_In_ Object ^ Sender, _In_ Windows::Gaming::Input::Gamepad ^ Gamepad)
 	{
 		UNREFERENCED_PARAMETER(Sender);
 		UNREFERENCED_PARAMETER(Gamepad);
 
 		ScanGamePad();
 	}
-	void InputManager::OnGamepadRemoved(_In_ Object ^ Sender, _In_  Gamepad ^ Gamepad) //-V524
+	void InputManager::OnGamepadRemoved(_In_ Object ^ Sender, _In_  Windows::Gaming::Input::Gamepad ^ Gamepad) //-V524
 	{
 		UNREFERENCED_PARAMETER(Sender);
 		UNREFERENCED_PARAMETER(Gamepad);
@@ -659,7 +650,7 @@ namespace WOtech
 		ScanGamePad();
 	}
 
-	void InputManager::OnPointerPressed(_In_ CoreWindow^ Sender, _In_ PointerEventArgs^ Args)
+	void InputManager::OnPointerPressed(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::PointerEventArgs^ Args)
 	{
 		UNREFERENCED_PARAMETER(Sender);
 
@@ -667,7 +658,7 @@ namespace WOtech
 
 		UpdatePointerDevices(pointer);
 	}
-	void InputManager::OnPointerMoved(_In_ CoreWindow^ Sender, _In_ PointerEventArgs^ Args)
+	void InputManager::OnPointerMoved(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::PointerEventArgs^ Args)
 	{
 		UNREFERENCED_PARAMETER(Sender);
 
@@ -678,7 +669,7 @@ namespace WOtech
 			UpdatePointerDevices(pointer);
 		}
 	}
-	void InputManager::OnPointerReleased(_In_ CoreWindow^ Sender, _In_ PointerEventArgs^ Args)
+	void InputManager::OnPointerReleased(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::PointerEventArgs^ Args)
 	{
 		UNREFERENCED_PARAMETER(Sender);
 
@@ -697,7 +688,7 @@ namespace WOtech
 			UpdatePointerDevices(pointer);
 		}
 	}
-	void InputManager::OnPointerExited(_In_ CoreWindow ^ Sender, _In_ PointerEventArgs ^ Args) //-V524
+	void InputManager::OnPointerExited(_In_ Windows::UI::Core::CoreWindow ^ Sender, _In_ Windows::UI::Core::PointerEventArgs ^ Args) //-V524
 	{
 		UNREFERENCED_PARAMETER(Sender);
 
@@ -705,7 +696,7 @@ namespace WOtech
 
 		RemovePointerDevice(pointer);
 	}
-	void InputManager::OnPointerWheelChanged(_In_ CoreWindow^ Sender, _In_ PointerEventArgs^ Args) //-V524
+	void InputManager::OnPointerWheelChanged(_In_ Windows::UI::Core::CoreWindow^ Sender, _In_ Windows::UI::Core::PointerEventArgs^ Args) //-V524
 	{
 		UNREFERENCED_PARAMETER(Sender);
 
@@ -717,14 +708,14 @@ namespace WOtech
 		}
 	}
 
-	void InputManager::OnMouseMoved(_In_ MouseDevice^ MouseDevice, _In_ MouseEventArgs^ Args)
+	void InputManager::OnMouseMoved(_In_ Windows::Devices::Input::MouseDevice^ MouseDevice, _In_ Windows::Devices::Input::MouseEventArgs^ Args)
 	{
 		UNREFERENCED_PARAMETER(MouseDevice);
 
 		m_mouseDelta.X = Args->MouseDelta.X;
 		m_mouseDelta.Y = Args->MouseDelta.Y;
 	}
-	void InputManager::UpdatePointerDevices(_In_ PointerPoint^ device)
+	void InputManager::UpdatePointerDevices(_In_ Windows::UI::Input::PointerPoint^ device)
 	{
 		std::map<UINT, Windows::UI::Input::PointerPoint^>::iterator it;
 		it = m_pointerdevices.find(device->PointerId);
@@ -738,7 +729,7 @@ namespace WOtech
 			m_pointerdevices.emplace(device->PointerId, device);
 		}
 	}
-	void InputManager::RemovePointerDevice(_In_ PointerPoint ^ device)
+	void InputManager::RemovePointerDevice(_In_ Windows::UI::Input::PointerPoint^ device)
 	{
 		std::map<UINT, Windows::UI::Input::PointerPoint^>::iterator it;
 

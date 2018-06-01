@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.05.2014
-///			Edited:		12.03.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -20,13 +20,9 @@
 #include "pch.h"
 #include "Input.h"
 
-using namespace Platform;
-using namespace Windows::System;
-using namespace Windows::UI::Core;
-
 namespace WOtech
 {
-	Boolean InputManager::KeyboardConnected()
+	Platform::Boolean InputManager::KeyboardConnected()
 	{
 		if (m_keyBoardCapabilities->KeyboardPresent >= 1)
 			return true;
@@ -39,7 +35,7 @@ namespace WOtech
 		return m_keyboardState;
 	}
 
-	Boolean InputManager::KeyDown(_In_ Windows::System::VirtualKey Key)
+	Platform::Boolean InputManager::KeyDown(_In_ Windows::System::VirtualKey Key)
 	{
 		// TODO: not handcoded
 		switch (Key)

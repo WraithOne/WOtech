@@ -9,17 +9,10 @@
 #include "MediaReader.h"
 #include "Utilities.h"
 
-using namespace Microsoft::WRL;
-using namespace Windows::Storage;
-using namespace Windows::Storage::Streams;
-using namespace Windows::Foundation;
-using namespace Windows::ApplicationModel;
-using namespace WOtech;
-
 MediaReader::MediaReader()
 {
 	ZeroMemory(&m_waveFormat, sizeof(m_waveFormat));
-	m_installedLocation = Package::Current->InstalledLocation;
+	m_installedLocation = Windows::ApplicationModel::Package::Current->InstalledLocation;
 	m_installedLocationPath = Platform::String::Concat(m_installedLocation->Path, "\\");
 }
 
@@ -34,35 +27,35 @@ Platform::Array<byte>^ MediaReader::LoadMedia(_In_ Platform::String^ filename)
 
 	Platform::String^ finalpath = Platform::String::Concat(m_installedLocationPath, filename);
 
-	ComPtr<IMFSourceReader> reader;
+	Microsoft::WRL::ComPtr<IMFSourceReader> reader;
 	WOtech::ThrowIfFailed(MFCreateSourceReaderFromURL(finalpath->Data(), nullptr, &reader));
 
 	// Set the decoded output format as PCM.
 	// XAudio2 on Windows can process PCM and ADPCM-encoded buffers.
 	// When using MediaFoundation, this sample always decodes into PCM.
 	Microsoft::WRL::ComPtr<IMFMediaType> mediaType;
-	ThrowIfFailed(MFCreateMediaType(&mediaType));
+	WOtech::ThrowIfFailed(MFCreateMediaType(&mediaType));
 
-	ThrowIfFailed(mediaType->SetGUID(MF_MT_MAJOR_TYPE, MFMediaType_Audio));
+	WOtech::ThrowIfFailed(mediaType->SetGUID(MF_MT_MAJOR_TYPE, MFMediaType_Audio));
 
-	ThrowIfFailed(mediaType->SetGUID(MF_MT_SUBTYPE, MFAudioFormat_PCM));
+	WOtech::ThrowIfFailed(mediaType->SetGUID(MF_MT_SUBTYPE, MFAudioFormat_PCM));
 
-	ThrowIfFailed(reader->SetCurrentMediaType(static_cast<uint32>(MF_SOURCE_READER_FIRST_AUDIO_STREAM), 0, mediaType.Get()));
+	WOtech::ThrowIfFailed(reader->SetCurrentMediaType(static_cast<uint32>(MF_SOURCE_READER_FIRST_AUDIO_STREAM), 0, mediaType.Get()));
 
 	// Get the complete WAVEFORMAT from the Media Type.
 	Microsoft::WRL::ComPtr<IMFMediaType> outputMediaType;
-	ThrowIfFailed(reader->GetCurrentMediaType(static_cast<uint32>(MF_SOURCE_READER_FIRST_AUDIO_STREAM), &outputMediaType));
+	WOtech::ThrowIfFailed(reader->GetCurrentMediaType(static_cast<uint32>(MF_SOURCE_READER_FIRST_AUDIO_STREAM), &outputMediaType));
 
 	uint32 size = 0;
 	WAVEFORMATEX* waveFormat;
 
-	ThrowIfFailed(MFCreateWaveFormatExFromMFMediaType(outputMediaType.Get(), &waveFormat, &size));
+	WOtech::ThrowIfFailed(MFCreateWaveFormatExFromMFMediaType(outputMediaType.Get(), &waveFormat, &size));
 
 	CopyMemory(&m_waveFormat, waveFormat, sizeof(m_waveFormat));
 	CoTaskMemFree(waveFormat);
 
 	PROPVARIANT propVariant;
-	ThrowIfFailed(reader->GetPresentationAttribute(static_cast<uint32>(MF_SOURCE_READER_MEDIASOURCE), MF_PD_DURATION, &propVariant));
+	WOtech::ThrowIfFailed(reader->GetPresentationAttribute(static_cast<uint32>(MF_SOURCE_READER_MEDIASOURCE), MF_PD_DURATION, &propVariant));
 	// 'duration' is in 100ns units; convert to seconds, and round up
 	// to the nearest whole byte.
 	LONGLONG duration = propVariant.uhVal.QuadPart;
@@ -71,23 +64,23 @@ Platform::Array<byte>^ MediaReader::LoadMedia(_In_ Platform::String^ filename)
 
 	Platform::Array<byte>^ fileData = ref new Platform::Array<byte>(maxStreamLengthInBytes);
 
-	ComPtr<IMFSample> sample;
-	ComPtr<IMFMediaBuffer> mediaBuffer;
+	Microsoft::WRL::ComPtr<IMFSample> sample;
+	Microsoft::WRL::ComPtr<IMFMediaBuffer> mediaBuffer;
 	DWORD flags = 0;
 
 	int positionInData = 0;
 	Platform::Boolean done = false;
 	while (!done)
 	{
-		ThrowIfFailed(reader->ReadSample(static_cast<uint32>(MF_SOURCE_READER_FIRST_AUDIO_STREAM), 0, nullptr, &flags, nullptr, &sample));
+		WOtech::ThrowIfFailed(reader->ReadSample(static_cast<uint32>(MF_SOURCE_READER_FIRST_AUDIO_STREAM), 0, nullptr, &flags, nullptr, &sample));
 
 		if (sample != nullptr)
 		{
-			ThrowIfFailed(sample->ConvertToContiguousBuffer(&mediaBuffer));
+			WOtech::ThrowIfFailed(sample->ConvertToContiguousBuffer(&mediaBuffer));
 
 			BYTE *audioData = nullptr;
 			DWORD sampleBufferLength = 0;
-			ThrowIfFailed(mediaBuffer->Lock(&audioData, nullptr, &sampleBufferLength));
+			WOtech::ThrowIfFailed(mediaBuffer->Lock(&audioData, nullptr, &sampleBufferLength));
 
 			for (DWORD i = 0; i < sampleBufferLength; i++)
 			{

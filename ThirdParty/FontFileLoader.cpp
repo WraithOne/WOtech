@@ -1,17 +1,11 @@
 #include "pch.h"
 #include "FontFileLoader.h"
 
-using namespace Microsoft::WRL;
-using namespace Windows::Storage;
-using namespace Windows::Storage::Streams;
-using namespace Windows::Foundation;
-using namespace Windows::ApplicationModel;
-
 namespace WOtech
 {
 	HRESULT LoadFontFromFile(Platform::String^ pFilename, uint32 fontId, IDWriteFactory* writeFactory, IDWriteFontCollection** pFontCollection)
 	{
-		ComPtr<IDWriteFontCollectionLoader> pFontCollectionLoader(new(std::nothrow) FileFontCollectionLoader(pFilename));
+		Microsoft::WRL::ComPtr<IDWriteFontCollectionLoader> pFontCollectionLoader(new(std::nothrow) FileFontCollectionLoader(pFilename));
 
 		HRESULT hr = writeFactory->RegisterFontCollectionLoader(pFontCollectionLoader.Get());
 
@@ -33,7 +27,7 @@ namespace WOtech
 
 	HRESULT LoadFontFromFile(Platform::String^ pFilename, Platform::String^ pFontname, uint32 fontId, float32 fontSize, IDWriteFactory* writeFactory, IDWriteTextFormat** pTextFormat)
 	{
-		ComPtr<IDWriteFontCollection> pFontCollection;
+		Microsoft::WRL::ComPtr<IDWriteFontCollection> pFontCollection;
 
 		HRESULT hr = LoadFontFromFile(pFilename, fontId, writeFactory, &pFontCollection);
 

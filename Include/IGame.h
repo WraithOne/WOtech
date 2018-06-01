@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	14.01.2018
-///			Edited:		27.04.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_IGAME_H
@@ -19,7 +19,6 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
 #include "GameTimer.h"
 
 namespace WOtech

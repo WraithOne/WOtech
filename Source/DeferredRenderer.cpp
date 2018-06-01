@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	21.02.2016
-///			Edited:		18.02.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -21,9 +21,6 @@
 #include "DeferredRenderer.h"
 #include "Utilities.h"
 
-using namespace Windows::Foundation::Numerics;
-using namespace Windows::UI;
-
 namespace WOtech
 {
 	DeferredRenderer::DeferredRenderer(_In_ DeviceDX11^ device)
@@ -31,7 +28,7 @@ namespace WOtech
 		m_device = device;
 		m_beginRender = false;
 	}
-	void DeferredRenderer::Init(_In_ Color clearColor)
+	void DeferredRenderer::Init(_In_ Windows::UI::Color clearColor)
 	{
 		m_clearColor = clearColor;
 	}

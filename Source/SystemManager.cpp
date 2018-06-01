@@ -25,16 +25,6 @@
 #include "Audio.h"
 #include "Input.h"
 
-using namespace concurrency;
-using namespace Windows::ApplicationModel;
-using namespace Windows::ApplicationModel::Core;
-using namespace Windows::ApplicationModel::Activation;
-using namespace Windows::UI::Core;
-
-using namespace Windows::System;
-using namespace Windows::Foundation;
-using namespace Windows::Graphics::Display;
-
 namespace WOtech
 {
 	SystemManager::SystemManager() : m_enabled(true)
@@ -167,7 +157,7 @@ namespace WOtech
 				j->ResumeInput();
 		}	
 	}
-	void SystemManager::OnWindowSizeChanged(_In_ Size windowSize)
+	void SystemManager::OnWindowSizeChanged(_In_ Windows::Foundation::Size windowSize)
 	{
 		if (m_enabled)
 		{

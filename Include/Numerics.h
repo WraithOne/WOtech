@@ -10,7 +10,7 @@
 ///			Description: WOtech Numerics
 ///
 ///			Created:	22.10.2017
-///			Edited:		22.10.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_NUMERICS_H
@@ -19,26 +19,9 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
 
 namespace WOtech
 {
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Represents a rectangle defined by the coordinates of two points </summary>
-	///
-	/// <remarks>	WraithOne, 22.10.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	public value class RECT
-	{
-	public:
-		/// <summary>	The x-coordinate of the upper-left corner of the rectangle. < / summary>
-		float X;
-		/// <summary>	The y-coordinate of the upper-left corner of the rectangle. < / summary>
-		float Y;
-		/// <summary>	The x-coordinate of the lower-right corner of the rectangle. < / summary>
-		float Width;
-		/// <summary>	The y-coordinate of the lower-right corner of the rectangle. < / summary>
-		float Height;
-	};
+
 }
 #endif

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	09.01.2016
-///			Edited:		10.05.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_STORAGE_H
@@ -19,7 +19,6 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
 
 namespace WOtech
 {
@@ -47,7 +46,7 @@ namespace WOtech
 		Windows::Storage::ApplicationDataContainer^ m_roamingSettings;
 		Windows::Storage::StorageFolder^			m_roamingFolder;
 
-		Platform::Boolean m_roamingChanged;
+		Platform::Boolean							m_roamingChanged;
 	};
 
 	public ref class Storage sealed

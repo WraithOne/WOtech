@@ -40,7 +40,7 @@ namespace WOtech
 			return { static_cast<float>(color.R) / 256.0f, static_cast<float>(color.G) / 256.0f, static_cast<float>(color.B) / 256.0f, static_cast<float>(color.A) / 256.0f };
 		}
 
-		inline D2D1_RECT_F wrapRect(_In_ WOtech::RECT rect)
+		inline D2D1_RECT_F wrapRect(_In_ Windows::Foundation::Rect rect)
 		{
 			return D2D1::RectF(rect.X, rect.Y, rect.Width, rect.Height);
 		}

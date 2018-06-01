@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		13.01.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -21,17 +21,6 @@
 #include "DeviceDX11.h"
 #include "Utilities.h"
 #include "SystemManager.h"
-
-using namespace D2D1;
-using namespace DirectX;
-using namespace Microsoft::WRL;
-using namespace Windows::Foundation;
-using namespace Windows::Graphics::Display;
-using namespace Windows::UI;
-using namespace Windows::UI::Core;
-using namespace Windows::UI::Xaml::Controls;
-using namespace Platform;
-using namespace WOtech::DXWrapper;
 
 namespace WOtech
 {
@@ -45,8 +34,8 @@ namespace WOtech
 		m_viewport = { 0 };
 		m_featureLevel = D3D_FEATURE_LEVEL_11_0;
 
-		m_nativeOrientation = DisplayOrientations::None;
-		m_currentOrientation = DisplayOrientations::None;
+		m_nativeOrientation = Windows::Graphics::Display::DisplayOrientations::None;
+		m_currentOrientation = Windows::Graphics::Display::DisplayOrientations::None;
 
 		m_compositionScaleX = 1.0f;
 		m_compositionScaleY = 1.0f;
@@ -69,23 +58,23 @@ namespace WOtech
 		CreateDevices();
 
 		// set current window to device resources
-		CoreWindow^ window = CoreWindow::GetForCurrentThread();
+		Windows::UI::Core::CoreWindow^ window = Windows::UI::Core::CoreWindow::GetForCurrentThread();
 		setWindow(window);
 	}
 
-	void DeviceDX11::Clear(_In_ Color color)
+	void DeviceDX11::Clear(_In_ Windows::UI::Color color)
 	{
 		Clear(color, CLEAR_FLAG::CLEAR_DEPTH, 1.0f, 0);
 	}
-	void DeviceDX11::Clear(_In_ Color color, _In_ CLEAR_FLAG clearFlags, _In_ float32 depth, _In_ uint8 stencil)
+	void DeviceDX11::Clear(_In_ Windows::UI::Color color, _In_ CLEAR_FLAG clearFlags, _In_ float32 depth, _In_ uint8 stencil)
 	{
 		m_context->RSSetViewports(1, &m_viewport);
 
 		ID3D11RenderTargetView *const targets[1] = { m_renderTargetView.Get() };// todo: make it backbuffer count
 		m_context->OMSetRenderTargets(1, targets, m_depthStencilView.Get());
 
-		m_context->ClearRenderTargetView(m_renderTargetView.Get(), wrapColorD3D(color));
-		m_context->ClearDepthStencilView(m_depthStencilView.Get(), wrapClearFlag(clearFlags), depth, stencil);
+		m_context->ClearRenderTargetView(m_renderTargetView.Get(), WOtech::DXWrapper::wrapColorD3D(color));
+		m_context->ClearDepthStencilView(m_depthStencilView.Get(), WOtech::DXWrapper::wrapClearFlag(clearFlags), depth, stencil);
 	}
 
 	void DeviceDX11::Present()
@@ -116,16 +105,16 @@ namespace WOtech
 	{
 		HRESULT hr;
 
-		ComPtr<IDXGIDevice3> dxgiDevice;
+		Microsoft::WRL::ComPtr<IDXGIDevice3> dxgiDevice;
 		ThrowIfFailed(m_device.As(&dxgiDevice));
 
-		ComPtr<IDXGIAdapter> deviceAdapter;
+		Microsoft::WRL::ComPtr<IDXGIAdapter> deviceAdapter;
 		ThrowIfFailed(dxgiDevice->GetAdapter(&deviceAdapter));
 
-		ComPtr<IDXGIFactory2> deviceFactory;
+		Microsoft::WRL::ComPtr<IDXGIFactory2> deviceFactory;
 		ThrowIfFailed(deviceAdapter->GetParent(IID_PPV_ARGS(&deviceFactory)));
 
-		ComPtr<IDXGIAdapter1> previousDefaultAdapter;
+		Microsoft::WRL::ComPtr<IDXGIAdapter1> previousDefaultAdapter;
 		ThrowIfFailed(deviceFactory->EnumAdapters1(0, &previousDefaultAdapter));
 
 		DXGI_ADAPTER_DESC previousDesc;
@@ -133,10 +122,10 @@ namespace WOtech
 
 		// Next, get the information for the current default adapter.
 
-		ComPtr<IDXGIFactory2> currentFactory;
+		Microsoft::WRL::ComPtr<IDXGIFactory2> currentFactory;
 		ThrowIfFailed(CreateDXGIFactory1(IID_PPV_ARGS(&currentFactory)));
 
-		ComPtr<IDXGIAdapter1> currentDefaultAdapter;
+		Microsoft::WRL::ComPtr<IDXGIAdapter1> currentDefaultAdapter;
 		ThrowIfFailed(currentFactory->EnumAdapters1(0, &currentDefaultAdapter));
 
 		DXGI_ADAPTER_DESC currentDesc;
@@ -182,7 +171,7 @@ namespace WOtech
 			CreateWindowSizeDependentResources();
 		}
 	}
-	void DeviceDX11::setCurrentOrientation(_In_ DisplayOrientations currentOrientation)
+	void DeviceDX11::setCurrentOrientation(_In_ Windows::Graphics::Display::DisplayOrientations currentOrientation)
 	{
 		if (m_currentOrientation != currentOrientation)
 		{
@@ -371,7 +360,7 @@ namespace WOtech
 
 	void DeviceDX11::EnumerateAdapters(_Out_ std::list<IDXGIAdapter4*>* adapterList)
 	{
-		ComPtr<IDXGIAdapter1> pAdapter;
+		Microsoft::WRL::ComPtr<IDXGIAdapter1> pAdapter;
 		HRESULT hr = E_FAIL;
 
 		uint32 flags = 0;
@@ -391,7 +380,7 @@ namespace WOtech
 		for (UINT i = 0; (hr = m_factory->EnumAdapters1(i, &pAdapter)) != DXGI_ERROR_NOT_FOUND; ++i)
 		{
 			ThrowIfFailed(hr);
-			ComPtr<IDXGIAdapter4> temp;
+			Microsoft::WRL::ComPtr<IDXGIAdapter4> temp;
 			pAdapter.As(&temp);
 
 			tempList.push_back(temp.Get());
@@ -401,8 +390,8 @@ namespace WOtech
 	void DeviceDX11::EnumerateOutputs(_In_ IDXGIAdapter4* adapter, _Out_ std::list<IDXGIOutput6*>* outputList)
 	{
 		uint32 i = 0;
-		ComPtr<IDXGIOutput> pOutput;
-		ComPtr<IDXGIOutput6> temp;
+		Microsoft::WRL::ComPtr<IDXGIOutput> pOutput;
+		Microsoft::WRL::ComPtr<IDXGIOutput6> temp;
 		std::list<IDXGIOutput6*> tempList;
 
 		while (adapter->EnumOutputs(i, &pOutput) != DXGI_ERROR_NOT_FOUND)
@@ -442,7 +431,7 @@ namespace WOtech
 	{
 		m_window = window;
 
-		DisplayInformation^ currentDisplayInformation = DisplayInformation::GetForCurrentView();
+		Windows::Graphics::Display::DisplayInformation^ currentDisplayInformation = Windows::Graphics::Display::DisplayInformation::GetForCurrentView();
 
 		m_logicalSize = Windows::Foundation::Size(m_window->Bounds.Width, m_window->Bounds.Height);
 		m_nativeOrientation = currentDisplayInformation->NativeOrientation;
@@ -539,8 +528,8 @@ namespace WOtech
 			D3D_FEATURE_LEVEL_9_1
 		};
 
-		ComPtr<ID3D11Device> device;
-		ComPtr<ID3D11DeviceContext> context;
+		Microsoft::WRL::ComPtr<ID3D11Device> device;
+		Microsoft::WRL::ComPtr<ID3D11DeviceContext> context;
 
 		HRESULT hr;
 
@@ -659,15 +648,15 @@ namespace WOtech
 			m_recreateSwapChain = false;
 
 			// This sequence obtains the DXGI factory that was used to create the Direct3D device above.
-			ComPtr<IDXGIDevice4> dxgiDevice;
+			Microsoft::WRL::ComPtr<IDXGIDevice4> dxgiDevice;
 			hr = m_device.As(&dxgiDevice);
 			ThrowIfFailed(hr);
 
-			ComPtr<IDXGIAdapter> dxgiAdapter;
+			Microsoft::WRL::ComPtr<IDXGIAdapter> dxgiAdapter;
 			hr = dxgiDevice->GetAdapter(&dxgiAdapter);
 			ThrowIfFailed(hr);
 
-			ComPtr<IDXGIFactory5> dxgiFactory;
+			Microsoft::WRL::ComPtr<IDXGIFactory5> dxgiFactory;
 			hr = dxgiAdapter->GetParent(IID_PPV_ARGS(&dxgiFactory));
 			ThrowIfFailed(hr);
 
@@ -685,7 +674,7 @@ namespace WOtech
 			swapChainDesc.AlphaMode = DXGI_ALPHA_MODE_IGNORE; // When using XAML interop, this value cannot be DXGI_ALPHA_MODE_PREMULTIPLIED.
 			swapChainDesc.Scaling = DXGI_SCALING_ASPECT_RATIO_STRETCH;
 
-			ComPtr<IDXGISwapChain1> dxgiSwapChain;
+			Microsoft::WRL::ComPtr<IDXGISwapChain1> dxgiSwapChain;
 			hr = dxgiFactory->CreateSwapChainForCoreWindow(
 				m_device.Get(),
 				reinterpret_cast<IUnknown*>(m_window.Get()),
@@ -714,33 +703,33 @@ namespace WOtech
 		switch (displayRotation)
 		{
 		case DXGI_MODE_ROTATION_IDENTITY:
-			m_orientationTransform2D = Matrix3x2F::Identity();
+			m_orientationTransform2D = D2D1::Matrix3x2F::Identity();
 			m_orientationTransform3D = ScreenRotation::Rotation0;
 			break;
 
 		case DXGI_MODE_ROTATION_ROTATE90:
 			m_orientationTransform2D =
-				Matrix3x2F::Rotation(90.0f) *
-				Matrix3x2F::Translation(m_logicalSize.Height, 0.0f);
+				D2D1::Matrix3x2F::Rotation(90.0f) *
+				D2D1::Matrix3x2F::Translation(m_logicalSize.Height, 0.0f);
 			m_orientationTransform3D = ScreenRotation::Rotation270;
 			break;
 
 		case DXGI_MODE_ROTATION_ROTATE180:
 			m_orientationTransform2D =
-				Matrix3x2F::Rotation(180.0f) *
-				Matrix3x2F::Translation(m_logicalSize.Width, m_logicalSize.Height);
+				D2D1::Matrix3x2F::Rotation(180.0f) *
+				D2D1::Matrix3x2F::Translation(m_logicalSize.Width, m_logicalSize.Height);
 			m_orientationTransform3D = ScreenRotation::Rotation180;
 			break;
 
 		case DXGI_MODE_ROTATION_ROTATE270:
 			m_orientationTransform2D =
-				Matrix3x2F::Rotation(270.0f) *
-				Matrix3x2F::Translation(0.0f, m_logicalSize.Width);
+				D2D1::Matrix3x2F::Rotation(270.0f) *
+				D2D1::Matrix3x2F::Translation(0.0f, m_logicalSize.Width);
 			m_orientationTransform3D = ScreenRotation::Rotation90;
 			break;
 
 		default:
-			throw ref new FailureException();
+			throw ref new Platform::FailureException();
 		}
 
 		// The Windows phone compositor behaves differently than the compositor on Windows and this API is not needed or supported.
@@ -748,7 +737,7 @@ namespace WOtech
 		ThrowIfFailed(hr);
 
 		// Create a render target view of the swap chain back buffer.
-		ComPtr<ID3D11Texture2D> backBuffer;
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> backBuffer;
 		hr = m_swapChain->GetBuffer(0, IID_PPV_ARGS(backBuffer.GetAddressOf()));
 		ThrowIfFailed(hr);
 
@@ -798,43 +787,43 @@ namespace WOtech
 		// the DisplayOrientations enum has other values.
 		switch (m_nativeOrientation)
 		{
-		case DisplayOrientations::Landscape:
+		case Windows::Graphics::Display::DisplayOrientations::Landscape:
 			switch (m_currentOrientation)
 			{
-			case DisplayOrientations::Landscape:
+			case Windows::Graphics::Display::DisplayOrientations::Landscape:
 				rotation = DXGI_MODE_ROTATION_IDENTITY;
 				break;
 
-			case DisplayOrientations::Portrait:
+			case Windows::Graphics::Display::DisplayOrientations::Portrait:
 				rotation = DXGI_MODE_ROTATION_ROTATE270;
 				break;
 
-			case DisplayOrientations::LandscapeFlipped:
+			case Windows::Graphics::Display::DisplayOrientations::LandscapeFlipped:
 				rotation = DXGI_MODE_ROTATION_ROTATE180;
 				break;
 
-			case DisplayOrientations::PortraitFlipped:
+			case Windows::Graphics::Display::DisplayOrientations::PortraitFlipped:
 				rotation = DXGI_MODE_ROTATION_ROTATE90;
 				break;
 			}
 			break;
 
-		case DisplayOrientations::Portrait:
+		case Windows::Graphics::Display::DisplayOrientations::Portrait:
 			switch (m_currentOrientation)
 			{
-			case DisplayOrientations::Landscape:
+			case Windows::Graphics::Display::DisplayOrientations::Landscape:
 				rotation = DXGI_MODE_ROTATION_ROTATE90;
 				break;
 
-			case DisplayOrientations::Portrait:
+			case Windows::Graphics::Display::DisplayOrientations::Portrait:
 				rotation = DXGI_MODE_ROTATION_IDENTITY;
 				break;
 
-			case DisplayOrientations::LandscapeFlipped:
+			case Windows::Graphics::Display::DisplayOrientations::LandscapeFlipped:
 				rotation = DXGI_MODE_ROTATION_ROTATE270;
 				break;
 
-			case DisplayOrientations::PortraitFlipped:
+			case Windows::Graphics::Display::DisplayOrientations::PortraitFlipped:
 				rotation = DXGI_MODE_ROTATION_ROTATE180;
 				break;
 			}

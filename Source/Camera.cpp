@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	10.05.2014
-///			Edited:		01.05.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -25,28 +25,23 @@
 ///////////////////////////////
 // PRE-PROCESSING DIRECTIVES //
 ///////////////////////////////
-#undef min // Use __min instead.
-#undef max // Use __max instead.
-
-using namespace DirectX;
-using namespace Windows::Foundation::Numerics;
 
 namespace WOtech
 {
 	Camera::Camera()
 	{
 		// Setup the view matrix.
-		float3 eye;
+		Windows::Foundation::Numerics::float3 eye;
 		eye.x = 0.0f;
 		eye.y = 0.0f;
 		eye.z = 0.0f;
 
-		float3 lookAt;
+		Windows::Foundation::Numerics::float3 lookAt;
 		lookAt.x = 0.0f;
 		lookAt.y = 0.0f;
 		lookAt.z = 1.0f;
 
-		float3 up;
+		Windows::Foundation::Numerics::float3 up;
 		up.x = 0.0f;
 		up.y = 1.0f;
 		up.z = 0.0f;
@@ -61,9 +56,9 @@ namespace WOtech
 		SetProjParams(60.0f, 1.7777f, 0.01f, 1000.0f);
 	}
 
-	void Camera::LookDirection(_In_ float3 lookDirection)
+	void Camera::LookDirection(_In_ Windows::Foundation::Numerics::float3 lookDirection)
 	{
-		float3 lookAt;
+		Windows::Foundation::Numerics::float3 lookAt;
 		lookAt.x = m_eye.x + lookDirection.x;
 		lookAt.y = m_eye.y + lookDirection.y;
 		lookAt.z = m_eye.z + lookDirection.z;
@@ -71,34 +66,34 @@ namespace WOtech
 		SetViewParams(m_eye, lookAt, m_up);
 	}
 
-	void Camera::Eye(_In_ float3 eye)
+	void Camera::Eye(_In_ Windows::Foundation::Numerics::float3 eye)
 	{
 		SetViewParams(eye, m_lookAt, m_up);
 	}
 
-	void Camera::SetViewParams(_In_ float3 eye, _In_ float3 lookAt, _In_ float3 up)
+	void Camera::SetViewParams(_In_ Windows::Foundation::Numerics::float3 eye, _In_ Windows::Foundation::Numerics::float3 lookAt, _In_ Windows::Foundation::Numerics::float3 up)
 	{
 		m_eye = eye;
 		m_lookAt = lookAt;
 		m_up = up;
 
 		// Calculate the view matrix.
-		XMMATRIX view = XMMatrixLookAtRH(
+		DirectX::XMMATRIX view = DirectX::XMMatrixLookAtRH(
 			XMLoadFloat3(&DirectX::XMFLOAT3(eye.x, eye.y, eye.z)),
 			XMLoadFloat3(&DirectX::XMFLOAT3(lookAt.x, lookAt.y, lookAt.z)),
 			XMLoadFloat3(&DirectX::XMFLOAT3(up.x, up.y, up.z))
 		);
 
-		XMVECTOR det;
-		XMMATRIX inverseView = XMMatrixInverse(&det, view);
+		DirectX::XMVECTOR det;
+		DirectX::XMMATRIX inverseView = XMMatrixInverse(&det, view);
 		XMStoreFloat4x4(&m_viewMatrix, view);
 		XMStoreFloat4x4(&m_inverseView, inverseView);
 
 		// The axis basis vectors and camera position are stored inside the
 		// position matrix in the 4 rows of the camera's world matrix.
 		// To figure out the yaw/pitch of the camera, we just need the Z basis vector.
-		XMFLOAT3 zBasis;
-		XMStoreFloat3(&zBasis, inverseView.r[2]);
+		DirectX::XMFLOAT3 zBasis;
+		DirectX::XMStoreFloat3(&zBasis, inverseView.r[2]);
 
 		m_cameraYawAngle = atan2f(zBasis.x, zBasis.z);
 
@@ -118,7 +113,7 @@ namespace WOtech
 		}
 		m_nearPlane = nearPlane;
 		m_farPlane = farPlane;
-		XMStoreFloat4x4(&m_projectionMatrix, XMMatrixPerspectiveFovRH(m_fieldOfView, m_aspectRatio, m_nearPlane, m_farPlane));
+		XMStoreFloat4x4(&m_projectionMatrix, DirectX::XMMatrixPerspectiveFovRH(m_fieldOfView, m_aspectRatio, m_nearPlane, m_farPlane));
 	}
 
 	DirectX::XMFLOAT4X4 Camera::ViewMatrix()
@@ -136,17 +131,17 @@ namespace WOtech
 		return m_inverseView;
 	}
 
-	float3 Camera::Eye()
+	Windows::Foundation::Numerics::float3 Camera::Eye()
 	{
 		return m_eye;
 	}
 
-	float3 Camera::LookAt()
+	Windows::Foundation::Numerics::float3 Camera::LookAt()
 	{
 		return m_lookAt;
 	}
 
-	float3 Camera::Up()
+	Windows::Foundation::Numerics::float3 Camera::Up()
 	{
 		return m_up;
 	}

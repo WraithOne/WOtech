@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.02.2016
-///			Edited:		01.05.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_3DCOMPONENTS_H
@@ -19,7 +19,6 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
 #include "Numerics.h"
 #include "VertexTypes.h"
 
@@ -28,11 +27,6 @@ namespace WOtech
 	// Forward Decl.
 	ref class DeviceDX11;
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Resource data formats, including fully-typed and typeless formats. A list of modifiers at the bottom of the page more fully describes each format type.  </summary>
-	///
-	/// <remarks>	WraithOne, 17.04.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public enum class FORMAT_DXGI {
 		FORMAT_UNKNOWN,
 		FORMAT_R32G32B32A32_TYPELESS,
@@ -156,195 +150,96 @@ namespace WOtech
 		FORMAT_FORCE_UINT
 	};
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Describes a local identifier for an adapter. </summary>
-	///
-	/// <remarks>	WraithOne, 17.04.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	public value struct LUID_DXGI
 	{
-		/// <summary>	Specifies a DWORD that contains the unsigned lower numbers of the id.< / summary>
 		UINT64	LowPart;
-		/// <summary>	Specifies a LONG that contains the signed high numbers of the id.< / summary>
 		INT64	HighPart;
 	};
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Describes an adapter (or video card) by using DXGI. </summary>
-	///
-	/// <remarks>	WraithOne, 17.04.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	public value struct ADAPTER_DXGI
 	{
-		/// <summary>	A string that contains the adapter description. On feature level 9 graphics hardware, GetDesc returns “Software Adapter” for the description string.< / summary>
 		Platform::String^	Description;
-		/// <summary>	The PCI ID of the hardware vendor. On feature level 9 graphics hardware, GetDesc returns zeros for the PCI ID of the hardware vendor.< / summary>
 		UINT				VendorId;
-		/// <summary>	The PCI ID of the hardware device. On feature level 9 graphics hardware, GetDesc returns zeros for the PCI ID of the hardware device.< / summary>
 		UINT				DeviceId;
-		/// <summary>	The PCI ID of the sub system. On feature level 9 graphics hardware, GetDesc returns zeros for the PCI ID of the sub system.< / summary>
 		UINT				SubSysId;
-		/// <summary>	The PCI ID of the revision number of the adapter. On feature level 9 graphics hardware, GetDesc returns zeros for the PCI ID of the revision number of the adapter.< / summary>
 		UINT				Revision;
-		/// <summary>	The number of bytes of dedicated video memory that are not shared with the CPU.< / summary>
 		Platform::SizeT		DedicatedVideoMemory;
-		/// <summary>	The number of bytes of dedicated system memory that are not shared with the CPU. This memory is allocated from available system memory at boot time.< / summary>
 		Platform::SizeT		DedicatedSystemMemory;
-		/// <summary>	The number of bytes of shared system memory. This is the maximum value of system memory that may be consumed by the adapter during operation. Any incidental memory consumed by the driver as it manages and uses video memory is additional.< / summary>
 		Platform::SizeT		SharedSystemMemory;
-		/// <summary>	A unique value that identifies the adapter. See LUID for a definition of the structure.< / summary>
 		LUID_DXGI			AdapterLUID;
 	};
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Flags that indicate how the back buffers should be rotated to fit the physical rotation of a monitor. </summary>
-	///
-	/// <remarks>	WraithOne, 17.04.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public enum class MODE_ROTATION_DXGI
 	{
-		/// <summary>	Unspecified rotation.< / summary>
 		DXGI_MODE_ROTATION_UNSPECIFIED = 0,
-		/// <summary>	Specifies no rotation.< / summary>
 		DXGI_MODE_ROTATION_IDENTITY = 1,
-		/// <summary>	Specifies 90 degrees of rotation.< / summary>
 		DXGI_MODE_ROTATION_ROTATE90 = 2,
-		/// <summary>	Specifies 180 degrees of rotation.< / summary>
 		DXGI_MODE_ROTATION_ROTATE180 = 3,
-		/// <summary>	Specifies 270 degrees of rotation.< / summary>
 		DXGI_MODE_ROTATION_ROTATE270 = 4
 	};
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Describes an output or physical connection between the adapter (video card) and a device. </summary>
-	///
-	/// <remarks>	WraithOne, 17.04.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public value struct DXGI_OUTPUT_DESC
 	{
-		/// <summary>	A string that contains the name of the output device.< / summary>
 		Platform::String^	DeviceName;
-		/// <summary>	A RECT structure containing the bounds of the output in desktop coordinates. Desktop coordinates depend on the dots per inch (DPI) of the desktop. For info about writing DPI-aware Win32 apps, see High DPI.< / summary>
-		WOtech::RECT		DesktopCoordinates;
-		/// <summary>	True if the output is attached to the desktop; otherwise, false.< / summary>
+		Windows::Foundation::Rect		DesktopCoordinates;
 		Platform::Boolean	AttachedToDesktop;
-		/// <summary>	A member of the DXGI_MODE_ROTATION enumerated type describing on how an image is rotated by the output.< / summary>
 		MODE_ROTATION_DXGI	Rotation;
 		// TODO: HMONITOR   Monitor;
 	};
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Represents a rational number. </summary>
-	///
-	/// <remarks>	WraithOne, 17.04.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public value struct RATIONAL_DXGI
 	{
-		/// <summary>	An unsigned integer value representing the top of the rational number.< / summary>
 		UINT Numerator;
-		/// <summary>	An unsigned integer value representing the bottom of the rational number.< / summary>
 		UINT Denominator;
 	};
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Flags indicating the method the raster uses to create an image on a surface. </summary>
-	///
-	/// <remarks>	WraithOne, 17.04.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public enum class MODE_SCANLINE_ORDER_DXGI
 	{
-		/// <summary>	Scanline order is unspecified.< / summary>
 		DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED = 0,
-		/// <summary>	The image is created from the first scanline to the last without skipping any.< / summary>
 		DXGI_MODE_SCANLINE_ORDER_PROGRESSIVE = 1,
-		/// <summary>	The image is created beginning with the upper field.< / summary>
 		DXGI_MODE_SCANLINE_ORDER_UPPER_FIELD_FIRST = 2,
-		/// <summary>	The image is created beginning with the lower field.< / summary>
 		DXGI_MODE_SCANLINE_ORDER_LOWER_FIELD_FIRST = 3
 	};
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Flags indicating how an image is stretched to fit a given monitor's resolution. </summary>
-	///
-	/// <remarks>	WraithOne, 17.04.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public enum class MODE_SCALING_DXGI
 	{
-		/// <summary>	Unspecified scaling.< / summary>
 		DXGI_MODE_SCALING_UNSPECIFIED = 0,
-		/// <summary>	Specifies no scaling. The image is centered on the display. This flag is typically used for a fixed-dot-pitch display (such as an LED display).< / summary>
 		DXGI_MODE_SCALING_CENTERED = 1,
-		/// <summary>	Specifies stretched scaling.< / summary>
 		DXGI_MODE_SCALING_STRETCHED = 2
 	};
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Describes a display mode. </summary>
-	///
-	/// <remarks>	WraithOne, 17.04.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public value struct MODE_DESC_DXGI
 	{
-		/// <summary>	A value that describes the resolution width. If you specify the width as zero when you call the IDXGIFactory::CreateSwapChain method to create a swap chain, the runtime obtains the width from the output window and assigns this width value to the swap-chain description. You can subsequently call the IDXGISwapChain::GetDesc method to retrieve the assigned width value.< / summary>
 		UINT                     Width;
-		/// <summary>	A value describing the resolution height. If you specify the height as zero when you call the IDXGIFactory::CreateSwapChain method to create a swap chain, the runtime obtains the height from the output window and assigns this height value to the swap-chain description. You can subsequently call the IDXGISwapChain::GetDesc method to retrieve the assigned height value.< / summary>
 		UINT                     Height;
-		/// <summary>	A DXGI_RATIONAL structure describing the refresh rate in hertz< / summary>
 		RATIONAL_DXGI            RefreshRate;
-		/// <summary>	A DXGI_FORMAT structure describing the display format.< / summary>
 		FORMAT_DXGI              Format;
-		/// <summary>	A member of the DXGI_MODE_SCANLINE_ORDER enumerated type describing the scanline drawing mode.< / summary>
 		MODE_SCANLINE_ORDER_DXGI ScanlineOrdering;
-		/// <summary>	A member of the DXGI_MODE_SCALING enumerated type describing the scaling mode.< / summary>
 		MODE_SCALING_DXGI        Scaling;
 	};
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Specifies the parts of the depth stencil to clear.  </summary>
-	///
-	/// <remarks>	WraithOne, 17.04.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public enum class CLEAR_FLAG
 	{
-		/// <summary>	Clear the depth buffer, using fast clear if possible, then place the resource in a compressed state.< / summary>
 		CLEAR_DEPTH = 0x1L,
-		/// <summary>	Clear the stencil buffer, using fast clear if possible, then place the resource in a compressed state.< / summary>
 		CLEAR_STENCIL = 0x2L
 	};
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Type of data contained in an input slot. </summary>
-	///
-	/// <remarks>	WraithOne, 17.04.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public enum class INPUT_CLASSIFICATION
 	{
-		/// <summary>	Input data is per-vertex data.< / summary>
 		D3D11_INPUT_PER_VERTEX_DATA = 0,
-		/// <summary>	Input data is per-instance data.< / summary>
 		D3D11_INPUT_PER_INSTANCE_DATA = 1
 	};
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	A description of a single element for the input-assembler stage. </summary>
-	///
-	/// <remarks>	WraithOne, 08.10.2017. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public value struct INPUT_ELEMENT_DESC
 	{
-		/// <summary>	The HLSL semantic associated with this element in a shader input-signature.< / summary>
 		Platform::String^		SemanticName;
-		/// <summary>	The semantic index for the element. A semantic index modifies a semantic, with an integer index number. A semantic index is only needed in a case where there is more than one element with the same semantic. For example, a 4x4 matrix would have four components each with the semantic name < / summary>
 		UINT					SemanticIndex;
-		/// <summary>	The data type of the element data. See FORMAT_DXGI.< / summary>
 		FORMAT_DXGI				Format;
-		/// <summary>	An integer value that identifies the input-assembler (see input slot). Valid values are between 0 and 15.< / summary>
 		UINT					InputSlot;
-		/// <summary>	Optional. Offset (in bytes) between each element. Use D3D11_APPEND_ALIGNED_ELEMENT for convenience to define the current element directly after the previous one, including any packing if necessary.< / summary>
 		UINT					AlignedByteOffset;
-		/// <summary>	Identifies the input data class for a single input slot.< / summary>
 		INPUT_CLASSIFICATION	InputSlotClass;
-		/// <summary>	The number of instances to draw using the same per-instance data before advancing in the buffer by one element. This value must be 0 for an element that contains per-vertex data (the slot class is set to D3D11_INPUT_PER_VERTEX_DATA).< / summary>
 		UINT					InstanceDataStepRate;
 	};
 

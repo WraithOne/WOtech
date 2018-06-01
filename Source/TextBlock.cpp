@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	05.09.2014
-///			Edited:		12.02.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -23,14 +23,9 @@
 #include "Utilities.h"
 #include <DXWrapper.h>
 
-using namespace Platform;
-using namespace Windows::Foundation;
-using namespace Windows::UI;
-using namespace WOtech::DXWrapper;
-
 namespace WOtech
 {
-	void TextBlock::CreateText(_In_ Font^ font, _In_ SpriteBatch^ spriteBatch)
+	void TextBlock::CreateText(_In_ WOtech::Font^ font, _In_ WOtech::SpriteBatch^ spriteBatch)
 	{
 		m_font = font;
 
@@ -45,7 +40,7 @@ namespace WOtech
 
 		// todo: Content Manager
 	}
-	void TextBlock::CreateText(_In_ Font^ font, _In_ SpriteBatch^ spriteBatch, _In_ float32 size, _In_ String^ text, _In_ FONT_STYLE style, _In_ Color color, _In_ Point position, _In_ Size layoutsize)
+	void TextBlock::CreateText(_In_ Font^ font, _In_ WOtech::SpriteBatch^ spriteBatch, _In_ float32 size, _In_ Platform::String^ text, _In_ WOtech::FONT_STYLE style, _In_ Windows::UI::Color color, _In_ Windows::Foundation::Point position, _In_ Windows::Foundation::Size layoutsize)
 	{
 		m_font = font;
 
@@ -57,7 +52,7 @@ namespace WOtech
 
 		makeBrush(spriteBatch);
 
-		m_brush->SetColor(wrapColorD2D(color));
+		m_brush->SetColor(WOtech::DXWrapper::wrapColorD2D(color));
 
 		makeText();
 	}
@@ -72,7 +67,7 @@ namespace WOtech
 		}
 	}
 
-	void TextBlock::setText(_In_ String^ text)
+	void TextBlock::setText(_In_ Platform::String^ text)
 	{
 		if (text != m_text)
 		{
@@ -87,7 +82,7 @@ namespace WOtech
 		m_position.X = x;
 		m_position.Y = y;
 	}
-	void TextBlock::setPosition(_In_ Point position)
+	void TextBlock::setPosition(_In_ Windows::Foundation::Point position)
 	{
 		m_position = position;
 	}
@@ -114,15 +109,15 @@ namespace WOtech
 			m_brush->SetColor(D2D1::ColorF(r, g, b));
 		}
 	}
-	void TextBlock::setColor(_In_ Color color)
+	void TextBlock::setColor(_In_ Windows::UI::Color color)
 	{
 		if (m_brush)
 		{
-			m_brush->SetColor(wrapColorD2D(color));
+			m_brush->SetColor(WOtech::DXWrapper::wrapColorD2D(color));
 		}
 	}
 
-	void TextBlock::setStyle(_In_ FONT_STYLE style)
+	void TextBlock::setStyle(_In_ WOtech::FONT_STYLE style)
 	{
 		if (style != m_style)
 		{
@@ -142,7 +137,7 @@ namespace WOtech
 			makeText();
 		}
 	}
-	void TextBlock::setLayoutBox(_In_ Size layoutboxsize)
+	void TextBlock::setLayoutBox(_In_ Windows::Foundation::Size layoutboxsize)
 	{
 		if (layoutboxsize.Width != m_layoutbox.Width && layoutboxsize.Height != m_layoutbox.Height)
 		{
@@ -173,14 +168,14 @@ namespace WOtech
 			ThrowIfFailed(hr);
 		}
 
-		hr = m_wFactory->CreateTextFormat(m_font->getFontname()->Data(), m_font->getColletion(), DWRITE_FONT_WEIGHT_NORMAL, wraptFontStyle(m_style), DWRITE_FONT_STRETCH_NORMAL, m_size, L"", &m_format);
+		hr = m_wFactory->CreateTextFormat(m_font->getFontname()->Data(), m_font->getColletion(), DWRITE_FONT_WEIGHT_NORMAL, WOtech::DXWrapper::wraptFontStyle(m_style), DWRITE_FONT_STRETCH_NORMAL, m_size, L"", &m_format);
 		ThrowIfFailed(hr);
 
 		hr = m_wFactory->CreateTextLayout(m_text->Data(), static_cast<uint32>(m_text->Length()), m_format.Get(), m_layoutbox.Width, m_layoutbox.Height, &m_layout);
 		ThrowIfFailed(hr);
 	} //todo: memory leak? ->growing memory by calling it often
 
-	void TextBlock::makeBrush(_In_ SpriteBatch^ spriteBatch)
+	void TextBlock::makeBrush(_In_ WOtech::SpriteBatch^ spriteBatch)
 	{
 		HRESULT hr;
 
@@ -201,7 +196,7 @@ namespace WOtech
 	{
 		return m_brush.Get();
 	};
-	Point TextBlock::getPosition()
+	Windows::Foundation::Point TextBlock::getPosition()
 	{
 		return m_position;
 	};
@@ -209,7 +204,7 @@ namespace WOtech
 	{
 		return m_rotation;
 	}
-	Size TextBlock::getlayoutbox()
+	Windows::Foundation::Size TextBlock::getlayoutbox()
 	{
 		return m_layoutbox;
 	}

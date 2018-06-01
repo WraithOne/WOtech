@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	10.04.2016
-///			Edited:		01.02.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_GAMEOBJECT_H
@@ -19,14 +19,13 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
 
 namespace WOtech
 {
 	public interface class IGameObject
 	{
 	public:
-		UINT32 getID();
+		uint32 getID();
 	};
 }
 #endif

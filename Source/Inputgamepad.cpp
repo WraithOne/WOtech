@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.05.2014
-///			Edited:		18.02.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -20,10 +20,6 @@
 #include "pch.h"
 #include "Input.h"
 
-using namespace Windows::Gaming::Input;
-using namespace Windows::Foundation::Collections;
-using namespace Platform;
-
 namespace WOtech
 {
 	void InputManager::ScanGamePad()
@@ -31,9 +27,9 @@ namespace WOtech
 		unsigned int index = MAX_PLAYER_COUNT - 1;// gamepad index is 0-7
 		for (unsigned int i = 0; i <= index; i++)
 		{
-			if (i < Gamepad::Gamepads->Size)
+			if (i < Windows::Gaming::Input::Gamepad::Gamepads->Size)
 			{
-				m_gamePad[i] = Gamepad::Gamepads->GetAt(i);
+				m_gamePad[i] = Windows::Gaming::Input::Gamepad::Gamepads->GetAt(i);
 			}
 			else
 			{
@@ -42,7 +38,7 @@ namespace WOtech
 		}
 	}
 
-	Boolean InputManager::GamepadConnected(_In_ Gamepad_Index PlayerIndex)
+	Platform::Boolean InputManager::GamepadConnected(_In_ Gamepad_Index PlayerIndex)
 	{
 		if (m_gamePad[(unsigned int)PlayerIndex])
 		{
@@ -67,21 +63,21 @@ namespace WOtech
 			state.ChargePercentage = currentcharge->Value / 10; // todo: compute the correct percentage
 
 			state.TimeStamp = reading.Timestamp;
-			state.Buttons.A = (reading.Buttons & GamepadButtons::A) == GamepadButtons::A;
-			state.Buttons.B = (reading.Buttons & GamepadButtons::B) == GamepadButtons::B;
-			state.Buttons.X = (reading.Buttons & GamepadButtons::X) == GamepadButtons::X;
-			state.Buttons.Y = (reading.Buttons & GamepadButtons::Y) == GamepadButtons::Y;
-			state.Buttons.LeftStick = (reading.Buttons & GamepadButtons::LeftThumbstick) == GamepadButtons::LeftThumbstick;
-			state.Buttons.RightStick = (reading.Buttons & GamepadButtons::RightThumbstick) == GamepadButtons::RightThumbstick;
-			state.Buttons.LeftShoulder = (reading.Buttons & GamepadButtons::LeftShoulder) == GamepadButtons::LeftShoulder;
-			state.Buttons.RightShoulder = (reading.Buttons & GamepadButtons::RightShoulder) == GamepadButtons::RightShoulder;
-			state.Buttons.View = (reading.Buttons & GamepadButtons::View) == GamepadButtons::View;
-			state.Buttons.Menu = (reading.Buttons & GamepadButtons::Menu) == GamepadButtons::Menu;
+			state.Buttons.A = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::A) == Windows::Gaming::Input::GamepadButtons::A;
+			state.Buttons.B = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::B) == Windows::Gaming::Input::GamepadButtons::B;
+			state.Buttons.X = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::X) == Windows::Gaming::Input::GamepadButtons::X;
+			state.Buttons.Y = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::Y) == Windows::Gaming::Input::GamepadButtons::Y;
+			state.Buttons.LeftStick = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::LeftThumbstick) == Windows::Gaming::Input::GamepadButtons::LeftThumbstick;
+			state.Buttons.RightStick = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::RightThumbstick) == Windows::Gaming::Input::GamepadButtons::RightThumbstick;
+			state.Buttons.LeftShoulder = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::LeftShoulder) == Windows::Gaming::Input::GamepadButtons::LeftShoulder;
+			state.Buttons.RightShoulder = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::RightShoulder) == Windows::Gaming::Input::GamepadButtons::RightShoulder;
+			state.Buttons.View = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::View) == Windows::Gaming::Input::GamepadButtons::View;
+			state.Buttons.Menu = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::Menu) == Windows::Gaming::Input::GamepadButtons::Menu;
 
-			state.DPad.Up = (reading.Buttons & GamepadButtons::DPadUp) == GamepadButtons::DPadUp;
-			state.DPad.Down = (reading.Buttons & GamepadButtons::DPadDown) == GamepadButtons::DPadDown;
-			state.DPad.Left = (reading.Buttons & GamepadButtons::DPadLeft) == GamepadButtons::DPadLeft;
-			state.DPad.Right = (reading.Buttons & GamepadButtons::DPadRight) == GamepadButtons::DPadRight;
+			state.DPad.Up = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::DPadUp) == Windows::Gaming::Input::GamepadButtons::DPadUp;
+			state.DPad.Down = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::DPadDown) == Windows::Gaming::Input::GamepadButtons::DPadDown;
+			state.DPad.Left = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::DPadLeft) == Windows::Gaming::Input::GamepadButtons::DPadLeft;
+			state.DPad.Right = (reading.Buttons & Windows::Gaming::Input::GamepadButtons::DPadRight) == Windows::Gaming::Input::GamepadButtons::DPadRight;
 
 			state.Tumbsticks.LeftX = reading.LeftThumbstickX;
 			state.Tumbsticks.LeftY = reading.LeftThumbstickY;
@@ -96,7 +92,7 @@ namespace WOtech
 		return Gamepad_State();
 	}
 
-	void InputManager::GamepadSetVibration(_In_ Gamepad_Index PlayerIndex, _In_ GamepadVibration Vibration)
+	void InputManager::GamepadSetVibration(_In_ Gamepad_Index PlayerIndex, _In_ Windows::Gaming::Input::GamepadVibration Vibration)
 	{
 		if (m_gamePad[(unsigned int)PlayerIndex])
 		{

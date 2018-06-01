@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	09.01.2016
-///			Edited:		10.05.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -19,13 +19,6 @@
 //////////////
 #include "pch.h"
 #include "Storage.h"
-#include <ppltasks.h>
-
-using namespace concurrency;
-using namespace Windows::Storage;
-using namespace Windows::Storage::Streams;
-using namespace Windows::Foundation;
-using namespace Platform;
 
 namespace WOtech
 {
@@ -42,9 +35,9 @@ namespace WOtech
 		m_temporaryFolder = Windows::Storage::ApplicationData::Current->TemporaryFolder;
 	}
 
-	void Storage::WriteLocalSetting(_In_ String^ containerName, _In_ String^ settingName, _In_ Object^ setting)
+	void Storage::WriteLocalSetting(_In_ Platform::String^ containerName, _In_ Platform::String^ settingName, _In_ Object^ setting)
 	{
-		m_localSettings->CreateContainer(containerName, ApplicationDataCreateDisposition::Always);
+		m_localSettings->CreateContainer(containerName, Windows::Storage::ApplicationDataCreateDisposition::Always);
 
 		if (m_localSettings->Containers->HasKey(containerName))
 		{
@@ -52,9 +45,9 @@ namespace WOtech
 			values->Insert(settingName, setting);
 		}
 	}
-	void Storage::WriteRoamingSetting(_In_ String^ containerName, _In_ String^ settingName, _In_ Object^ setting)
+	void Storage::WriteRoamingSetting(_In_ Platform::String^ containerName, _In_ Platform::String^ settingName, _In_ Object^ setting)
 	{
-		m_roamingSettings->CreateContainer(containerName, ApplicationDataCreateDisposition::Always);
+		m_roamingSettings->CreateContainer(containerName, Windows::Storage::ApplicationDataCreateDisposition::Always);
 
 		if (m_roamingSettings->Containers->HasKey(containerName))
 		{
@@ -64,48 +57,48 @@ namespace WOtech
 	}
 
 	[Windows::Foundation::Metadata::DefaultOverloadAttribute]
-	void Storage::WriteLocalFile(_In_ String^ fileName, _In_ String^ text)
+	void Storage::WriteLocalFile(_In_ Platform::String^ fileName, _In_ Platform::String^ text)
 	{
 		return;
 	}
-	void Storage::WriteLocalFile(_In_ String^ fileName, _In_ BYTE* buffer)
+	void Storage::WriteLocalFile(_In_ Platform::String^ fileName, _In_ BYTE* buffer)
 	{
 		return;
 	}
-	void Storage::WriteLocalFile(_In_ String^ fileName, _In_ IBuffer^ buffer)
-	{
-		return;
-	}
-
-	[Windows::Foundation::Metadata::DefaultOverloadAttribute]
-	void Storage::WriteRoamingFile(_In_ String^ fileName, _In_ String^ text)
-	{
-		return;
-	}
-	void Storage::WriteRoamingFile(_In_ String^ fileName, _In_ BYTE* buffer)
-	{
-		return;
-	}
-	void Storage::WriteRoamingFile(_In_ String^ fileName, _In_ IBuffer^ buffer)
+	void Storage::WriteLocalFile(_In_ Platform::String^ fileName, _In_ Windows::Storage::Streams::IBuffer^ buffer)
 	{
 		return;
 	}
 
 	[Windows::Foundation::Metadata::DefaultOverloadAttribute]
-	void Storage::WriteTemporaryFile(_In_ String^ fileName, _In_ String^ text)
+	void Storage::WriteRoamingFile(_In_ Platform::String^ fileName, _In_ Platform::String^ text)
 	{
 		return;
 	}
-	void Storage::WriteTemporaryFile(_In_ String^ fileName, _In_ BYTE* buffer)
+	void Storage::WriteRoamingFile(_In_ Platform::String^ fileName, _In_ BYTE* buffer)
 	{
 		return;
 	}
-	void Storage::WriteTemporaryFile(_In_ String^ fileName, _In_ IBuffer^ buffer)
+	void Storage::WriteRoamingFile(_In_ Platform::String^ fileName, _In_ Windows::Storage::Streams::IBuffer^ buffer)
 	{
 		return;
 	}
 
-	Platform::Boolean Storage::ReadLocalSetting(_In_ String^ containerName, _In_ String^ settingName, _Out_ Object^ setting)
+	[Windows::Foundation::Metadata::DefaultOverloadAttribute]
+	void Storage::WriteTemporaryFile(_In_ Platform::String^ fileName, _In_ Platform::String^ text)
+	{
+		return;
+	}
+	void Storage::WriteTemporaryFile(_In_ Platform::String^ fileName, _In_ BYTE* buffer)
+	{
+		return;
+	}
+	void Storage::WriteTemporaryFile(_In_ Platform::String^ fileName, _In_ Windows::Storage::Streams::IBuffer^ buffer)
+	{
+		return;
+	}
+
+	Platform::Boolean Storage::ReadLocalSetting(_In_ Platform::String^ containerName, _In_ Platform::String^ settingName, _Out_ Object^ setting)
 	{
 		Platform::Boolean hasSetting = false;
 
@@ -119,7 +112,7 @@ namespace WOtech
 		}
 		return hasSetting;
 	}
-	Platform::Boolean Storage::ReadRoamingSetting(_In_ String^ containerName, _In_  String^ settingName, _Out_ Object^ setting)
+	Platform::Boolean Storage::ReadRoamingSetting(_In_ Platform::String^ containerName, _In_  Platform::String^ settingName, _Out_ Object^ setting)
 	{
 		Platform::Boolean hasSetting = false;
 
@@ -135,43 +128,43 @@ namespace WOtech
 	}
 
 	[Windows::Foundation::Metadata::DefaultOverloadAttribute]
-	Platform::Boolean Storage::ReadLocalFile(_In_ String^ fileName, _Out_ String^ text)
+	Platform::Boolean Storage::ReadLocalFile(_In_ Platform::String^ fileName, _Out_ Platform::String^ text)
 	{
 		return false;
 	}
-	Platform::Boolean Storage::ReadLocalFile(_In_ String^ fileName, _Out_ BYTE* buffer)
+	Platform::Boolean Storage::ReadLocalFile(_In_ Platform::String^ fileName, _Out_ BYTE* buffer)
 	{
 		return false;
 	}
-	Platform::Boolean Storage::ReadLocalFile(_In_ String^ fileName, _Out_ IBuffer^ buffer)
-	{
-		return false;
-	}
-
-	[Windows::Foundation::Metadata::DefaultOverloadAttribute]
-	Platform::Boolean Storage::ReadRoamingFile(_In_ String^ fileName, _Out_ String^ text)
-	{
-		return false;
-	}
-	Platform::Boolean Storage::ReadRoamingFile(_In_ String^ fileName, _Out_ BYTE* buffer)
-	{
-		return false;
-	}
-	Platform::Boolean Storage::ReadRoamingFile(_In_ String^ fileName, _Out_ IBuffer^ buffer)
+	Platform::Boolean Storage::ReadLocalFile(_In_ Platform::String^ fileName, _Out_ Windows::Storage::Streams::IBuffer^ buffer)
 	{
 		return false;
 	}
 
 	[Windows::Foundation::Metadata::DefaultOverloadAttribute]
-	Platform::Boolean Storage::ReadTemporaryFile(_In_ String^ fileName, _Out_ String^ text)
+	Platform::Boolean Storage::ReadRoamingFile(_In_ Platform::String^ fileName, _Out_ Platform::String^ text)
 	{
 		return false;
 	}
-	Platform::Boolean Storage::ReadTemporaryFile(_In_ String^ fileName, _Out_ BYTE* buffer)
+	Platform::Boolean Storage::ReadRoamingFile(_In_ Platform::String^ fileName, _Out_ BYTE* buffer)
 	{
 		return false;
 	}
-	Platform::Boolean Storage::ReadTemporaryFile(_In_ String^ fileName, _Out_ IBuffer^ buffer)
+	Platform::Boolean Storage::ReadRoamingFile(_In_ Platform::String^ fileName, _Out_ Windows::Storage::Streams::IBuffer^ buffer)
+	{
+		return false;
+	}
+
+	[Windows::Foundation::Metadata::DefaultOverloadAttribute]
+	Platform::Boolean Storage::ReadTemporaryFile(_In_ Platform::String^ fileName, _Out_ Platform::String^ text)
+	{
+		return false;
+	}
+	Platform::Boolean Storage::ReadTemporaryFile(_In_ Platform::String^ fileName, _Out_ BYTE* buffer)
+	{
+		return false;
+	}
+	Platform::Boolean Storage::ReadTemporaryFile(_In_ Platform::String^ fileName, _Out_ Windows::Storage::Streams::IBuffer^ buffer)
 	{
 		return false;
 	}
@@ -191,10 +184,10 @@ namespace WOtech
 
 	RoamingDataHandler::RoamingDataHandler()
 	{
-		Windows::Storage::ApplicationData::Current->DataChanged += ref new TypedEventHandler<ApplicationData^, Object^>(this, &RoamingDataHandler::DataChangeHandler);
+		Windows::Storage::ApplicationData::Current->DataChanged += ref new Windows::Foundation::TypedEventHandler<Windows::Storage::ApplicationData^, Object^>(this, &RoamingDataHandler::DataChangeHandler);
 	}
 
-	void RoamingDataHandler::DataChangeHandler(_In_ ApplicationData^ appData, _In_ Object^ o)
+	void RoamingDataHandler::DataChangeHandler(_In_ Windows::Storage::ApplicationData^ appData, _In_ Object^ o)
 	{
 		m_roamingSettings = appData->Current->RoamingSettings;
 		m_roamingFolder = appData->Current->RoamingFolder;

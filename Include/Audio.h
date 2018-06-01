@@ -11,7 +11,7 @@
 ///			Header file for AudioEngine and AudioSource
 ///
 ///			Created:	01.05.2014
-///			Edited:		14.10.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_AUDIO_H
@@ -55,12 +55,12 @@ namespace WOtech
 		\param xaProcessor assign AudioEngine to specific CPU, default is XADUIO_DEFAULT_PROCESSOR.
 		\param deviceID assign AudioEngine to a hardware device, default is 0. It can obtained from GetDeviceDetails.
 		*/
-		void Initialize(_In_ AUDIO_PROCESSOR xaProcessor, _In_ Platform::String^ deviceID);
+		void Initialize(_In_ WOtech::AUDIO_PROCESSOR xaProcessor, _In_ Platform::String^ deviceID);
 		//! CreateDeviceIndependentResources.
 		/*!
 		\param xaProcessor assign AudioEngine to specific CPU, default is XADUIO_DEFAULT_PROCESSOR.
 		*/
-		void CreateDeviceIndependentResources(_In_ AUDIO_PROCESSOR xaProcessor);
+		void CreateDeviceIndependentResources(_In_ WOtech::AUDIO_PROCESSOR xaProcessor);
 		//! CreateDevicedependentResources.
 		/*!
 		\param deviceID assign AudioEngine to a hardware device, default is 0. It can obtained from GetDeviceDetails.
@@ -116,20 +116,20 @@ namespace WOtech
 		\param number of the device
 		\param Details of the physical device
 		*/
-		void GetDeviceDetails(_In_ IXAudio2* device, _In_  uint32 index, _Out_ DEVICE_DETAILS* details);
+		void GetDeviceDetails(_In_ IXAudio2* device, _In_  uint32 index, _Out_ WOtech::DEVICE_DETAILS* details);
 	private:
 		//! AudioEngine Deconstructor.
 		/*!
 		*/
 		~AudioEngine();
 	private:
-		Platform::Boolean m_audioAvailable;
+		Platform::Boolean					m_audioAvailable;
 
-		Microsoft::WRL::ComPtr<IXAudio2> m_effectDevice;
-		IXAudio2MasteringVoice*	m_effectMasterVoice;
+		Microsoft::WRL::ComPtr<IXAudio2>	m_effectDevice;
+		IXAudio2MasteringVoice*				m_effectMasterVoice;
 
-		Microsoft::WRL::ComPtr<IXAudio2> m_musicDevice;
-		IXAudio2MasteringVoice*	m_musicMasterVoice;
+		Microsoft::WRL::ComPtr<IXAudio2>	m_musicDevice;
+		IXAudio2MasteringVoice*				m_musicMasterVoice;
 	}; //ref class AudioEngine
 
 	   //! AudioSource
@@ -184,13 +184,13 @@ namespace WOtech
 		/*!
 		\param Gets the AudioSource playback state
 		*/
-		void getPlaybackState(_Out_ AUDIO_PLAYBACK_STATE* playbackState);
+		void getPlaybackState(_Out_ WOtech::AUDIO_PLAYBACK_STATE* playbackState);
 
 		//! getState.
 		/*!
 		\param Gets the AudioSource state
 		*/
-		void getState(_Out_ AUDIOSOURCE_STATE^ state);
+		void getState(_Out_ WOtech::AUDIOSOURCE_STATE^ state);
 
 	private:
 		//! Deconstructor.
@@ -224,17 +224,17 @@ namespace WOtech
 		}; // class VoiceCallback
 
 	private:
-		Platform::String^									m_fileName;
-		WOtech::AudioEngine^								m_audioEngine;
-		WOtech::AUDIO_TYPE									m_audioType;
+		Platform::String^				m_fileName;
+		WOtech::AudioEngine^			m_audioEngine;
+		WOtech::AUDIO_TYPE				m_audioType;
 
-		Platform::Boolean									m_audioAvailable;
-		AUDIO_PLAYBACK_STATE								m_playbackState;
+		Platform::Boolean				m_audioAvailable;
+		WOtech::AUDIO_PLAYBACK_STATE	m_playbackState;
 
-		VoiceCallback										m_voiceCallback;
-		WAVEFORMATEX*										m_sourceFormat;
-		IXAudio2SourceVoice*								m_sourceVoice;
-		Platform::Array<byte>^								m_soundData;
+		VoiceCallback					m_voiceCallback;
+		WAVEFORMATEX*					m_sourceFormat;
+		IXAudio2SourceVoice*			m_sourceVoice;
+		Platform::Array<byte>^			m_soundData;
 	}; // ref class AudioSource
 }//namespace WOtech
 #endif

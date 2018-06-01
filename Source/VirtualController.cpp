@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	04.01.2017
-///			Edited:		23.02.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -19,9 +19,6 @@
 //////////////
 #include "pch.h"
 #include "VirtualController.h"
-
-using namespace WOtech;
-using namespace Windows::System;
 
 namespace WOtech
 {
@@ -61,9 +58,9 @@ namespace WOtech
 		m_currentGamepad = number;
 	}
 
-	void VirtualController::bindKeyboardtoButton(_In_ Virtual_Controller_Buttons target, _In_ VirtualKey key)
+	void VirtualController::bindKeyboardtoButton(_In_ Virtual_Controller_Buttons target, _In_ Windows::System::VirtualKey key)
 	{
-		std::map<Virtual_Controller_Buttons, VirtualKey>::iterator it;
+		std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>::iterator it;
 		it = m_keyboardButtonbinding.find(target);
 
 		if (it != m_keyboardButtonbinding.end())
@@ -77,7 +74,7 @@ namespace WOtech
 	}
 	void VirtualController::bindKeyboardtoTrigger(_In_ Virtual_Controller_Triggers target, _In_ Windows::System::VirtualKey key)
 	{
-		std::map<Virtual_Controller_Triggers, VirtualKey>::iterator it;
+		std::map<Virtual_Controller_Triggers, Windows::System::VirtualKey>::iterator it;
 		it = m_keyboardTriggerbinding.find(target);
 
 		if (it != m_keyboardTriggerbinding.end())
@@ -110,9 +107,9 @@ namespace WOtech
 		}
 	}
 
-	void VirtualController::bindMousetoButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::RECT area)
+	void VirtualController::bindMousetoButton(_In_ Virtual_Controller_Buttons target, _In_ Windows::Foundation::Rect area)
 	{
-		std::map<Virtual_Controller_Buttons, RECT>::iterator it;
+		std::map<Virtual_Controller_Buttons, Windows::Foundation::Rect>::iterator it;
 		it = m_mouseButtonbinding.find(target);
 
 		if (it != m_mouseButtonbinding.end())
@@ -147,9 +144,9 @@ namespace WOtech
 		m_mousebinding = target;
 	}
 
-	void VirtualController::bindTouchtoButton(_In_ Virtual_Controller_Buttons target, _In_ RECT area)
+	void VirtualController::bindTouchtoButton(_In_ Virtual_Controller_Buttons target, _In_ Windows::Foundation::Rect area)
 	{
-		std::map<Virtual_Controller_Buttons, RECT>::iterator it;
+		std::map<Virtual_Controller_Buttons, Windows::Foundation::Rect>::iterator it;
 		it = m_touchButtonbinding.find(target);
 
 		if (it != m_touchButtonbinding.end())
@@ -161,9 +158,9 @@ namespace WOtech
 			m_touchButtonbinding.emplace(target, area);
 		}
 	}
-	void VirtualController::bindTouchtoTrigger(_In_ Virtual_Controller_Triggers target, _In_ WOtech::RECT area)
+	void VirtualController::bindTouchtoTrigger(_In_ Virtual_Controller_Triggers target, _In_ Windows::Foundation::Rect area)
 	{
-		std::map<Virtual_Controller_Triggers, RECT>::iterator it;
+		std::map<Virtual_Controller_Triggers, Windows::Foundation::Rect>::iterator it;
 		it = m_touchTriggerbinding.find(target);
 
 		if (it != m_touchTriggerbinding.end())
@@ -194,7 +191,7 @@ namespace WOtech
 		}
 	}
 
-	inline Platform::Boolean PointerIntersect(_In_ Touch_State& state, _In_ RECT& area)
+	inline Platform::Boolean PointerIntersect(_In_ Touch_State& state, _In_ Windows::Foundation::Rect& area)
 	{
 		WOtech::Pointer_Position position = state.Position;
 
@@ -208,7 +205,7 @@ namespace WOtech
 			return false;
 		}
 	}
-	inline Touch_State TouchIntersect(_In_ Platform::Array<Touch_State>^ state, _In_ RECT& area)
+	inline Touch_State TouchIntersect(_In_ Platform::Array<Touch_State>^ state, _In_ Windows::Foundation::Rect& area)
 	{
 		Touch_State temp;
 
@@ -451,7 +448,7 @@ namespace WOtech
 		m_state.ChargePercentage = 100U;
 
 		// Button states
-		for (std::map<Virtual_Controller_Buttons, RECT>::iterator it = m_touchButtonbinding.begin(); it != m_touchButtonbinding.end(); ++it)
+		for (std::map<Virtual_Controller_Buttons, Windows::Foundation::Rect>::iterator it = m_touchButtonbinding.begin(); it != m_touchButtonbinding.end(); ++it)
 		{
 			// Buttons A-Y
 			if (it->first == Virtual_Controller_Buttons::A)
@@ -492,7 +489,7 @@ namespace WOtech
 				m_state.DPad_Right = isIntersecting(TouchIntersect(touchstate, it->second));
 		}
 		// Trigger states
-		for (std::map<Virtual_Controller_Triggers, RECT>::iterator it_t = m_touchTriggerbinding.begin(); it_t != m_touchTriggerbinding.end(); ++it_t)
+		for (std::map<Virtual_Controller_Triggers, Windows::Foundation::Rect>::iterator it_t = m_touchTriggerbinding.begin(); it_t != m_touchTriggerbinding.end(); ++it_t)
 		{
 			Touch_State state;
 			if (it_t->first == Virtual_Controller_Triggers::Left)
@@ -553,7 +550,7 @@ namespace WOtech
 		{
 			// TODO: Circle insteed of RECT
 			virtual_Stick_touch stick = it_s->second;
-			WOtech::RECT rect{ stick.center.X - stick.radius, stick.center.Y - stick.radius, stick.center.X + stick.radius, stick.center.Y + stick.radius };
+			Windows::Foundation::Rect rect{ stick.center.X - stick.radius, stick.center.Y - stick.radius, stick.center.X + stick.radius, stick.center.Y + stick.radius };
 
 			Touch_State state;
 			if (it_s->first == Virtual_Controller_Sticks::Left)

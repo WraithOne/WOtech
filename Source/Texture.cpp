@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	30.08.2014
-///			Edited:		15.08.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -23,19 +23,16 @@
 #include "Utilities.h"
 #include "WICTextureLoader.h"
 
-using namespace Platform;
-using namespace DirectX;
-
 namespace WOtech
 {
-	Texture::Texture(_In_ String^ filename)
+	Texture::Texture(_In_ Platform::String^ filename)
 	{
 		m_filenName = filename;
 	}
 
 	Platform::Boolean Texture::Load(_In_ DeviceDX11^ device)
 	{
-		CreateWICTextureFromFile(device->getDevice(), device->getContext(), m_filenName->Data(), nullptr, m_texture.ReleaseAndGetAddressOf(), 2048);
+		DirectX::CreateWICTextureFromFile(device->getDevice(), device->getContext(), m_filenName->Data(), nullptr, m_texture.ReleaseAndGetAddressOf(), 2048);
 		return true;
 	}
 

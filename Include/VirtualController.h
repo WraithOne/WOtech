@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	04.01.2017
-///			Edited:		23.02.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_VIRTUALCONTROLLER_H
@@ -19,7 +19,6 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
 #include "Input.h"
 
 namespace WOtech
@@ -108,14 +107,14 @@ namespace WOtech
 		void bindKeyboardtoTrigger(_In_ Virtual_Controller_Triggers target, _In_ Windows::System::VirtualKey key);
 		void bindKeyboardtoTumbstick(_In_ Virtual_Controller_Sticks target, _In_ Windows::System::VirtualKey keyUP, _In_ Windows::System::VirtualKey keyDOWN, _In_ Windows::System::VirtualKey keyLEFT, _In_ Windows::System::VirtualKey keyRIGHT);
 
-		void bindMousetoButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::RECT area);
+		void bindMousetoButton(_In_ Virtual_Controller_Buttons target, _In_ Windows::Foundation::Rect area);
 		void bindMouseKeytoButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::VirtualKey_Mouse key);
 		void bindMouseWheeltoTrigger(_In_ Virtual_Controller_Triggers target);
 		void bindMousetoTumbstick(_In_ Virtual_Controller_Sticks target);
 
 		// Touch and Pen
-		void bindTouchtoButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::RECT area);
-		void bindTouchtoTrigger(_In_ Virtual_Controller_Triggers target, _In_ WOtech::RECT Area);
+		void bindTouchtoButton(_In_ Virtual_Controller_Buttons target, _In_ Windows::Foundation::Rect area);
+		void bindTouchtoTrigger(_In_ Virtual_Controller_Triggers target, _In_ Windows::Foundation::Rect Area);
 		void bindTouchtoTumbstick(_In_ Virtual_Controller_Sticks target, _In_ Windows::Foundation::Point center, _In_ float32 radius);
 
 	internal:
@@ -150,13 +149,13 @@ namespace WOtech
 		std::map<Virtual_Controller_Triggers, Windows::System::VirtualKey>			m_keyboardTriggerbinding;
 		std::map<Virtual_Controller_Sticks, virtual_Stick_keyboard>					m_keyboardStickbinding;
 
-		std::map<Virtual_Controller_Buttons, WOtech::VirtualKey_Mouse>	m_mouseKeybinding;
-		std::map<Virtual_Controller_Buttons, WOtech::RECT>				m_mouseButtonbinding;
+		std::map<Virtual_Controller_Buttons, WOtech::VirtualKey_Mouse>				m_mouseKeybinding;
+		std::map<Virtual_Controller_Buttons, Windows::Foundation::Rect>				m_mouseButtonbinding;
 		WOtech::Virtual_Controller_Triggers											m_mouseWheelbinding;
 		WOtech::Virtual_Controller_Sticks											m_mousebinding;
 
-		std::map<Virtual_Controller_Buttons, WOtech::RECT>				m_touchButtonbinding;
-		std::map<Virtual_Controller_Triggers, WOtech::RECT>				m_touchTriggerbinding;
+		std::map<Virtual_Controller_Buttons, Windows::Foundation::Rect>				m_touchButtonbinding;
+		std::map<Virtual_Controller_Triggers, Windows::Foundation::Rect>			m_touchTriggerbinding;
 		UINT																		m_currentTriggerLeftID;
 		UINT																		m_currentTriggerRightID;
 

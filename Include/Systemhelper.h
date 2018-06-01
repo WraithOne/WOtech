@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.04.2018
-///			Edited:		12.05.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SYSTEMHELPER_H
@@ -19,7 +19,6 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
 #include "Audio.h"
 #include "DeviceDX11.h"
 #include "SpriteBatch.h"

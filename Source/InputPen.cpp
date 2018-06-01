@@ -5,12 +5,12 @@
 ///			https://github.com/WraithOne/WOtech
 ///			by https://twitter.com/WraithOne
 ///
-///			File: Inputmouse.cpp
+///			File: InputPen.cpp
 ///
 ///			Description:
 ///
 ///			Created:	01.05.2014
-///			Edited:		18.02.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -20,17 +20,13 @@
 #include "pch.h"
 #include "Input.h"
 
-using namespace Windows::UI::Core;
-using namespace Windows::System;
-using namespace Windows::Devices::Input;
-
 namespace WOtech
 {
 	Platform::Boolean InputManager::PenConnected()
 	{
 		for (std::map<UINT, Windows::UI::Input::PointerPoint^>::iterator it = m_pointerdevices.begin(); it != m_pointerdevices.end(); ++it)
 		{
-			if (it->second->PointerDevice->PointerDeviceType == PointerDeviceType::Pen)
+			if (it->second->PointerDevice->PointerDeviceType == Windows::Devices::Input::PointerDeviceType::Pen)
 				return true;
 		}
 		return false;
@@ -44,7 +40,7 @@ namespace WOtech
 		{
 			auto pointer = it->second;
 
-			if (pointer->PointerDevice->PointerDeviceType == PointerDeviceType::Pen)
+			if (pointer->PointerDevice->PointerDeviceType == Windows::Devices::Input::PointerDeviceType::Pen)
 			{
 				temp[nr].PointerID = pointer->PointerId;
 				temp[nr].BarrelButton = pointer->Properties->IsBarrelButtonPressed;

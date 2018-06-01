@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		07.05.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -23,20 +23,12 @@
 #include "SystemManager.h"
 #include "Utilities.h"
 
-using namespace Platform;
-using namespace Windows::Foundation;
-using namespace Windows::UI;
-using namespace Windows::Storage;
-using namespace Windows::ApplicationModel;
-using namespace Microsoft::WRL;
-using namespace WOtech::DXWrapper;
-
 namespace WOtech
 {
 	///////////////////////////////////////////////////////////////
 	// SpriteBatch
 	///////////////////////////////////////////////////////////////
-	SpriteBatch::SpriteBatch(_In_ DeviceDX11^ renderer)
+	SpriteBatch::SpriteBatch(_In_ WOtech::DeviceDX11^ renderer)
 	{
 		m_deviceDX11 = renderer;
 		m_beginDraw = false;
@@ -49,7 +41,7 @@ namespace WOtech
 	{
 		if (m_deviceDX11 == nullptr)
 		{
-			ThrowIfFailed(E_FAIL);
+			WOtech::ThrowIfFailed(E_FAIL);
 		}
 
 		HRESULT hr;
@@ -67,35 +59,35 @@ namespace WOtech
 		if (m_factory == nullptr)
 		{
 			hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, __uuidof(ID2D1Factory6), &options, &m_factory);// D2D1_FACTORY_TYPE_SINGLE_THREADED
-			ThrowIfFailed(hr);
+			WOtech::ThrowIfFailed(hr);
 		}
 
 		// Create the DirectWriter Factory
 		if (m_dwFactory == nullptr)
 		{
 			hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory5), &m_dwFactory);
-			ThrowIfFailed(hr);
+			WOtech::ThrowIfFailed(hr);
 		}
 
 		// Create an instance of WICFactory
 		if (m_wicFactory == nullptr)
 		{
 			hr = CoCreateInstance(CLSID_WICImagingFactory1, NULL, CLSCTX_INPROC_SERVER, IID_IWICImagingFactory, (LPVOID*)(&m_wicFactory));
-			ThrowIfFailed(hr);
+			WOtech::ThrowIfFailed(hr);
 		}
 		
 		// Create the D2D Device
 		if (m_device == nullptr)
 		{
 			hr = m_factory->CreateDevice(m_deviceDX11->getDXGIDevice(), m_device.ReleaseAndGetAddressOf());
-			ThrowIfFailed(hr);
+			WOtech::ThrowIfFailed(hr);
 		}
 
 		// Create the D2D DeviceContext
 		if (m_deviceContext == nullptr)
 		{
 			hr = m_device->CreateDeviceContext(D2D1_DEVICE_CONTEXT_OPTIONS_NONE, m_deviceContext.ReleaseAndGetAddressOf());
-			ThrowIfFailed(hr);
+			WOtech::ThrowIfFailed(hr);
 		}
 
 		m_deviceContext->SetTarget(nullptr);
@@ -110,7 +102,7 @@ namespace WOtech
 				m_deviceDX11->getDPI());
 
 		hr = m_deviceContext->CreateBitmapFromDxgiSurface(m_deviceDX11->getSurface(), &bitmapProperties, m_targetBitmap.ReleaseAndGetAddressOf());
-		ThrowIfFailed(hr);
+		WOtech::ThrowIfFailed(hr);
 
 		// Set target to bitmap
 		m_deviceContext->SetTarget(m_targetBitmap.Get());
@@ -126,24 +118,24 @@ namespace WOtech
 
 		// Create Circlebrush
 		hr = m_deviceContext->CreateSolidColorBrush(D2D1::ColorF(0.0f, 0.0f, 0.0f, 1.0f), m_circleBrush.ReleaseAndGetAddressOf());
-		ThrowIfFailed(hr);
+		WOtech::ThrowIfFailed(hr);
 
 		// create Rectanglebrush
 		hr = m_deviceContext->CreateSolidColorBrush(D2D1::ColorF(0.0f, 0.0f, 0.0f, 1.0f), m_rectangleBrush.ReleaseAndGetAddressOf());
-		ThrowIfFailed(hr);
+		WOtech::ThrowIfFailed(hr);
 
 		// Create Outlinebrush
 		hr = m_deviceContext->CreateSolidColorBrush(D2D1::ColorF(1.0f, 1.0f, 1.0f, 1.0f), m_outlineBrush.ReleaseAndGetAddressOf());
-		ThrowIfFailed(hr);
+		WOtech::ThrowIfFailed(hr);
 
 		// Create fontbrush
 		hr = m_deviceContext->CreateSolidColorBrush(D2D1::ColorF(1.0f, 1.0f, 1.0f, 1.0f), m_fontBrush.ReleaseAndGetAddressOf());
-		ThrowIfFailed(hr);
+		WOtech::ThrowIfFailed(hr);
 
 		// Create Gridbrush
 		CreateGrid(Windows::UI::Colors::White);
 
-		m_installedLocation = Package::Current->InstalledLocation;
+		m_installedLocation = Windows::ApplicationModel::Package::Current->InstalledLocation;
 	}
 	void SpriteBatch::ReleaseRendertarget()
 	{
@@ -155,46 +147,46 @@ namespace WOtech
 	{
 		HRESULT hr;
 
-		ComPtr<ID2D1Bitmap1> output;
-		ComPtr<IWICBitmapDecoder> pDecoder;
-		ComPtr<IWICBitmapFrameDecode> pSource;
-		ComPtr<IWICFormatConverter> pConverter;
+		Microsoft::WRL::ComPtr<ID2D1Bitmap1> output;
+		Microsoft::WRL::ComPtr<IWICBitmapDecoder> pDecoder;
+		Microsoft::WRL::ComPtr<IWICBitmapFrameDecode> pSource;
+		Microsoft::WRL::ComPtr<IWICFormatConverter> pConverter;
 		
 		// Create Path/Filename String
-		String^ path;
-		String^ pathfilename;
+		Platform::String^ path;
+		Platform::String^ pathfilename;
 
-		path = String::Concat(m_installedLocation->Path, "\\");
-		pathfilename = String::Concat(path, fileName);
+		path = Platform::String::Concat(m_installedLocation->Path, "\\");
+		pathfilename = Platform::String::Concat(path, fileName);
 		LPCWSTR Filename = pathfilename->Data();
 
 		hr = m_wicFactory->CreateDecoderFromFilename(Filename, NULL, GENERIC_READ, WICDecodeMetadataCacheOnLoad, &pDecoder);
-		ThrowIfFailed(hr);
+		WOtech::ThrowIfFailed(hr);
 
 		// Create the initial frame.
 		hr = pDecoder->GetFrame(0, &pSource);
-		ThrowIfFailed(hr);
+		WOtech::ThrowIfFailed(hr);
 
 		// Convert the image format to 32bppPBGRA
 		// (DXGI_FORMAT_B8G8R8A8_UNORM + D2D1_ALPHA_MODE_PREMULTIPLIED).
 		hr = m_wicFactory->CreateFormatConverter(&pConverter);
-		ThrowIfFailed(hr);
+		WOtech::ThrowIfFailed(hr);
 
 		hr = pConverter->Initialize(pSource.Get(), GUID_WICPixelFormat32bppPBGRA, WICBitmapDitherTypeNone, NULL, 0.f, WICBitmapPaletteTypeMedianCut);
-		ThrowIfFailed(hr);
+		WOtech::ThrowIfFailed(hr);
 
 		// Create a Direct2D bitmap from the WIC bitmap.
 		hr = m_deviceContext->CreateBitmapFromWicBitmap(pConverter.Get(), NULL, output.ReleaseAndGetAddressOf());
-		ThrowIfFailed(hr);
+		WOtech::ThrowIfFailed(hr);
 
 		return ref new WOtech::Bitmap(output.Get());
 	}
 
 	void SpriteBatch::BeginDraw()
 	{
-		BeginDraw(SpriteSortMode::Immediate);
+		BeginDraw(WOtech::SpriteSortMode::Immediate);
 	}
-	void SpriteBatch::BeginDraw(_In_ SpriteSortMode sortmode)
+	void SpriteBatch::BeginDraw(_In_ WOtech::SpriteSortMode sortmode)
 	{
 		if (m_beginDraw)
 		{
@@ -214,7 +206,7 @@ namespace WOtech
 
 		m_beginDraw = false;
 
-		if (m_sortMode != SpriteSortMode::Immediate)
+		if (m_sortMode != WOtech::SpriteSortMode::Immediate)
 		{
 			SortBatch();
 
@@ -236,16 +228,16 @@ namespace WOtech
 		HRESULT hr;
 
 		// Create a compatible render target.
-		ComPtr<ID2D1BitmapRenderTarget> pCompatibleRenderTarget;
+		Microsoft::WRL::ComPtr<ID2D1BitmapRenderTarget> pCompatibleRenderTarget;
 		hr = m_deviceContext->CreateCompatibleRenderTarget(D2D1::SizeF(10.0f, 10.0f), &pCompatibleRenderTarget);
-		ThrowIfFailed(hr);
+		WOtech::ThrowIfFailed(hr);
 
 		if (SUCCEEDED(hr))
 		{
 			// Draw a pattern.
-			ComPtr<ID2D1SolidColorBrush> pGridBrush;
-			hr = pCompatibleRenderTarget->CreateSolidColorBrush(wrapColorD2D(color), &pGridBrush);//D2D1::ColorF(D2D1::ColorF(0.93f, 0.94f, 0.96f, 1.0f))
-			ThrowIfFailed(hr);
+			Microsoft::WRL::ComPtr<ID2D1SolidColorBrush> pGridBrush;
+			hr = pCompatibleRenderTarget->CreateSolidColorBrush(WOtech::DXWrapper::wrapColorD2D(color), &pGridBrush);//D2D1::ColorF(D2D1::ColorF(0.93f, 0.94f, 0.96f, 1.0f))
+			WOtech::ThrowIfFailed(hr);
 
 			if (SUCCEEDED(hr))
 			{
@@ -255,15 +247,15 @@ namespace WOtech
 				pCompatibleRenderTarget->EndDraw();
 
 				// Retrieve the bitmap from the render target.
-				ComPtr<ID2D1Bitmap> pGridBitmap;
+				Microsoft::WRL::ComPtr<ID2D1Bitmap> pGridBitmap;
 				hr = pCompatibleRenderTarget->GetBitmap(pGridBitmap.ReleaseAndGetAddressOf());
-				ThrowIfFailed(hr);
+				WOtech::ThrowIfFailed(hr);
 
 				if (SUCCEEDED(hr))
 				{
 					// Create the bitmap brush.
 					hr = m_deviceContext->CreateBitmapBrush(pGridBitmap.Get(), &m_gridBrush);
-					ThrowIfFailed(hr);
+					WOtech::ThrowIfFailed(hr);
 				}
 			}
 		}
@@ -271,26 +263,26 @@ namespace WOtech
 		m_gridColor = color;
 	}
 
-	void SpriteBatch::DrawTextBlock(_In_ TextBlock^ text)
+	void SpriteBatch::DrawTextBlock(_In_ WOtech::TextBlock^ text)
 	{
 		if (text)
 		{
-			auto rect = WOtech::RECT{ text->getPosition().X, text->getPosition().Y, text->getlayoutbox().Width, text->getlayoutbox().Height };
+			auto rect = Windows::Foundation::Rect{ text->getPosition().X, text->getPosition().Y, text->getlayoutbox().Width, text->getlayoutbox().Height };
 			setRotation(rect, text->getRotation());
 			m_deviceContext->DrawTextLayout(D2D1::Point2F(text->getPosition().X, text->getPosition().Y), text->getLayout(), text->getBrush());
 		}
 	}
-	void SpriteBatch::DrawString(_In_ Font^ font, _In_ float32 fontSize, _In_ RECT layoutbox, _In_ FONT_STYLE style, _In_ Color color, _In_ float32 rotation, _In_ String^ text)
+	void SpriteBatch::DrawString(_In_ WOtech::Font^ font, _In_ float32 fontSize, _In_ Windows::Foundation::Rect layoutbox, _In_ WOtech::FONT_STYLE style, _In_ Windows::UI::Color color, _In_ float32 rotation, _In_ Platform::String^ text)
 	{
 		HRESULT hr;
 
 		// Set Color
-		m_fontBrush->SetColor(wrapColorD2D(color));
+		m_fontBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(color));
 
 		// Create text format
 		IDWriteTextFormat* temp = nullptr;
-		hr = m_dwFactory->CreateTextFormat(font->getFontname()->Data(), font->getColletion(), DWRITE_FONT_WEIGHT_NORMAL, wraptFontStyle(style), DWRITE_FONT_STRETCH_NORMAL, fontSize, L"", &temp);
-		ThrowIfFailed(hr);
+		hr = m_dwFactory->CreateTextFormat(font->getFontname()->Data(), font->getColletion(), DWRITE_FONT_WEIGHT_NORMAL, WOtech::DXWrapper::wraptFontStyle(style), DWRITE_FONT_STRETCH_NORMAL, fontSize, L"", &temp);
+		WOtech::ThrowIfFailed(hr);
 
 		// Create the Destination Rect
 		D2D1_RECT_F destRect = D2D1::RectF(layoutbox.X, layoutbox.Y, layoutbox.X + layoutbox.Width, layoutbox.Y + layoutbox.Height);
@@ -304,24 +296,24 @@ namespace WOtech
 		SafeRelease(&temp);
 	}
 
-	void SpriteBatch::DrawBitmap(_In_ Bitmap^ bitmap)
+	void SpriteBatch::DrawBitmap(_In_ WOtech::Bitmap^ bitmap)
 	{
 		m_deviceContext->DrawBitmap(bitmap->getBitmap());
 	}
-	void SpriteBatch::DrawBitmap(_In_ Bitmap^ bitmap, _In_  RECT srcRect, _In_ RECT destRect, _In_ float32 opacity, _In_ float32 rotation)
+	void SpriteBatch::DrawBitmap(_In_ WOtech::Bitmap^ bitmap, _In_  Windows::Foundation::Rect srcRect, _In_ Windows::Foundation::Rect destRect, _In_ float32 opacity, _In_ float32 rotation)
 	{
 		// Create a Rect to hold Position and Size of the Bitmap
-		auto rect = WOtech::RECT{ destRect.X, destRect.Y, srcRect.Width, srcRect.Height };
+		auto rect = Windows::Foundation::Rect{ destRect.X, destRect.Y, srcRect.Width, srcRect.Height };
 
 		// Set Rotation
 		setRotation(rect, rotation);
-		m_deviceContext->DrawBitmap(bitmap->getBitmap(), wrapRect(destRect), opacity, D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, wrapRect(srcRect));//wrapBitmapInterpolationMode(sprite->getInterpolation())
+		m_deviceContext->DrawBitmap(bitmap->getBitmap(), WOtech::DXWrapper::wrapRect(destRect), opacity, D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, WOtech::DXWrapper::wrapRect(srcRect));//wrapBitmapInterpolationMode(sprite->getInterpolation())
 	}
 
-	void SpriteBatch::DrawSprite(_In_ Sprite^ sprite)
+	void SpriteBatch::DrawSprite(_In_ WOtech::Sprite^ sprite)
 	{
 		// Create a Rect to hold Position and Size of the Sprite
-		auto rect = WOtech::RECT{ sprite->getDestinationRect().X, sprite->getDestinationRect().Y, sprite->getSourceRect().Width, sprite->getSourceRect().Height };
+		auto rect = Windows::Foundation::Rect{ sprite->getDestinationRect().X, sprite->getDestinationRect().Y, sprite->getSourceRect().Width, sprite->getSourceRect().Height };
 
 		// Set Rotation
 		setRotation(rect, sprite->getRotation());
@@ -332,11 +324,11 @@ namespace WOtech
 		setTransformation(sprite->getFlipMode());
 
 		// Draw the Sprite
-		m_deviceContext->DrawBitmap(sprite->getBitmap(), wrapRect(sprite->getDestinationRect()), sprite->getOpacity(), wrapBitmapInterpolationMode(sprite->getInterpolation()), wrapRect(sprite->getSourceRect()));
+		m_deviceContext->DrawBitmap(sprite->getBitmap(), WOtech::DXWrapper::wrapRect(sprite->getDestinationRect()), sprite->getOpacity(), WOtech::DXWrapper::wrapBitmapInterpolationMode(sprite->getInterpolation()), WOtech::DXWrapper::wrapRect(sprite->getSourceRect()));
 	}
-	void SpriteBatch::DrawSprite(_In_ Sprite^ sprite, _In_ RECT srcRect, _In_ RECT destRect, _In_ float32 opacity, _In_ float32 rotation, _In_ SPRITE_FLIP_MODE flipmode)
+	void SpriteBatch::DrawSprite(_In_ WOtech::Sprite^ sprite, _In_ Windows::Foundation::Rect srcRect, _In_ Windows::Foundation::Rect destRect, _In_ float32 opacity, _In_ float32 rotation, _In_ WOtech::SPRITE_FLIP_MODE flipmode)
 	{
-		auto rect = WOtech::RECT{ destRect.X, destRect.Y, destRect.Width, destRect.Height };// - .x , -.y
+		auto rect = Windows::Foundation::Rect{ destRect.X, destRect.Y, destRect.Width, destRect.Height };// - .x , -.y
 
 		// Set Rotation
 		setRotation(rect, rotation);
@@ -345,13 +337,13 @@ namespace WOtech
 		setTransformation(flipmode);
 
 		// Draw the Sprite
-		m_deviceContext->DrawBitmap(sprite->getBitmap(), wrapRect(destRect), opacity, wrapBitmapInterpolationMode(sprite->getInterpolation()), wrapRect(srcRect));
+		m_deviceContext->DrawBitmap(sprite->getBitmap(), WOtech::DXWrapper::wrapRect(destRect), opacity, WOtech::DXWrapper::wrapBitmapInterpolationMode(sprite->getInterpolation()), WOtech::DXWrapper::wrapRect(srcRect));
 	}
 
-	void SpriteBatch::DrawAnimatedSprite(_In_ AnimatedSprite^ animatedsprite, _In_ String^ name)
+	void SpriteBatch::DrawAnimatedSprite(_In_ WOtech::AnimatedSprite^ animatedsprite, _In_ Platform::String^ name)
 	{
 		// Create a Rect to hold Position and Size of the Sprite
-		auto rect = WOtech::RECT{ animatedsprite->getPosition().X, animatedsprite->getPosition().Y, animatedsprite->getFrameSize(name).Width, animatedsprite->getFrameSize(name).Height };
+		auto rect = Windows::Foundation::Rect{ animatedsprite->getPosition().X, animatedsprite->getPosition().Y, animatedsprite->getFrameSize(name).Width, animatedsprite->getFrameSize(name).Height };
 
 		// Set Rotation
 		setRotation(rect, animatedsprite->getRotation());
@@ -360,10 +352,10 @@ namespace WOtech
 		D2D1_RECT_F destRect = D2D1::RectF(animatedsprite->getPosition().X, animatedsprite->getPosition().Y, (animatedsprite->getPosition().X + animatedsprite->getFrameSize(name).Width) * animatedsprite->getScale(), (animatedsprite->getPosition().Y + animatedsprite->getFrameSize(name).Height) *  animatedsprite->getScale());
 
 		// Draw the AnimatedSprite
-		m_deviceContext->DrawBitmap(animatedsprite->getBitmap(), destRect, animatedsprite->getOpacity(), wrapBitmapInterpolationMode(animatedsprite->getInterpolation()), wrapRect(animatedsprite->getFrame(name)));
+		m_deviceContext->DrawBitmap(animatedsprite->getBitmap(), destRect, animatedsprite->getOpacity(), WOtech::DXWrapper::wrapBitmapInterpolationMode(animatedsprite->getInterpolation()), WOtech::DXWrapper::wrapRect(animatedsprite->getFrame(name)));
 	}
 
-	void SpriteBatch::DrawGrid(_In_ RECT area, _In_ Color color, _In_ float32 rotation)
+	void SpriteBatch::DrawGrid(_In_ Windows::Foundation::Rect area, _In_ Windows::UI::Color color, _In_ float32 rotation)
 	{
 		// Recolor grid
 		if (m_gridColor.ToString() != color.ToString())// Todo : haxx
@@ -375,83 +367,83 @@ namespace WOtech
 		// Draw Grid
 		m_deviceContext->FillRectangle(D2D1::RectF(area.X, area.Y, area.X + area.Width, area.Y + area.Height), m_gridBrush.Get());
 	}
-	void SpriteBatch::DrawCircle(_In_ CIRCLE circle)
+	void SpriteBatch::DrawCircle(_In_ WOtech::CIRCLE circle)
 	{
 		// Set Transformation
 		m_deviceContext->SetTransform(m_deviceDX11->get2DOrientation());
 
 		// Set Outline Color
-		m_outlineBrush->SetColor(wrapColorD2D(circle.color));
+		m_outlineBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(circle.color));
 
 		// Draw Circle
-		m_deviceContext->DrawEllipse(D2D1::Ellipse(wrapPoint(circle.position), circle.radius, circle.radius), m_outlineBrush.Get(), circle.tickness);
+		m_deviceContext->DrawEllipse(D2D1::Ellipse(WOtech::DXWrapper::wrapPoint(circle.position), circle.radius, circle.radius), m_outlineBrush.Get(), circle.tickness);
 	}
-	void SpriteBatch::DrawCircleOutlined(_In_ CIRCLE_OUTLINED circleOutlined)
+	void SpriteBatch::DrawCircleOutlined(_In_ WOtech::CIRCLE_OUTLINED circleOutlined)
 	{
 		// Set Transformation
 		m_deviceContext->SetTransform(m_deviceDX11->get2DOrientation());
 
 		// Set Circle Color
-		m_circleBrush->SetColor(wrapColorD2D(circleOutlined.color));
+		m_circleBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(circleOutlined.color));
 
 		// Set Outline Color
-		m_outlineBrush->SetColor(wrapColorD2D(circleOutlined.outlinecolor));
+		m_outlineBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(circleOutlined.outlinecolor));
 
 		// Draw Circle
-		m_deviceContext->FillEllipse(D2D1::Ellipse(wrapPoint(circleOutlined.position), circleOutlined.radius, circleOutlined.radius), m_circleBrush.Get());
-		m_deviceContext->DrawEllipse(D2D1::Ellipse(wrapPoint(circleOutlined.position), circleOutlined.radius - circleOutlined.tickness / 2, circleOutlined.radius - circleOutlined.tickness / 2), m_outlineBrush.Get(), circleOutlined.tickness);
+		m_deviceContext->FillEllipse(D2D1::Ellipse(WOtech::DXWrapper::wrapPoint(circleOutlined.position), circleOutlined.radius, circleOutlined.radius), m_circleBrush.Get());
+		m_deviceContext->DrawEllipse(D2D1::Ellipse(WOtech::DXWrapper::wrapPoint(circleOutlined.position), circleOutlined.radius - circleOutlined.tickness / 2, circleOutlined.radius - circleOutlined.tickness / 2), m_outlineBrush.Get(), circleOutlined.tickness);
 	}
-	void SpriteBatch::DrawCircleFilled(_In_ CIRCLE_FILLED circleFilled)
+	void SpriteBatch::DrawCircleFilled(_In_ WOtech::CIRCLE_FILLED circleFilled)
 	{
 		// Set Transformation
 		m_deviceContext->SetTransform(m_deviceDX11->get2DOrientation());
 
 		// Set Circle Color
-		m_circleBrush->SetColor(wrapColorD2D(circleFilled.color));
+		m_circleBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(circleFilled.color));
 
 		// Draw Circle
-		m_deviceContext->FillEllipse(D2D1::Ellipse(wrapPoint(circleFilled.position), circleFilled.radius, circleFilled.radius), m_circleBrush.Get());
+		m_deviceContext->FillEllipse(D2D1::Ellipse(WOtech::DXWrapper::wrapPoint(circleFilled.position), circleFilled.radius, circleFilled.radius), m_circleBrush.Get());
 	}
 
-	void SpriteBatch::DrawRectangle(_In_ RECTANGLE rectangle)
+	void SpriteBatch::DrawRectangle(_In_ WOtech::RECTANGLE rectangle)
 	{
 		// Set Rotation
 		setRotation(rectangle.area, rectangle.rotation);
 
 		// Set outline Color
-		m_outlineBrush->SetColor(wrapColorD2D(rectangle.color));
+		m_outlineBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(rectangle.color));
 
 		// Draw the Rectangle
 		m_deviceContext->DrawRectangle(D2D1::RectF(rectangle.area.X, rectangle.area.Y, rectangle.area.X + rectangle.area.Width, rectangle.area.Y + rectangle.area.Height), m_outlineBrush.Get(), rectangle.tickness);
 	}
-	void SpriteBatch::DrawRectangleOutlined(_In_ RECTANGLE_OUTLINED rectangleOutlined)
+	void SpriteBatch::DrawRectangleOutlined(_In_ WOtech::RECTANGLE_OUTLINED rectangleOutlined)
 	{
 		// Set Rotation
 		setRotation(rectangleOutlined.area, rectangleOutlined.rotation);
 
 		// Set Rectangle Color
-		m_rectangleBrush->SetColor(wrapColorD2D(rectangleOutlined.color));
+		m_rectangleBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(rectangleOutlined.color));
 
 		// Set Outline Color
-		m_outlineBrush->SetColor(wrapColorD2D(rectangleOutlined.outlinecolor));
+		m_outlineBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(rectangleOutlined.outlinecolor));
 
 		// Draw the Rectangle
 		m_deviceContext->FillRectangle(D2D1::RectF(rectangleOutlined.area.X, rectangleOutlined.area.Y, rectangleOutlined.area.X + rectangleOutlined.area.Width, rectangleOutlined.area.Y + rectangleOutlined.area.Height), m_rectangleBrush.Get());
 		m_deviceContext->DrawRectangle(D2D1::RectF(rectangleOutlined.area.X + rectangleOutlined.tickness / 2, rectangleOutlined.area.Y + rectangleOutlined.tickness / 2, (rectangleOutlined.area.X + rectangleOutlined.area.Width) - rectangleOutlined.tickness / 2, (rectangleOutlined.area.Y + rectangleOutlined.area.Height) - rectangleOutlined.tickness / 2), m_outlineBrush.Get(), rectangleOutlined.tickness);
 	}
-	void SpriteBatch::DrawRectangleFilled(_In_ RECTANGLE_FILLED rectangleFilled)
+	void SpriteBatch::DrawRectangleFilled(_In_ WOtech::RECTANGLE_FILLED rectangleFilled)
 	{
 		// Set Rotation
 		setRotation(rectangleFilled.area, rectangleFilled.rotation);
 
 		// Set Rectangle Color
-		m_rectangleBrush->SetColor(wrapColorD2D(rectangleFilled.color));
+		m_rectangleBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(rectangleFilled.color));
 
 		// Draw the Rectangle
 		m_deviceContext->FillRectangle(D2D1::RectF(rectangleFilled.area.X, rectangleFilled.area.Y, rectangleFilled.area.X + rectangleFilled.area.Width, rectangleFilled.area.Y + rectangleFilled.area.Height), m_rectangleBrush.Get());
 	}
 
-	void SpriteBatch::DrawGeometry(_In_ Geometry^ geometry, _In_ FLOAT strokeWidth)
+	void SpriteBatch::DrawGeometry(_In_ WOtech::Geometry^ geometry, _In_ FLOAT strokeWidth)
 	{
 		m_deviceContext->DrawGeometry(geometry->getGeometry(), geometry->getBrush(), strokeWidth);
 	}
@@ -475,28 +467,28 @@ namespace WOtech
 		return ref new WOtech::Image(rendertarget);
 	}
 
-	Size SpriteBatch::getLogicalSize()
+	Windows::Foundation::Size SpriteBatch::getLogicalSize()
 	{
 		return m_deviceDX11->getLogicalSize();
 	}
 
-	WOtech::RECT SpriteBatch::getRenderRect()
+	Windows::Foundation::Rect SpriteBatch::getRenderRect()
 	{
 		auto size = m_deviceContext->GetSize();
 		
 		return { 0.0f, 0.0f, size.width, size.height };
 	}
 
-	void SpriteBatch::setRenderTarget(_In_ Image^ rendertarget)
+	void SpriteBatch::setRenderTarget(_In_ WOtech::Image^ rendertarget)
 	{
 		m_deviceContext->SetTarget(rendertarget->getImage());
 	}
-	void SpriteBatch::setRenderTarget(_In_ Bitmap^ rendertarget)
+	void SpriteBatch::setRenderTarget(_In_ WOtech::Bitmap^ rendertarget)
 	{
 		m_deviceContext->SetTarget(rendertarget->getBitmap());
 	}
 
-	void SpriteBatch::setRotation(_In_ RECT area, _In_ float32 rotation)
+	void SpriteBatch::setRotation(_In_ Windows::Foundation::Rect area, _In_ float32 rotation)
 	{
 		float32 halfheight = area.Height / 2;
 		float32 halfwidth = area.Width / 2;
@@ -508,7 +500,7 @@ namespace WOtech
 
 		m_deviceContext->SetTransform(rotationMatrix * m_deviceDX11->get2DOrientation());
 	}
-	void SpriteBatch::setTransformation(SPRITE_FLIP_MODE flipMode)
+	void SpriteBatch::setTransformation(WOtech::SPRITE_FLIP_MODE flipMode)
 	{
 		D2D1_MATRIX_3X2_F transformMatrix = D2D1::IdentityMatrix();
 

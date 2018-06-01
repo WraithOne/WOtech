@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	31.08.2014
-///			Edited:		07.03.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -22,11 +22,6 @@
 #include "FontFileLoader.h"
 #include "Utilities.h"
 #include "ContentManager.h"
-
-using namespace Platform;
-using namespace Windows::Storage;
-using namespace Windows::ApplicationModel;
-using namespace Microsoft::WRL;
 
 namespace WOtech
 {
@@ -42,16 +37,16 @@ namespace WOtech
 		HRESULT hr;
 		uint32 key = 150;
 
-		ComPtr<IDWriteFactory> p_Wfactory;
+		Microsoft::WRL::ComPtr<IDWriteFactory> p_Wfactory;
 
 		// Create DWriteFactory
 		hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), &p_Wfactory);
 		ThrowIfFailed(hr);
-
+		
 		// Create Path(Filename String
-		String^ path;
-		String^ pathfilename;
-		StorageFolder^ m_installedLocation = Package::Current->InstalledLocation;
+		Platform::String^ path;
+		Platform::String^ pathfilename;
+		Windows::Storage::StorageFolder^ m_installedLocation = Windows::ApplicationModel::Package::Current->InstalledLocation;
 		path = Platform::String::Concat(m_installedLocation->Path, "\\");
 		pathfilename = Platform::String::Concat(path, m_fileName);
 
@@ -79,12 +74,12 @@ namespace WOtech
 		WOtech::ContentManager::Instance->RemoveFont(this);
 	}
 
-	String^ Font::getFontname()
+	Platform::String^ Font::getFontname()
 	{
 		if (m_collection != NULL)
 		{
-			ComPtr<IDWriteFontFamily> pFontFamily;
-			ComPtr<IDWriteLocalizedStrings> pFamilyNames;
+			Microsoft::WRL::ComPtr<IDWriteFontFamily> pFontFamily;
+			Microsoft::WRL::ComPtr<IDWriteLocalizedStrings> pFamilyNames;
 
 			m_collection->GetFontFamily(0, &pFontFamily);
 
@@ -99,7 +94,7 @@ namespace WOtech
 			std::wstring string = name;
 			delete[] name;
 
-			return ref new String(string.c_str());
+			return ref new Platform::String(string.c_str());
 		}
 
 		return L"Failed";

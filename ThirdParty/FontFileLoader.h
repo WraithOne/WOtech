@@ -1,7 +1,6 @@
 #ifndef WO_FONTFILELOADER_H
 #define WO_FONTFILELOADER_H
 
-#include "Utilities.h"
 #include <dwrite.h>
 
 namespace WOtech

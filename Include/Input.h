@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.05.2014
-///			Edited:		18.02.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_INPUT_H
@@ -19,8 +19,6 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "DXWrapper.h"
 
 namespace WOtech
 {
@@ -44,8 +42,8 @@ namespace WOtech
 		Windows::Devices::Input::PointerDeviceType	DeviceType;
 		Platform::Boolean							isIntegrated;
 		uint32										MaximumContacts;
-		WOtech::RECT								PhysicalRect;
-		WOtech::RECT								ScreenRect;
+		Windows::Foundation::Rect					PhysicalRect;
+		Windows::Foundation::Rect					ScreenRect;
 	};
 	public value struct Mouse_Capabilities
 	{

@@ -11,7 +11,7 @@
 ///			Header file for Audio Components
 ///
 ///			Created:	06.10.2017
-///			Edited:		14.10.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_AUDIOCOMPONENTS_H
@@ -24,12 +24,11 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "Utilities.h"
 
 /////////////
 // LINKING //
 /////////////
+
 namespace WOtech
 {
 	public enum class AUDIO_PROCESSOR
@@ -107,7 +106,7 @@ namespace WOtech
 		*/
 		void getBufferContext(_Out_ Platform::IntPtr pCurrentBufferContext);
 	private:
-		void* m_pCurrentBufferContext;
+		void* m_pCurrentBufferContext = nullptr;
 	};
 
 	//!

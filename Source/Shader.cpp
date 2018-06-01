@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.05.2014
-///			Edited:		02.09.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -23,23 +23,13 @@
 #include <DeviceDX11.h>
 #include <DXWrapper.h>
 
-#include <stdio.h>
-#include <d3dcompiler.h>
-
-using namespace Platform;
-using namespace Windows::Storage;
-using namespace Windows::ApplicationModel;
-using namespace Microsoft::WRL;
-using namespace WOtech;
-using namespace WOtech::DXWrapper;
-
 namespace WOtech
 {
 	///////////////////////////////////////////////////////////////////
 	/// Vertex Shader
 	///////////////////////////////////////////////////////////////////
 
-	VertexShader::VertexShader(_In_ String^ compiledVertexShaderObject, _In_ WOtech::DeviceDX11^ device)
+	VertexShader::VertexShader(_In_ Platform::String^ compiledVertexShaderObject, _In_ WOtech::DeviceDX11^ device)
 	{
 		m_useCVSO = true;
 		m_CVSO = compiledVertexShaderObject;
@@ -52,7 +42,7 @@ namespace WOtech
 
 		Load(device);
 	}
-	VertexShader::VertexShader(_In_ String^ compiledVertexShaderObject, _In_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device)
+	VertexShader::VertexShader(_In_ Platform::String^ compiledVertexShaderObject, _In_ const Platform::Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ WOtech::DeviceDX11^ device)
 	{
 		m_useCVSO = true;
 		m_CVSO = compiledVertexShaderObject;
@@ -67,7 +57,7 @@ namespace WOtech
 
 		Load(device);
 	}
-	VertexShader::VertexShader(_In_ String^ filename, _In_ String^ entryPoint, _In_ int unUsed, _In_ WOtech::DeviceDX11^ device)
+	VertexShader::VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint, _In_ int unUsed, _In_ WOtech::DeviceDX11^ device)
 	{
 		UNREFERENCED_PARAMETER(unUsed); // todo: WinRT madness
 
@@ -84,7 +74,7 @@ namespace WOtech
 
 		Load(device);
 	}
-	VertexShader::VertexShader(_In_ String^ filename, _In_ String^ entryPoint, _In_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ int unUsed, _In_ WOtech::DeviceDX11^ device)
+	VertexShader::VertexShader(_In_ Platform::String^ filename, _In_ Platform::String^ entryPoint, _In_ const Platform::Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ int unUsed, _In_ WOtech::DeviceDX11^ device)
 	{
 		UNREFERENCED_PARAMETER(unUsed); // todo: WinRT madness
 
@@ -102,7 +92,7 @@ namespace WOtech
 
 		Load(device);
 	}
-	VertexShader::VertexShader(_In_ Platform::IntPtr ShaderBytecode, _In_ SizeT BytecodeLength, _In_opt_ const Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ int unUsed, _In_ int unUsed2, _In_ WOtech::DeviceDX11^ device)
+	VertexShader::VertexShader(_In_ Platform::IntPtr ShaderBytecode, _In_ Platform::SizeT BytecodeLength, _In_opt_ const Platform::Array<INPUT_ELEMENT_DESC>^ inputElementDesc, _In_ int unUsed, _In_ int unUsed2, _In_ WOtech::DeviceDX11^ device)
 	{
 		UNREFERENCED_PARAMETER(unUsed); // todo: WinRT madness
 		UNREFERENCED_PARAMETER(unUsed2); // todo: WinRT madness
@@ -165,13 +155,13 @@ namespace WOtech
 		}
 	}
 
-	void VertexShader::ComilefromFile(_In_ DeviceDX11^ device, _In_ String^ filename, _In_ String^ entryPoint)
+	void VertexShader::ComilefromFile(_In_ DeviceDX11^ device, _In_ Platform::String^ filename, _In_ Platform::String^ entryPoint)
 	{
 		if (!device || !filename || entryPoint)
 			ThrowIfFailed(E_INVALIDARG);
 
 		HRESULT hr;
-		ComPtr<ID3DBlob> errorBlob;
+		Microsoft::WRL::ComPtr<ID3DBlob> errorBlob;
 
 		uint32 flags = D3DCOMPILE_ENABLE_STRICTNESS;
 #if defined( DEBUG ) || defined( _DEBUG )
@@ -182,9 +172,9 @@ namespace WOtech
 		LPCSTR profile = (device->getDevice()->GetFeatureLevel() >= D3D_FEATURE_LEVEL_11_0) ? "vs_5_0" : "vs_4_0";
 
 		// Create path/filename string
-		String^ path;
-		String^ pathfilename;
-		StorageFolder^ m_installedLocation = Package::Current->InstalledLocation;
+		Platform::String^ path;
+		Platform::String^ pathfilename;
+		Windows::Storage::StorageFolder^ m_installedLocation = Windows::ApplicationModel::Package::Current->InstalledLocation;
 		path = Platform::String::Concat(m_installedLocation->Path, "\\");
 		pathfilename = Platform::String::Concat(path, filename);
 
@@ -206,14 +196,14 @@ namespace WOtech
 		hr = device->getDevice()->CreateVertexShader(m_vertexBlob->GetBufferPointer(), m_vertexBlob->GetBufferSize(), nullptr, &m_vertexShader);
 		ThrowIfFailed(hr);
 	}
-	void VertexShader::LoadfromFile(_In_ DeviceDX11^ device, _In_ String^ compiledVertexShaderObject)
+	void VertexShader::LoadfromFile(_In_ DeviceDX11^ device, _In_ Platform::String^ compiledVertexShaderObject)
 	{
 		HRESULT hr;
 
 		// Create path/filename string
-		String^ path;
-		String^ pathfilename;
-		StorageFolder^ m_installedLocation = Package::Current->InstalledLocation;
+		Platform::String^ path;
+		Platform::String^ pathfilename;
+		Windows::Storage::StorageFolder^ m_installedLocation = Windows::ApplicationModel::Package::Current->InstalledLocation;
 		path = Platform::String::Concat(m_installedLocation->Path, "\\");
 		pathfilename = Platform::String::Concat(path, compiledVertexShaderObject);
 
@@ -223,7 +213,7 @@ namespace WOtech
 		hr = device->getDevice()->CreateVertexShader(m_vertexBlob->GetBufferPointer(), m_vertexBlob->GetBufferSize(), nullptr, &m_vertexShader);
 		ThrowIfFailed(hr);
 	}
-	void VertexShader::LoadfromByteArray(_In_ DeviceDX11^ device, _In_ void const* pShaderBytecode, _In_ SizeT BytecodeLength)
+	void VertexShader::LoadfromByteArray(_In_ DeviceDX11^ device, _In_ void const* pShaderBytecode, _In_ Platform::SizeT BytecodeLength)
 	{
 		HRESULT hr;
 
@@ -235,7 +225,7 @@ namespace WOtech
 	{
 		HRESULT hr;
 
-		hr = device->getDevice()->CreateInputLayout(wrapInputElementDesc(m_inputElementDesc), m_inputElementDesc->Length, m_vertexBlob.Get(), m_vertexBlob.Get()->GetBufferSize(), m_inputLayout.ReleaseAndGetAddressOf());
+		hr = device->getDevice()->CreateInputLayout(WOtech::DXWrapper::wrapInputElementDesc(m_inputElementDesc), m_inputElementDesc->Length, m_vertexBlob.Get(), m_vertexBlob.Get()->GetBufferSize(), m_inputLayout.ReleaseAndGetAddressOf());
 		ThrowIfFailed(hr);
 	}
 	void VertexShader::ReflectInputLayout(_In_ DeviceDX11^ device)
@@ -243,7 +233,7 @@ namespace WOtech
 		HRESULT hr;
 
 		// Reflect shader info
-		ComPtr<ID3D11ShaderReflection> pVertexShaderReflection;
+		Microsoft::WRL::ComPtr<ID3D11ShaderReflection> pVertexShaderReflection;
 
 		if (m_useShaderByteCode)
 		{
@@ -332,7 +322,7 @@ namespace WOtech
 	///////////////////////////////////////////////////////////////////
 	/// Pixel Shader
 	///////////////////////////////////////////////////////////////////
-	PixelShader::PixelShader(_In_ String^ CSOFilename, _In_ WOtech::DeviceDX11^ device)
+	PixelShader::PixelShader(_In_ Platform::String^ CSOFilename, _In_ WOtech::DeviceDX11^ device)
 	{
 		m_shaderByteCode = nullptr;
 		m_BytecodeLength = 0U;
@@ -341,7 +331,7 @@ namespace WOtech
 
 		Load(device);
 	}
-	PixelShader::PixelShader(_In_ Platform::IntPtr ShaderBytecode, _In_ SizeT BytecodeLength, _In_ WOtech::DeviceDX11^ device)
+	PixelShader::PixelShader(_In_ Platform::IntPtr ShaderBytecode, _In_ Platform::SizeT BytecodeLength, _In_ WOtech::DeviceDX11^ device)
 	{
 		m_shaderByteCode = (void*)ShaderBytecode;
 		m_BytecodeLength = BytecodeLength;
@@ -363,9 +353,9 @@ namespace WOtech
 		HRESULT hr;
 
 		// Create path/filename string
-		String^ path;
-		String^ pathfilename;
-		StorageFolder^ m_installedLocation = Package::Current->InstalledLocation;
+		Platform::String^ path;
+		Platform::String^ pathfilename;
+		Windows::Storage::StorageFolder^ m_installedLocation = Windows::ApplicationModel::Package::Current->InstalledLocation;
 		path = Platform::String::Concat(m_installedLocation->Path, "\\");
 		pathfilename = Platform::String::Concat(path, m_csoFilename);
 

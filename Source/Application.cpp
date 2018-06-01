@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	14.01.2018
-///			Edited:		07.05.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -36,16 +36,6 @@
 
 #include "Include\GameTimer.h"
 
-using namespace concurrency;
-using namespace Windows::ApplicationModel;
-using namespace Windows::ApplicationModel::Core;
-using namespace Windows::ApplicationModel::Activation;
-using namespace Windows::UI::Core;
-using namespace Windows::UI::Input;
-using namespace Windows::System;
-using namespace Windows::Foundation;
-using namespace Windows::Graphics::Display;
-
 namespace WOtech
 {
 	FrameworkView::FrameworkView() : m_windowClosed(false), m_windowVisible(true)
@@ -57,29 +47,29 @@ namespace WOtech
 	}
 	void FrameworkView::Initialize(Windows::ApplicationModel::Core::CoreApplicationView ^ applicationView)
 	{
-		applicationView->Activated += ref new TypedEventHandler<CoreApplicationView^, IActivatedEventArgs^>(this, &FrameworkView::OnActivated);
+		applicationView->Activated += ref new Windows::Foundation::TypedEventHandler<Windows::ApplicationModel::Core::CoreApplicationView^, Windows::ApplicationModel::Activation::IActivatedEventArgs^>(this, &FrameworkView::OnActivated);
 
-		CoreApplication::Suspending += ref new EventHandler<SuspendingEventArgs^>(this, &FrameworkView::OnSuspending);
+		Windows::ApplicationModel::Core::CoreApplication::Suspending += ref new Windows::Foundation::EventHandler<Windows::ApplicationModel::SuspendingEventArgs^>(this, &FrameworkView::OnSuspending);
 
-		CoreApplication::Resuming += ref new EventHandler<Platform::Object^>(this, &FrameworkView::OnResuming);
+		Windows::ApplicationModel::Core::CoreApplication::Resuming += ref new Windows::Foundation::EventHandler<Platform::Object^>(this, &FrameworkView::OnResuming);
 
 		m_game->Initalize();
 	}
 	void FrameworkView::SetWindow(Windows::UI::Core::CoreWindow ^ window)
 	{
-		window->SizeChanged += ref new TypedEventHandler<CoreWindow^, WindowSizeChangedEventArgs^>(this, &FrameworkView::OnWindowSizeChanged);
+		window->SizeChanged += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::WindowSizeChangedEventArgs^>(this, &FrameworkView::OnWindowSizeChanged);
 
-		window->VisibilityChanged += ref new TypedEventHandler<CoreWindow^, VisibilityChangedEventArgs^>(this, &FrameworkView::OnVisibilityChanged);
+		window->VisibilityChanged += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::VisibilityChangedEventArgs^>(this, &FrameworkView::OnVisibilityChanged);
 
-		window->Closed += ref new TypedEventHandler<CoreWindow^, CoreWindowEventArgs^>(this, &FrameworkView::OnWindowClosed);
+		window->Closed += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::CoreWindowEventArgs^>(this, &FrameworkView::OnWindowClosed);
 
-		DisplayInformation^ currentDisplayInformation = DisplayInformation::GetForCurrentView();
+		Windows::Graphics::Display::DisplayInformation^ currentDisplayInformation = Windows::Graphics::Display::DisplayInformation::GetForCurrentView();
 
-		currentDisplayInformation->DpiChanged += ref new TypedEventHandler<DisplayInformation^, Object^>(this, &FrameworkView::OnDpiChanged);
+		currentDisplayInformation->DpiChanged += ref new Windows::Foundation::TypedEventHandler<Windows::Graphics::Display::DisplayInformation^, Object^>(this, &FrameworkView::OnDpiChanged);
 
-		currentDisplayInformation->OrientationChanged += ref new TypedEventHandler<DisplayInformation^, Object^>(this, &FrameworkView::OnOrientationChanged);
+		currentDisplayInformation->OrientationChanged += ref new Windows::Foundation::TypedEventHandler<Windows::Graphics::Display::DisplayInformation^, Object^>(this, &FrameworkView::OnOrientationChanged);
 
-		DisplayInformation::DisplayContentsInvalidated += ref new TypedEventHandler<DisplayInformation^, Object^>(this, &FrameworkView::OnDisplayContentsInvalidated);
+		Windows::Graphics::Display::DisplayInformation::DisplayContentsInvalidated += ref new Windows::Foundation::TypedEventHandler<Windows::Graphics::Display::DisplayInformation^, Object^>(this, &FrameworkView::OnDisplayContentsInvalidated);
 	}
 	void FrameworkView::Load(Platform::String ^ entryPoint)
 	{
@@ -107,7 +97,7 @@ namespace WOtech
 		{
 			if (m_windowVisible)
 			{
-				CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
+				Windows::UI::Core::CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(Windows::UI::Core::CoreProcessEventsOption::ProcessAllIfPresent);
 
 				// is stopped -> start again / start for first time
 				if (!m_gametimer->Active())
@@ -125,7 +115,7 @@ namespace WOtech
 			}
 			else
 			{
-				CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessOneAndAllPending);
+				Windows::UI::Core::CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(Windows::UI::Core::CoreProcessEventsOption::ProcessOneAndAllPending);
 
 				// stop running gametime
 				if (m_gametimer->Active())
@@ -139,13 +129,13 @@ namespace WOtech
 	}
 	void FrameworkView::OnActivated(Windows::ApplicationModel::Core::CoreApplicationView ^ applicationView, Windows::ApplicationModel::Activation::IActivatedEventArgs ^ args)
 	{
-		CoreWindow::GetForCurrentThread()->Activate();
+		Windows::UI::Core::CoreWindow::GetForCurrentThread()->Activate();
 	}
 	void FrameworkView::OnSuspending(Platform::Object ^ sender, Windows::ApplicationModel::SuspendingEventArgs ^ args)
 	{
-		SuspendingDeferral^ deferral = args->SuspendingOperation->GetDeferral();
+		Windows::ApplicationModel::SuspendingDeferral^ deferral = args->SuspendingOperation->GetDeferral();
 
-		create_task([this, deferral]()
+		concurrency::create_task([this, deferral]()
 		{
 			m_game->OnSuspending();
 

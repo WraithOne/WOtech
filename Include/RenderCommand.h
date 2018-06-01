@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	27.02.2016
-///			Edited:		01.05.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_RENDERCOMMAND_H
@@ -18,7 +18,6 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
 
 namespace WOtech
 {

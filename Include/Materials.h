@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	20.08.2017
-///			Edited:		01.05.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_MATERIALS_H
@@ -19,7 +19,6 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
 #include "3DComponents.h"
 #include "DXWrapper.h"
 

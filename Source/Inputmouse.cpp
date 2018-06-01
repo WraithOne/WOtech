@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	28.08.2015
-///			Edited:		18.02.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -20,14 +20,9 @@
 #include "pch.h"
 #include "Input.h"
 
-using namespace Windows::Gaming::Input;
-using namespace Windows::Foundation::Collections;
-using namespace Windows::Devices::Input;
-using namespace Platform;
-
 namespace WOtech
 {
-	Boolean InputManager::MouseConnected()
+	Platform::Boolean InputManager::MouseConnected()
 	{
 		if (m_mouseCapabilities->MousePresent >= 1)
 			return true;
@@ -41,7 +36,7 @@ namespace WOtech
 		{
 			auto pointer = it->second;
 
-			if (pointer->PointerDevice->PointerDeviceType == PointerDeviceType::Mouse)
+			if (pointer->PointerDevice->PointerDeviceType == Windows::Devices::Input::PointerDeviceType::Mouse)
 			{
 				temp.PointerID = pointer->PointerId;
 				temp.Position = m_mouseDelta;

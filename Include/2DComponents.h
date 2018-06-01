@@ -140,9 +140,9 @@ namespace WOtech
 		/// <summary>	A value that specifies how many degrees in the clockwise direction the ellipse is rotated relative to the current coordinate system. < / summary>
 		FLOAT rotationAngle;
 		/// <summary>	A value that specifies whether the arc sweep is clockwise or counterclockwise. < / summary>
-		SWEEP_DIRECTION sweepDirection;
+		WOtech::SWEEP_DIRECTION sweepDirection;
 		/// <summary>	A value that specifies whether the given arc is larger than 180 degrees. < / summary>
-		ARC_SIZE arcSize;
+		WOtech::ARC_SIZE arcSize;
 	};
 
 	public enum class SPRITE_FLIP_MODE
@@ -182,7 +182,7 @@ namespace WOtech
 
 	public value struct RECTANGLE
 	{
-		WOtech::RECT		area;
+		Windows::Foundation::Rect		area;
 		Windows::UI::Color	color;
 		float32				tickness;
 		float32				rotation;
@@ -190,7 +190,7 @@ namespace WOtech
 
 	public value struct RECTANGLE_OUTLINED
 	{
-		WOtech::RECT		area;
+		Windows::Foundation::Rect		area;
 		Windows::UI::Color	color;
 		float32				tickness;
 		Windows::UI::Color	outlinecolor;
@@ -199,7 +199,7 @@ namespace WOtech
 
 	public value struct RECTANGLE_FILLED
 	{
-		WOtech::RECT		area;
+		Windows::Foundation::Rect		area;
 		Windows::UI::Color	color;
 		float32				rotation;
 	};
@@ -244,7 +244,7 @@ namespace WOtech
 		void Reset();
 
 		Windows::Foundation::Size getSize();
-		WOtech::RECT getSourceRECT();
+		Windows::Foundation::Rect getSourceRECT();
 
 	internal:
 		Bitmap(_In_ ID2D1Bitmap1* bitmap);
@@ -273,22 +273,22 @@ namespace WOtech
 		void setOpacity(_In_ float32 opacity);
 		void setRotation(_In_ float32 degree);
 		void setRotationinRadian(_In_ float32 radian);
-		void setFlipMode(_In_ SPRITE_FLIP_MODE flipmode);
-		void setInterpolation(_In_ BITMAP_INTERPOLATION_MODE interpolation);
+		void setFlipMode(_In_ WOtech::SPRITE_FLIP_MODE flipmode);
+		void setInterpolation(_In_ WOtech::BITMAP_INTERPOLATION_MODE interpolation);
 
 		//Getter
-		WOtech::RECT				getSourceRect();
-		WOtech::RECT				getDestinationRect();
+		Windows::Foundation::Rect						getSourceRect();
+		Windows::Foundation::Rect						getDestinationRect();
 
-		Windows::Foundation::Point	getPosition();
-		Windows::Foundation::Size	getSize();
-		float32						getOpacity();
-		float32						getRotation();
-		SPRITE_FLIP_MODE			getFlipMode();
-		BITMAP_INTERPOLATION_MODE	getInterpolation();
+		Windows::Foundation::Point			getPosition();
+		Windows::Foundation::Size			getSize();
+		float32								getOpacity();
+		float32								getRotation();
+		WOtech::SPRITE_FLIP_MODE			getFlipMode();
+		WOtech::BITMAP_INTERPOLATION_MODE	getInterpolation();
 
 	internal:
-		ID2D1Bitmap1*				getBitmap();
+		ID2D1Bitmap1*						getBitmap();
 
 	private:
 		~Sprite();
@@ -297,13 +297,13 @@ namespace WOtech
 		Platform::String^						m_fileName;
 		Microsoft::WRL::ComPtr<ID2D1Bitmap1>	m_bitmap;
 
-		WOtech::RECT							m_sourceRect;
+		Windows::Foundation::Rect							m_sourceRect;
 		Windows::Foundation::Point				m_position;
 		Windows::Foundation::Size				m_size;
 		float32									m_rotation;
 		float32									m_opacity;
-		SPRITE_FLIP_MODE						m_flipMode;
-		BITMAP_INTERPOLATION_MODE				m_interpolation;
+		WOtech::SPRITE_FLIP_MODE				m_flipMode;
+		WOtech::BITMAP_INTERPOLATION_MODE		m_interpolation;
 	};// class Sprite
 
 	public ref class AnimatedSprite sealed
@@ -313,7 +313,7 @@ namespace WOtech
 		AnimatedSprite(_In_ Platform::String^ filename);
 		AnimatedSprite(_In_ WOtech::Bitmap^ bitmap);
 
-		void Load(_In_ SpriteBatch^ spriteBatch);
+		void Load(_In_ WOtech::SpriteBatch^ spriteBatch);
 		void UnLoad();
 
 		Platform::Boolean AddAnimation(_In_ Platform::String^ name, _In_ uint32 framecount, _In_ float32 frametime, _In_ Windows::Foundation::Size framesize, _In_ Windows::Foundation::Point sourceposition);
@@ -327,13 +327,13 @@ namespace WOtech
 		void setRotation(_In_ float32 degree);
 		void setRotationinRadian(_In_ float32 radian);
 		void setFlipMode(_In_ SPRITE_FLIP_MODE flipmode);
-		void setInterpolation(_In_ BITMAP_INTERPOLATION_MODE interpolation);
+		void setInterpolation(_In_ WOtech::BITMAP_INTERPOLATION_MODE interpolation);
 
 		//Getter
 		Windows::Foundation::Point	getPosition();
 		float32						getScale();
 		Windows::Foundation::Size	getFrameSize(_In_ Platform::String^ name);
-		WOtech::RECT				getFrame(_In_ Platform::String^ name);
+		Windows::Foundation::Rect				getFrame(_In_ Platform::String^ name);
 		float32						getOpacity();
 		float32						getRotation();
 		SPRITE_FLIP_MODE			getFlipMode();
@@ -392,7 +392,7 @@ namespace WOtech
 			_In_  WOtech::SpriteBatch^ spriteBatch,
 			_In_ float32 size,
 			_In_ Platform::String^ text,
-			_In_ FONT_STYLE style,
+			_In_ WOtech::FONT_STYLE style,
 			_In_ Windows::UI::Color color,
 			_In_ Windows::Foundation::Point position,
 			_In_ Windows::Foundation::Size layoutsize);
@@ -403,7 +403,7 @@ namespace WOtech
 
 		void setText(_In_ Platform::String^ text);
 
-		void setStyle(_In_ FONT_STYLE style);
+		void setStyle(_In_ WOtech::FONT_STYLE style);
 
 		void setPosition(_In_ float32 x, _In_ float32 y);
 		void setPosition(_In_ Windows::Foundation::Point position);
@@ -454,19 +454,19 @@ namespace WOtech
 	{
 	public:
 		Geometry();
-		void Create(SpriteBatch^ spritebatch);
+		void Create(_In_ SpriteBatch^ spritebatch);
 
 		void OpenGeometry();
 
-		void StartFigure(Windows::Foundation::Point strartposition, FIGURE_BEGIN begin);
-		void addArc(ARC_SEGMENT arcsegment);
-		void addBezier(BEZIER_SEGMENT beziersegment);
-		void addLine(Windows::Foundation::Point lineend);
-		void EndFigure(FIGURE_END figureend);
+		void StartFigure(_In_ Windows::Foundation::Point strartposition, _In_ WOtech::FIGURE_BEGIN begin);
+		void addArc(_In_ WOtech::ARC_SEGMENT arcsegment);
+		void addBezier(_In_ WOtech::BEZIER_SEGMENT beziersegment);
+		void addLine(_In_ Windows::Foundation::Point lineend);
+		void EndFigure(_In_ WOtech::FIGURE_END figureend);
 
 		void CloseGeometry();
 
-		void setColor(Windows::UI::Color color);
+		void setColor(_In_ Windows::UI::Color color);
 
 	internal:
 		ID2D1PathGeometry*		getGeometry();

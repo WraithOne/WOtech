@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		07.05.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SPRITEBATCH_H
@@ -19,7 +19,6 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
 #include "2DComponents.h"
 
 ///////////////////////////////
@@ -52,37 +51,37 @@ namespace WOtech
 		void Initialize();
 
 		void BeginDraw();
-		void BeginDraw(_In_ SpriteSortMode sortmode);
+		void BeginDraw(_In_ WOtech::SpriteSortMode sortmode);
 
 		void EndDraw();
 
 		void DrawTextBlock(_In_ WOtech::TextBlock^ text);
-		void DrawString(_In_ WOtech::Font^ font, _In_ float32 fontSize, _In_ WOtech::RECT layoutbox, _In_ WOtech::FONT_STYLE style, _In_ Windows::UI::Color color, _In_ float32 rotation, _In_ Platform::String^ text);
+		void DrawString(_In_ WOtech::Font^ font, _In_ float32 fontSize, _In_ Windows::Foundation::Rect layoutbox, _In_ WOtech::FONT_STYLE style, _In_ Windows::UI::Color color, _In_ float32 rotation, _In_ Platform::String^ text);
 
 		void DrawBitmap(_In_ WOtech::Bitmap^ bitmap);
-		void DrawBitmap(_In_ WOtech::Bitmap^ bitmap, _In_ WOtech::RECT srcRect, _In_ WOtech::RECT destRect, _In_ float32 opacity, _In_ float32 rotation);
+		void DrawBitmap(_In_ WOtech::Bitmap^ bitmap, _In_ Windows::Foundation::Rect srcRect, _In_ Windows::Foundation::Rect destRect, _In_ float32 opacity, _In_ float32 rotation);
 
 		void DrawSprite(_In_ WOtech::Sprite^ sprite);
-		void DrawSprite(_In_ WOtech::Sprite^ sprite, _In_ WOtech::RECT srcRect, _In_ WOtech::RECT destRect, _In_ float32 opacity, _In_ float32 rotation, _In_ WOtech::SPRITE_FLIP_MODE flipmode);
+		void DrawSprite(_In_ WOtech::Sprite^ sprite, _In_ Windows::Foundation::Rect srcRect, _In_ Windows::Foundation::Rect destRect, _In_ float32 opacity, _In_ float32 rotation, _In_ WOtech::SPRITE_FLIP_MODE flipmode);
 
 		void DrawAnimatedSprite(_In_ WOtech::AnimatedSprite^ animatedsprite, _In_ Platform::String^ name);
 
-		void DrawGrid(_In_ WOtech::RECT area, _In_ Windows::UI::Color color, _In_ float32 rotation);
+		void DrawGrid(_In_ Windows::Foundation::Rect area, _In_ Windows::UI::Color color, _In_ float32 rotation);
 
-		void DrawCircle(_In_ CIRCLE circle);
-		void DrawCircleOutlined(_In_ CIRCLE_OUTLINED circleOutlined);
-		void DrawCircleFilled(_In_ CIRCLE_FILLED circleFilled);
+		void DrawCircle(_In_ WOtech::CIRCLE circle);
+		void DrawCircleOutlined(_In_ WOtech::CIRCLE_OUTLINED circleOutlined);
+		void DrawCircleFilled(_In_ WOtech::CIRCLE_FILLED circleFilled);
 
-		void DrawRectangle(_In_ RECTANGLE rectangle);
-		void DrawRectangleOutlined(_In_ RECTANGLE_OUTLINED rectangleOutlined);
-		void DrawRectangleFilled(_In_ RECTANGLE_FILLED rectangleFilled);
+		void DrawRectangle(_In_ WOtech::RECTANGLE rectangle);
+		void DrawRectangleOutlined(_In_ WOtech::RECTANGLE_OUTLINED rectangleOutlined);
+		void DrawRectangleFilled(_In_ WOtech::RECTANGLE_FILLED rectangleFilled);
 
-		void DrawGeometry(_In_ Geometry^ geometry, _In_ FLOAT strokeWidth);
+		void DrawGeometry(_In_ WOtech::Geometry^ geometry, _In_ FLOAT strokeWidth);
 
 		// Getter
 		WOtech::Image^				getRenderTarget();
 		Windows::Foundation::Size	getLogicalSize();
-		WOtech::RECT				getRenderRect();
+		Windows::Foundation::Rect				getRenderRect();
 
 		// Setter
 		[Windows::Foundation::Metadata::DefaultOverloadAttribute]
@@ -102,8 +101,8 @@ namespace WOtech
 
 		void CreateGrid(_In_ Windows::UI::Color color);
 
-		void setRotation(_In_ WOtech::RECT area, _In_ float32 rotation);
-		void setTransformation(_In_ SPRITE_FLIP_MODE flipMode);
+		void setRotation(_In_ Windows::Foundation::Rect area, _In_ float32 rotation);
+		void setTransformation(_In_ WOtech::SPRITE_FLIP_MODE flipMode);
 
 		void SortBatch();
 		void DrawBatch();
@@ -130,7 +129,7 @@ namespace WOtech
 
 		Windows::Storage::StorageFolder^				m_installedLocation;
 
-		SpriteSortMode									m_sortMode;
+		WOtech::SpriteSortMode							m_sortMode;
 		Platform::Boolean								m_beginDraw;
 	};// class SpriteBatch
 }

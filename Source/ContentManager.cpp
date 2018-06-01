@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.11.2016
-///			Edited:		13.01.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -24,8 +24,6 @@
 #include "DeviceDX11.h"
 #include "SpriteBatch.h"
 #include "Audio.h"
-
-using namespace WOtech;
 
 namespace WOtech
 {

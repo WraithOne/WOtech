@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	27.02.2016
-///			Edited:		20.08.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DEFAULTFACTORY_H
@@ -19,7 +19,6 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
 
 namespace WOtech
 {

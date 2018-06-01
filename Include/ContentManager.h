@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.11.2016
-///			Edited:		13.01.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_CONTENTMANAGER_H
@@ -19,7 +19,6 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
 
 namespace WOtech
 {

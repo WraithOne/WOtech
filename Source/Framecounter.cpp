@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.09.2014
-///			Edited:		06.11.2016
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -19,8 +19,6 @@
 //////////////
 #include "pch.h"
 #include "Framecounter.h"
-
-using namespace Platform;
 
 namespace WOtech
 {
@@ -44,7 +42,7 @@ namespace WOtech
 		}
 		std::wstring wstring = L"FPS: " + std::to_wstring(m_fps);
 
-		m_string = ref new String(wstring.c_str());
+		m_string = ref new Platform::String(wstring.c_str());
 	}
 
 	UINT Framecounter::get()
@@ -52,7 +50,7 @@ namespace WOtech
 		return m_fps;
 	}
 
-	String^ Framecounter::getString()
+	Platform::String^ Framecounter::getString()
 	{
 		return m_string;
 	}
