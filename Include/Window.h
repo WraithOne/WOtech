@@ -25,11 +25,13 @@ namespace WOtech
 	public ref class Window sealed
 	{
 	public:
+		Window();
 
 	internal:
+		Windows::UI::Core::CoreWindow^ getCoreWindow();
 
 	private:
-
+		Platform::Agile<Windows::UI::Core::CoreWindow> m_corewindow;
 	};
 } // namespace WOtech
 #endif

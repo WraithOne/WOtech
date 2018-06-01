@@ -23,5 +23,12 @@
 
 namespace WOtech
 {
-
+	Window::Window()
+	{
+		m_corewindow = Windows::UI::Core::CoreWindow::GetForCurrentThread();
+	}
+	Windows::UI::Core::CoreWindow^ Window::getCoreWindow()
+	{
+		return m_corewindow.Get();
+	}
 }
