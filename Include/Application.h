@@ -31,6 +31,7 @@ namespace WOtech
 	ref class AudioEngine;
 	ref class InputManager;
 	ref class VirtualController;
+	ref class Window;
 
 	ref class FrameworkView sealed : public Windows::ApplicationModel::Core::IFrameworkView
 	{
@@ -71,6 +72,8 @@ namespace WOtech
 		WOtech::IGame^				m_game;
 
 		// WOtech devices
+		WOtech::Window^				m_window;
+
 		WOtech::DeviceDX11^			m_device;
 		WOtech::IRenderer^			m_renderer;
 		WOtech::SpriteBatch^		m_spriteBatch;

@@ -24,8 +24,10 @@
 
 namespace WOtech
 {
-	DeviceDX11::DeviceDX11() : m_d3dRenderTargetSize(), m_outputSize()
+	DeviceDX11::DeviceDX11(_In_ WOtech::Window^ window) : m_d3dRenderTargetSize(), m_outputSize()
 	{
+		m_window = window;
+
 		m_recreateSwapChain = true;
 
 		m_swapChainFormat = DXGI_FORMAT_B8G8R8A8_UNORM; // This is the most common swap chain format.
@@ -57,9 +59,15 @@ namespace WOtech
 		// Create Device resources
 		CreateDevices();
 
-		// set current window to device resources
-		Windows::UI::Core::CoreWindow^ window = Windows::UI::Core::CoreWindow::GetForCurrentThread();
-		setWindow(window);
+		auto window = m_window->getCoreWindow();
+		Windows::Graphics::Display::DisplayInformation^ currentDisplayInformation = Windows::Graphics::Display::DisplayInformation::GetForCurrentView();
+
+		m_logicalSize = Windows::Foundation::Size(window->Bounds.Width, window->Bounds.Height);
+		m_nativeOrientation = currentDisplayInformation->NativeOrientation;
+		m_currentOrientation = currentDisplayInformation->CurrentOrientation;
+		m_dpi = currentDisplayInformation->LogicalDpi;
+
+		CreateWindowSizeDependentResources();
 	}
 
 	void DeviceDX11::Clear(_In_ Windows::UI::Color color)
@@ -184,9 +192,10 @@ namespace WOtech
 		if (dpi != m_dpi)
 		{
 			m_dpi = dpi;
+			auto window = m_window->getCoreWindow();
 
 			// When the display DPI changes, the logical size of the window (measured in Dips) also changes and needs to be updated.
-			m_logicalSize = Windows::Foundation::Size(m_window->Bounds.Width, m_window->Bounds.Height);
+			m_logicalSize = Windows::Foundation::Size(window->Bounds.Width, window->Bounds.Height);
 
 			CreateWindowSizeDependentResources();
 		}
@@ -427,19 +436,6 @@ namespace WOtech
 		}
 	}
 
-	void DeviceDX11::setWindow(_In_ Windows::UI::Core::CoreWindow^ window)
-	{
-		m_window = window;
-
-		Windows::Graphics::Display::DisplayInformation^ currentDisplayInformation = Windows::Graphics::Display::DisplayInformation::GetForCurrentView();
-
-		m_logicalSize = Windows::Foundation::Size(m_window->Bounds.Width, m_window->Bounds.Height);
-		m_nativeOrientation = currentDisplayInformation->NativeOrientation;
-		m_currentOrientation = currentDisplayInformation->CurrentOrientation;
-		m_dpi = currentDisplayInformation->LogicalDpi;
-
-		CreateWindowSizeDependentResources();
-	}
 	void DeviceDX11::setRenderTarget(_In_ ID3D11RenderTargetView* Target)
 	{
 		if (Target)
@@ -674,10 +670,12 @@ namespace WOtech
 			swapChainDesc.AlphaMode = DXGI_ALPHA_MODE_IGNORE; // When using XAML interop, this value cannot be DXGI_ALPHA_MODE_PREMULTIPLIED.
 			swapChainDesc.Scaling = DXGI_SCALING_ASPECT_RATIO_STRETCH;
 
+			auto window = m_window->getCoreWindow();
+
 			Microsoft::WRL::ComPtr<IDXGISwapChain1> dxgiSwapChain;
 			hr = dxgiFactory->CreateSwapChainForCoreWindow(
 				m_device.Get(),
-				reinterpret_cast<IUnknown*>(m_window.Get()),
+				reinterpret_cast<IUnknown*>(window),
 				&swapChainDesc,
 				nullptr,
 				dxgiSwapChain.GetAddressOf()

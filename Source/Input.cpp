@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	02.05.2014
-///			Edited:		01.11.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -23,11 +23,11 @@
 
 namespace WOtech
 {
-	InputManager::InputManager()
+	InputManager::InputManager(_In_ WOtech::Window^ window)
 	{
 		SystemManager::Instance->AddInputManager(this);
 
-		m_window = Windows::UI::Core::CoreWindow::GetForCurrentThread();
+		m_window = window;
 
 		Initialize();
 	}
@@ -42,7 +42,6 @@ namespace WOtech
 
 	void InputManager::ResumeInput()
 	{
-		m_window = Windows::UI::Core::CoreWindow::GetForCurrentThread();
 		ScanGamePad();
 	}
 
@@ -54,18 +53,20 @@ namespace WOtech
 	void InputManager::Initialize()
 	{
 		m_isInitialized = false;
+		auto window = m_window->getCoreWindow();
+
 
 		// opt in to receive key events
-		m_window->KeyDown += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::KeyEventArgs^>(this, &InputManager::OnKeyDown);
-		m_window->KeyUp += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::KeyEventArgs^>(this, &InputManager::OnKeyUp);
+		window->KeyDown += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::KeyEventArgs^>(this, &InputManager::OnKeyDown);
+		window->KeyUp += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::KeyEventArgs^>(this, &InputManager::OnKeyUp);
 
 		// opt in to receive touch/mouse events
-		m_window->PointerPressed += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerPressed);
-		m_window->PointerMoved += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerMoved);
-		m_window->PointerReleased += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerReleased);
-		m_window->PointerEntered += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerEntered);
-		m_window->PointerExited += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerExited);
-		m_window->PointerWheelChanged += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerWheelChanged);
+		window->PointerPressed += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerPressed);
+		window->PointerMoved += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerMoved);
+		window->PointerReleased += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerReleased);
+		window->PointerEntered += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerEntered);
+		window->PointerExited += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerExited);
+		window->PointerWheelChanged += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::PointerEventArgs^>(this, &InputManager::OnPointerWheelChanged);
 
 		// There is a separate handler for mouse only relative mouse movement events.
 		Windows::Devices::Input::MouseDevice::GetForCurrentView()->MouseMoved += ref new Windows::Foundation::TypedEventHandler<Windows::Devices::Input::MouseDevice^, Windows::Devices::Input::MouseEventArgs^>(this, &InputManager::OnMouseMoved);

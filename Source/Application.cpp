@@ -73,7 +73,9 @@ namespace WOtech
 	}
 	void FrameworkView::Load(Platform::String ^ entryPoint)
 	{
-		m_device = ref new WOtech::DeviceDX11();
+		m_window = ref new WOtech::Window();
+
+		m_device = ref new WOtech::DeviceDX11(m_window);
 		m_device->Create();
 
 		m_renderer = ref new WOtech::ForwardRenderer(m_device);
@@ -84,7 +86,7 @@ namespace WOtech
 		m_audioEngine = ref new WOtech::AudioEngine();
 		m_audioEngine->Initialize();
 
-		m_inputManager = ref new WOtech::InputManager();
+		m_inputManager = ref new WOtech::InputManager(m_window);
 		m_virtualController = ref new WOtech::VirtualController(m_inputManager);
 
 		m_gametimer = ref new WOtech::GameTimer();

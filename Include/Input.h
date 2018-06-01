@@ -19,6 +19,7 @@
 //////////////
 // INCLUDES //
 //////////////
+#include "Window.h"
 
 namespace WOtech
 {
@@ -319,7 +320,7 @@ namespace WOtech
 	public ref class InputManager sealed
 	{
 	public:
-		InputManager();
+		InputManager(_In_ WOtech::Window^ window);
 
 		void SuspendInput();
 		void ResumeInput();
@@ -386,7 +387,7 @@ namespace WOtech
 		void OnGamepadRemoved(_In_ Platform::Object^ Sender, _In_ Windows::Gaming::Input::Gamepad^ Gamepad);
 
 	private:
-		Platform::Agile<Windows::UI::Core::CoreWindow>			m_window;
+		WOtech::Window^											m_window;
 
 		Platform::Boolean										m_isInitialized;
 

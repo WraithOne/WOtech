@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.04.2018
-///			Edited:		12.05.2018
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -18,9 +18,10 @@
 // INCLUDES //
 //////////////
 #include "pch.h"
-#include "..\Include\Systemhelper.h"
-#include "Include\SystemManager.h"
-#include "Include\Application.h"
+#include "Application.h"
+#include "Systemhelper.h"
+#include "SystemManager.h"
+#include "Window.h"
 
 namespace WOtech
 {
@@ -33,9 +34,9 @@ namespace WOtech
 		// nothing todo here
 	}
 
-	DeviceDX11^ Systemhelper::CreateDeviceDX11()
+	DeviceDX11^ Systemhelper::CreateDeviceDX11(_In_ WOtech::Window^ window)
 	{
-		auto device = ref new DeviceDX11();
+		auto device = ref new DeviceDX11(window);
 		device->Create();
 
 		return device;
@@ -57,9 +58,9 @@ namespace WOtech
 		return WOtech::SystemManager::Instance->GetSpriteBatch();
 	}
 
-	InputManager^ Systemhelper::CreateInputManager()
+	InputManager^ Systemhelper::CreateInputManager(_In_ WOtech::Window^ window)
 	{
-		return ref new WOtech::InputManager();
+		return ref new WOtech::InputManager(window);
 	}
 	InputManager^ Systemhelper::GetInputManager()
 	{

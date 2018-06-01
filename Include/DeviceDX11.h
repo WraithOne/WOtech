@@ -20,6 +20,7 @@
 // INCLUDES //
 //////////////
 #include "pch.h"
+#include "Window.h"
 #include "DXWrapper.h"
 
 namespace ScreenRotation
@@ -62,7 +63,7 @@ namespace WOtech
 	public ref class DeviceDX11 sealed
 	{
 	public:
-		DeviceDX11();
+		DeviceDX11(_In_ WOtech::Window^ window);
 
 		void Create();
 
@@ -104,7 +105,6 @@ namespace WOtech
 		void EnumerateOutputs(_In_ IDXGIAdapter4* adapter, _Out_ std::list<IDXGIOutput6*>* outputList);
 		void EnumerateDisplayModes(_In_ IDXGIOutput6* output, _Out_ std::list<DXGI_MODE_DESC1*>* displayModeList);
 
-		void setWindow(_In_ Windows::UI::Core::CoreWindow^ window);
 		void setRenderTarget(_In_ ID3D11RenderTargetView* target);
 
 		void setPresentationParams(_In_ DXGI_PRESENT_PARAMETERS params);
@@ -136,7 +136,7 @@ namespace WOtech
 		~DeviceDX11();
 
 	private:
-		Platform::Agile<Windows::UI::Core::CoreWindow>		m_window;
+		WOtech::Window^										m_window;
 
 		Microsoft::WRL::ComPtr<ID3D11Device5>				m_device;
 		Microsoft::WRL::ComPtr<IDXGIDevice4>				m_dxgiDevice;
