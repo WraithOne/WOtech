@@ -102,27 +102,27 @@ namespace WOtech
 	public interface class IMaterialMatrices
 	{
 	public:
-		void setWorld(_In_ Windows::Foundation::Numerics::float4x4 world);
-		void setWorldInverse(_In_ Windows::Foundation::Numerics::float4x4 worldInverse);
-		void setView(_In_ Windows::Foundation::Numerics::float4x4 view);
-		void setProjection(_In_ Windows::Foundation::Numerics::float4x4 projection);
-		void setMatrices(_In_ Windows::Foundation::Numerics::float4x4 world, _In_ Windows::Foundation::Numerics::float4x4 worldInverse, _In_ Windows::Foundation::Numerics::float4x4 view, _In_ Windows::Foundation::Numerics::float4x4 projection);
+		virtual void setWorld(_In_ Windows::Foundation::Numerics::float4x4 world) = 0;
+		virtual void setWorldInverse(_In_ Windows::Foundation::Numerics::float4x4 worldInverse) = 0;
+		virtual void setView(_In_ Windows::Foundation::Numerics::float4x4 view) = 0;
+		virtual void setProjection(_In_ Windows::Foundation::Numerics::float4x4 projection) = 0;
+		virtual void setMatrices(_In_ Windows::Foundation::Numerics::float4x4 world, _In_ Windows::Foundation::Numerics::float4x4 worldInverse, _In_ Windows::Foundation::Numerics::float4x4 view, _In_ Windows::Foundation::Numerics::float4x4 projection) = 0;
 	};
 
 	// Interface for Materials with Directional Lightning
 	public interface class IMaterialLights
 	{
 	public:
-		void SetLightingEnabled(_In_ bool value);
-		void SetPerPixelLighting(_In_ bool value);
-		void SetAmbientLightColor(_In_ Windows::Foundation::Numerics::float4 value);
+		virtual void SetLightingEnabled(_In_ bool value) = 0;
+		virtual void SetPerPixelLighting(_In_ bool value) = 0;
+		virtual void SetAmbientLightColor(_In_ Windows::Foundation::Numerics::float4 value) = 0;
 
-		void SetLightEnabled(_In_ int whichLight, _In_ bool value);
-		void SetLightDirection(_In_ int whichLight, _In_ Windows::Foundation::Numerics::float4 value);
-		void SetLightDiffuseColor(_In_ int whichLight, _In_ Windows::Foundation::Numerics::float4 value);
-		void SetLightSpecularColor(_In_ int whichLight, _In_ Windows::Foundation::Numerics::float4 value);
+		virtual void SetLightEnabled(_In_ int whichLight, _In_ bool value) = 0;
+		virtual void SetLightDirection(_In_ int whichLight, _In_ Windows::Foundation::Numerics::float4 value) = 0;
+		virtual void SetLightDiffuseColor(_In_ int whichLight, _In_ Windows::Foundation::Numerics::float4 value) = 0;
+		virtual void SetLightSpecularColor(_In_ int whichLight, _In_ Windows::Foundation::Numerics::float4 value) = 0;
 
-		void EnableDefaultLighting();
+		virtual void EnableDefaultLighting() = 0;
 	};
 
 	public ref class BasicMaterial sealed : public IMaterial, IMaterialMatrices

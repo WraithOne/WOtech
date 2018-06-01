@@ -134,10 +134,13 @@ namespace WOtech
 	}
 	Platform::Boolean Storage::ReadLocalFile(_In_ Platform::String^ fileName, _Out_ BYTE* buffer)
 	{
+		buffer = nullptr;
+
 		return false;
 	}
 	Platform::Boolean Storage::ReadLocalFile(_In_ Platform::String^ fileName, _Out_ Windows::Storage::Streams::IBuffer^ buffer)
 	{
+
 		return false;
 	}
 
@@ -148,6 +151,8 @@ namespace WOtech
 	}
 	Platform::Boolean Storage::ReadRoamingFile(_In_ Platform::String^ fileName, _Out_ BYTE* buffer)
 	{
+		buffer = nullptr;
+
 		return false;
 	}
 	Platform::Boolean Storage::ReadRoamingFile(_In_ Platform::String^ fileName, _Out_ Windows::Storage::Streams::IBuffer^ buffer)
@@ -162,6 +167,8 @@ namespace WOtech
 	}
 	Platform::Boolean Storage::ReadTemporaryFile(_In_ Platform::String^ fileName, _Out_ BYTE* buffer)
 	{
+		buffer = nullptr;
+
 		return false;
 	}
 	Platform::Boolean Storage::ReadTemporaryFile(_In_ Platform::String^ fileName, _Out_ Windows::Storage::Streams::IBuffer^ buffer)

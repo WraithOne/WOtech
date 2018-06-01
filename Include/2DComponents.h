@@ -483,7 +483,7 @@ namespace WOtech
 
 	public interface class IBatch2D
 	{
-		float getDepth();
+		virtual float getDepth() = 0;
 	};
 
 	public ref class Batch2D_Text sealed : public IBatch2D

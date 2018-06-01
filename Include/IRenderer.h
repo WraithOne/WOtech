@@ -31,15 +31,15 @@ namespace WOtech
 	public interface class IRenderer
 	{
 	public:
-		void Begin();
-		void Submit(_In_ Mesh^ mesh, _In_ Camera^ camera);
-		void Submit();
-		void End();
-		void Present();
+		virtual void Begin() = 0;
+		virtual void Submit(_In_ Mesh^ mesh, _In_ Camera^ camera) = 0;
+		virtual void Submit() = 0;
+		virtual void End() = 0;
+		virtual void Present() = 0;
 
-		DeviceDX11^ getDeviceDX11();
+		virtual DeviceDX11^ getDeviceDX11() = 0;
 
-		void Init(_In_ Windows::UI::Color clearColor);
+		virtual void Init(_In_ Windows::UI::Color clearColor) = 0;
 	};
 }
 #endif

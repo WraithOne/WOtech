@@ -464,6 +464,9 @@ namespace WOtech
 
 		m_deviceContext->GetTarget(&rendertarget);
 
+		if (!rendertarget)
+			throw ref new Platform::FailureException();
+
 		return ref new WOtech::Image(rendertarget);
 	}
 
@@ -500,7 +503,7 @@ namespace WOtech
 
 		m_deviceContext->SetTransform(rotationMatrix * m_deviceDX11->get2DOrientation());
 	}
-	void SpriteBatch::setTransformation(WOtech::SPRITE_FLIP_MODE flipMode)
+	void SpriteBatch::setTransformation(_In_ WOtech::SPRITE_FLIP_MODE flipMode)
 	{
 		D2D1_MATRIX_3X2_F transformMatrix = D2D1::IdentityMatrix();
 

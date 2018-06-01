@@ -25,7 +25,7 @@ namespace WOtech
 	public interface class IGameObject
 	{
 	public:
-		uint32 getID();
+		virtual uint32 getID() = 0;
 	};
 }
 #endif

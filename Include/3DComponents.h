@@ -422,8 +422,8 @@ namespace WOtech
 	public interface class IMaterial
 	{
 	public:
-		void bindMaterial(_In_ DeviceDX11^ device);
-		void unbindMaterial(_In_ DeviceDX11^ device);
+		virtual void bindMaterial(_In_ DeviceDX11^ device) = 0;
+		virtual void unbindMaterial(_In_ DeviceDX11^ device) = 0;
 	};
 
 	public ref class Mesh sealed

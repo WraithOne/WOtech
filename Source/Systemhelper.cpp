@@ -45,7 +45,7 @@ namespace WOtech
 		return WOtech::SystemManager::Instance->GetDeviceDX11();
 	}
 
-	SpriteBatch^ Systemhelper::CreateSpriteBatch(DeviceDX11 ^ device)
+	SpriteBatch^ Systemhelper::CreateSpriteBatch(_In_ WOtech::DeviceDX11 ^ device)
 	{
 		auto spritebatch = ref new WOtech::SpriteBatch(device);
 		spritebatch->Initialize();
@@ -75,7 +75,7 @@ namespace WOtech
 		return WOtech::SystemManager::Instance->GetAudioEngine();
 	}
 
-	void Systemhelper::RunGame(_In_ IGame^ Game)
+	void Systemhelper::RunGame(_In_ WOtech::IGame^ Game)
 	{
 		auto viewsource = ref new ViewSource();
 		viewsource->addGame(Game);

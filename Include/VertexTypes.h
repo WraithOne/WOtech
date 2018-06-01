@@ -26,32 +26,32 @@ namespace WOtech
 	{
 		property Windows::Foundation::Numerics::float3 Position
 		{
-			Windows::Foundation::Numerics::float3 get();
-			void set(_In_ Windows::Foundation::Numerics::float3 position);
+			virtual Windows::Foundation::Numerics::float3 get() = 0;
+			virtual void set(_In_ Windows::Foundation::Numerics::float3 position) = 0;
 		}
 	};
 	public interface struct IVertexColor
 	{
 		property Windows::Foundation::Numerics::float4 Color
 		{
-			Windows::Foundation::Numerics::float4 get();
-			void set(_In_ Windows::Foundation::Numerics::float4 color);
+			virtual Windows::Foundation::Numerics::float4 get() = 0;
+			virtual void set(_In_ Windows::Foundation::Numerics::float4 color) = 0;
 		}
 	};
 	public interface struct IVertexTexture
 	{
 		property Windows::Foundation::Numerics::float2 TextureCoordinate
 		{
-			Windows::Foundation::Numerics::float2 get();
-			void set(_In_ Windows::Foundation::Numerics::float2 textureCoordinate);
+			virtual Windows::Foundation::Numerics::float2 get() = 0;
+			virtual void set(_In_ Windows::Foundation::Numerics::float2 textureCoordinate) = 0;
 		}
 	};
 	public interface struct IVertexNormal
 	{
 		property Windows::Foundation::Numerics::float3 Normal
 		{
-			Windows::Foundation::Numerics::float3 get();
-			void set(_In_ Windows::Foundation::Numerics::float3 normal);
+			virtual Windows::Foundation::Numerics::float3 get() = 0;
+			virtual void set(_In_ Windows::Foundation::Numerics::float3 normal) = 0;
 		}
 	};
 
