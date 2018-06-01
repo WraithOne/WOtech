@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	18.03.2015
-///			Edited:		01.05.2018
+///			Edited:		12.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SYSTEMMANAGER_H
@@ -54,8 +54,10 @@ namespace WOtech
 		void RemoveInputManager(_In_ WOtech::InputManager^ inputManager);
 
 		// GET
-		WOtech::DeviceDX11^ GetDeviceDX11();
-		WOtech::SpriteBatch^ GetSpriteBatch();
+		WOtech::DeviceDX11^		GetDeviceDX11();
+		WOtech::SpriteBatch^	GetSpriteBatch();
+		WOtech::InputManager^	GetInputManager();
+		WOtech::AudioEngine^	GetAudioEngine();
 
 	public:
 		property Platform::Boolean Enable

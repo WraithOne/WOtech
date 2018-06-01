@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.04.2018
-///			Edited:		01.05.2018
+///			Edited:		12.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -32,28 +32,49 @@ namespace WOtech
 	{
 		// nothing todo here
 	}
-	DeviceDX11 ^ Systemhelper::CreateDeviceDX11()
+
+	DeviceDX11^ Systemhelper::CreateDeviceDX11()
 	{
 		auto device = ref new DeviceDX11();
 		device->Create();
 
 		return device;
 	}
-	DeviceDX11 ^ Systemhelper::GetDeviceDX11()
+	DeviceDX11^ Systemhelper::GetDeviceDX11()
 	{
 		return WOtech::SystemManager::Instance->GetDeviceDX11();
 	}
-	SpriteBatch ^ Systemhelper::CreateSpriteBatch(DeviceDX11 ^ device)
+
+	SpriteBatch^ Systemhelper::CreateSpriteBatch(DeviceDX11 ^ device)
 	{
 		auto spritebatch = ref new WOtech::SpriteBatch(device);
 		spritebatch->Initialize();
 
 		return spritebatch;
 	}
-	SpriteBatch ^ Systemhelper::GetSpriteBatch()
+	SpriteBatch^ Systemhelper::GetSpriteBatch()
 	{
 		return WOtech::SystemManager::Instance->GetSpriteBatch();
 	}
+
+	InputManager^ Systemhelper::CreateInputManager()
+	{
+		return ref new WOtech::InputManager();
+	}
+	InputManager^ Systemhelper::GetInputManager()
+	{
+		return WOtech::SystemManager::Instance->GetInputManager();
+	}
+
+	AudioEngine^ Systemhelper::CreateAudioEngine()
+	{
+		return ref new WOtech::AudioEngine();
+	}
+	AudioEngine^ Systemhelper::GetAudioEngine()
+	{
+		return WOtech::SystemManager::Instance->GetAudioEngine();
+	}
+
 	void Systemhelper::RunGame(_In_ IGame^ Game)
 	{
 		auto viewsource = ref new ViewSource();

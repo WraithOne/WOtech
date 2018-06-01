@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.04.2018
-///			Edited:		01.05.2018
+///			Edited:		12.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SYSTEMHELPER_H
@@ -35,11 +35,17 @@ namespace WOtech
 		~Systemhelper();
 
 	public:
-		static DeviceDX11^ CreateDeviceDX11();
-		static DeviceDX11^ GetDeviceDX11();
+		static WOtech::DeviceDX11^ CreateDeviceDX11();
+		static WOtech::DeviceDX11^ GetDeviceDX11();
 
-		static SpriteBatch^ CreateSpriteBatch(_In_ DeviceDX11^ device);
-		static SpriteBatch^ GetSpriteBatch();
+		static WOtech::SpriteBatch^ CreateSpriteBatch(_In_ DeviceDX11^ device);
+		static WOtech::SpriteBatch^ GetSpriteBatch();
+
+		static WOtech::InputManager^ CreateInputManager();
+		static WOtech::InputManager^ GetInputManager();
+
+		static WOtech::AudioEngine^ CreateAudioEngine();
+		static WOtech::AudioEngine^ GetAudioEngine();
 
 		static void RunGame(_In_ IGame^ Game);
 	};

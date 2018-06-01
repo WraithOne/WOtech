@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	18.03.2015
-///			Edited:		01.05.2018
+///			Edited:		12.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -111,20 +111,36 @@ namespace WOtech
 		}	
 	}
 
-	WOtech::DeviceDX11 ^ SystemManager::GetDeviceDX11()
+	WOtech::DeviceDX11^ SystemManager::GetDeviceDX11()
 	{
 		if(m_deviceDX11List.empty())
-			throw ref new Platform::NotImplementedException();
+			throw ref new Platform::OutOfBoundsException();
 		
 		return m_deviceDX11List.at(0);
 	}
 
-	WOtech::SpriteBatch ^ SystemManager::GetSpriteBatch()
+	WOtech::SpriteBatch^ SystemManager::GetSpriteBatch()
 	{
 		if(m_spriteBatchList.empty())
-			throw ref new Platform::NotImplementedException();
+			throw ref new Platform::OutOfBoundsException();
 
 		return m_spriteBatchList.at(0);
+	}
+
+	WOtech::InputManager^ SystemManager::GetInputManager()
+	{
+		if (m_inputManagerList.empty())
+			throw ref new Platform::OutOfBoundsException();
+
+		return m_inputManagerList.at(0);
+	}
+
+	WOtech::AudioEngine^ SystemManager::GetAudioEngine()
+	{
+		if (m_audioEngineList.empty())
+			throw ref new Platform::OutOfBoundsException();
+
+		return m_audioEngineList.at(0);
 	}
 
 	void SystemManager::OnSuspending()
