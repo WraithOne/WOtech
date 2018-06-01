@@ -51,10 +51,9 @@ namespace WOtech
 
 	public ref class Storage sealed
 	{
-	internal:
+	public:
 		Storage();
 
-	public:
 		// Write
 		void WriteLocalSetting(_In_ Platform::String^ containerName, _In_ Platform::String^ settingName, _In_ Platform::Object^ setting);
 		void WriteRoamingSetting(_In_ Platform::String^ containerName, _In_ Platform::String^ settingName, _In_ Platform::Object^ setting);
