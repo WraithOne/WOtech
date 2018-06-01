@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	25.02.2016
-///			Edited:		17.01.2018
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -27,10 +27,6 @@
 #include "Utilities.h"
 #include "DXWrapper.h"
 
-using namespace Windows::Foundation::Numerics;
-using namespace DirectX;
-using namespace WOtech::DXWrapper;
-
 namespace WOtech
 {
 	///////////////////////
@@ -38,9 +34,9 @@ namespace WOtech
 	///////////////////////
 	WOtech::DirectionalLight::DirectionalLight()
 	{
-		Direction = g_XMOne;
-		DiffuseColor = g_XMOne;
-		SpecularColor = g_XMOne;
+		Direction = DirectX::g_XMOne;
+		DiffuseColor = DirectX::g_XMOne;
+		SpecularColor = DirectX::g_XMOne;
 	}
 
 	///////////////////////
@@ -48,10 +44,10 @@ namespace WOtech
 	///////////////////////
 	MaterialMatrices::MaterialMatrices()
 	{
-		World = XMMatrixIdentity();
-		View = XMMatrixIdentity();
-		Projection = XMMatrixIdentity();
-		worldView = XMMatrixIdentity();
+		World = DirectX::XMMatrixIdentity();
+		View = DirectX::XMMatrixIdentity();
+		Projection = DirectX::XMMatrixIdentity();
+		worldView = DirectX::XMMatrixIdentity();
 	}
 
 	void MaterialMatrices::setConstants(_In_ DirectX::XMMATRIX& worldViewProjectionConstant, _In_ DirectX::XMMATRIX& worldConstant, _In_ DirectX::XMMATRIX& worldInverseConstant)
@@ -71,7 +67,7 @@ namespace WOtech
 		DiffuseColor = DirectX::g_XMOne;
 	}
 
-	void MaterialColor::setConstants(_In_ XMVECTOR& diffuseColorConstant)
+	void MaterialColor::setConstants(_In_ DirectX::XMVECTOR& diffuseColorConstant)
 	{
 	}
 
@@ -80,8 +76,8 @@ namespace WOtech
 	///////////////////////
 	MaterialLights::MaterialLights()
 	{
-		EmissiveColor = g_XMZero;
-		AmbientLightColor = g_XMZero;
+		EmissiveColor = DirectX::g_XMZero;
+		AmbientLightColor = DirectX::g_XMZero;
 
 		for (int i = 0; i < MaxDirectionalLights; i++)
 		{
@@ -89,7 +85,7 @@ namespace WOtech
 		}
 	}
 
-	void MaterialLights::setConstants(_In_ MaterialMatrices const & matrices, _In_ XMVECTOR & emissiveColor, _In_ XMMATRIX & worldConstant, _In_ XMVECTOR worldInverseTransposeConstant[3], _In_ XMVECTOR & eyePositionConstant, _In_ XMVECTOR & diffuseColorConstant, _In_ XMVECTOR & emissiveColorConstant, _In_ bool lightingEnabled)
+	void MaterialLights::setConstants(_In_ MaterialMatrices const & matrices, _In_ DirectX::XMVECTOR & emissiveColor, _In_ DirectX::XMMATRIX & worldConstant, _In_ DirectX::XMVECTOR worldInverseTransposeConstant[3], _In_ DirectX::XMVECTOR & eyePositionConstant, _In_ DirectX::XMVECTOR & diffuseColorConstant, _In_ DirectX::XMVECTOR & emissiveColorConstant, _In_ bool lightingEnabled)
 	{
 	}
 
@@ -141,29 +137,29 @@ namespace WOtech
 		context->PSSetShader(nullptr, 0, 0);
 	}
 
-	void BasicMaterial::setWorld(_In_ FLOAT4x4 world)
+	void BasicMaterial::setWorld(_In_ Windows::Foundation::Numerics::float4x4 world)
 	{
-		m_matrices.World = XMLoadFloat4x4(world);
+		m_matrices.World = WOtech::DXWrapper::XMLoadFloat4x4(world);
 	}
-	void BasicMaterial::setWorldInverse(_In_ WOtech::FLOAT4x4 worldInverse)
+	void BasicMaterial::setWorldInverse(_In_ Windows::Foundation::Numerics::float4x4 worldInverse)
 	{
-		m_matrices.WorldInverse = XMLoadFloat4x4(worldInverse);
+		m_matrices.WorldInverse = WOtech::DXWrapper::XMLoadFloat4x4(worldInverse);
 	}
-	void BasicMaterial::setView(_In_ FLOAT4x4 view)
+	void BasicMaterial::setView(_In_ Windows::Foundation::Numerics::float4x4 view)
 	{
-		m_matrices.View = XMLoadFloat4x4(view);
+		m_matrices.View = WOtech::DXWrapper::XMLoadFloat4x4(view);
 	}
-	void BasicMaterial::setProjection(_In_ FLOAT4x4 projection)
+	void BasicMaterial::setProjection(_In_ Windows::Foundation::Numerics::float4x4 projection)
 	{
-		m_matrices.Projection = XMLoadFloat4x4(projection);
+		m_matrices.Projection = WOtech::DXWrapper::XMLoadFloat4x4(projection);
 	}
 
-	void BasicMaterial::setMatrices(_In_ WOtech::FLOAT4x4 world, _In_ WOtech::FLOAT4x4 worldInverse, _In_ WOtech::FLOAT4x4 view, _In_ WOtech::FLOAT4x4 projection)
+	void BasicMaterial::setMatrices(_In_ Windows::Foundation::Numerics::float4x4 world, _In_ Windows::Foundation::Numerics::float4x4 worldInverse, _In_ Windows::Foundation::Numerics::float4x4 view, _In_ Windows::Foundation::Numerics::float4x4 projection)
 	{
-		m_matrices.World = XMLoadFloat4x4(world);
-		m_matrices.WorldInverse = XMLoadFloat4x4(worldInverse);
-		m_matrices.View = XMLoadFloat4x4(view);
-		m_matrices.Projection = XMLoadFloat4x4(projection);
+		m_matrices.World = WOtech::DXWrapper::XMLoadFloat4x4(world);
+		m_matrices.WorldInverse = WOtech::DXWrapper::XMLoadFloat4x4(worldInverse);
+		m_matrices.View = WOtech::DXWrapper::XMLoadFloat4x4(view);
+		m_matrices.Projection = WOtech::DXWrapper::XMLoadFloat4x4(projection);
 	}
 
 	void WOtech::BasicMaterial::setConstants(_In_ DeviceDX11^ device)

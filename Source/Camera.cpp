@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	10.05.2014
-///			Edited:		02.09.2017
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -29,27 +29,27 @@
 #undef max // Use __max instead.
 
 using namespace DirectX;
-using namespace WOtech;
+using namespace Windows::Foundation::Numerics;
 
 namespace WOtech
 {
 	Camera::Camera()
 	{
 		// Setup the view matrix.
-		FLOAT3 eye;
-		eye.X = 0.0f;
-		eye.Y = 0.0f;
-		eye.Z = 0.0f;
+		float3 eye;
+		eye.x = 0.0f;
+		eye.y = 0.0f;
+		eye.z = 0.0f;
 
-		FLOAT3 lookAt;
-		lookAt.X = 0.0f;
-		lookAt.Y = 0.0f;
-		lookAt.Z = 1.0f;
+		float3 lookAt;
+		lookAt.x = 0.0f;
+		lookAt.y = 0.0f;
+		lookAt.z = 1.0f;
 
-		FLOAT3 up;
-		up.X = 0.0f;
-		up.Y = 1.0f;
-		up.Z = 0.0f;
+		float3 up;
+		up.x = 0.0f;
+		up.y = 1.0f;
+		up.z = 0.0f;
 
 		SetViewParams(eye, lookAt, up);
 
@@ -61,22 +61,22 @@ namespace WOtech
 		SetProjParams(60.0f, 1.7777f, 0.01f, 1000.0f);
 	}
 
-	void Camera::LookDirection(_In_ FLOAT3 lookDirection)
+	void Camera::LookDirection(_In_ float3 lookDirection)
 	{
-		FLOAT3 lookAt;
-		lookAt.X = m_eye.X + lookDirection.X;
-		lookAt.Y = m_eye.Y + lookDirection.Y;
-		lookAt.Z = m_eye.Z + lookDirection.Z;
+		float3 lookAt;
+		lookAt.x = m_eye.x + lookDirection.x;
+		lookAt.y = m_eye.y + lookDirection.y;
+		lookAt.z = m_eye.z + lookDirection.z;
 
 		SetViewParams(m_eye, lookAt, m_up);
 	}
 
-	void Camera::Eye(_In_ FLOAT3 eye)
+	void Camera::Eye(_In_ float3 eye)
 	{
 		SetViewParams(eye, m_lookAt, m_up);
 	}
 
-	void Camera::SetViewParams(_In_ FLOAT3 eye, _In_ FLOAT3 lookAt, _In_ FLOAT3 up)
+	void Camera::SetViewParams(_In_ float3 eye, _In_ float3 lookAt, _In_ float3 up)
 	{
 		m_eye = eye;
 		m_lookAt = lookAt;
@@ -84,9 +84,9 @@ namespace WOtech
 
 		// Calculate the view matrix.
 		XMMATRIX view = XMMatrixLookAtRH(
-			XMLoadFloat3(&DirectX::XMFLOAT3(eye.X, eye.Y, eye.Z)),
-			XMLoadFloat3(&DirectX::XMFLOAT3(lookAt.X, lookAt.Y, lookAt.Z)),
-			XMLoadFloat3(&DirectX::XMFLOAT3(up.X, up.Y, up.Z))
+			XMLoadFloat3(&DirectX::XMFLOAT3(eye.x, eye.y, eye.z)),
+			XMLoadFloat3(&DirectX::XMFLOAT3(lookAt.x, lookAt.y, lookAt.z)),
+			XMLoadFloat3(&DirectX::XMFLOAT3(up.x, up.y, up.z))
 		);
 
 		XMVECTOR det;
@@ -136,17 +136,17 @@ namespace WOtech
 		return m_inverseView;
 	}
 
-	FLOAT3 Camera::Eye()
+	float3 Camera::Eye()
 	{
 		return m_eye;
 	}
 
-	FLOAT3 Camera::LookAt()
+	float3 Camera::LookAt()
 	{
 		return m_lookAt;
 	}
 
-	FLOAT3 Camera::Up()
+	float3 Camera::Up()
 	{
 		return m_up;
 	}

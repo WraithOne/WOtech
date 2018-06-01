@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	27.02.2016
-///			Edited:		22.12.2017
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_RENDERCOMMAND_H
@@ -26,10 +26,10 @@ namespace WOtech
 
 	public value struct RendererUniforms
 	{
-		WOtech::FLOAT4x4 WorldMatrix;
-		WOtech::FLOAT4x4 WorldInverseMatrix;
-		WOtech::FLOAT4x4 ViewMatrix;
-		WOtech::FLOAT4x4 ProjectionMatrix;
+		Windows::Foundation::Numerics::float4x4 WorldMatrix;
+		Windows::Foundation::Numerics::float4x4 WorldInverseMatrix;
+		Windows::Foundation::Numerics::float4x4 ViewMatrix;
+		Windows::Foundation::Numerics::float4x4 ProjectionMatrix;
 	};
 
 	struct RenderCommand

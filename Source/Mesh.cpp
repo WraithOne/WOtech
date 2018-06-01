@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	23.02.2016
-///			Edited:		04.10.2017
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -29,9 +29,9 @@ namespace WOtech
 		m_indexBuffer = indexBuffer;
 		m_material = material;
 
-		m_position = { 0 };
-		m_scaling = { 0 };
-		m_rotation = { 0 };
+		m_position = { 0.0f, 0.0f, 0.0f };
+		m_scaling = { 0.0f, 0.0f, 0.0f };
+		m_rotation = { 0.0f, 0.0f, 0.0f };
 	}
 
 	void WOtech::Mesh::bindMaterial(_In_ DeviceDX11^ device)

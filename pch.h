@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.03.2015
-///			Edited:		15.08.2017
+///			Edited:		01.06.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #pragma once
@@ -37,6 +37,7 @@
 #include <math.h>
 
 #include <windows.h>
+#include <windows.foundation.numerics.h>
 #include <wrl.h>
 #include <wrl/client.h>
 #include <concrt.h>

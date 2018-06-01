@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	27.02.2016
-///			Edited:		02.09.2017
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -48,29 +48,29 @@ namespace WOtech
 			data[i] = ref new VertexPositionColor;
 		}
 
-		data[0]->Position = WOtech::FLOAT3{ -size / 2.0f, -size / 2.0f, -size / 2.0f };
-		data[0]->Color = WOtech::FLOAT4{ 1.0f, 0.0f, 0.0f, 1.0f };
+		data[0]->Position = Windows::Foundation::Numerics::float3{ -size / 2.0f, -size / 2.0f, -size / 2.0f };
+		data[0]->Color = Windows::Foundation::Numerics::float4{ 1.0f, 0.0f, 0.0f, 1.0f };
 
-		data[1]->Position = WOtech::FLOAT3{ -size / 2.0f, -size / 2.0f, size / 2.0f };
-		data[1]->Color = WOtech::FLOAT4{ 0.0f, 1.0f, 0.0f, 1.0f };
+		data[1]->Position = Windows::Foundation::Numerics::float3{ -size / 2.0f, -size / 2.0f, size / 2.0f };
+		data[1]->Color = Windows::Foundation::Numerics::float4{ 0.0f, 1.0f, 0.0f, 1.0f };
 
-		data[2]->Position = WOtech::FLOAT3{ -size / 2.0f, size / 2.0f, -size / 2.0f };
-		data[2]->Color = WOtech::FLOAT4{ 0.0f, 0.0f, 1.0f, 1.0f };
+		data[2]->Position = Windows::Foundation::Numerics::float3{ -size / 2.0f, size / 2.0f, -size / 2.0f };
+		data[2]->Color = Windows::Foundation::Numerics::float4{ 0.0f, 0.0f, 1.0f, 1.0f };
 
-		data[3]->Position = WOtech::FLOAT3{ -size / 2.0f, size / 2.0f, size / 2.0f };
-		data[3]->Color = WOtech::FLOAT4{ 1.0f, 0.0f, 0.0f, 1.0f };
+		data[3]->Position = Windows::Foundation::Numerics::float3{ -size / 2.0f, size / 2.0f, size / 2.0f };
+		data[3]->Color = Windows::Foundation::Numerics::float4{ 1.0f, 0.0f, 0.0f, 1.0f };
 
-		data[4]->Position = WOtech::FLOAT3{ size / 2.0f, -size / 2.0f, -size / 2.0f };
-		data[4]->Color = WOtech::FLOAT4{ 0.0f, 1.0f, 0.0f, 1.0f };
+		data[4]->Position = Windows::Foundation::Numerics::float3{ size / 2.0f, -size / 2.0f, -size / 2.0f };
+		data[4]->Color = Windows::Foundation::Numerics::float4{ 0.0f, 1.0f, 0.0f, 1.0f };
 
-		data[5]->Position = WOtech::FLOAT3{ size / 2.0f, -size / 2.0f, size / 2.0f };
-		data[5]->Color = WOtech::FLOAT4{ 0.0f, 0.0f, 1.0f, 1.0f };
+		data[5]->Position = Windows::Foundation::Numerics::float3{ size / 2.0f, -size / 2.0f, size / 2.0f };
+		data[5]->Color = Windows::Foundation::Numerics::float4{ 0.0f, 0.0f, 1.0f, 1.0f };
 
-		data[6]->Position = WOtech::FLOAT3{ size / 2.0f, size / 2.0f, -size / 2.0f };
-		data[6]->Color = WOtech::FLOAT4{ 1.0f, 0.0f, 0.0f, 1.0f };
+		data[6]->Position = Windows::Foundation::Numerics::float3{ size / 2.0f, size / 2.0f, -size / 2.0f };
+		data[6]->Color = Windows::Foundation::Numerics::float4{ 1.0f, 0.0f, 0.0f, 1.0f };
 
-		data[7]->Position = WOtech::FLOAT3{ size / 2.0f, size / 2.0f, size / 2.0f };
-		data[7]->Color = WOtech::FLOAT4{ 0.0f, 1.0f, 0.0f, 1.0f };
+		data[7]->Position = Windows::Foundation::Numerics::float3{ size / 2.0f, size / 2.0f, size / 2.0f };
+		data[7]->Color = Windows::Foundation::Numerics::float4{ 0.0f, 1.0f, 0.0f, 1.0f };
 
 		WORD indices[] =
 		{
@@ -109,14 +109,14 @@ namespace WOtech
 			data[i] = ref new VertexPositionColor;
 		}
 
-		data[0]->Position = WOtech::FLOAT3{ 0.5f, 0.5f, 0.5f };
-		data[0]->Color = WOtech::FLOAT4{ 1.0f, 0.0f, 0.0f, 1.0f };
+		data[0]->Position = Windows::Foundation::Numerics::float3{ 0.5f, 0.5f, 0.5f };
+		data[0]->Color = Windows::Foundation::Numerics::float4{ 1.0f, 0.0f, 0.0f, 1.0f };
 
-		data[1]->Position = WOtech::FLOAT3{ 0.5f, -0.5f, 0.5f };
-		data[1]->Color = WOtech::FLOAT4{ 1.0f, 0.0f, 0.0f, 1.0f };
+		data[1]->Position = Windows::Foundation::Numerics::float3{ 0.5f, -0.5f, 0.5f };
+		data[1]->Color = Windows::Foundation::Numerics::float4{ 1.0f, 0.0f, 0.0f, 1.0f };
 
-		data[2]->Position = WOtech::FLOAT3{ -0.5f, -0.5f, 0.5f };
-		data[2]->Color = WOtech::FLOAT4{ 1.0f, 0.0f, 0.0f, 1.0f };
+		data[2]->Position = Windows::Foundation::Numerics::float3{ -0.5f, -0.5f, 0.5f };
+		data[2]->Color = Windows::Foundation::Numerics::float4{ 1.0f, 0.0f, 0.0f, 1.0f };
 
 		WORD indices[] =
 		{

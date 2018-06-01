@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	21.02.2016
-///			Edited:		18.02.2018
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -22,10 +22,6 @@
 #include "ForwardRenderer.h"
 #include "DeviceDX11.h"
 #include "Utilities.h"
-
-using namespace WOtech::DXWrapper;
-using namespace Windows::Foundation::Numerics;
-using namespace Windows::UI;
 
 namespace WOtech
 {
@@ -49,16 +45,16 @@ namespace WOtech
 	{
 		RenderCommand command;
 		command.mesh = mesh;
-		command.uniforms.WorldMatrix = wrapXMMATRIX(DirectX::XMMatrixTransformation(DirectX::g_XMZero,
+		command.uniforms.WorldMatrix = WOtech::DXWrapper::wrapXMMATRIX(DirectX::XMMatrixTransformation(DirectX::g_XMZero,
 			DirectX::XMQuaternionIdentity(),
-			XMLoadFloat3(mesh->getScaling()),
+			WOtech::DXWrapper::XMLoadFloat3(mesh->getScaling()),
 			DirectX::g_XMZero,
-			XMLoadFloat3(mesh->getRotation()),
-			XMLoadFloat3(mesh->getPosition())));
+			WOtech::DXWrapper::XMLoadFloat3(mesh->getRotation()),
+			WOtech::DXWrapper::XMLoadFloat3(mesh->getPosition())));
 
-		command.uniforms.WorldInverseMatrix = wrapXMFloat4x4(camera->InverseMatrix());
-		command.uniforms.ProjectionMatrix = wrapXMFloat4x4(camera->ProjectionMatrix());
-		command.uniforms.ViewMatrix = wrapXMFloat4x4(camera->ViewMatrix());
+		command.uniforms.WorldInverseMatrix = WOtech::DXWrapper::wrapXMFloat4x4(camera->InverseMatrix());
+		command.uniforms.ProjectionMatrix = WOtech::DXWrapper::wrapXMFloat4x4(camera->ProjectionMatrix());
+		command.uniforms.ViewMatrix = WOtech::DXWrapper::wrapXMFloat4x4(camera->ViewMatrix());
 
 		m_CommandQueue.push_back(command);
 	}
@@ -95,7 +91,7 @@ namespace WOtech
 		m_device->Present();
 	}
 
-	void ForwardRenderer::Init(_In_ Color clearColor)
+	void ForwardRenderer::Init(_In_ Windows::UI::Color clearColor)
 	{
 		m_clearColor = clearColor;
 	}

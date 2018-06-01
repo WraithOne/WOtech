@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.02.2016
-///			Edited:		22.10.2017
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_3DCOMPONENTS_H
@@ -333,19 +333,19 @@ namespace WOtech
 	public value struct INPUT_ELEMENT_DESC
 	{
 		/// <summary>	The HLSL semantic associated with this element in a shader input-signature.< / summary>
-		Platform::String^				SemanticName;
+		Platform::String^		SemanticName;
 		/// <summary>	The semantic index for the element. A semantic index modifies a semantic, with an integer index number. A semantic index is only needed in a case where there is more than one element with the same semantic. For example, a 4x4 matrix would have four components each with the semantic name < / summary>
-		UINT							SemanticIndex;
+		UINT					SemanticIndex;
 		/// <summary>	The data type of the element data. See FORMAT_DXGI.< / summary>
-		FORMAT_DXGI						Format;
+		FORMAT_DXGI				Format;
 		/// <summary>	An integer value that identifies the input-assembler (see input slot). Valid values are between 0 and 15.< / summary>
-		UINT							InputSlot;
+		UINT					InputSlot;
 		/// <summary>	Optional. Offset (in bytes) between each element. Use D3D11_APPEND_ALIGNED_ELEMENT for convenience to define the current element directly after the previous one, including any packing if necessary.< / summary>
 		UINT					AlignedByteOffset;
 		/// <summary>	Identifies the input data class for a single input slot.< / summary>
-		INPUT_CLASSIFICATION			InputSlotClass;
+		INPUT_CLASSIFICATION	InputSlotClass;
 		/// <summary>	The number of instances to draw using the same per-instance data before advancing in the buffer by one element. This value must be 0 for an element that contains per-vertex data (the slot class is set to D3D11_INPUT_PER_VERTEX_DATA).< / summary>
-		UINT							InstanceDataStepRate;
+		UINT					InstanceDataStepRate;
 	};
 
 	public ref class Camera sealed
@@ -353,23 +353,23 @@ namespace WOtech
 	public:
 		Camera();
 
-		void SetViewParams(_In_ WOtech::FLOAT3 eye,
-			_In_ WOtech::FLOAT3 lookAt,
-			_In_ WOtech::FLOAT3 up);
+		void SetViewParams(_In_ Windows::Foundation::Numerics::float3 eye,
+			_In_ Windows::Foundation::Numerics::float3 lookAt,
+			_In_ Windows::Foundation::Numerics::float3 up);
 
 		void SetProjParams(_In_ float32 fieldOfView, _In_ float32 aspectRatio, _In_ float32 nearPlane, _In_ float32 farPlane);
 
-		void LookDirection(_In_ WOtech::FLOAT3 lookDirection);
-		void Eye(_In_ WOtech::FLOAT3 position);
+		void LookDirection(_In_ Windows::Foundation::Numerics::float3 lookDirection);
+		void Eye(_In_ Windows::Foundation::Numerics::float3 position);
 
 		float32	NearClipPlane();
 		float32	FarClipPlane();
 		float32	Pitch();
 		float32	Yaw();
 
-		WOtech::FLOAT3 Eye();
-		WOtech::FLOAT3 LookAt();
-		WOtech::FLOAT3 Up();
+		Windows::Foundation::Numerics::float3 Eye();
+		Windows::Foundation::Numerics::float3 LookAt();
+		Windows::Foundation::Numerics::float3 Up();
 
 	internal:
 		DirectX::XMFLOAT4X4 ViewMatrix();
@@ -382,9 +382,9 @@ namespace WOtech
 
 		DirectX::XMFLOAT4X4 m_inverseView;
 
-		WOtech::FLOAT3 m_eye;
-		WOtech::FLOAT3 m_lookAt;
-		WOtech::FLOAT3 m_up;
+		Windows::Foundation::Numerics::float3 m_eye;
+		Windows::Foundation::Numerics::float3 m_lookAt;
+		Windows::Foundation::Numerics::float3 m_up;
 		float32 m_cameraYawAngle;
 		float32 m_cameraPitchAngle;
 
@@ -538,13 +538,13 @@ namespace WOtech
 
 		void setGeometry(_In_ VertexBuffer^ vertex, _In_ IndexBuffer^ index) { m_vertexBuffer = vertex, m_indexBuffer = index; }
 		void setMaterial(_In_ IMaterial^ material) { m_material = material; }
-		void setPosition(_In_  WOtech::FLOAT3 position) { m_position = position; }
-		void setScaling(_In_ WOtech::FLOAT3 scaling) { m_scaling = scaling; }
-		void setRotation(_In_ WOtech::FLOAT3 rotation) { m_rotation = rotation; }
+		void setPosition(_In_  Windows::Foundation::Numerics::float3 position) { m_position = position; }
+		void setScaling(_In_ Windows::Foundation::Numerics::float3 scaling) { m_scaling = scaling; }
+		void setRotation(_In_ Windows::Foundation::Numerics::float3 rotation) { m_rotation = rotation; }
 
-		WOtech::FLOAT3 getPosition() { return m_position; }
-		WOtech::FLOAT3 getScaling() { return m_scaling; }
-		WOtech::FLOAT3 getRotation() { return m_rotation; }
+		Windows::Foundation::Numerics::float3 getPosition() { return m_position; }
+		Windows::Foundation::Numerics::float3 getScaling() { return m_scaling; }
+		Windows::Foundation::Numerics::float3 getRotation() { return m_rotation; }
 
 		void bindMaterial(_In_ DeviceDX11^ device);
 		void Render(_In_ DeviceDX11^ device);
@@ -555,9 +555,9 @@ namespace WOtech
 		VertexBuffer^		m_vertexBuffer;
 		IndexBuffer^		m_indexBuffer;
 		IMaterial^			m_material;
-		WOtech::FLOAT3		m_position;
-		WOtech::FLOAT3		m_scaling;
-		WOtech::FLOAT3		m_rotation;
+		Windows::Foundation::Numerics::float3		m_position;
+		Windows::Foundation::Numerics::float3		m_scaling;
+		Windows::Foundation::Numerics::float3		m_rotation;
 	};
 }// WOtech
 #endif

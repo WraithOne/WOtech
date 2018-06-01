@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	20.08.2017
-///			Edited:		02.09.2017
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_MATERIALS_H
@@ -103,11 +103,11 @@ namespace WOtech
 	public interface class IMaterialMatrices
 	{
 	public:
-		void setWorld(_In_ WOtech::FLOAT4x4 world);
-		void setWorldInverse(_In_ WOtech::FLOAT4x4 worldInverse);
-		void setView(_In_ WOtech::FLOAT4x4 view);
-		void setProjection(_In_ WOtech::FLOAT4x4 projection);
-		void setMatrices(_In_ WOtech::FLOAT4x4 world, _In_ WOtech::FLOAT4x4 worldInverse, _In_ WOtech::FLOAT4x4 view, _In_ WOtech::FLOAT4x4 projection);
+		void setWorld(_In_ Windows::Foundation::Numerics::float4x4 world);
+		void setWorldInverse(_In_ Windows::Foundation::Numerics::float4x4 worldInverse);
+		void setView(_In_ Windows::Foundation::Numerics::float4x4 view);
+		void setProjection(_In_ Windows::Foundation::Numerics::float4x4 projection);
+		void setMatrices(_In_ Windows::Foundation::Numerics::float4x4 world, _In_ Windows::Foundation::Numerics::float4x4 worldInverse, _In_ Windows::Foundation::Numerics::float4x4 view, _In_ Windows::Foundation::Numerics::float4x4 projection);
 	};
 
 	// Interface for Materials with Directional Lightning
@@ -116,12 +116,12 @@ namespace WOtech
 	public:
 		void SetLightingEnabled(_In_ bool value);
 		void SetPerPixelLighting(_In_ bool value);
-		void SetAmbientLightColor(_In_ WOtech::FLOAT4 value);
+		void SetAmbientLightColor(_In_ Windows::Foundation::Numerics::float4 value);
 
 		void SetLightEnabled(_In_ int whichLight, _In_ bool value);
-		void SetLightDirection(_In_ int whichLight, _In_ WOtech::FLOAT4 value);
-		void SetLightDiffuseColor(_In_ int whichLight, _In_ WOtech::FLOAT4 value);
-		void SetLightSpecularColor(_In_ int whichLight, _In_ WOtech::FLOAT4 value);
+		void SetLightDirection(_In_ int whichLight, _In_ Windows::Foundation::Numerics::float4 value);
+		void SetLightDiffuseColor(_In_ int whichLight, _In_ Windows::Foundation::Numerics::float4 value);
+		void SetLightSpecularColor(_In_ int whichLight, _In_ Windows::Foundation::Numerics::float4 value);
 
 		void EnableDefaultLighting();
 	};
@@ -134,11 +134,11 @@ namespace WOtech
 		virtual void bindMaterial(_In_ DeviceDX11^ device);
 		virtual void unbindMaterial(_In_ DeviceDX11^ device);
 
-		virtual void setWorld(_In_ WOtech::FLOAT4x4 world);
-		virtual void setWorldInverse(_In_ WOtech::FLOAT4x4 worldInverse);
-		virtual void setView(_In_ WOtech::FLOAT4x4 view);
-		virtual void setProjection(_In_ WOtech::FLOAT4x4 projection);
-		virtual void setMatrices(_In_ WOtech::FLOAT4x4 world, _In_ WOtech::FLOAT4x4 worldInverse, _In_ WOtech::FLOAT4x4 view, _In_ WOtech::FLOAT4x4 projection);
+		virtual void setWorld(_In_ Windows::Foundation::Numerics::float4x4 world);
+		virtual void setWorldInverse(_In_ Windows::Foundation::Numerics::float4x4 worldInverse);
+		virtual void setView(_In_ Windows::Foundation::Numerics::float4x4 view);
+		virtual void setProjection(_In_ Windows::Foundation::Numerics::float4x4 projection);
+		virtual void setMatrices(_In_ Windows::Foundation::Numerics::float4x4 world, _In_ Windows::Foundation::Numerics::float4x4 worldInverse, _In_ Windows::Foundation::Numerics::float4x4 view, _In_ Windows::Foundation::Numerics::float4x4 projection);
 
 	private:
 		void setConstants(_In_ DeviceDX11^ device);

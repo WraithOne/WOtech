@@ -10,7 +10,7 @@
 ///			Description: Wrapper Enums/structs/funcitons for DirectX
 ///
 ///			Created:	06.11.2016
-///			Edited:		22.10.2017
+///			Edited:		01.05.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DXWRAPPER_H
@@ -30,86 +30,31 @@ namespace WOtech
 {
 	namespace DXWrapper
 	{
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts Windows::UI::Color into D2D1_COLOR_F. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="color"> Describes a color in terms of alpha, red, green, and blue channels. </param>
-		///
-		/// <returns>	D2D1_COLOR_F, Describes the red, green, blue, and alpha components of a color. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D2D1_COLOR_F wrapColorD2D(_In_ Windows::UI::Color color)
 		{
 			return D2D1::ColorF(static_cast<float>(color.R) / 256.0f, static_cast<float>(color.G) / 256.0f, static_cast<float>(color.B) / 256.0f, static_cast<float>(color.A) / 256.0f);
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts Windows::UI::Color into XMVECTORF32. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="color"> Describes a color in terms of alpha, red, green, and blue channels. </param>
-		///
-		/// <returns>	XMVECTORF32, Describes the red, green, blue, and alpha components of a color. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline DirectX::XMVECTORF32 wrapColorD3D(_In_ Windows::UI::Color color)
 		{
-			DirectX::XMVECTORF32 out = { static_cast<float>(color.R) / 256.0f, static_cast<float>(color.G) / 256.0f, static_cast<float>(color.B) / 256.0f, static_cast<float>(color.A) / 256.0f };
-			return out;
+			return { static_cast<float>(color.R) / 256.0f, static_cast<float>(color.G) / 256.0f, static_cast<float>(color.B) / 256.0f, static_cast<float>(color.A) / 256.0f };
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts WOtech::RECT into D2D1_RECT_F. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="rect">	Represents a rectangle defined by the coordinates of the upper-left corner (left, top) and the coordinates of the lower-right corner (right, bottom). </param>
-		///
-		/// <returns>	D2D1_RECT_F, Represents a rectangle defined by the coordinates of the upper-left corner (left, top) and the coordinates of the lower-right corner (right, bottom). </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D2D1_RECT_F wrapRect(_In_ WOtech::RECT rect)
 		{
 			return D2D1::RectF(rect.X, rect.Y, rect.Width, rect.Height);
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts Windows::Foundation::Size. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="size">	Represents number values that specify a height and width. </param>
-		///
-		/// <returns>	D2D1_SIZE_F, Stores an ordered pair of floats, typically the width and height of a rectangle. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D2D1_SIZE_F wrapSize(_In_ Windows::Foundation::Size size)
 		{
 			return D2D1::SizeF(size.Width, size.Height);
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts Windows::Foundation::Point. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="point"> Represents x - and y - coordinate values that define a point in a two - dimensional plane.. </param>
-		///
-		/// <returns>	D2D1_POINT_2F, Represents an x-coordinate and y-coordinate pair in two-dimensional space. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D2D1_POINT_2F wrapPoint(_In_ Windows::Foundation::Point point)
 		{
 			return D2D1::Point2F(point.X, point.Y);
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts FONT_STYLE. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="fontstyle"> Represents the style of a font face as normal, italic, or oblique. </param>
-		///
-		/// <returns>	A DWRITE_FONT_STYLE. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline DWRITE_FONT_STYLE wraptFontStyle(_In_ FONT_STYLE fontstyle)
 		{
 			switch (fontstyle)
@@ -128,15 +73,6 @@ namespace WOtech
 			}
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts BITMAP_INTERPOLATION_MODE. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="bitmapinterpolationmode"> Specifies the algorithm that is used when images are scaled or rotated. </param>
-		///
-		/// <returns>	A D2D1_BITMAP_INTERPOLATION_MODE. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D2D1_BITMAP_INTERPOLATION_MODE wrapBitmapInterpolationMode(_In_ const BITMAP_INTERPOLATION_MODE bitmapinterpolationmode)
 		{
 			switch (bitmapinterpolationmode)
@@ -156,15 +92,6 @@ namespace WOtech
 			}
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts FIGURE_BEGIN. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="figurebegin">	Indicates whether a specific figure is filled or hollow.  </param>
-		///
-		/// <returns>	A D2D1_FIGURE_BEGIN. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D2D1_FIGURE_BEGIN wrapFigureBegin(_In_ FIGURE_BEGIN figurebegin)
 		{
 			switch (figurebegin)
@@ -181,15 +108,6 @@ namespace WOtech
 			}
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts FIGURE_END. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="figureend">	Indicates whether a specific figure is open or closed.  </param>
-		///
-		/// <returns>	A D2D1_FIGURE_END. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D2D1_FIGURE_END wrapFigureEnd(_In_ FIGURE_END figureend)
 		{
 			switch (figureend)
@@ -206,29 +124,11 @@ namespace WOtech
 			}
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts BEZIER_SEGMENT. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="beziersegment">	Represents a cubic bezier segment drawn between two points. </param>
-		///
-		/// <returns>	A D2D1_BEZIER_SEGMENT. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D2D1_BEZIER_SEGMENT wrapBezierSegment(_In_ BEZIER_SEGMENT beziersegment)
 		{
 			return D2D1::BezierSegment(wrapPoint(beziersegment.point1), wrapPoint(beziersegment.point2), wrapPoint(beziersegment.point3));
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts SWEEP_DIRECTION. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="sweepdirection">	Defines the direction that an elliptical arc is drawn.  </param>
-		///
-		/// <returns>	A D2D1_SWEEP_DIRECTION. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D2D1_SWEEP_DIRECTION wrapSweepDirection(_In_ SWEEP_DIRECTION sweepdirection)
 		{
 			switch (sweepdirection)
@@ -245,15 +145,6 @@ namespace WOtech
 			}
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts ARC_SIZE. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="arcsize">	Specifies whether an arc should be greater than 180 degrees. </param>
-		///
-		/// <returns>	A D2D1_ARC_SIZE. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D2D1_ARC_SIZE wrapArcSize(_In_ ARC_SIZE arcsize)
 		{
 			switch (arcsize)
@@ -270,29 +161,11 @@ namespace WOtech
 			}
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts ARC_SEGMENT. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="arcsegment">	Describes an elliptical arc between two points. </param>
-		///
-		/// <returns>	A D2D1_ARC_SEGMENT. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D2D1_ARC_SEGMENT wrapArcSegment(_In_ ARC_SEGMENT arcsegment)
 		{
 			return D2D1::ArcSegment(wrapPoint(arcsegment.point), wrapSize(arcsegment.size), arcsegment.rotationAngle, wrapSweepDirection(arcsegment.sweepDirection), wrapArcSize(arcsegment.arcSize));
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts FORMAT_DXGI. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="formatDXGI">	Resource data formats, including fully-typed and typeless formats. A list of modifiers at the bottom of the page more fully describes each format type. </param>
-		///
-		/// <returns>	A DXGI_FORMAT. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline DXGI_FORMAT wrapDXGIFormat(_In_ FORMAT_DXGI formatDXGI)
 		{
 			switch (formatDXGI)
@@ -663,15 +536,6 @@ namespace WOtech
 			}
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts MODE_ROTATION_DXGI. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="moderotationDXGI">	Flags that indicate how the back buffers should be rotated to fit the physical rotation of a monitor. </param>
-		///
-		/// <returns>	A DXGI_MODE_ROTATION. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline DXGI_MODE_ROTATION wrapDXGIModeRotation(_In_ MODE_ROTATION_DXGI moderotationDXGI)
 		{
 			switch (moderotationDXGI)
@@ -697,15 +561,6 @@ namespace WOtech
 			}
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts MODE_SCANLINE_ORDER_DXGI. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="modescanlineorderDXGI">	Flags indicating the method the raster uses to create an image on a surface.. </param>
-		///
-		/// <returns>	A DXGI_MODE_SCANLINE_ORDER. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline DXGI_MODE_SCANLINE_ORDER warpDXGIModeScanlineOrder(_In_ MODE_SCANLINE_ORDER_DXGI modescanlineorderDXGI)
 		{
 			switch (modescanlineorderDXGI)
@@ -728,15 +583,6 @@ namespace WOtech
 			}
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts MODE_SCALING_DXGI. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="modescalingmodeDXGI">	The modescalingmode dxgi. </param>
-		///
-		/// <returns>	A DXGI_MODE_SCALING. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline DXGI_MODE_SCALING warpDXGIModeScaling(_In_ MODE_SCALING_DXGI modescalingmodeDXGI)
 		{
 			switch (modescalingmodeDXGI)
@@ -756,15 +602,6 @@ namespace WOtech
 			}
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts CLEAR_FLAG. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="clearflag">	The clearflag. </param>
-		///
-		/// <returns>	A D3D11_CLEAR_FLAG. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D3D11_CLEAR_FLAG wrapClearFlag(_In_ CLEAR_FLAG clearflag)
 		{
 			switch (clearflag)
@@ -781,15 +618,6 @@ namespace WOtech
 			}
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts INPUT_CLASSIFICATION. </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="inputclassification">	The inputclassification. </param>
-		///
-		/// <returns>	A D3D11_INPUT_CLASSIFICATION. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D3D11_INPUT_CLASSIFICATION wrapInputClassification(_In_ INPUT_CLASSIFICATION inputclassification)
 		{
 			switch (inputclassification)
@@ -806,15 +634,6 @@ namespace WOtech
 			}
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts Platform::Array<INPUT_ELEMENT_DESC>^ . </summary>
-		///
-		/// <remarks>	WraithOne, 17.04.2017. </remarks>
-		///
-		/// <param name="inputelementdesc">	The inputelementdesc. </param>
-		///
-		/// <returns>	Null if it fails, else a pointer to a D3D11_INPUT_ELEMENT_DESC. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline D3D11_INPUT_ELEMENT_DESC* wrapInputElementDesc(_In_ const Platform::Array<INPUT_ELEMENT_DESC>^ inputelementdesc)
 		{
 			const UINT size = inputelementdesc->Length;
@@ -837,15 +656,6 @@ namespace WOtech
 			return InputElementDESC;
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts Windows::Foundation::Numerics::float4x4 to DirectX::XMFLOAT4X4. </summary>
-		///
-		/// <remarks>	WraithOne, 02.09.2017. </remarks>
-		///
-		/// <param name="matrix">	A 4x4 matrix, used for 3D transforms. </param>
-		///
-		/// <returns>	DirectX::XMFLOAT4X4. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		inline DirectX::XMFLOAT4X4 wrapFloat4x4(_In_ Windows::Foundation::Numerics::float4x4 matrix)
 		{
 			return DirectX::XMFLOAT4X4(matrix.m11, matrix.m12, matrix.m13, matrix.m14,
@@ -854,144 +664,80 @@ namespace WOtech
 				matrix.m41, matrix.m42, matrix.m43, matrix.m44);
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts DirectX::XMFLOAT4X4 to WOtech::FLAOT4x4 </summary>
-		///
-		/// <remarks>	WraithOne, 02.09.2017. </remarks>
-		///
-		/// <param name="matrix">	A 4*4 floating point matrix. </param>
-		///
-		/// <returns>	A 4x4 matrix, used for 3D transforms. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline WOtech::FLOAT4x4 wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4 matrix)
+		inline Windows::Foundation::Numerics::float4x4 wrapXMFloat4x4(_In_ DirectX::XMFLOAT4X4 matrix)
 		{
-			WOtech::FLOAT4x4 temp =
-			{
-				matrix._11, matrix._12, matrix._13, matrix._14,
-				matrix._21, matrix._22, matrix._23, matrix._24,
-				matrix._31, matrix._32, matrix._33, matrix._34,
-				matrix._41, matrix._42, matrix._43, matrix._44
-			};
+			Windows::Foundation::Numerics::float4x4 output = Windows::Foundation::Numerics::float4x4();
 
-			return temp;
+			output.m11 = matrix._11;
+			output.m12 = matrix._12;
+			output.m13 = matrix._13;
+			output.m14 = matrix._14;
+			output.m21 = matrix._21;
+			output.m22 = matrix._22;
+			output.m23 = matrix._23;
+			output.m24 = matrix._24;
+			output.m31 = matrix._31;
+			output.m32 = matrix._32;
+			output.m33 = matrix._33;
+			output.m34 = matrix._34;
+			output.m41 = matrix._41;
+			output.m42 = matrix._42;
+			output.m43 = matrix._43;
+			output.m44 = matrix._44;
+
+			return output;
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts WOtech::FLOAT4x4 to DirectX::XMFLOAT4X4 </summary>
-		///
-		/// <remarks>	WraithOne, 02.09.2017. </remarks>
-		///
-		/// <param name="matrix">	A 4*4 floating point matrix. </param>
-		///
-		/// <returns>	A 4x4 matrix, used for 3D transforms. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline DirectX::XMFLOAT4X4 wrapWOFloat4x4(_In_ WOtech::FLOAT4x4 matrix)
+		inline DirectX::XMFLOAT4X4 wrapWOFloat4x4(_In_ Windows::Foundation::Numerics::float4x4 matrix)
 		{
-			DirectX::XMFLOAT4X4 temp =
-			{
-				matrix.M11, matrix.M12, matrix.M13, matrix.M14,
-				matrix.M21, matrix.M22, matrix.M23, matrix.M24,
-				matrix.M31, matrix.M32, matrix.M33, matrix.M34,
-				matrix.M41, matrix.M42, matrix.M43, matrix.M44
-			};
-
-			return temp;
+			return DirectX::XMFLOAT4X4(
+				matrix.m11, matrix.m12, matrix.m13, matrix.m14,
+				matrix.m21, matrix.m22, matrix.m23, matrix.m24,
+				matrix.m31, matrix.m32, matrix.m33, matrix.m34,
+				matrix.m41, matrix.m42, matrix.m43, matrix.m44);
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts WOtech::FLOAT2 to DirectX::XMVECTOR </summary>
-		///
-		/// <remarks>	WraithOne, 02.09.2017. </remarks>
-		///
-		/// <param name="matrix">	A 4*4 floating point matrix. </param>
-		///
-		/// <returns>	A 4x4 matrix, used for 3D transforms. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline DirectX::XMVECTOR XMLoadFloat2(_In_ WOtech::FLOAT2 vector)
+		inline DirectX::XMVECTOR XMLoadFloat2(_In_ Windows::Foundation::Numerics::float2 vector)
 		{
-			DirectX::XMFLOAT2 output = { vector.X, vector.Y };
+			DirectX::XMFLOAT2 output = { vector.x, vector.y };
 
 			return DirectX::XMLoadFloat2(&output);
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts WOtech::FLOAT3 to DirectX::XMVECTOR </summary>
-		///
-		/// <remarks>	WraithOne, 02.09.2017. </remarks>
-		///
-		/// <param name="matrix">	A 4*4 floating point matrix. </param>
-		///
-		/// <returns>	A 4x4 matrix, used for 3D transforms. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline DirectX::XMVECTOR XMLoadFloat3(_In_ WOtech::FLOAT3 vector)
+		inline DirectX::XMVECTOR XMLoadFloat3(_In_ Windows::Foundation::Numerics::float3 vector)
 		{
-			DirectX::XMFLOAT3 output = { vector.X, vector.Y , vector.Z };
+			DirectX::XMFLOAT3 output = { vector.x, vector.y , vector.z };
 
 			return DirectX::XMLoadFloat3(&output);
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts WOtech::FLOAT4 to DirectX::XMVECTOR </summary>
-		///
-		/// <remarks>	WraithOne, 02.09.2017. </remarks>
-		///
-		/// <param name="matrix">	WOtech::FLOAT4. </param>
-		///
-		/// <returns>	DirectX::XMVECTOR. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline DirectX::XMVECTOR XMLoadFloat4(_In_ WOtech::FLOAT4 vector)
+		inline DirectX::XMVECTOR XMLoadFloat4(_In_ Windows::Foundation::Numerics::float4 vector)
 		{
-			DirectX::XMFLOAT4 output = { vector.X, vector.Y , vector.Z , vector.W };
+			DirectX::XMFLOAT4 output = { vector.x, vector.y , vector.z , vector.w };
 
 			return DirectX::XMLoadFloat4(&output);
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts Wotech::XMFLOAT4x4 to DirectX::XMMATRIX </summary>
-		///
-		/// <remarks>	WraithOne, 02.09.2017. </remarks>
-		///
-		/// <param name="matrix">	A 4*4 floating point matrix. </param>
-		///
-		/// <returns>	A 4x4 matrix, used for 3D transforms. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline DirectX::XMMATRIX XMLoadFloat4x4(_In_ WOtech::FLOAT4x4 matrix)
+		inline DirectX::XMMATRIX XMLoadFloat4x4(_In_ Windows::Foundation::Numerics::float4x4 matrix)
 		{
 			DirectX::XMFLOAT4X4 output =
 			{
-				matrix.M11, matrix.M12, matrix.M13, matrix.M14,
-				matrix.M21, matrix.M22, matrix.M23, matrix.M24,
-				matrix.M31, matrix.M32, matrix.M33, matrix.M34,
-				matrix.M41, matrix.M42, matrix.M43, matrix.M44
+				matrix.m11, matrix.m12, matrix.m13, matrix.m14,
+				matrix.m21, matrix.m22, matrix.m23, matrix.m24,
+				matrix.m31, matrix.m32, matrix.m33, matrix.m34,
+				matrix.m41, matrix.m42, matrix.m43, matrix.m44
 			};
 
 			return DirectX::XMLoadFloat4x4(&output);
 		}
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts DirectX::XMMATRIX to WOtech::FLOAT4x4. </summary>
-		///
-		/// <remarks>	WraithOne, 14.10.2017. </remarks>
-		///
-		/// <param name="matrix">	DirectX::XMMATRIX. </param>
-		///
-		/// <returns>	WOtech::FLOAT4x4 </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline WOtech::FLOAT4x4 wrapXMMATRIX(_In_ const DirectX::XMMATRIX& matrix)
+		inline Windows::Foundation::Numerics::float4x4 wrapXMMATRIX(_In_ const DirectX::XMMATRIX& matrix)
 		{
 			DirectX::XMFLOAT4X4 out;
 			DirectX::XMStoreFloat4x4(&out, matrix);
 			return wrapXMFloat4x4(out);
 		}
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Converts WOtech::AUDIO_PROCESSOR to XAUDIO2_PROCESSOR. </summary>
-		///
-		/// <remarks>	WraithOne, 06.10.2017. </remarks>
-		///
-		/// <param name="processor">	WOtech::AUDIO_PROCESSOR. </param>
-		///
-		/// <returns>	XAUDIO2_PROCESSOR </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		inline XAUDIO2_PROCESSOR wrapAUDIO_PROCESSOR(_In_ WOtech::AUDIO_PROCESSOR processor)
 		{
 			switch (processor)
