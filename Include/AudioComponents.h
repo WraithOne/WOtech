@@ -68,49 +68,32 @@ namespace WOtech
 		ANY_PROCESSOR,
 		DEFAULT_PROCESSOR,
 	};
-	//!
-	/*! Enumartion of available Audio typs. */
+
 	public enum class AUDIO_TYPE
 	{
-		Effect,	/*!< Use for Sounds.*/
-		Music	/*!< Use for Music.*/
+		Effect,
+		Music
 	};
 
-	//!
-	/*! Enumartion of the current Playback state. */
 	public enum class AUDIO_PLAYBACK_STATE
 	{
-		Stopped,	/*!< Playback stopped.*/
-		Playing,	/*!< Playback.*/
-		Paused		/*!< Playback paused.*/
+		Stopped,
+		Playing,
+		Paused
 	};
 
-	//!
-	/*! Pointer to a buffer context provided in the XAUDIO2_BUFFER that is processed currently. */
 	public ref class BufferContext sealed
 	{
 	public:
-		//! Constructor.
-		/*!
-		*/
 		BufferContext();
 
-		//! setBufferContext.
-		/*!
-		\param Pointer to a buffer context provided in the XAUDIO2_BUFFER that is processed currently.
-		*/
 		void setBufferContext(_In_ Platform::IntPtr pCurrentBufferContext);
-		//! getBufferContext.
-		/*!
-		\param Pointer to a buffer context provided in the XAUDIO2_BUFFER that is processed currently, or, if the voice is stopped currently, to the next buffer due to be processed. pCurrentBufferContext is NULL if there are no buffers in the queue.
-		*/
+
 		void getBufferContext(_Out_ Platform::IntPtr pCurrentBufferContext);
 	private:
 		void* m_pCurrentBufferContext = nullptr;
 	};
 
-	//!
-	/*! Current Voice state. */
 	public ref class VOICE_STATE sealed
 	{
 	public:
@@ -118,15 +101,13 @@ namespace WOtech
 		{
 			pCurrentBufferContext = ref new BufferContext;
 		}
-		property UINT32 BuffersQueued;	/*!< Total Buffer´s qued.*/
-		property UINT64 SamplesPlayed;	/*!< Sample´s play since last start, incl. loops.*/
+		property UINT32 BuffersQueued;
+		property UINT64 SamplesPlayed;
 
 	internal:
-		BufferContext^ pCurrentBufferContext;	/*!< Pointer to current Buffer, NULL if none.*/
+		BufferContext^ pCurrentBufferContext;
 	};
 
-	//!
-	/*! Current Audiosource state. */
 	public ref class AUDIOSOURCE_STATE sealed
 	{
 	public:
@@ -134,20 +115,18 @@ namespace WOtech
 		{
 			VoiceState = ref new WOtech::VOICE_STATE;
 		}
-		property AUDIO_PLAYBACK_STATE PlaybackState;	/*!< current PlaybackState.*/
+		property AUDIO_PLAYBACK_STATE PlaybackState;
 
 	internal:
-		VOICE_STATE^ VoiceState;	/*!< current VoiceState.*/
+		VOICE_STATE^ VoiceState;
 	};
 
-	//!
-	/*! Device details. */
 	public value struct DEVICE_DETAILS
 	{
-		Platform::String^ DeviceID;		/*!< Device ID.*/
-		Platform::String^ DisplayName;	/*!< Device name.*/
-		Platform::Boolean isDefault;	/*!< Is default Device.*/
-		Platform::Boolean isEnabled;	/*!< Is Enabled.*/
+		Platform::String^ DeviceID;
+		Platform::String^ DisplayName;
+		Platform::Boolean isDefault;
+		Platform::Boolean isEnabled;
 	};
 }
 #endif
