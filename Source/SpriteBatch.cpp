@@ -184,7 +184,7 @@ namespace WOtech
 
 	void SpriteBatch::BeginDraw()
 	{
-		BeginDraw(WOtech::SpriteSortMode::Immediate);
+		BeginDraw(WOtech::SpriteSortMode::IMMEDIATE);
 	}
 	void SpriteBatch::BeginDraw(_In_ WOtech::SpriteSortMode sortmode)
 	{
@@ -206,7 +206,7 @@ namespace WOtech
 
 		m_beginDraw = false;
 
-		if (m_sortMode != WOtech::SpriteSortMode::Immediate)
+		if (m_sortMode != WOtech::SpriteSortMode::IMMEDIATE)
 		{
 			SortBatch();
 
@@ -532,16 +532,16 @@ namespace WOtech
 	{
 		switch (m_sortMode)
 		{
-		case WOtech::SpriteSortMode::Immediate:
+		case WOtech::SpriteSortMode::IMMEDIATE:
 			return;// do nothing because everything is allready drawn
 			break;
-		case WOtech::SpriteSortMode::Deferred:
+		case WOtech::SpriteSortMode::DEFERRED:
 			break;
-		case WOtech::SpriteSortMode::Texture:
+		case WOtech::SpriteSortMode::TEXTURE:
 			break;
-		case WOtech::SpriteSortMode::BacktoFront:
+		case WOtech::SpriteSortMode::BACKTOFRONT:
 			break;
-		case WOtech::SpriteSortMode::FronttoBack:
+		case WOtech::SpriteSortMode::FRONTTOBACK:
 			break;
 		default:
 			return;// this should never happen -.-

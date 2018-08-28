@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		01.06.2018
+///			Edited:		28.08.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SPRITEBATCH_H
@@ -32,20 +32,16 @@ namespace WOtech
 
 	public enum class SpriteSortMode
 	{
-		Immediate,
-		Deferred,
-		Texture,
-		BacktoFront,
-		FronttoBack
+		IMMEDIATE,
+		DEFERRED,
+		TEXTURE,
+		BACKTOFRONT,
+		FRONTTOBACK
 	};
 
 	public ref class SpriteBatch sealed
 	{
 	public:
-		/**
-		Constructor
-		@param Pointer to a valid DeviceDX11
-		*/
 		SpriteBatch(_In_ WOtech::DeviceDX11^ device);
 
 		void Initialize();
