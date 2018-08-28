@@ -26,18 +26,22 @@ namespace WOtech
 {
 	public interface class IBatch2D
 	{
+		virtual UINT getID() = 0;
 		virtual float getDepth() = 0;
 	};
 
 	public ref class Batch2D_Text sealed : public IBatch2D
 	{
 	public:
-		Batch2D_Text(_In_ float depth, _In_ WOtech::TextBlock^ text);
+		Batch2D_Text(_In_ WOtech::TextBlock^ text, _In_ UINT ID, _In_ float depth);
+
+		virtual UINT getID();
 		virtual float getDepth();
 		WOtech::TextBlock^ getText();
 
 	private:
-		float m_depth;
+		UINT				m_batchID;
+		float				m_depth;
 		WOtech::TextBlock^	m_text;
 	};
 }

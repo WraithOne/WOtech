@@ -22,10 +22,17 @@
 
 namespace WOtech
 {
-	Batch2D_Text::Batch2D_Text(_In_ float depth, _In_ WOtech::TextBlock^ text)
+	Batch2D_Text::Batch2D_Text(_In_ WOtech::TextBlock^ text, _In_ UINT ID, _In_ float depth)
 	{
-		m_depth = depth;
 		m_text = text;
+
+		m_batchID = ID;
+		m_depth = depth;
+	}
+
+	UINT Batch2D_Text::getID()
+	{
+		return m_batchID;
 	}
 	float Batch2D_Text::getDepth()
 	{
