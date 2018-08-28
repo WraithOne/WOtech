@@ -83,10 +83,10 @@ namespace WOtech
 
 	public enum class SPRITE_FLIP_MODE
 	{
-		None,
-		Horizontal,
-		Vertical,
-		Both
+		NONE,
+		HORIZONTAL,
+		VERTICAL,
+		BOTH
 	};
 
 	public value struct CIRCLE
@@ -213,8 +213,8 @@ namespace WOtech
 		void setInterpolation(_In_ WOtech::BITMAP_INTERPOLATION_MODE interpolation);
 
 		//Getter
-		Windows::Foundation::Rect						getSourceRect();
-		Windows::Foundation::Rect						getDestinationRect();
+		Windows::Foundation::Rect			getSourceRect();
+		Windows::Foundation::Rect			getDestinationRect();
 
 		Windows::Foundation::Point			getPosition();
 		Windows::Foundation::Size			getSize();
@@ -233,7 +233,7 @@ namespace WOtech
 		Platform::String^						m_fileName;
 		Microsoft::WRL::ComPtr<ID2D1Bitmap1>	m_bitmap;
 
-		Windows::Foundation::Rect							m_sourceRect;
+		Windows::Foundation::Rect				m_sourceRect;
 		Windows::Foundation::Point				m_position;
 		Windows::Foundation::Size				m_size;
 		float32									m_rotation;

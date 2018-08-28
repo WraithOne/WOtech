@@ -35,7 +35,7 @@ namespace WOtech
 		m_rotation = 0.0f;
 		m_opacity = 1.0f;
 		m_interpolation = BITMAP_INTERPOLATION_MODE::BITMAP_INTERPOLATION_MODE_LINEAR;
-		m_flipMode = SPRITE_FLIP_MODE::None;
+		m_flipMode = SPRITE_FLIP_MODE::NONE;
 
 		WOtech::ContentManager::Instance->AddAnimatedSprite(this);
 	}
@@ -49,7 +49,7 @@ namespace WOtech
 		m_rotation = 0.0f;
 		m_opacity = 1.0f;
 		m_interpolation = BITMAP_INTERPOLATION_MODE::BITMAP_INTERPOLATION_MODE_LINEAR;
-		m_flipMode = SPRITE_FLIP_MODE::None;
+		m_flipMode = SPRITE_FLIP_MODE::NONE;
 
 		m_bitmap = bitmap->getBitmap();
 

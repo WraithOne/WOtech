@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		01.06.2018
+///			Edited:		28.08.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -509,16 +509,16 @@ namespace WOtech
 
 		switch (flipMode)
 		{
-		case WOtech::SPRITE_FLIP_MODE::None:
+		case WOtech::SPRITE_FLIP_MODE::NONE:
 			
 			break;
-		case WOtech::SPRITE_FLIP_MODE::Horizontal:
+		case WOtech::SPRITE_FLIP_MODE::HORIZONTAL:
 			
 			break;
-		case WOtech::SPRITE_FLIP_MODE::Vertical:
+		case WOtech::SPRITE_FLIP_MODE::VERTICAL:
 			
 			break;
-		case WOtech::SPRITE_FLIP_MODE::Both:
+		case WOtech::SPRITE_FLIP_MODE::BOTH:
 			
 			break;
 		default:

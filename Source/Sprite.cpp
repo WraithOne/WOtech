@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		01.06.2018
+///			Edited:		28.08.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -36,7 +36,7 @@ namespace WOtech
 		m_rotation = 0.0f;
 		m_opacity = 1.0f;
 		m_interpolation = WOtech::BITMAP_INTERPOLATION_MODE::BITMAP_INTERPOLATION_MODE_LINEAR;
-		m_flipMode = WOtech::SPRITE_FLIP_MODE::None;
+		m_flipMode = WOtech::SPRITE_FLIP_MODE::NONE;
 
 		WOtech::ContentManager::Instance->AddSprite(this);
 	}
