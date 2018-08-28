@@ -277,6 +277,7 @@
     <ClInclude Include="Include\Application.h" />
     <ClInclude Include="Include\Audio.h" />
     <ClInclude Include="Include\AudioComponents.h" />
+    <ClInclude Include="Include\Batch2D.h" />
     <ClInclude Include="Include\ContentManager.h" />
     <ClInclude Include="Include\DefaultFactory.h" />
     <ClInclude Include="Include\DeferredRenderer.h" />

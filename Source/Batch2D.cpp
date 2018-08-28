@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.11.2017
-///			Edited:		12.02.2018
+///			Edited:		28.08.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -18,7 +18,7 @@
 // INCLUDES //
 //////////////
 #include "pch.h"
-#include <2DComponents.h>
+#include "Include/Batch2D.h"
 
 namespace WOtech
 {

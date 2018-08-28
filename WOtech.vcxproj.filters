@@ -67,6 +67,9 @@
     <Filter Include="ThirdParty\AssImp">
       <UniqueIdentifier>{4cba72dc-4e29-4f56-a6af-8b860a7f97e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphic\2D\Batch">
+      <UniqueIdentifier>{d6ee1b65-40e0-4965-9c86-3d3b033478d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ThirdParty\FontFileLoader.cpp">
@@ -181,9 +184,6 @@
     <ClCompile Include="Source\Image.cpp">
       <Filter>Graphic\2D\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Batch2D.cpp">
-      <Filter>Graphic\2D\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Window.cpp">
       <Filter>System</Filter>
     </ClCompile>
@@ -195,6 +195,9 @@
     </ClCompile>
     <ClCompile Include="Source\Systemhelper.cpp">
       <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Batch2D.cpp">
+      <Filter>Graphic\2D\Batch</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="Include\IGame.h">
       <Filter>GameFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Batch2D.h">
+      <Filter>Graphic\2D\Batch</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
