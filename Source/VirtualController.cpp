@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	04.01.2017
-///			Edited:		01.06.2018
+///			Edited:		28.08.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -27,21 +27,21 @@ namespace WOtech
 		m_inputManager = input;
 
 		m_state = WOtech::Virtual_Controller_State();
-		m_currentInput = WOtech::Current_Input_Device::Unspecified;
+		m_currentInput = WOtech::CURRENT_INPUT_DEVICE::UNSPECIFIED;
 		m_currentGamepad = WOtech::Gamepad_Index::PlayerOne; // TODO: Player unknown
-		m_mouseWheelbinding = WOtech::Virtual_Controller_Triggers::Left;
-		m_mousebinding = WOtech::Virtual_Controller_Sticks::Left;
+		m_mouseWheelbinding = WOtech::VIRTUAL_CONTROLLER_TRIGGERS::LEFT;
+		m_mousebinding = WOtech::VIRTUAL_CONTROLLER_THUMBSTICKS::LEFT;
 		m_currentStickLeftID = 0U;
 		m_currentStickRightID = 0U;
 		m_currentTriggerLeftID = 0U;
 		m_currentTriggerRightID = 0U;
 	}
 
-	void VirtualController::setCurrentInput(_In_ Current_Input_Device current)
+	void VirtualController::setCurrentInput(_In_ CURRENT_INPUT_DEVICE current)
 	{
 		m_currentInput = current;
 	}
-	Current_Input_Device VirtualController::getCurrent()
+	CURRENT_INPUT_DEVICE VirtualController::getCurrent()
 	{
 		return m_currentInput;
 	}
@@ -58,9 +58,9 @@ namespace WOtech
 		m_currentGamepad = number;
 	}
 
-	void VirtualController::bindKeyboardtoButton(_In_ Virtual_Controller_Buttons target, _In_ Windows::System::VirtualKey key)
+	void VirtualController::bindKeyboardtoButton(_In_ VIRTUAL_CONTROLLER_BUTTONS target, _In_ Windows::System::VirtualKey key)
 	{
-		std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>::iterator it;
+		std::map<VIRTUAL_CONTROLLER_BUTTONS, Windows::System::VirtualKey>::iterator it;
 		it = m_keyboardButtonbinding.find(target);
 
 		if (it != m_keyboardButtonbinding.end())
@@ -72,9 +72,9 @@ namespace WOtech
 			m_keyboardButtonbinding.emplace(target, key);
 		}
 	}
-	void VirtualController::bindKeyboardtoTrigger(_In_ Virtual_Controller_Triggers target, _In_ Windows::System::VirtualKey key)
+	void VirtualController::bindKeyboardtoTrigger(_In_ VIRTUAL_CONTROLLER_TRIGGERS target, _In_ Windows::System::VirtualKey key)
 	{
-		std::map<Virtual_Controller_Triggers, Windows::System::VirtualKey>::iterator it;
+		std::map<VIRTUAL_CONTROLLER_TRIGGERS, Windows::System::VirtualKey>::iterator it;
 		it = m_keyboardTriggerbinding.find(target);
 
 		if (it != m_keyboardTriggerbinding.end())
@@ -86,7 +86,7 @@ namespace WOtech
 			m_keyboardTriggerbinding.emplace(target, key);
 		}
 	}
-	void VirtualController::bindKeyboardtoTumbstick(_In_ Virtual_Controller_Sticks target, _In_ Windows::System::VirtualKey keyUP, _In_ Windows::System::VirtualKey keyDOWN, _In_ Windows::System::VirtualKey keyLEFT, _In_ Windows::System::VirtualKey keyRIGHT)
+	void VirtualController::bindKeyboardtoThumbstick(_In_ VIRTUAL_CONTROLLER_THUMBSTICKS target, _In_ Windows::System::VirtualKey keyUP, _In_ Windows::System::VirtualKey keyDOWN, _In_ Windows::System::VirtualKey keyLEFT, _In_ Windows::System::VirtualKey keyRIGHT)
 	{
 		virtual_Stick_keyboard temp;
 		temp.up = keyUP;
@@ -94,7 +94,7 @@ namespace WOtech
 		temp.left = keyLEFT;
 		temp.right = keyRIGHT;
 
-		std::map<Virtual_Controller_Sticks, virtual_Stick_keyboard>::iterator it;
+		std::map<VIRTUAL_CONTROLLER_THUMBSTICKS, virtual_Stick_keyboard>::iterator it;
 		it = m_keyboardStickbinding.find(target);
 
 		if (it != m_keyboardStickbinding.end())
@@ -107,9 +107,9 @@ namespace WOtech
 		}
 	}
 
-	void VirtualController::bindMousetoButton(_In_ Virtual_Controller_Buttons target, _In_ Windows::Foundation::Rect area)
+	void VirtualController::bindMousetoButton(_In_ VIRTUAL_CONTROLLER_BUTTONS target, _In_ Windows::Foundation::Rect area)
 	{
-		std::map<Virtual_Controller_Buttons, Windows::Foundation::Rect>::iterator it;
+		std::map<VIRTUAL_CONTROLLER_BUTTONS, Windows::Foundation::Rect>::iterator it;
 		it = m_mouseButtonbinding.find(target);
 
 		if (it != m_mouseButtonbinding.end())
@@ -121,9 +121,9 @@ namespace WOtech
 			m_mouseButtonbinding.emplace(target, area);
 		}
 	}
-	void VirtualController::bindMouseKeytoButton(_In_ Virtual_Controller_Buttons target, _In_ WOtech::VirtualKey_Mouse key)
+	void VirtualController::bindMouseKeytoButton(_In_ VIRTUAL_CONTROLLER_BUTTONS target, _In_ WOtech::VirtualKey_Mouse key)
 	{
-		std::map<Virtual_Controller_Buttons, WOtech::VirtualKey_Mouse>::iterator it;
+		std::map<VIRTUAL_CONTROLLER_BUTTONS, WOtech::VirtualKey_Mouse>::iterator it;
 		it = m_mouseKeybinding.find(target);
 
 		if (it != m_mouseKeybinding.end())
@@ -135,18 +135,18 @@ namespace WOtech
 			m_mouseKeybinding.emplace(target, key);
 		}
 	}
-	void VirtualController::bindMouseWheeltoTrigger(_In_ Virtual_Controller_Triggers target)
+	void VirtualController::bindMouseWheeltoTrigger(_In_ VIRTUAL_CONTROLLER_TRIGGERS target)
 	{
 		m_mouseWheelbinding = target;
 	}
-	void VirtualController::bindMousetoTumbstick(_In_ Virtual_Controller_Sticks target)
+	void VirtualController::bindMousetoThumbstick(_In_ VIRTUAL_CONTROLLER_THUMBSTICKS target)
 	{
 		m_mousebinding = target;
 	}
 
-	void VirtualController::bindTouchtoButton(_In_ Virtual_Controller_Buttons target, _In_ Windows::Foundation::Rect area)
+	void VirtualController::bindTouchtoButton(_In_ VIRTUAL_CONTROLLER_BUTTONS target, _In_ Windows::Foundation::Rect area)
 	{
-		std::map<Virtual_Controller_Buttons, Windows::Foundation::Rect>::iterator it;
+		std::map<VIRTUAL_CONTROLLER_BUTTONS, Windows::Foundation::Rect>::iterator it;
 		it = m_touchButtonbinding.find(target);
 
 		if (it != m_touchButtonbinding.end())
@@ -158,9 +158,9 @@ namespace WOtech
 			m_touchButtonbinding.emplace(target, area);
 		}
 	}
-	void VirtualController::bindTouchtoTrigger(_In_ Virtual_Controller_Triggers target, _In_ Windows::Foundation::Rect area)
+	void VirtualController::bindTouchtoTrigger(_In_ VIRTUAL_CONTROLLER_TRIGGERS target, _In_ Windows::Foundation::Rect area)
 	{
-		std::map<Virtual_Controller_Triggers, Windows::Foundation::Rect>::iterator it;
+		std::map<VIRTUAL_CONTROLLER_TRIGGERS, Windows::Foundation::Rect>::iterator it;
 		it = m_touchTriggerbinding.find(target);
 
 		if (it != m_touchTriggerbinding.end())
@@ -172,13 +172,13 @@ namespace WOtech
 			m_touchTriggerbinding.emplace(target, area);
 		}
 	}
-	void VirtualController::bindTouchtoTumbstick(_In_ Virtual_Controller_Sticks target, _In_ Windows::Foundation::Point center, _In_ float32 radius)
+	void VirtualController::bindTouchtoThumbstick(_In_ VIRTUAL_CONTROLLER_THUMBSTICKS target, _In_ Windows::Foundation::Point center, _In_ float32 radius)
 	{
 		virtual_Stick_touch stick;
 		stick.center = center;
 		stick.radius = radius;
 
-		std::map<Virtual_Controller_Sticks, virtual_Stick_touch>::iterator it;
+		std::map<VIRTUAL_CONTROLLER_THUMBSTICKS, virtual_Stick_touch>::iterator it;
 		it = m_touchStickbinding.find(target);
 
 		if (it != m_touchStickbinding.end())
@@ -249,17 +249,17 @@ namespace WOtech
 	{
 		switch (m_currentInput)
 		{
-		case Current_Input_Device::Gamepad:
+		case CURRENT_INPUT_DEVICE::GAMEPAD:
 			UpdateGamepad();
 			break;
-		case Current_Input_Device::KeyboardandMouse:
+		case CURRENT_INPUT_DEVICE::KEYBOARDANDMOUSE:
 			UpdateKeyboard();
 			UpdateMouse();
 			break;
-		case Current_Input_Device::Touch:
+		case CURRENT_INPUT_DEVICE::TOUCH:
 			UpdateTouch();
 			break;
-		case Current_Input_Device::Pen:
+		case CURRENT_INPUT_DEVICE::PEN:
 			UpdatePen();
 			break;
 		default:
@@ -321,44 +321,44 @@ namespace WOtech
 		WOtech::Keyboard_State keyState = m_inputManager->getKeyboardState();
 
 		// Buttons
-		for (std::map<Virtual_Controller_Buttons, Windows::System::VirtualKey>::iterator it = m_keyboardButtonbinding.begin(); it != m_keyboardButtonbinding.end(); ++it)
+		for (std::map<VIRTUAL_CONTROLLER_BUTTONS, Windows::System::VirtualKey>::iterator it = m_keyboardButtonbinding.begin(); it != m_keyboardButtonbinding.end(); ++it)
 		{
 			// Buttons A-Y
-			if (it->first == Virtual_Controller_Buttons::A)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::A)
 				m_state.Button_A = m_inputManager->KeyDown(it->second);
-			if (it->first == Virtual_Controller_Buttons::B)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::B)
 				m_state.Button_B = m_inputManager->KeyDown(it->second);
-			if (it->first == Virtual_Controller_Buttons::X)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::X)
 				m_state.Button_X = m_inputManager->KeyDown(it->second);
-			if (it->first == Virtual_Controller_Buttons::Y)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::Y)
 				m_state.Button_Y = m_inputManager->KeyDown(it->second);
 
 			// Buttons Menu, View
-			if (it->first == Virtual_Controller_Buttons::Menu)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::MENU)
 				m_state.Button_Menu = m_inputManager->KeyDown(it->second);
-			if (it->first == Virtual_Controller_Buttons::View)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::VIEW)
 				m_state.Button_View = m_inputManager->KeyDown(it->second);
 
 			// Buttons Shoulder
-			if (it->first == Virtual_Controller_Buttons::LeftShoulder)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::LEFTSHOULDER)
 				m_state.Button_LeftShoulder = m_inputManager->KeyDown(it->second);
-			if (it->first == Virtual_Controller_Buttons::RightShoulder)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::RIGHTSHOULDER)
 				m_state.Button_RightShoulder = m_inputManager->KeyDown(it->second);
 
 			// Buttons Sticks
-			if (it->first == Virtual_Controller_Buttons::LeftStick)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::LEFTSTICK)
 				m_state.Button_LeftStick = m_inputManager->KeyDown(it->second);
-			if (it->first == Virtual_Controller_Buttons::RightStick)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::RIGHTSTICK)
 				m_state.Button_RightStick = m_inputManager->KeyDown(it->second);
 
 			// Buttons DPad
-			if (it->first == Virtual_Controller_Buttons::DPad_Up)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::DPAD_UP)
 				m_state.DPad_Up = m_inputManager->KeyDown(it->second);
-			if (it->first == Virtual_Controller_Buttons::DPad_Down)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::DPAD_DOWN)
 				m_state.DPad_Down = m_inputManager->KeyDown(it->second);
-			if (it->first == Virtual_Controller_Buttons::DPad_Left)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::DPAD_LEFT)
 				m_state.DPad_Left = m_inputManager->KeyDown(it->second);
-			if (it->first == Virtual_Controller_Buttons::DPad_Right)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::DPAD_RIGHT)
 				m_state.DPad_Right = m_inputManager->KeyDown(it->second);
 
 			// Trigger states
@@ -366,9 +366,9 @@ namespace WOtech
 		}
 
 		// Triggers
-		for (std::map<Virtual_Controller_Triggers, Windows::System::VirtualKey>::iterator it_t = m_keyboardTriggerbinding.begin(); it_t != m_keyboardTriggerbinding.end(); ++it_t)
+		for (std::map<VIRTUAL_CONTROLLER_TRIGGERS, Windows::System::VirtualKey>::iterator it_t = m_keyboardTriggerbinding.begin(); it_t != m_keyboardTriggerbinding.end(); ++it_t)
 		{
-			if (it_t->first == Virtual_Controller_Triggers::Left)
+			if (it_t->first == VIRTUAL_CONTROLLER_TRIGGERS::LEFT)
 			{
 				if (m_inputManager->KeyDown(it_t->second))
 					m_state.Trigger_Left = 1.0;
@@ -384,8 +384,8 @@ namespace WOtech
 			}
 		}
 
-		// Tumbsticks
-		for (std::map<Virtual_Controller_Sticks, virtual_Stick_keyboard>::iterator it_s = m_keyboardStickbinding.begin(); it_s != m_keyboardStickbinding.end(); ++it_s)
+		// Thumbsticks
+		for (std::map<VIRTUAL_CONTROLLER_THUMBSTICKS, virtual_Stick_keyboard>::iterator it_s = m_keyboardStickbinding.begin(); it_s != m_keyboardStickbinding.end(); ++it_s)
 		{
 			virtual_Stick_keyboard keyboard = it_s->second;
 
@@ -394,7 +394,7 @@ namespace WOtech
 			Platform::Boolean key_left = m_inputManager->KeyDown(keyboard.left);
 			Platform::Boolean key_right = m_inputManager->KeyDown(keyboard.right);
 
-			if (it_s->first == Virtual_Controller_Sticks::Left)
+			if (it_s->first == VIRTUAL_CONTROLLER_THUMBSTICKS::LEFT)
 			{
 				// Vertical
 				if (key_up && !key_down)
@@ -448,51 +448,51 @@ namespace WOtech
 		m_state.ChargePercentage = 100U;
 
 		// Button states
-		for (std::map<Virtual_Controller_Buttons, Windows::Foundation::Rect>::iterator it = m_touchButtonbinding.begin(); it != m_touchButtonbinding.end(); ++it)
+		for (std::map<VIRTUAL_CONTROLLER_BUTTONS, Windows::Foundation::Rect>::iterator it = m_touchButtonbinding.begin(); it != m_touchButtonbinding.end(); ++it)
 		{
 			// Buttons A-Y
-			if (it->first == Virtual_Controller_Buttons::A)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::A)
 				m_state.Button_A = isIntersecting(TouchIntersect(touchstate, it->second));
-			if (it->first == Virtual_Controller_Buttons::B)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::B)
 				m_state.Button_B = isIntersecting(TouchIntersect(touchstate, it->second));
-			if (it->first == Virtual_Controller_Buttons::X)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::X)
 				m_state.Button_X = isIntersecting(TouchIntersect(touchstate, it->second));
-			if (it->first == Virtual_Controller_Buttons::Y)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::Y)
 				m_state.Button_Y = isIntersecting(TouchIntersect(touchstate, it->second));
 
 			// Buttons Menu, View
-			if (it->first == Virtual_Controller_Buttons::Menu)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::MENU)
 				m_state.Button_Menu = isIntersecting(TouchIntersect(touchstate, it->second));
-			if (it->first == Virtual_Controller_Buttons::View)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::VIEW)
 				m_state.Button_View = isIntersecting(TouchIntersect(touchstate, it->second));
 
 			// Buttons Shoulder
-			if (it->first == Virtual_Controller_Buttons::LeftShoulder)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::LEFTSHOULDER)
 				m_state.Button_LeftShoulder = isIntersecting(TouchIntersect(touchstate, it->second));
-			if (it->first == Virtual_Controller_Buttons::RightShoulder)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::RIGHTSHOULDER)
 				m_state.Button_RightShoulder = isIntersecting(TouchIntersect(touchstate, it->second));
 
 			// Buttons Sticks
-			if (it->first == Virtual_Controller_Buttons::LeftStick)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::LEFTSTICK)
 				m_state.Button_LeftStick = isIntersecting(TouchIntersect(touchstate, it->second));
-			if (it->first == Virtual_Controller_Buttons::RightStick)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::RIGHTSTICK)
 				m_state.Button_RightStick = isIntersecting(TouchIntersect(touchstate, it->second));
 
 			// Buttons DPad
-			if (it->first == Virtual_Controller_Buttons::DPad_Up)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::DPAD_UP)
 				m_state.DPad_Up = isIntersecting(TouchIntersect(touchstate, it->second));
-			if (it->first == Virtual_Controller_Buttons::DPad_Down)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::DPAD_DOWN)
 				m_state.DPad_Down = isIntersecting(TouchIntersect(touchstate, it->second));
-			if (it->first == Virtual_Controller_Buttons::DPad_Left)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::DPAD_LEFT)
 				m_state.DPad_Left = isIntersecting(TouchIntersect(touchstate, it->second));
-			if (it->first == Virtual_Controller_Buttons::DPad_Right)
+			if (it->first == VIRTUAL_CONTROLLER_BUTTONS::DPAD_RIGHT)
 				m_state.DPad_Right = isIntersecting(TouchIntersect(touchstate, it->second));
 		}
 		// Trigger states
-		for (std::map<Virtual_Controller_Triggers, Windows::Foundation::Rect>::iterator it_t = m_touchTriggerbinding.begin(); it_t != m_touchTriggerbinding.end(); ++it_t)
+		for (std::map<VIRTUAL_CONTROLLER_TRIGGERS, Windows::Foundation::Rect>::iterator it_t = m_touchTriggerbinding.begin(); it_t != m_touchTriggerbinding.end(); ++it_t)
 		{
 			Touch_State state;
-			if (it_t->first == Virtual_Controller_Triggers::Left)
+			if (it_t->first == VIRTUAL_CONTROLLER_TRIGGERS::LEFT)
 			{
 				state = TouchIntersect(touchstate, it_t->second);
 				if (state.PointerID != 0U)
@@ -546,14 +546,14 @@ namespace WOtech
 			}
 		}
 		// Stick states
-		for (std::map<Virtual_Controller_Sticks, virtual_Stick_touch>::iterator it_s = m_touchStickbinding.begin(); it_s != m_touchStickbinding.end(); ++it_s)
+		for (std::map<VIRTUAL_CONTROLLER_THUMBSTICKS, virtual_Stick_touch>::iterator it_s = m_touchStickbinding.begin(); it_s != m_touchStickbinding.end(); ++it_s)
 		{
 			// TODO: Circle insteed of RECT
 			virtual_Stick_touch stick = it_s->second;
 			Windows::Foundation::Rect rect{ stick.center.X - stick.radius, stick.center.Y - stick.radius, stick.center.X + stick.radius, stick.center.Y + stick.radius };
 
 			Touch_State state;
-			if (it_s->first == Virtual_Controller_Sticks::Left)
+			if (it_s->first == VIRTUAL_CONTROLLER_THUMBSTICKS::LEFT)
 			{
 				state = TouchIntersect(touchstate, rect);
 				if (state.PointerID != 0U)
