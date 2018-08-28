@@ -11,7 +11,7 @@
 ///			Header file for Audio Components
 ///
 ///			Created:	06.10.2017
-///			Edited:		01.06.2018
+///			Edited:		28.08.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_AUDIOCOMPONENTS_H
@@ -71,15 +71,15 @@ namespace WOtech
 
 	public enum class AUDIO_TYPE
 	{
-		Effect,
-		Music
+		EFFECT,
+		MUSIC
 	};
 
 	public enum class AUDIO_PLAYBACK_STATE
 	{
-		Stopped,
-		Playing,
-		Paused
+		STOPPED,
+		PLAYING,
+		PAUSED
 	};
 
 	public ref class BufferContext sealed
