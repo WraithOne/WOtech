@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.04.2016
-///			Edited:		07.05.2018
+///			Edited:		28.08.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_2DCOMPONENTS_H
@@ -490,7 +490,7 @@ namespace WOtech
 	{
 	public:
 		Batch2D_Text(_In_ float depth, _In_ WOtech::TextBlock^ text);
-		float virtual getDepth();
+		virtual float getDepth();
 		WOtech::TextBlock^ getText();
 
 	private:
