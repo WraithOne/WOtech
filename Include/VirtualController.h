@@ -100,7 +100,7 @@ namespace WOtech
 		Virtual_Controller_State getState();
 
 		// Gamepad
-		void bindGamepad(_In_ Gamepad_Index number);
+		void bindGamepad(_In_ GAMEPAD_INDEX number);
 
 		// Keyboard and Mice
 		void bindKeyboardtoButton(_In_ VIRTUAL_CONTROLLER_BUTTONS target, _In_ Windows::System::VirtualKey key);
@@ -108,7 +108,7 @@ namespace WOtech
 		void bindKeyboardtoThumbstick(_In_ VIRTUAL_CONTROLLER_THUMBSTICKS target, _In_ Windows::System::VirtualKey keyUP, _In_ Windows::System::VirtualKey keyDOWN, _In_ Windows::System::VirtualKey keyLEFT, _In_ Windows::System::VirtualKey keyRIGHT);
 
 		void bindMousetoButton(_In_ VIRTUAL_CONTROLLER_BUTTONS target, _In_ Windows::Foundation::Rect area);
-		void bindMouseKeytoButton(_In_ VIRTUAL_CONTROLLER_BUTTONS target, _In_ WOtech::VirtualKey_Mouse key);
+		void bindMouseKeytoButton(_In_ VIRTUAL_CONTROLLER_BUTTONS target, _In_ WOtech::VIRTUALKEY_MOUSE key);
 		void bindMouseWheeltoTrigger(_In_ VIRTUAL_CONTROLLER_TRIGGERS target);
 		void bindMousetoThumbstick(_In_ VIRTUAL_CONTROLLER_THUMBSTICKS target);
 
@@ -136,7 +136,7 @@ namespace WOtech
 		Virtual_Controller_State											m_state;
 
 		CURRENT_INPUT_DEVICE												m_currentInput;
-		WOtech::Gamepad_Index												m_currentGamepad;
+		WOtech::GAMEPAD_INDEX												m_currentGamepad;
 
 		struct virtual_Stick_keyboard
 		{
@@ -149,7 +149,7 @@ namespace WOtech
 		std::map<VIRTUAL_CONTROLLER_TRIGGERS, Windows::System::VirtualKey>	m_keyboardTriggerbinding;
 		std::map<VIRTUAL_CONTROLLER_THUMBSTICKS, virtual_Stick_keyboard>	m_keyboardStickbinding;
 
-		std::map<VIRTUAL_CONTROLLER_BUTTONS, WOtech::VirtualKey_Mouse>		m_mouseKeybinding;
+		std::map<VIRTUAL_CONTROLLER_BUTTONS, WOtech::VIRTUALKEY_MOUSE>		m_mouseKeybinding;
 		std::map<VIRTUAL_CONTROLLER_BUTTONS, Windows::Foundation::Rect>		m_mouseButtonbinding;
 		WOtech::VIRTUAL_CONTROLLER_TRIGGERS									m_mouseWheelbinding;
 		WOtech::VIRTUAL_CONTROLLER_THUMBSTICKS								m_mousebinding;

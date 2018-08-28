@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.05.2014
-///			Edited:		01.06.2018
+///			Edited:		28.08.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_INPUT_H
@@ -23,13 +23,13 @@
 
 namespace WOtech
 {
-	public enum class VirtualKey_Mouse
+	public enum class VIRTUALKEY_MOUSE
 	{
-		LeftButton,
-		RightButton,
-		MiddleButton,
-		X1Button,
-		X2Button
+		LEFTBUTTON,
+		RIGHTBUTTON,
+		MIDDLEBUTTON,
+		X1BUTTON,
+		X2BUTTON
 	};
 
 	public value struct Touch_Capabilities
@@ -262,16 +262,16 @@ namespace WOtech
 		float				Pressure;
 	};
 
-	public enum class Gamepad_Index
+	public enum class GAMEPAD_INDEX
 	{
-		PlayerOne,
-		PlayerTwo,
-		PlayerThree,
-		PlayerFour,
-		PlayerFive,
-		PlayerSix,
-		PlayerSeven,
-		PlayerEight
+		PLAYERONE,
+		PLAYERTWO,
+		PLAYERTHREE,
+		PLAYERFOUR,
+		PLAYERFIVE,
+		PLAYERSIX,
+		PLAYERSEVEN,
+		PLAYEREIGHT
 	};
 	public value struct Gamepad_Buttons
 	{
@@ -344,9 +344,9 @@ namespace WOtech
 		Platform::Boolean MouseCursorVisible();
 
 		// Gamepad
-		Platform::Boolean GamepadConnected(_In_ Gamepad_Index PlayerIndex);
-		Gamepad_State GamepadState(_In_ Gamepad_Index PlayerIndex);
-		void GamepadSetVibration(_In_ Gamepad_Index PlayerIndex, _In_ Windows::Gaming::Input::GamepadVibration Vibration);
+		Platform::Boolean GamepadConnected(_In_ GAMEPAD_INDEX PlayerIndex);
+		Gamepad_State GamepadState(_In_ GAMEPAD_INDEX PlayerIndex);
+		void GamepadSetVibration(_In_ GAMEPAD_INDEX PlayerIndex, _In_ Windows::Gaming::Input::GamepadVibration Vibration);
 
 		// OrientationSensor
 		Platform::Boolean OrientationSensorConnected();

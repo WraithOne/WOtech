@@ -28,7 +28,7 @@ namespace WOtech
 
 		m_state = WOtech::Virtual_Controller_State();
 		m_currentInput = WOtech::CURRENT_INPUT_DEVICE::UNSPECIFIED;
-		m_currentGamepad = WOtech::Gamepad_Index::PlayerOne; // TODO: Player unknown
+		m_currentGamepad = WOtech::GAMEPAD_INDEX::PLAYERONE;
 		m_mouseWheelbinding = WOtech::VIRTUAL_CONTROLLER_TRIGGERS::LEFT;
 		m_mousebinding = WOtech::VIRTUAL_CONTROLLER_THUMBSTICKS::LEFT;
 		m_currentStickLeftID = 0U;
@@ -53,7 +53,7 @@ namespace WOtech
 		return m_state;
 	}
 
-	void VirtualController::bindGamepad(_In_ Gamepad_Index number)
+	void VirtualController::bindGamepad(_In_ GAMEPAD_INDEX number)
 	{
 		m_currentGamepad = number;
 	}
@@ -121,9 +121,9 @@ namespace WOtech
 			m_mouseButtonbinding.emplace(target, area);
 		}
 	}
-	void VirtualController::bindMouseKeytoButton(_In_ VIRTUAL_CONTROLLER_BUTTONS target, _In_ WOtech::VirtualKey_Mouse key)
+	void VirtualController::bindMouseKeytoButton(_In_ VIRTUAL_CONTROLLER_BUTTONS target, _In_ WOtech::VIRTUALKEY_MOUSE key)
 	{
-		std::map<VIRTUAL_CONTROLLER_BUTTONS, WOtech::VirtualKey_Mouse>::iterator it;
+		std::map<VIRTUAL_CONTROLLER_BUTTONS, WOtech::VIRTUALKEY_MOUSE>::iterator it;
 		it = m_mouseKeybinding.find(target);
 
 		if (it != m_mouseKeybinding.end())

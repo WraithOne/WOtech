@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.02.2016
-///			Edited:		01.06.2018
+///			Edited:		28.08.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_3DCOMPONENTS_H
@@ -27,7 +27,8 @@ namespace WOtech
 	// Forward Decl.
 	ref class DeviceDX11;
 
-	public enum class FORMAT_DXGI {
+	public enum class FORMAT_DXGI
+	{
 		FORMAT_UNKNOWN,
 		FORMAT_R32G32B32A32_TYPELESS,
 		FORMAT_R32G32B32A32_FLOAT,
@@ -150,13 +151,11 @@ namespace WOtech
 		FORMAT_FORCE_UINT
 	};
 
-
 	public value struct LUID_DXGI
 	{
 		UINT64	LowPart;
 		INT64	HighPart;
 	};
-
 
 	public value struct ADAPTER_DXGI
 	{

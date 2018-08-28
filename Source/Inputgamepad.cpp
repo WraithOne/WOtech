@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.05.2014
-///			Edited:		01.06.2018
+///			Edited:		28.08.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -38,7 +38,7 @@ namespace WOtech
 		}
 	}
 
-	Platform::Boolean InputManager::GamepadConnected(_In_ Gamepad_Index PlayerIndex)
+	Platform::Boolean InputManager::GamepadConnected(_In_ GAMEPAD_INDEX PlayerIndex)
 	{
 		if (m_gamePad[(unsigned int)PlayerIndex])
 		{
@@ -48,7 +48,7 @@ namespace WOtech
 		return false;
 	}
 
-	Gamepad_State InputManager::GamepadState(_In_ Gamepad_Index PlayerIndex)
+	Gamepad_State InputManager::GamepadState(_In_ GAMEPAD_INDEX PlayerIndex)
 	{
 		if (m_gamePad[(unsigned int)PlayerIndex])
 		{
@@ -92,7 +92,7 @@ namespace WOtech
 		return Gamepad_State();
 	}
 
-	void InputManager::GamepadSetVibration(_In_ Gamepad_Index PlayerIndex, _In_ Windows::Gaming::Input::GamepadVibration Vibration)
+	void InputManager::GamepadSetVibration(_In_ GAMEPAD_INDEX PlayerIndex, _In_ Windows::Gaming::Input::GamepadVibration Vibration)
 	{
 		if (m_gamePad[(unsigned int)PlayerIndex])
 		{
