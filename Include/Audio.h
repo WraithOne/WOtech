@@ -57,7 +57,7 @@ namespace WOtech
 		IXAudio2* GetMusicEngine();
 
 		void GetDeviceCount(_In_ IXAudio2* device, _Out_ uint32* devCount);
-		void GetDeviceDetails(_In_ IXAudio2* device, _In_  uint32 index, _Out_ WOtech::DEVICE_DETAILS* details);
+		void GetDeviceDetails(_In_ IXAudio2* device, _In_  uint32 index, _Out_ WOtech::DeviceDetails* details);
 
 	private:
 		~AudioEngine();
@@ -89,7 +89,7 @@ namespace WOtech
 		void getVolume(_Out_ float32* volume);
 
 		void getPlaybackState(_Out_ WOtech::AUDIO_PLAYBACK_STATE* playbackState);
-		void getState(_Out_ WOtech::AUDIOSOURCE_STATE^ state);
+		void getState(_Out_ WOtech::AudioSourceState^ state);
 
 	private:
 		~AudioSource();

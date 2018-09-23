@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	13.09.2014
-///			Edited:		01.06.2018
+///			Edited:		23.09.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -69,7 +69,7 @@ namespace WOtech
 	}
 	Platform::Boolean AnimatedSprite::AddAnimation(_In_ Platform::String^ name, _In_ uint32 framecount, _In_ float32 frametime, _In_ Windows::Foundation::Size framesize, _In_ Windows::Foundation::Point sourceposition)
 	{
-		std::list<ANIMATION>::iterator iterator;
+		std::list<WOtech::Animation>::iterator iterator;
 
 		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); ++iterator)
 		{
@@ -79,7 +79,7 @@ namespace WOtech
 				return false;
 			}
 		}
-		ANIMATION temp;
+		WOtech::Animation temp;
 
 		temp.ActualFrame = 0;
 		temp.Framecount = framecount;
@@ -95,7 +95,7 @@ namespace WOtech
 	}
 	void AnimatedSprite::Update(_In_ Platform::String^ name, _In_ float32 elapsed)
 	{
-		std::list<ANIMATION>::iterator iterator;
+		std::list<WOtech::Animation>::iterator iterator;
 
 		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); ++iterator)
 		{
@@ -118,7 +118,7 @@ namespace WOtech
 	}
 	void AnimatedSprite::Restart(_In_ Platform::String^ name)
 	{
-		std::list<ANIMATION>::iterator iterator;
+		std::list<WOtech::Animation>::iterator iterator;
 
 		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); ++iterator)
 		{
@@ -148,7 +148,7 @@ namespace WOtech
 	}
 	Windows::Foundation::Size AnimatedSprite::getFrameSize(_In_ Platform::String^ name)
 	{
-		std::list<ANIMATION>::iterator iterator;
+		std::list<WOtech::Animation>::iterator iterator;
 
 		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); ++iterator)
 		{
@@ -166,14 +166,14 @@ namespace WOtech
 
 	Windows::Foundation::Rect AnimatedSprite::getFrame(_In_ Platform::String^ name)
 	{
-		std::list<ANIMATION>::iterator iterator;
+		std::list<WOtech::Animation>::iterator iterator;
 
 		for (iterator = m_animationList.begin(); iterator != m_animationList.end(); ++iterator)
 		{
 			if (iterator->Name == name)
 			{
 				Windows::Foundation::Rect temp;
-				WOtech::ANIMATION animation = *iterator;
+				WOtech::Animation animation = *iterator;
 
 				float32 left = animation.SourcePosition.X + (animation.FrameSize.Width * animation.ActualFrame);
 				float32 top = animation.SourcePosition.Y;

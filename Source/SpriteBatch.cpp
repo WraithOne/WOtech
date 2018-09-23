@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		28.08.2018
+///			Edited:		23.09.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -184,9 +184,9 @@ namespace WOtech
 
 	void SpriteBatch::BeginDraw()
 	{
-		BeginDraw(WOtech::SpriteSortMode::IMMEDIATE);
+		BeginDraw(WOtech::SPRITE_SORT_MODE::IMMEDIATE);
 	}
-	void SpriteBatch::BeginDraw(_In_ WOtech::SpriteSortMode sortmode)
+	void SpriteBatch::BeginDraw(_In_ WOtech::SPRITE_SORT_MODE sortmode)
 	{
 		if (m_beginDraw)
 		{
@@ -206,7 +206,7 @@ namespace WOtech
 
 		m_beginDraw = false;
 
-		if (m_sortMode != WOtech::SpriteSortMode::IMMEDIATE)
+		if (m_sortMode != WOtech::SPRITE_SORT_MODE::IMMEDIATE)
 		{
 			SortBatch();
 
@@ -367,80 +367,80 @@ namespace WOtech
 		// Draw Grid
 		m_deviceContext->FillRectangle(D2D1::RectF(area.X, area.Y, area.X + area.Width, area.Y + area.Height), m_gridBrush.Get());
 	}
-	void SpriteBatch::DrawCircle(_In_ WOtech::CIRCLE circle)
+	void SpriteBatch::DrawCircle(_In_ WOtech::Circle circle)
 	{
 		// Set Transformation
 		m_deviceContext->SetTransform(m_deviceDX11->get2DOrientation());
 
 		// Set Outline Color
-		m_outlineBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(circle.color));
+		m_outlineBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(circle.Color));
 
 		// Draw Circle
-		m_deviceContext->DrawEllipse(D2D1::Ellipse(WOtech::DXWrapper::wrapPoint(circle.position), circle.radius, circle.radius), m_outlineBrush.Get(), circle.tickness);
+		m_deviceContext->DrawEllipse(D2D1::Ellipse(WOtech::DXWrapper::wrapPoint(circle.Position), circle.Radius, circle.Radius), m_outlineBrush.Get(), circle.Tickness);
 	}
-	void SpriteBatch::DrawCircleOutlined(_In_ WOtech::CIRCLE_OUTLINED circleOutlined)
+	void SpriteBatch::DrawCircleOutlined(_In_ WOtech::CircleOutlined circleOutlined)
 	{
 		// Set Transformation
 		m_deviceContext->SetTransform(m_deviceDX11->get2DOrientation());
 
 		// Set Circle Color
-		m_circleBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(circleOutlined.color));
+		m_circleBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(circleOutlined.Color));
 
 		// Set Outline Color
-		m_outlineBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(circleOutlined.outlinecolor));
+		m_outlineBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(circleOutlined.Outlinecolor));
 
 		// Draw Circle
-		m_deviceContext->FillEllipse(D2D1::Ellipse(WOtech::DXWrapper::wrapPoint(circleOutlined.position), circleOutlined.radius, circleOutlined.radius), m_circleBrush.Get());
-		m_deviceContext->DrawEllipse(D2D1::Ellipse(WOtech::DXWrapper::wrapPoint(circleOutlined.position), circleOutlined.radius - circleOutlined.tickness / 2, circleOutlined.radius - circleOutlined.tickness / 2), m_outlineBrush.Get(), circleOutlined.tickness);
+		m_deviceContext->FillEllipse(D2D1::Ellipse(WOtech::DXWrapper::wrapPoint(circleOutlined.Position), circleOutlined.Radius, circleOutlined.Radius), m_circleBrush.Get());
+		m_deviceContext->DrawEllipse(D2D1::Ellipse(WOtech::DXWrapper::wrapPoint(circleOutlined.Position), circleOutlined.Radius - circleOutlined.Tickness / 2, circleOutlined.Radius - circleOutlined.Tickness / 2), m_outlineBrush.Get(), circleOutlined.Tickness);
 	}
-	void SpriteBatch::DrawCircleFilled(_In_ WOtech::CIRCLE_FILLED circleFilled)
+	void SpriteBatch::DrawCircleFilled(_In_ WOtech::CircleFilled circleFilled)
 	{
 		// Set Transformation
 		m_deviceContext->SetTransform(m_deviceDX11->get2DOrientation());
 
 		// Set Circle Color
-		m_circleBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(circleFilled.color));
+		m_circleBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(circleFilled.Color));
 
 		// Draw Circle
-		m_deviceContext->FillEllipse(D2D1::Ellipse(WOtech::DXWrapper::wrapPoint(circleFilled.position), circleFilled.radius, circleFilled.radius), m_circleBrush.Get());
+		m_deviceContext->FillEllipse(D2D1::Ellipse(WOtech::DXWrapper::wrapPoint(circleFilled.Position), circleFilled.Radius, circleFilled.Radius), m_circleBrush.Get());
 	}
 
-	void SpriteBatch::DrawRectangle(_In_ WOtech::RECTANGLE rectangle)
+	void SpriteBatch::DrawRectangle(_In_ WOtech::Rectangle rectangle)
 	{
 		// Set Rotation
-		setRotation(rectangle.area, rectangle.rotation);
+		setRotation(rectangle.Area, rectangle.Rotation);
 
 		// Set outline Color
-		m_outlineBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(rectangle.color));
+		m_outlineBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(rectangle.Color));
 
 		// Draw the Rectangle
-		m_deviceContext->DrawRectangle(D2D1::RectF(rectangle.area.X, rectangle.area.Y, rectangle.area.X + rectangle.area.Width, rectangle.area.Y + rectangle.area.Height), m_outlineBrush.Get(), rectangle.tickness);
+		m_deviceContext->DrawRectangle(D2D1::RectF(rectangle.Area.X, rectangle.Area.Y, rectangle.Area.X + rectangle.Area.Width, rectangle.Area.Y + rectangle.Area.Height), m_outlineBrush.Get(), rectangle.Tickness);
 	}
-	void SpriteBatch::DrawRectangleOutlined(_In_ WOtech::RECTANGLE_OUTLINED rectangleOutlined)
+	void SpriteBatch::DrawRectangleOutlined(_In_ WOtech::RectangleOutlined rectangleOutlined)
 	{
 		// Set Rotation
-		setRotation(rectangleOutlined.area, rectangleOutlined.rotation);
+		setRotation(rectangleOutlined.Area, rectangleOutlined.Rotation);
 
 		// Set Rectangle Color
-		m_rectangleBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(rectangleOutlined.color));
+		m_rectangleBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(rectangleOutlined.Color));
 
 		// Set Outline Color
-		m_outlineBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(rectangleOutlined.outlinecolor));
+		m_outlineBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(rectangleOutlined.Outlinecolor));
 
 		// Draw the Rectangle
-		m_deviceContext->FillRectangle(D2D1::RectF(rectangleOutlined.area.X, rectangleOutlined.area.Y, rectangleOutlined.area.X + rectangleOutlined.area.Width, rectangleOutlined.area.Y + rectangleOutlined.area.Height), m_rectangleBrush.Get());
-		m_deviceContext->DrawRectangle(D2D1::RectF(rectangleOutlined.area.X + rectangleOutlined.tickness / 2, rectangleOutlined.area.Y + rectangleOutlined.tickness / 2, (rectangleOutlined.area.X + rectangleOutlined.area.Width) - rectangleOutlined.tickness / 2, (rectangleOutlined.area.Y + rectangleOutlined.area.Height) - rectangleOutlined.tickness / 2), m_outlineBrush.Get(), rectangleOutlined.tickness);
+		m_deviceContext->FillRectangle(D2D1::RectF(rectangleOutlined.Area.X, rectangleOutlined.Area.Y, rectangleOutlined.Area.X + rectangleOutlined.Area.Width, rectangleOutlined.Area.Y + rectangleOutlined.Area.Height), m_rectangleBrush.Get());
+		m_deviceContext->DrawRectangle(D2D1::RectF(rectangleOutlined.Area.X + rectangleOutlined.Tickness / 2, rectangleOutlined.Area.Y + rectangleOutlined.Tickness / 2, (rectangleOutlined.Area.X + rectangleOutlined.Area.Width) - rectangleOutlined.Tickness / 2, (rectangleOutlined.Area.Y + rectangleOutlined.Area.Height) - rectangleOutlined.Tickness / 2), m_outlineBrush.Get(), rectangleOutlined.Tickness);
 	}
-	void SpriteBatch::DrawRectangleFilled(_In_ WOtech::RECTANGLE_FILLED rectangleFilled)
+	void SpriteBatch::DrawRectangleFilled(_In_ WOtech::RectangleFilled rectangleFilled)
 	{
 		// Set Rotation
-		setRotation(rectangleFilled.area, rectangleFilled.rotation);
+		setRotation(rectangleFilled.Area, rectangleFilled.Rotation);
 
 		// Set Rectangle Color
-		m_rectangleBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(rectangleFilled.color));
+		m_rectangleBrush->SetColor(WOtech::DXWrapper::wrapColorD2D(rectangleFilled.Color));
 
 		// Draw the Rectangle
-		m_deviceContext->FillRectangle(D2D1::RectF(rectangleFilled.area.X, rectangleFilled.area.Y, rectangleFilled.area.X + rectangleFilled.area.Width, rectangleFilled.area.Y + rectangleFilled.area.Height), m_rectangleBrush.Get());
+		m_deviceContext->FillRectangle(D2D1::RectF(rectangleFilled.Area.X, rectangleFilled.Area.Y, rectangleFilled.Area.X + rectangleFilled.Area.Width, rectangleFilled.Area.Y + rectangleFilled.Area.Height), m_rectangleBrush.Get());
 	}
 
 	void SpriteBatch::DrawGeometry(_In_ WOtech::Geometry^ geometry, _In_ FLOAT strokeWidth)
@@ -532,16 +532,16 @@ namespace WOtech
 	{
 		switch (m_sortMode)
 		{
-		case WOtech::SpriteSortMode::IMMEDIATE:
+		case WOtech::SPRITE_SORT_MODE::IMMEDIATE:
 			return;// do nothing because everything is allready drawn
 			break;
-		case WOtech::SpriteSortMode::DEFERRED:
+		case WOtech::SPRITE_SORT_MODE::DEFERRED:
 			break;
-		case WOtech::SpriteSortMode::TEXTURE:
+		case WOtech::SPRITE_SORT_MODE::TEXTURE:
 			break;
-		case WOtech::SpriteSortMode::BACKTOFRONT:
+		case WOtech::SPRITE_SORT_MODE::BACKTOFRONT:
 			break;
-		case WOtech::SpriteSortMode::FRONTTOBACK:
+		case WOtech::SPRITE_SORT_MODE::FRONTTOBACK:
 			break;
 		default:
 			return;// this should never happen -.-

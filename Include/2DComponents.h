@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	06.04.2016
-///			Edited:		28.08.2018
+///			Edited:		23.09.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_2DCOMPONENTS_H
@@ -53,11 +53,11 @@ namespace WOtech
 		FIGURE_END_CLOSED
 	};
 
-	public value struct BEZIER_SEGMENT
+	public value struct BezierSegment
 	{
-		Windows::Foundation::Point point1;
-		Windows::Foundation::Point point2;
-		Windows::Foundation::Point point3;
+		Windows::Foundation::Point Point1;
+		Windows::Foundation::Point Point2;
+		Windows::Foundation::Point Point3;
 	};
 
 	public enum class SWEEP_DIRECTION
@@ -72,13 +72,13 @@ namespace WOtech
 		D2D1_ARC_SIZE_LARGE
 	};
 
-	public value struct ARC_SEGMENT
+	public value struct ArcSegment
 	{
-		Windows::Foundation::Point	point;
-		Windows::Foundation::Size	size;
-		FLOAT						rotationAngle;
-		WOtech::SWEEP_DIRECTION		sweepDirection;
-		WOtech::ARC_SIZE			arcSize;
+		Windows::Foundation::Point	Point;
+		Windows::Foundation::Size	Size;
+		FLOAT						RotationAngle;
+		WOtech::SWEEP_DIRECTION		SweepDirection;
+		WOtech::ARC_SIZE			ArcSize;
 	};
 
 	public enum class SPRITE_FLIP_MODE
@@ -89,58 +89,58 @@ namespace WOtech
 		BOTH
 	};
 
-	public value struct CIRCLE
+	public value struct Circle
 	{
-		Windows::Foundation::Point	position;
-		float32						radius;
-		Windows::UI::Color			color;
-		float32						tickness;
-		float32						rotation;
+		Windows::Foundation::Point	Position;
+		float32						Radius;
+		Windows::UI::Color			Color;
+		float32						Tickness;
+		float32						Rotation;
 	};
 
-	public value struct CIRCLE_OUTLINED
+	public value struct CircleOutlined
 	{
-		Windows::Foundation::Point	position;
-		float32						radius;
-		Windows::UI::Color			color;
-		float32						tickness;
-		Windows::UI::Color			outlinecolor;
-		float32						rotation;
+		Windows::Foundation::Point	Position;
+		float32						Radius;
+		Windows::UI::Color			Color;
+		float32						Tickness;
+		Windows::UI::Color			Outlinecolor;
+		float32						Rotation;
 	};
 
-	public value struct CIRCLE_FILLED
+	public value struct CircleFilled
 	{
-		Windows::Foundation::Point	position;
-		float32						radius;
-		Windows::UI::Color			color;
-		float32						rotation;
+		Windows::Foundation::Point	Position;
+		float32						Radius;
+		Windows::UI::Color			Color;
+		float32						Rotation;
 	};
 
-	public value struct RECTANGLE
+	public value struct Rectangle
 	{
-		Windows::Foundation::Rect	area;
-		Windows::UI::Color			color;
-		float32						tickness;
-		float32						rotation;
+		Windows::Foundation::Rect	Area;
+		Windows::UI::Color			Color;
+		float32						Tickness;
+		float32						Rotation;
 	};
 
-	public value struct RECTANGLE_OUTLINED
+	public value struct RectangleOutlined
 	{
-		Windows::Foundation::Rect	area;
-		Windows::UI::Color			color;
-		float32						tickness;
-		Windows::UI::Color			outlinecolor;
-		float32						rotation;
+		Windows::Foundation::Rect	Area;
+		Windows::UI::Color			Color;
+		float32						Tickness;
+		Windows::UI::Color			Outlinecolor;
+		float32						Rotation;
 	};
 
-	public value struct RECTANGLE_FILLED
+	public value struct RectangleFilled
 	{
-		Windows::Foundation::Rect	area;
-		Windows::UI::Color			color;
-		float32						rotation;
+		Windows::Foundation::Rect	Area;
+		Windows::UI::Color			Color;
+		float32						Rotation;
 	};
 
-	public value struct ANIMATION
+	public value struct Animation
 	{
 		Platform::String^			Name;
 		uint32						Framecount;
@@ -287,7 +287,7 @@ namespace WOtech
 
 		Microsoft::WRL::ComPtr<ID2D1Bitmap>	m_bitmap;
 
-		std::list<ANIMATION>				m_animationList;
+		std::list<WOtech::Animation>		m_animationList;
 
 		Windows::Foundation::Point			m_position;
 		float32								m_scale;
@@ -395,8 +395,8 @@ namespace WOtech
 		void OpenGeometry();
 
 		void StartFigure(_In_ Windows::Foundation::Point strartposition, _In_ WOtech::FIGURE_BEGIN begin);
-		void addArc(_In_ WOtech::ARC_SEGMENT arcsegment);
-		void addBezier(_In_ WOtech::BEZIER_SEGMENT beziersegment);
+		void addArc(_In_ WOtech::ArcSegment arcsegment);
+		void addBezier(_In_ WOtech::BezierSegment beziersegment);
 		void addLine(_In_ Windows::Foundation::Point lineend);
 		void EndFigure(_In_ WOtech::FIGURE_END figureend);
 

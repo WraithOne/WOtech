@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	14.11.2016
-///			Edited:		01.06.2018
+///			Edited:		23.09.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -50,11 +50,11 @@ namespace WOtech
 	{
 		m_geometrySink->BeginFigure(WOtech::DXWrapper::wrapPoint(startposition), WOtech::DXWrapper::wrapFigureBegin(begin));
 	}
-	void Geometry::addArc(_In_ WOtech::ARC_SEGMENT arcsegment)
+	void Geometry::addArc(_In_ WOtech::ArcSegment arcsegment)
 	{
 		m_geometrySink->AddArc(WOtech::DXWrapper::wrapArcSegment(arcsegment));
 	}
-	void Geometry::addBezier(_In_ WOtech::BEZIER_SEGMENT beziersegment)
+	void Geometry::addBezier(_In_ WOtech::BezierSegment beziersegment)
 	{
 		m_geometrySink->AddBezier(WOtech::DXWrapper::wrapBezierSegment(beziersegment));
 	}

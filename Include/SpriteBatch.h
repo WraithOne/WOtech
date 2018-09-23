@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	07.05.2014
-///			Edited:		28.08.2018
+///			Edited:		23.09.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_SPRITEBATCH_H
@@ -30,7 +30,7 @@ namespace WOtech
 	// Forward Declaration
 	ref class DeviceDX11;
 
-	public enum class SpriteSortMode
+	public enum class SPRITE_SORT_MODE
 	{
 		IMMEDIATE,
 		DEFERRED,
@@ -47,7 +47,7 @@ namespace WOtech
 		void Initialize();
 
 		void BeginDraw();
-		void BeginDraw(_In_ WOtech::SpriteSortMode sortmode);
+		void BeginDraw(_In_ WOtech::SPRITE_SORT_MODE sortmode);
 
 		void EndDraw();
 
@@ -64,20 +64,20 @@ namespace WOtech
 
 		void DrawGrid(_In_ Windows::Foundation::Rect area, _In_ Windows::UI::Color color, _In_ float32 rotation);
 
-		void DrawCircle(_In_ WOtech::CIRCLE circle);
-		void DrawCircleOutlined(_In_ WOtech::CIRCLE_OUTLINED circleOutlined);
-		void DrawCircleFilled(_In_ WOtech::CIRCLE_FILLED circleFilled);
+		void DrawCircle(_In_ WOtech::Circle circle);
+		void DrawCircleOutlined(_In_ WOtech::CircleOutlined circleOutlined);
+		void DrawCircleFilled(_In_ WOtech::CircleFilled circleFilled);
 
-		void DrawRectangle(_In_ WOtech::RECTANGLE rectangle);
-		void DrawRectangleOutlined(_In_ WOtech::RECTANGLE_OUTLINED rectangleOutlined);
-		void DrawRectangleFilled(_In_ WOtech::RECTANGLE_FILLED rectangleFilled);
+		void DrawRectangle(_In_ WOtech::Rectangle rectangle);
+		void DrawRectangleOutlined(_In_ WOtech::RectangleOutlined rectangleOutlined);
+		void DrawRectangleFilled(_In_ WOtech::RectangleFilled rectangleFilled);
 
 		void DrawGeometry(_In_ WOtech::Geometry^ geometry, _In_ FLOAT strokeWidth);
 
 		// Getter
 		WOtech::Image^				getRenderTarget();
 		Windows::Foundation::Size	getLogicalSize();
-		Windows::Foundation::Rect				getRenderRect();
+		Windows::Foundation::Rect	getRenderRect();
 
 		// Setter
 		[Windows::Foundation::Metadata::DefaultOverloadAttribute]
@@ -125,7 +125,7 @@ namespace WOtech
 
 		Windows::Storage::StorageFolder^				m_installedLocation;
 
-		WOtech::SpriteSortMode							m_sortMode;
+		WOtech::SPRITE_SORT_MODE						m_sortMode;
 		Platform::Boolean								m_beginDraw;
 	};// class SpriteBatch
 }

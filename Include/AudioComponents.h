@@ -11,7 +11,7 @@
 ///			Header file for Audio Components
 ///
 ///			Created:	06.10.2017
-///			Edited:		28.08.2018
+///			Edited:		23.09.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_AUDIOCOMPONENTS_H
@@ -94,10 +94,10 @@ namespace WOtech
 		void* m_pCurrentBufferContext = nullptr;
 	};
 
-	public ref class VOICE_STATE sealed
+	public ref class VoiceState sealed
 	{
 	public:
-		VOICE_STATE()
+		VoiceState()
 		{
 			pCurrentBufferContext = ref new BufferContext;
 		}
@@ -108,20 +108,20 @@ namespace WOtech
 		BufferContext^ pCurrentBufferContext;
 	};
 
-	public ref class AUDIOSOURCE_STATE sealed
+	public ref class AudioSourceState sealed
 	{
 	public:
-		AUDIOSOURCE_STATE()
+		AudioSourceState()
 		{
-			VoiceState = ref new WOtech::VOICE_STATE;
+			VoiceState = ref new WOtech::VoiceState;
 		}
 		property AUDIO_PLAYBACK_STATE PlaybackState;
 
 	internal:
-		VOICE_STATE^ VoiceState;
+		VoiceState^ VoiceState;
 	};
 
-	public value struct DEVICE_DETAILS
+	public value struct DeviceDetails
 	{
 		Platform::String^ DeviceID;
 		Platform::String^ DisplayName;

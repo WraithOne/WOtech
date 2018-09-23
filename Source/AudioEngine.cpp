@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	20.09.2014
-///			Edited:		01.06.2018
+///			Edited:		23.09.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -67,7 +67,7 @@ namespace WOtech
 
 		GetDeviceCount(m_effectDevice.Get(), &devCount);
 
-		auto devDetails = ref new Platform::Array<WOtech::DEVICE_DETAILS>(devCount);
+		auto devDetails = ref new Platform::Array<WOtech::DeviceDetails>(devCount);
 		unsigned int i = 0;
 		for (i = 0; i < devDetails->Length; i++)
 		{
@@ -232,7 +232,7 @@ namespace WOtech
 #endif
 	}
 
-	void AudioEngine::GetDeviceDetails(_In_ IXAudio2* device, _In_  uint32 index, _Out_ DEVICE_DETAILS* details)
+	void AudioEngine::GetDeviceDetails(_In_ IXAudio2* device, _In_  uint32 index, _Out_ DeviceDetails* details)
 	{
 		UNREFERENCED_PARAMETER(device);
 

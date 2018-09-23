@@ -10,7 +10,7 @@
 ///			Description: Wrapper Enums/structs/funcitons for DirectX
 ///
 ///			Created:	06.11.2016
-///			Edited:		01.05.2018
+///			Edited:		23.09.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_DXWRAPPER_H
@@ -124,9 +124,9 @@ namespace WOtech
 			}
 		}
 
-		inline D2D1_BEZIER_SEGMENT wrapBezierSegment(_In_ BEZIER_SEGMENT beziersegment)
+		inline D2D1_BEZIER_SEGMENT wrapBezierSegment(_In_ WOtech::BezierSegment beziersegment)
 		{
-			return D2D1::BezierSegment(wrapPoint(beziersegment.point1), wrapPoint(beziersegment.point2), wrapPoint(beziersegment.point3));
+			return D2D1::BezierSegment(wrapPoint(beziersegment.Point1), wrapPoint(beziersegment.Point2), wrapPoint(beziersegment.Point3));
 		}
 
 		inline D2D1_SWEEP_DIRECTION wrapSweepDirection(_In_ SWEEP_DIRECTION sweepdirection)
@@ -161,9 +161,9 @@ namespace WOtech
 			}
 		}
 
-		inline D2D1_ARC_SEGMENT wrapArcSegment(_In_ ARC_SEGMENT arcsegment)
+		inline D2D1_ARC_SEGMENT wrapArcSegment(_In_ WOtech::ArcSegment arcsegment)
 		{
-			return D2D1::ArcSegment(wrapPoint(arcsegment.point), wrapSize(arcsegment.size), arcsegment.rotationAngle, wrapSweepDirection(arcsegment.sweepDirection), wrapArcSize(arcsegment.arcSize));
+			return D2D1::ArcSegment(wrapPoint(arcsegment.Point), wrapSize(arcsegment.Size), arcsegment.RotationAngle, wrapSweepDirection(arcsegment.SweepDirection), wrapArcSize(arcsegment.ArcSize));
 		}
 
 		inline DXGI_FORMAT wrapDXGIFormat(_In_ FORMAT_DXGI formatDXGI)

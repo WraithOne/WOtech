@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	10.10.2014
-///			Edited:		28.08.2018
+///			Edited:		23.09.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -212,7 +212,7 @@ namespace WOtech
 		playbackState = &m_playbackState;
 	}
 
-	void AudioSource::getState(_Out_ WOtech::AUDIOSOURCE_STATE^ state)
+	void AudioSource::getState(_Out_ WOtech::AudioSourceState^ state)
 	{
 		XAUDIO2_VOICE_STATE temp_state;
 
