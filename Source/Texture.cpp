@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	30.08.2014
-///			Edited:		01.06.2018
+///			Edited:		25.09.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -32,7 +32,13 @@ namespace WOtech
 
 	Platform::Boolean Texture::Load(_In_ DeviceDX11^ device)
 	{
-		DirectX::CreateWICTextureFromFile(device->getDevice(), device->getContext(), m_filenName->Data(), nullptr, m_texture.ReleaseAndGetAddressOf(), 2048);
+		HRESULT hr;
+
+		hr = DirectX::CreateWICTextureFromFile(device->getDevice(), device->getContext(), m_filenName->Data(), nullptr, m_texture.ReleaseAndGetAddressOf(), 2048);
+
+		ThrowIfFailed(hr);
+		m_texture->GetDesc(&m_texDESC);
+
 		return true;
 	}
 
@@ -46,6 +52,11 @@ namespace WOtech
 	ID3D11ShaderResourceView* Texture::getTexture()
 	{
 		return m_texture.Get();
+	}
+
+	D3D11_SHADER_RESOURCE_VIEW_DESC Texture::getDescription()
+	{
+		return m_texDESC;
 	}
 
 	Platform::String ^ Texture::getFilename()

@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	22.02.2016
-///			Edited:		28.08.2018
+///			Edited:		25.09.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_3DCOMPONENTS_H
@@ -373,10 +373,12 @@ namespace WOtech
 
 	internal:
 		ID3D11ShaderResourceView* getTexture();
+		D3D11_SHADER_RESOURCE_VIEW_DESC getDescription();
 
 	private:
 		Platform::String^ m_filenName;
-		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	m_texture;
+		D3D11_SHADER_RESOURCE_VIEW_DESC						m_texDESC;
 	}; // class Texture
 
 	public ref class VertexBuffer sealed
