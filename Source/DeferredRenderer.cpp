@@ -17,9 +17,9 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "DeferredRenderer.h"
-#include "Utilities.h"
+#include <pch.h>
+#include <DeferredRenderer.h>
+#include <Utilities.h>
 
 namespace WOtech
 {

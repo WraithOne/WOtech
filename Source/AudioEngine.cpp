@@ -21,10 +21,10 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "Audio.h"
-#include "MediaReader.h"
-#include "SystemManager.h"
+#include <pch.h>
+#include <Audio.h>
+#include <MediaReader.h>
+#include <SystemManager.h>
 #include <DXWrapper.h>
 
 namespace WOtech

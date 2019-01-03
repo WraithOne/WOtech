@@ -19,7 +19,8 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "Window.h"
+#include <pch.h>
+#include <Window.h>
 
 namespace WOtech
 {

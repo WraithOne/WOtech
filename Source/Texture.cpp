@@ -17,11 +17,11 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "DeviceDX11.h"
-#include "3DComponents.h"
-#include "Utilities.h"
-#include "WICTextureLoader.h"
+#include <pch.h>
+#include <DeviceDX11.h>
+#include <3DComponents.h>
+#include <Utilities.h>
+#include <WICTextureLoader.h>
 
 namespace WOtech
 {

@@ -17,13 +17,13 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
+#include <pch.h>
 
-#include "DefaultFactory.h"
-#include "VertexTypes.h"
-#include "DeviceDX11.h"
-#include "3DComponents.h"
-#include "Materials.h"
+#include <DefaultFactory.h>
+#include <VertexTypes.h>
+#include <DeviceDX11.h>
+#include <3DComponents.h>
+#include <Materials.h>
 
 #include "Source\Shader\Compiled\VS_Basic.inc"
 #include "Source\Shader\Compiled\PS_Basic.inc"

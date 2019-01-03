@@ -19,7 +19,8 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "VertexTypes.h"
+#include <pch.h>
+#include <VertexTypes.h>
 
 namespace WOtech
 {

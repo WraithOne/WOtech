@@ -19,8 +19,7 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "Numerics.h"
+#include <pch.h>
 
 namespace WOtech
 {

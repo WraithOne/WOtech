@@ -5,9 +5,9 @@
 ////
 //// Copyright (c) Microsoft Corporation. All rights reserved
 
-#include "pch.h"
-#include "MediaReader.h"
-#include "Utilities.h"
+#include <pch.h>
+#include <MediaReader.h>
+#include <Utilities.h>
 
 MediaReader::MediaReader()
 {

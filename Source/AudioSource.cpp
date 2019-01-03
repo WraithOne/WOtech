@@ -17,9 +17,9 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "Audio.h"
-#include "MediaReader.h"
+#include <pch.h>
+#include <Audio.h>
+#include <MediaReader.h>
 
 namespace WOtech
 {

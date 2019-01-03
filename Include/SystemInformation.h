@@ -19,7 +19,8 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "DXWrapper.h"
+#include <pch.h>
+#include <DXWrapper.h>
 
 /////////////
 // Defines //

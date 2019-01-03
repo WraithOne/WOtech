@@ -17,9 +17,9 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "Input.h"
-#include "SystemManager.h"
+#include <pch.h>
+#include <Input.h>
+#include <SystemManager.h>
 
 namespace WOtech
 {

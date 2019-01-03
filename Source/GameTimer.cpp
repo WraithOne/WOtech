@@ -17,7 +17,7 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
+#include <pch.h>
 #include "GameTimer.h"
 
 namespace WOtech

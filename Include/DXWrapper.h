@@ -19,12 +19,12 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "Utilities.h"
-#include "VertexTypes.h"
-#include "2DComponents.h"
-#include "3DComponents.h"
-#include "AudioComponents.h"
+#include <pch.h>
+#include <Utilities.h>
+#include <VertexTypes.h>
+#include <2DComponents.h>
+#include <3DComponents.h>
+#include <AudioComponents.h>
 
 namespace WOtech
 {

@@ -17,8 +17,8 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "Input.h"
+#include <pch.h>
+#include <Input.h>
 
 namespace WOtech
 {

@@ -27,10 +27,10 @@
 
 // We could load multi-frame images (TIFF/GIF) into a texture array.
 // For now, we just load the first frame (note: DirectXTex supports multi-frame images)
-#include "pch.h"
+#include <pch.h>
 #include <wincodec.h>
 
-#include "WICTextureLoader.h"
+#include <WICTextureLoader.h>
 
 //-------------------------------------------------------------------------------------
 // WIC Pixel Format Translation Data

@@ -21,10 +21,10 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "3DComponents.h"
-#include "DeviceDX11.h"
-#include "Utilities.h"
+#include <pch.h>
+#include <3DComponents.h>
+#include <DeviceDX11.h>
+#include <Utilities.h>
 
 namespace WOtech
 {
@@ -90,7 +90,7 @@ namespace WOtech
 	///////////////////////////////////////////////////////////////////
 	/// Index Buffer
 	///////////////////////////////////////////////////////////////////
-	IndexBuffer::IndexBuffer(_In_ void* data, _In_  UINT32 count, _In_  DeviceDX11^ device)
+	IndexBuffer::IndexBuffer(_In_ Platform::IntPtr data, _In_  UINT16 count, _In_  DeviceDX11^ device)
 	{
 		m_count = count;
 
@@ -103,7 +103,7 @@ namespace WOtech
 		context->IASetIndexBuffer(m_indexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0);
 		context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	}
-	void IndexBuffer::CreateBuffer(_In_ void* data, _In_  UINT32 count, _In_  DeviceDX11^ device)
+	void IndexBuffer::CreateBuffer(_In_ Platform::IntPtr data, _In_  UINT16 count, _In_  DeviceDX11^ device)
 	{
 		HRESULT hr;
 
@@ -116,11 +116,24 @@ namespace WOtech
 
 		D3D11_SUBRESOURCE_DATA resourceData;
 		ZeroMemory(&resourceData, sizeof(resourceData));
-		resourceData.pSysMem = data;
+		resourceData.pSysMem = (void*)data.ToInt32(); // todo hm
 		resourceData.SysMemPitch = 0;
 		resourceData.SysMemSlicePitch = 0;
 
 		hr = device->getDevice()->CreateBuffer(&indexDesc, &resourceData, m_indexBuffer.ReleaseAndGetAddressOf());
 		ThrowIfFailed(hr);
+	}
+
+	///////////////////////////////////////////////////////////////////
+	/// Constant Buffer
+	///////////////////////////////////////////////////////////////////
+
+	WOtech::ConstantBuffer::ConstantBuffer()
+	{
+		throw ref new Platform::NotImplementedException();
+	}
+	ConstantBuffer::~ConstantBuffer()
+	{
+		throw ref new Platform::NotImplementedException();
 	}
 }// namespace WOtech

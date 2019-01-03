@@ -19,7 +19,8 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "IGame.h"
+#include <pch.h>
+#include <IGame.h>
 
 namespace WOtech
 {

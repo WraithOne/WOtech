@@ -17,9 +17,9 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "3DComponents.h"
-#include "DeviceDX11.h"
+#include <pch.h>
+#include <3DComponents.h>
+#include <DeviceDX11.h>
 
 namespace WOtech
 {

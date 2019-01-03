@@ -19,12 +19,13 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "Audio.h"
-#include "DeviceDX11.h"
-#include "Input.h"
-#include "IGame.h"
-#include "SpriteBatch.h"
-#include "Window.h"
+#include <pch.h>
+#include <Audio.h>
+#include <DeviceDX11.h>
+#include <Input.h>
+#include <IGame.h>
+#include <SpriteBatch.h>
+#include <Window.h>
 
 namespace WOtech
 {

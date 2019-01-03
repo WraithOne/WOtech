@@ -19,8 +19,8 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "2DComponents.h"
+#include <pch.h>
+#include <2DComponents.h>
 
 namespace WOtech
 {

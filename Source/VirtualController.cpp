@@ -17,7 +17,7 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
+#include <pch.h>
 #include "VirtualController.h"
 
 namespace WOtech

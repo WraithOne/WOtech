@@ -290,9 +290,6 @@
     <ClInclude Include="Include\AudioComponents.h">
       <Filter>Audio</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Numerics.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Window.h">
       <Filter>System</Filter>
     </ClInclude>

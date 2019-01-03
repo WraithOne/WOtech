@@ -21,11 +21,11 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "Materials.h"
-#include "DeviceDX11.h"
-#include "Utilities.h"
-#include "DXWrapper.h"
+#include <pch.h>
+#include <Materials.h>
+#include <DeviceDX11.h>
+#include <Utilities.h>
+#include <DXWrapper.h>
 
 namespace WOtech
 {

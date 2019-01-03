@@ -19,10 +19,11 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "IRenderer.h"
-#include "3DComponents.h"
-#include "DeviceDX11.h"
-#include "RenderCommand.h"
+#include <pch.h>
+#include <IRenderer.h>
+#include <3DComponents.h>
+#include <DeviceDX11.h>
+#include <RenderCommand.h>
 
 namespace WOtech
 {

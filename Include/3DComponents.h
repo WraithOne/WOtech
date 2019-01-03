@@ -19,8 +19,8 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "Numerics.h"
-#include "VertexTypes.h"
+#include <pch.h>
+#include <VertexTypes.h>
 
 namespace WOtech
 {
@@ -247,10 +247,7 @@ namespace WOtech
 	public:
 		Camera();
 
-		void SetViewParams(_In_ Windows::Foundation::Numerics::float3 eye,
-			_In_ Windows::Foundation::Numerics::float3 lookAt,
-			_In_ Windows::Foundation::Numerics::float3 up);
-
+		void SetViewParams(_In_ Windows::Foundation::Numerics::float3 eye, _In_ Windows::Foundation::Numerics::float3 lookAt, _In_ Windows::Foundation::Numerics::float3 up);
 		void SetProjParams(_In_ float32 fieldOfView, _In_ float32 aspectRatio, _In_ float32 nearPlane, _In_ float32 farPlane);
 
 		void LookDirection(_In_ Windows::Foundation::Numerics::float3 lookDirection);
@@ -287,6 +284,20 @@ namespace WOtech
 		float32	m_nearPlane;
 		float32	m_farPlane;
 	};//class Camera
+
+	public ref class ComputeShader sealed
+	{
+	public:
+		ComputeShader();
+
+	private:
+		~ComputeShader();
+
+	internal:
+
+	private:
+
+	};
 
 	public ref class VertexShader sealed
 	{
@@ -394,7 +405,6 @@ namespace WOtech
 		UINT32 getStride();
 		UINT32 getOffset();
 
-	private:
 		void CreateBuffer(_In_ Platform::IntPtr data, _In_  UINT32 size, _In_  DeviceDX11^ device);
 
 	private:
@@ -406,20 +416,31 @@ namespace WOtech
 	public ref class IndexBuffer sealed
 	{
 	public:
+		IndexBuffer(_In_ Platform::IntPtr data, _In_  UINT16 count, _In_  DeviceDX11^ device);
+
 		void SubmitBuffer(_In_ DeviceDX11^ device);
 		inline uint32 getCount() { return m_count; }
 
-	private:
-		void CreateBuffer(_In_ void* data, _In_  UINT32 count, _In_  DeviceDX11^ device);
-
-	internal:
-		IndexBuffer(_In_ void* data, _In_  UINT32 count, _In_  DeviceDX11^ device);
+		void CreateBuffer(_In_ Platform::IntPtr data, _In_  UINT16 count, _In_  DeviceDX11^ device);
 
 	private:
 		UINT32 m_count;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_indexBuffer;
 	};
 
+	public ref class ConstantBuffer sealed
+	{
+	public:
+		ConstantBuffer();
+
+	private:
+		~ConstantBuffer();
+
+	internal:
+
+	private:
+
+	};
 	public interface class IMaterial
 	{
 	public:

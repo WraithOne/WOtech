@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "FontFileLoader.h"
+#include <pch.h>
+#include <FontFileLoader.h>
 
 namespace WOtech
 {

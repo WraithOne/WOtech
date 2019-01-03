@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	01.03.2015
-///			Edited:		01.06.2018
+///			Edited:		16.11.2018
 ///
 ////////////////////////////////////////////////////////////////////////////
 #pragma once
@@ -78,7 +78,3 @@
 /////////////
 // Macros  //
 /////////////
-#define IMGUI_DISABLE_WIN32_DEFAULT_CLIPBOARD_FUNCTIONS
-#define IMGUI_DISABLE_WIN32_DEFAULT_IME_FUNCTIONS
-#define _CRT_SECURE_NO_WARNINGS
-#define IMGUI_DISABLE_WIN32_DEFAULT_IME_FUNCS

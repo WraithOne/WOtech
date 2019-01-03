@@ -17,11 +17,11 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "SpriteBatch.h"
-#include "DeviceDX11.h"
-#include "SystemManager.h"
-#include "Utilities.h"
+#include <pch.h>
+#include <SpriteBatch.h>
+#include <DeviceDX11.h>
+#include <SystemManager.h>
+#include <Utilities.h>
 
 namespace WOtech
 {

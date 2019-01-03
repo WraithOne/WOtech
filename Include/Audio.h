@@ -24,9 +24,9 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "Utilities.h"
-#include "AudioComponents.h"
+#include <pch.h>
+#include <Utilities.h>
+#include <AudioComponents.h>
 
 /////////////
 // LINKING //

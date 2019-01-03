@@ -17,11 +17,11 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "Application.h"
-#include "Systemhelper.h"
-#include "SystemManager.h"
-#include "Window.h"
+#include <pch.h>
+#include <Application.h>
+#include <Systemhelper.h>
+#include <SystemManager.h>
+#include <Window.h>
 
 namespace WOtech
 {

@@ -17,14 +17,28 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "Utilities.h"
+#include <pch.h>
+#include <Utilities.h>
 #include <3DComponents.h>
 #include <DeviceDX11.h>
 #include <DXWrapper.h>
 
 namespace WOtech
 {
+	///////////////////////////////////////////////////////////////////
+	/// Compute Shader
+	///////////////////////////////////////////////////////////////////
+
+	WOtech::ComputeShader::ComputeShader()
+	{
+		throw ref new Platform::NotImplementedException();
+	}
+
+	ComputeShader::~ComputeShader()
+	{
+		throw ref new Platform::NotImplementedException();
+	}
+
 	///////////////////////////////////////////////////////////////////
 	/// Vertex Shader
 	///////////////////////////////////////////////////////////////////

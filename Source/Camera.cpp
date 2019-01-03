@@ -17,7 +17,7 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
+#include <pch.h>
 #include <3DComponents.h>
 #include <DXWrapper.h>
 #include <Utilities.h>

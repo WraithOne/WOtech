@@ -17,24 +17,24 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
+#include <pch.h>
 #include <ppltasks.h>
 
-#include "SystemManager.h"
-#include "ContentManager.h"
-#include "Include\Application.h"
+#include <SystemManager.h>
+#include <ContentManager.h>
+#include <Application.h>
 
-#include "Include\DeviceDX11.h"
-#include "Include\ForwardRenderer.h"
-#include "Include\DeferredRenderer.h"
-#include "Include\SpriteBatch.h"
+#include <DeviceDX11.h>
+#include <ForwardRenderer.h>
+#include <DeferredRenderer.h>
+#include <SpriteBatch.h>
 
-#include "Include\Audio.h"
+#include <Audio.h>
 
-#include "Include\Input.h"
-#include "VirtualController.h"
+#include <Input.h>
+#include <VirtualController.h>
 
-#include "Include\GameTimer.h"
+#include <GameTimer.h>
 
 namespace WOtech
 {

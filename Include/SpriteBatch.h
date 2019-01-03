@@ -19,7 +19,8 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "2DComponents.h"
+#include <pch.h>
+#include <2DComponents.h>
 
 ///////////////////////////////
 // PRE-PROCESSING DIRECTIVES //

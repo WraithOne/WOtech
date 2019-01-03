@@ -19,9 +19,9 @@
 //////////////
 // INCLUDES //
 //////////////
-#include "pch.h"
-#include "Window.h"
-#include "DXWrapper.h"
+#include <pch.h>
+#include <Window.h>
+#include <DXWrapper.h>
 
 namespace ScreenRotation
 {
