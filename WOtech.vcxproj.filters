@@ -242,9 +242,6 @@
     <ClInclude Include="Include\GameTimer.h">
       <Filter>GameFramework</Filter>
     </ClInclude>
-    <ClInclude Include="Include\IGameObject.h">
-      <Filter>GameFramework</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Framecounter.h">
       <Filter>Utilities</Filter>
     </ClInclude>
@@ -304,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="Include\Batch2D.h">
       <Filter>Graphic\2D\Batch</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\IGameSceneObject.h">
+      <Filter>GameFramework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

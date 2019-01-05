@@ -5,16 +5,16 @@
 ///			https://github.com/WraithOne/WOtech
 ///			by https://twitter.com/WraithOne
 ///
-///			File: GameObject.h
+///			File: GameSceneObject.h
 ///
 ///			Description:
 ///
 ///			Created:	10.04.2016
-///			Edited:		01.06.2018
+///			Edited:		05.01.2019
 ///
 ////////////////////////////////////////////////////////////////////////////
-#ifndef WO_GAMEOBJECT_H
-#define WO_GAMEOBJECT_H
+#ifndef WO_GAMESCENEOBJECT_H
+#define WO_GAMESCENEOBJECT_H
 
 //////////////
 // INCLUDES //
@@ -22,7 +22,7 @@
 
 namespace WOtech
 {
-	public interface class IGameObject
+	public interface class IGameSceneObject
 	{
 	public:
 		virtual uint32 getID() = 0;

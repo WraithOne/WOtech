@@ -288,7 +288,7 @@
     <ClInclude Include="Include\IGame.h" />
     <ClInclude Include="Include\GameScene.h" />
     <ClInclude Include="Include\GameTimer.h" />
-    <ClInclude Include="Include\IGameObject.h" />
+    <ClInclude Include="Include\IGameSceneObject.h" />
     <ClInclude Include="Include\Input.h" />
     <ClInclude Include="Include\IRenderer.h" />
     <ClInclude Include="Include\Materials.h" />
