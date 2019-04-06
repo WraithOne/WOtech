@@ -1,0 +1,3 @@
+[submodule "WOtech\\imgui"]
+	path = WOtech\\imgui
+	url = https://github.com/WraithOne/imgui
