@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	21.02.2016
-///			Edited:		01.05.2018
+///			Edited:		05.01.2021
 ///
 ////////////////////////////////////////////////////////////////////////////
 
@@ -36,7 +36,10 @@ namespace WOtech
 		{
 			throw Platform::Exception::CreateException(E_FAIL, "Begin was called before EndD");
 		}
-
+		else
+		{
+			m_beginRender = true;
+		}
 		m_CommandQueue.clear();
 
 		m_device->Clear(m_clearColor);
@@ -67,6 +70,10 @@ namespace WOtech
 		if (!m_beginRender)
 		{
 			throw Platform::Exception::CreateException(E_FAIL, "End was called before Begin");
+		}
+		else
+		{
+			m_beginRender = false;
 		}
 
 		// do sorting here

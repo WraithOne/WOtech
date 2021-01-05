@@ -10,7 +10,7 @@
 ///			Description:
 ///
 ///			Created:	13.05.2014
-///			Edited:		12.10.2016
+///			Edited:		05.01.2021
 ///
 ////////////////////////////////////////////////////////////////////////////
 #ifndef WO_NETWORK_H
@@ -32,6 +32,26 @@
 
 namespace WOtech
 {
+	public ref class Server sealed
+	{
+	internal:
+
+	public:
+		void Start();
+		void Stop();
+
+		void Send();
+	private:
+	};
+
+	public ref class Client sealed
+	{
+	internal:
+
+	public:
+
+	private:
+	};
 }//Namespace WOtech
 
 #endif
