@@ -40,7 +40,7 @@ namespace WOtech
 
 		virtual DeviceDX11^ getDeviceDX11();
 
-		virtual void Init(_In_ Windows::UI::Color clearColor);
+		virtual void Init();
 
 	private:
 		DeviceDX11^			m_device;
@@ -49,9 +49,6 @@ namespace WOtech
 
 		// Render command queue
 		CommandQueue		m_CommandQueue;
-
-		// ClearColor
-		Windows::UI::Color	m_clearColor;
 	};
 }
 #endif

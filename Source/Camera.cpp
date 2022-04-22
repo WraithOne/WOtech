@@ -56,7 +56,7 @@ namespace WOtech
 		SetProjParams(60.0f, 1.7777f, 0.01f, 1000.0f);
 	}
 
-	void Camera::LookDirection(_In_ Windows::Foundation::Numerics::float3 lookDirection)
+	void Camera::SetLookDirection(_In_ Windows::Foundation::Numerics::float3 lookDirection)
 	{
 		Windows::Foundation::Numerics::float3 lookAt;
 		lookAt.x = m_eye.x + lookDirection.x;
@@ -66,7 +66,7 @@ namespace WOtech
 		SetViewParams(m_eye, lookAt, m_up);
 	}
 
-	void Camera::Eye(_In_ Windows::Foundation::Numerics::float3 eye)
+	void Camera::SetEyePosition(_In_ Windows::Foundation::Numerics::float3 eye)
 	{
 		SetViewParams(eye, m_lookAt, m_up);
 	}

@@ -28,9 +28,8 @@ namespace WOtech
 		m_device = device;
 		m_beginRender = false;
 	}
-	void DeferredRenderer::Init(_In_ Windows::UI::Color clearColor)
+	void DeferredRenderer::Init()
 	{
-		m_clearColor = clearColor;
 	}
 	DeviceDX11^ DeferredRenderer::getDeviceDX11()
 	{
@@ -40,12 +39,10 @@ namespace WOtech
 	{
 		if (m_beginRender)
 		{
-			throw Platform::Exception::CreateException(E_FAIL, "Begin was called before EndD");
+			throw Platform::Exception::CreateException(E_FAIL, "Begin was called before End");
 		}
 
 		m_CommandQueue.clear();
-
-		m_device->Clear(m_clearColor);
 	}
 	void DeferredRenderer::Submit(_In_ Mesh^ mesh, _In_ Camera^ camera)
 	{

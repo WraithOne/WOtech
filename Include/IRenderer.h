@@ -40,7 +40,7 @@ namespace WOtech
 
 		virtual DeviceDX11^ getDeviceDX11() = 0;
 
-		virtual void Init(_In_ Windows::UI::Color clearColor) = 0;
+		virtual void Init() = 0;
 	};
 }
 #endif

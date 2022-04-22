@@ -34,15 +34,13 @@ namespace WOtech
 	{
 		if (m_beginRender)
 		{
-			throw Platform::Exception::CreateException(E_FAIL, "Begin was called before EndD");
+			throw Platform::Exception::CreateException(E_FAIL, "Begin was called before End");
 		}
 		else
 		{
 			m_beginRender = true;
 		}
 		m_CommandQueue.clear();
-
-		m_device->Clear(m_clearColor);
 	}
 	void ForwardRenderer::Submit(_In_ Mesh^ mesh, _In_ Camera^ camera)
 	{
@@ -98,9 +96,9 @@ namespace WOtech
 		m_device->Present();
 	}
 
-	void ForwardRenderer::Init(_In_ Windows::UI::Color clearColor)
+	void ForwardRenderer::Init()
 	{
-		m_clearColor = clearColor;
+		
 	}
 
 	DeviceDX11 ^ ForwardRenderer::getDeviceDX11()

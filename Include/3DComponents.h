@@ -250,8 +250,8 @@ namespace WOtech
 		void SetViewParams(_In_ Windows::Foundation::Numerics::float3 eye, _In_ Windows::Foundation::Numerics::float3 lookAt, _In_ Windows::Foundation::Numerics::float3 up);
 		void SetProjParams(_In_ float32 fieldOfView, _In_ float32 aspectRatio, _In_ float32 nearPlane, _In_ float32 farPlane);
 
-		void LookDirection(_In_ Windows::Foundation::Numerics::float3 lookDirection);
-		void Eye(_In_ Windows::Foundation::Numerics::float3 position);
+		void SetLookDirection(_In_ Windows::Foundation::Numerics::float3 lookDirection);
+		void SetEyePosition(_In_ Windows::Foundation::Numerics::float3 position);
 
 		float32	NearClipPlane();
 		float32	FarClipPlane();
@@ -395,17 +395,17 @@ namespace WOtech
 	public ref class VertexBuffer sealed
 	{
 	public:
-		VertexBuffer(_In_ Platform::IntPtr data, _In_  UINT32 size, _In_  UINT32 stride, _In_ UINT32 offset, _In_  DeviceDX11^ device);
+		VertexBuffer(_In_ Platform::IntPtr data, _In_  UINT size, _In_  UINT stride, _In_ UINT offset, _In_  DeviceDX11^ device);
 
 		void SubmitBuffer(_In_ DeviceDX11^ device);
 
-		void setOffset(_In_ UINT32 offset);
-		void setStride(_In_ UINT32 stride);
+		void setOffset(_In_ UINT offset);
+		void setStride(_In_ UINT stride);
 
 		UINT32 getStride();
 		UINT32 getOffset();
 
-		void CreateBuffer(_In_ Platform::IntPtr data, _In_  UINT32 size, _In_  DeviceDX11^ device);
+		void CreateBuffer(_In_ Platform::IntPtr data, _In_  UINT size, _In_  DeviceDX11^ device);
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexBuffer;
@@ -416,12 +416,12 @@ namespace WOtech
 	public ref class IndexBuffer sealed
 	{
 	public:
-		IndexBuffer(_In_ Platform::IntPtr data, _In_  UINT16 count, _In_  DeviceDX11^ device);
+		IndexBuffer(_In_ Platform::IntPtr data, _In_  UINT count, _In_  DeviceDX11^ device);
 
 		void SubmitBuffer(_In_ DeviceDX11^ device);
 		inline uint32 getCount() { return m_count; }
 
-		void CreateBuffer(_In_ Platform::IntPtr data, _In_  UINT16 count, _In_  DeviceDX11^ device);
+		void CreateBuffer(_In_ Platform::IntPtr data, _In_  UINT count, _In_  DeviceDX11^ device);
 
 	private:
 		UINT32 m_count;

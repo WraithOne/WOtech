@@ -36,7 +36,7 @@ namespace WOtech
 
 	ComputeShader::~ComputeShader()
 	{
-		throw ref new Platform::NotImplementedException();
+
 	}
 
 	///////////////////////////////////////////////////////////////////

@@ -46,6 +46,10 @@ namespace WOtech
 
 		HRESULT hr;
 
+		// Get installed location for data loading
+
+		m_installedLocation = Windows::ApplicationModel::Package::Current->InstalledLocation;
+
 		// Initialize Direct2D resources.
 		D2D1_FACTORY_OPTIONS options;
 		ZeroMemory(&options, sizeof(D2D1_FACTORY_OPTIONS));
@@ -135,7 +139,6 @@ namespace WOtech
 		// Create Gridbrush
 		CreateGrid(Windows::UI::Colors::White);
 
-		m_installedLocation = Windows::ApplicationModel::Package::Current->InstalledLocation;
 	}
 	void SpriteBatch::ReleaseRendertarget()
 	{

@@ -31,7 +31,7 @@ namespace WOtech
 	///////////////////////////////////////////////////////////////////
 	/// Vertex Buffer
 	///////////////////////////////////////////////////////////////////
-	VertexBuffer::VertexBuffer(_In_ Platform::IntPtr data, _In_ UINT32 size, _In_  UINT32 stride, _In_ UINT32 offset, _In_ DeviceDX11^ device)
+	VertexBuffer::VertexBuffer(_In_ Platform::IntPtr data, _In_ UINT size, _In_  UINT stride, _In_ UINT offset, _In_ DeviceDX11^ device)
 	{
 		CreateBuffer(data, size, device);
 		m_stride = stride;
@@ -45,12 +45,12 @@ namespace WOtech
 		context->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &m_stride, &m_offset);
 	}
 
-	void VertexBuffer::setOffset(_In_ UINT32 offset)
+	void VertexBuffer::setOffset(_In_ UINT offset)
 	{
 		m_offset = offset;
 	}
 
-	void VertexBuffer::setStride(_In_ UINT32 stride)
+	void VertexBuffer::setStride(_In_ UINT stride)
 	{
 		m_stride = stride;
 	}
@@ -65,21 +65,21 @@ namespace WOtech
 		return m_offset;
 	}
 
-	void VertexBuffer::CreateBuffer(_In_ Platform::IntPtr data, _In_  UINT32 size, _In_  DeviceDX11^ device)
+	void VertexBuffer::CreateBuffer(_In_ Platform::IntPtr data, _In_  UINT size, _In_  DeviceDX11^ device)
 	{
 		HRESULT hr;
 
 		D3D11_BUFFER_DESC vertexDesc;
 		ZeroMemory(&vertexDesc, sizeof(vertexDesc));
-		vertexDesc.Usage = D3D11_USAGE_DEFAULT;
+		vertexDesc.Usage = D3D11_USAGE_DYNAMIC;
 		vertexDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		vertexDesc.ByteWidth = size;
-		vertexDesc.CPUAccessFlags = 0;
+		vertexDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		vertexDesc.MiscFlags = 0;
 
 		D3D11_SUBRESOURCE_DATA resourceData;
 		ZeroMemory(&resourceData, sizeof(resourceData));
-		resourceData.pSysMem = (void*)data; // todo: safecheck
+		resourceData.pSysMem = (void*)data; // todo: safecheck void* to Intptr to void*
 		resourceData.SysMemPitch = 0;
 		resourceData.SysMemSlicePitch = 0;
 
@@ -90,7 +90,7 @@ namespace WOtech
 	///////////////////////////////////////////////////////////////////
 	/// Index Buffer
 	///////////////////////////////////////////////////////////////////
-	IndexBuffer::IndexBuffer(_In_ Platform::IntPtr data, _In_  UINT16 count, _In_  DeviceDX11^ device)
+	IndexBuffer::IndexBuffer(_In_ Platform::IntPtr data, _In_  UINT count, _In_  DeviceDX11^ device)
 	{
 		m_count = count;
 
@@ -103,7 +103,7 @@ namespace WOtech
 		context->IASetIndexBuffer(m_indexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0);
 		context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	}
-	void IndexBuffer::CreateBuffer(_In_ Platform::IntPtr data, _In_  UINT16 count, _In_  DeviceDX11^ device)
+	void IndexBuffer::CreateBuffer(_In_ Platform::IntPtr data, _In_  UINT count, _In_  DeviceDX11^ device)
 	{
 		HRESULT hr;
 
@@ -111,12 +111,12 @@ namespace WOtech
 		ZeroMemory(&indexDesc, sizeof(indexDesc));
 		indexDesc.Usage = D3D11_USAGE_DEFAULT;
 		indexDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-		indexDesc.ByteWidth = sizeof(WORD)* count;
+		indexDesc.ByteWidth = count;
 		indexDesc.CPUAccessFlags = 0;
 
 		D3D11_SUBRESOURCE_DATA resourceData;
 		ZeroMemory(&resourceData, sizeof(resourceData));
-		resourceData.pSysMem = (void*)data.ToInt32(); // todo hm
+		resourceData.pSysMem = (void*)data; // todo: safecheck void* to Intptr to void*
 		resourceData.SysMemPitch = 0;
 		resourceData.SysMemSlicePitch = 0;
 
